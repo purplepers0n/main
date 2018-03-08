@@ -21,6 +21,7 @@ public class Person {
     private final Address address;
 
     private final UniqueTagList tags;
+    private final UniqueAppointmentList appointments;
 
     /**
      * Every field must be present and not null.
@@ -33,6 +34,7 @@ public class Person {
         this.address = address;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        appointments = new UniqueAppointmentList();
     }
 
     public Name getName() {
@@ -97,4 +99,10 @@ public class Person {
         return builder.toString();
     }
 
+
+    /**
+     * TODO dummy class
+     */
+    private class UniqueAppointmentList {
+    }
 }
