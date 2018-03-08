@@ -850,21 +850,71 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `VetterAppointments` and the *Actor* is the `vet`, unless specified otherwise)
+
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Vet Technician
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Vet requests to add Vet Technician
+2.  VetterAppointments adds the Vet Technician to the system
 +
 Use case ends.
 
 *Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Add client
+
+*MSS*
+
+1.  Vet requests to add client (owner)
+2.  VetterAppointments adds client to the system
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Delete client
+
+*MSS*
+
+1.  Vet requests to list clients
+2.  VetterAppointments shows a list of clients
+3.  Vet requests to delete a specific client in the list
+4.  VetterAppointments deletes the client
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
 
 [none]
 * 2a. The list is empty.
@@ -874,11 +924,301 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. VetterAppointments shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Add pet
+
+*MSS*
+
+1.  Vet requests to add pet 
+2.  VetterAppointments provides a list of clients to add the pet to
+3.  Vet enters the index of the associated client
+4.  VetterAppointments adds a pet associated with a client in the system
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The client index is invalid
++
+[none]
+** 3a1. VetterAppointments shows an error message
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete pet
+
+*MSS*
+
+1.  Vet requests to list pets
+2.  VetterAppointments shows a list of pets
+3.  Vet requests to delete a specific pet in the list
+4.  VetterAppointments deletes the pet
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. VetterAppointments shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add appointment
+
+*MSS*
+
+1.  Vet requests to add an appointment
+2.  VetterAppointments provides a list of pets to add the appointment to
+3.  Vet enters the index of the pet that the appointment is tied to
+4.  VetterAppointments provides a list of Vet Technicians to add the appointment to
+5.  Vet enters the index of the Vet Technician that the appointment is assigned to, or leaves it blank if he/she wants to add it later
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[none]
+* 1b. The assigned timeslot already has an existing appointment
++
+[none]
+** 1b1. VetterAppointments asks the Vet if he/she wishes to override the existing appointment
++
+[none]
+*** 1b1a. Vet types 'yes'
++
+Use case resumes at step 2.
+[none]
+*** 1b1b. Vet types 'no'
++
+Use case ends.
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The pet index is invalid
++
+[none]
+** 3a1. VetterAppointments shows an error message
++
+Use case resumes at step 2.
+
+[none]
+* 4a. The list is empty.
++
+Use case ends.
+
+[none]
+* 5a. The Vet Technician index is invalid
++
+[none]
+** 5a1. VetterAppointments shows an error message
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Assign Vet Technician to appointment
+
+*MSS*
+
+1.  Vet requests to assign a Vet Technician to a specific appointment 
+2.  VetterAppointments provides a list of Vet Technicians to assign the appointment to
+3.  Vet enters the index of the associated Vet Technician
+4.  VetterAppointments assigns the Vet Technician to the appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The Vet Technician index is invalid
++
+[none]
+** 3a1. VetterAppointments shows an error message
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Reschedule appointment
+
+*MSS*
+
+1.  Vet requests to reschedule a specific appointment
+2.  VetterAppointments updates the date/time of the appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[none]
+* 1b. The newly assigned timeslot already has an existing appointment
++
+[none]
+** 1b1. VetterAppointments asks the Vet if he/she wishes to override the existing appointment
++
+[none]
+*** 1b1a. Vet types 'yes'
++
+Use case resumes at step 2.
+[none]
+*** 1b1b. Vet types 'no'
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete appointment
+
+*MSS*
+
+1.  Vet requests to list appointments
+2.  VetterAppointments shows a list of appointments
+3.  Vet requests to delete a specific appointment in the list
+4.  VetterAppointments deletes the appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. VetterAppointments shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find appointment by date
+
+*MSS*
+
+1.  Vet requests to find appointments for a specific date
+2.  VetterAppointments shows a list of appointments on that date
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Find appointment by client
+
+*MSS*
+
+1.  Vet requests to list clients
+2.  VetterAppointments shows a list of clients
+3.  Vet requests to find appointments for a specific client index
+4.  VetterAppointments shows a list of appointments for that client
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. VetterAppointments shows an error message.
++
+Use case resumes at step 2.
+
 
 [appendix]
 == Non Functional Requirements
