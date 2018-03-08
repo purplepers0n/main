@@ -798,17 +798,43 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new vet |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |vet |delete a client |remove entries that I no longer need
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |vet |find a client by name |locate details of client without having to go through the entire list
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |vet |add a client |add client's detail to the database
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`*` |vet with many clients in the address book |sort clients by name |locate a client easily
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |vet |add a vet tech |keep track of the vet techs I work with
+
+|`* * *` |vet |remove the pet from the owner |update the databases
+
+|`* * *` |vet |list all pets |view information about the pets at a glance
+
+|`* *` |vet |find pet by client name |view all pets owned by a client
+
+|`* * *` |vet |schedule an appointment for a client |add an appointment to my calendar
+
+|`*` |vet |specify the type of appointment |identify the appointment type
+
+|`* * *` |vet |add vet techs to an appointment |identify the technician for the appointment
+
+|`* * *` |vet |reschedule an appointment |accommodate to clients schedule
+
+|`* * *` |vet |remove an appointment |make way for other appointments
+
+|`* * *` |vet |list appointments |see all the appointments that I have
+
+|`*` |vet |schedule follow up appointment |keep track of pet's health
+
+|`* * *` |vet |find appointment by date |locate a specific appointment
+
+|`* * *` |vet |find appointments by client's name |view all of the appointments under particular client
+
+|`*` |vet |view appointments on calendar that have specific queries or tags |view specific upcoming appointment
 |=======================================================================
 
 _{More to be added}_
