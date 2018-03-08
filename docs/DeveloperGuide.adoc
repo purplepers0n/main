@@ -800,27 +800,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new vet |see usage instructions |refer to instructions when I forget how to use the App
 
+|`* * *` |vet |add a client |add client's detail to the database
+
 |`* * *` |vet |delete a client |remove entries that I no longer need
 
 |`* * *` |vet |find a client by name |locate details of client without having to go through the entire list
-
-|`* * *` |vet |add a client |add client's detail to the database
 
 |`*` |vet with many clients in the address book |sort clients by name |locate a client easily
 
 |`* * *` |vet |add a vet tech |keep track of the vet techs I work with
 
-|`* * *` |vet |remove the pet from the owner |update the databases
+|`* *` |vet |list all vet techs |view all vet techs' details at a glance
+
+|`* * *` |vet |add a pet to a client |make respective updates to client's pet database
+
+|`* * *` |vet |remove a pet from the client |update the databases
 
 |`* * *` |vet |list all pets |view information about the pets at a glance
 
 |`* *` |vet |find pet by client name |view all pets owned by a client
 
-|`* * *` |vet |schedule an appointment for a client |add an appointment to my calendar
-
 |`*` |vet |specify the type of appointment |identify the appointment type
 
 |`* * *` |vet |add vet techs to an appointment |identify the technician for the appointment
+
+|`* * *` |vet |schedule an appointment for a client |add an appointment to my calendar
 
 |`* * *` |vet |reschedule an appointment |accommodate to clients schedule
 
