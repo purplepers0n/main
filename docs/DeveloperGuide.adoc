@@ -898,6 +898,42 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[Java]] Java::
+Java is a general purpose, high-level programming language developed by Sun Microsystems
+
+[[JDK]] JDK::
+JDK stands for Java Development Kit. A software development environment for writing applets and applications in the Java programming language
+
+[[IDE]] IDE::
+Integrated Development Environments that supports all development-related work within the same tool
+
+[[IntelliJ]] IntelliJ::
+An IDE developed by JetBrains
+
+[[OSS]] OSS::
+Open-source software (OSS) is computer software distributed with its source code available for modification
+
+[[Repo]] Repo::
+Short form of repository which is a directory or storage for projects
+
+[[Fork]] Fork::
+A fork is a copy of a repository. Changes in a forked repository will not affect the original project
+
+[[CI]] CI::
+Continuous Integration (CI) is the practice of merging all developer working copies to a shared mainline
+
+[[Travis]] Travis::
+Travis CI is a hosted, distributed continuous integration service used to build and test software projects hosted at GitHub
+
+[[AppVeyor]] AppVeyor::
+AppVeyor is a continuous integration service
+
+[[JUnit]] JUnit::
+JUnit is a unit testing framework for the Java programming language
+
+[[Gradle]] Gradle::
+Gradle is an advanced general purpose build management system based on Groovy and Kotlin. Gradle supports the automatic download and configuration of dependencies or other libraries
+
 [appendix]
 == Product Survey
 
