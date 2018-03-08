@@ -818,6 +818,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |vet |list all pets |view information about the pets at a glance
 
+|`* *` |vet |sort pets by species type |locate a pet easily
+
+|`*` |vet |specify kind of pet |make more accurate diagnosis and treatment
+
 |`* *` |vet |find pet by client name |view all pets owned by a client
 
 |`*` |vet |specify the type of appointment |identify the appointment type
