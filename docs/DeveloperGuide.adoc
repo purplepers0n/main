@@ -837,7 +837,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |vet |view appointments on calendar that have specific queries or tags |view specific upcoming appointment
 |=======================================================================
 
-_{More to be added}_
+
 
 [appendix]
 == Use Cases
