@@ -51,7 +51,7 @@ public class PetName {
     }
 
     @Override
-    public in hashCode() {
+    public int hashCode() {
         return fullPetName.hashCode();
     }
 }
