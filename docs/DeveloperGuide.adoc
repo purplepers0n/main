@@ -933,7 +933,7 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  Vet requests to add pet 
+1.  Vet requests to add pet
 2.  VetterAppointments provides a list of clients to add the pet to
 3.  Vet enters the index of the associated client
 4.  VetterAppointments adds a pet associated with a client in the system
@@ -1066,7 +1066,7 @@ Use case resumes at step 4.
 
 *MSS*
 
-1.  Vet requests to assign a Vet Technician to a specific appointment 
+1.  Vet requests to assign a Vet Technician to a specific appointment
 2.  VetterAppointments provides a list of Vet Technicians to assign the appointment to
 3.  Vet enters the index of the associated Vet Technician
 4.  VetterAppointments assigns the Vet Technician to the appointment
