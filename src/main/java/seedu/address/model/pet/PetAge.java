@@ -11,7 +11,7 @@ public class PetAge {
 
     public static final String MESSAGE_PETAGE_CONSTRAINTS =
             "Pet age cna only contain numbers, and should be 1-2 digit long";
-    public static String PET_VALIDATIONS_REGEX = "\\d{1,2}";
+    public static final String PET_VALIDATIONS_REGEX = "\\d{1,2}";
     public final String value;
 
     /**
