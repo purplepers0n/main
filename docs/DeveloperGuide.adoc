@@ -1226,8 +1226,21 @@ Use case resumes at step 2.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  System should respond under a second.
+.  Should be resizable for any screen resolution without any user-application interaction problems.
+.  Should be able to be used by a novice keyboard user.
+.  Should be able to be used by a person with hearing loss.
+.  UI colors should be able to be identifiable by a color blind user.
+.  Data should be backwards compatible with older application versions.
+.  Data should be encrypted for security.
+.  Should be able to be installed and uninstalled automatically with a single user interaction.
+.  Application should run indefinitely until closed.
+.  Should have hidden text for certain sensitive data (e.g. NRIC, passwords).
+.  Data should be stored online.
+.  Should recover immediately from a system failure without any data loss or corruption.
+.  Should be able to detect and handle corruption in software data and stored data.
+.  Should have a software size of less than 500MB.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
