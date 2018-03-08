@@ -101,6 +101,7 @@ public class Pet {
                 .append(" Client: ")
                 .append(getPetOwner())
                 .append(" Appointment Date: ")
+                .append(getAppointment())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
