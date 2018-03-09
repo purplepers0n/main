@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
-    
+
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Appointment date should be all integers in format DD/MM/YYYY, and it should not be blank";
 
@@ -17,7 +17,7 @@ public class Date {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String DATE_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})/([0-9]{4})";
-    
+
     public final String date;
 
     /**

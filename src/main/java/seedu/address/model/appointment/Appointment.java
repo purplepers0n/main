@@ -1,8 +1,8 @@
 package seedu.address.model.appointment;
 
-import java.util.Objects;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 /**
  * Represents an Appointment in the application.
@@ -27,16 +27,26 @@ public class Appointment {
         this.pet = pet;
         this.vetTech = vetTech;
     }
-    
-    public Date getDate(){ return date; }
-    
-    public Time getTime(){ return time; }
-    
-    public String getClient(){ return client; }
-    
-    public String getPet(){ return pet; }
-    
-    public String getVetTech(){ return vetTech; }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public String getPet() {
+        return pet;
+    }
+
+    public String getVetTech() {
+        return vetTech;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -77,5 +87,5 @@ public class Appointment {
                 .append(" Vet Tech: ");
         return builder.toString();
     }
-    
+
 }
