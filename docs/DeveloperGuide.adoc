@@ -16,7 +16,9 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-Testing
+VetterAppointments is a Java based application that helps manage the appointments of a veterinarian.
+This guide will aid an incoming developer to understand the architecture and underlying interface of the application.
+This guide will walk through the process of setting up the program and building upon it.
 
 == Setting up
 
