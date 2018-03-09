@@ -10,6 +10,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * A utility class to help with building Person objects.
@@ -89,6 +90,10 @@ public class PersonBuilder {
 
     public Person build() {
         return new Person(name, phone, email, address, tags);
+    }
+
+    public Person buildWithRoleTechnician() {
+        return new VetTechnician(name, phone, email, address, tags);
     }
 
 }

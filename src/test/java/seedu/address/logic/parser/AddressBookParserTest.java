@@ -66,7 +66,7 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getPersonDetails(person));
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getPersonDetails(person).substring(13));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
