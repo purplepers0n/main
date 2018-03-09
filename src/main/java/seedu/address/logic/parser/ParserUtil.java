@@ -190,7 +190,7 @@ public class ParserUtil {
             throw new IllegalValueException(VetTechnician.MESSAGE_ROLE_CONSTRAINTS);
         }
 
-        return (role.equalsIgnoreCase("client"))
+        return (PersonRole.CLIENT.toString().equalsIgnoreCase(role))
                ? PersonRole.CLIENT
                : PersonRole.TECHNICIAN;
 
