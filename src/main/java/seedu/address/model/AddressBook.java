@@ -11,12 +11,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * Wraps all data at the address-book level
@@ -120,6 +122,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  list.
      */
     private Person syncWithMasterTagList(Person person) {
+        Person syncedPerson;
+
         final UniqueTagList personTags = new UniqueTagList(person.getTags());
         tags.mergeFrom(personTags);
 
@@ -131,12 +135,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         // Rebuild the list of person tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        return new Person(
-                person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
+
+        if (person instanceof Client) {
+            syncedPerson = new Client(person.getName(), person.getPhone(), person.getEmail(),
+                    person.getAddress(), correctTagReferences, 1);
+        } else {
+            syncedPerson = new VetTechnician(person.getName(), person.getPhone(), person.getEmail(),
+                    person.getAddress(), correctTagReferences);
+        }
+        return syncedPerson;
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
+     *
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
     public boolean removePerson(Person key) throws PersonNotFoundException {
@@ -157,7 +169,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags";
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags";
         // TODO: refine later
     }
 
