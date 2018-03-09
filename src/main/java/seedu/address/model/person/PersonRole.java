@@ -18,6 +18,9 @@ public enum PersonRole {
      * Returns if a given string is a valid person role.
      */
     public static boolean isValidPersonRole(String test) {
+        if (test == null) {
+            return false;
+        }
         return (test.equalsIgnoreCase(PersonRole.CLIENT.toString())
                 || test.equalsIgnoreCase(PersonRole.TECHNICIAN.toString()));
     }
