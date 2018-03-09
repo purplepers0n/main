@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.client.Client;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -97,6 +98,14 @@ public class Person {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    public PersonRole getRole() {
+        if (this instanceof Client) {
+            return PersonRole.CLIENT;
+        } else {
+            return PersonRole.TECHNICIAN;
+        }
     }
 
 
