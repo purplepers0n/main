@@ -15,6 +15,8 @@ import seedu.address.model.tag.Tag;
  */
 public class VetTechnician extends Person {
 
+    public static final String MESSAGE_ROLE_CONSTRAINTS = "Person Role can only be technician or client";
+
     /**
      * Every field must be present and not null.
      */

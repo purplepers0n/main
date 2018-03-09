@@ -13,8 +13,10 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -33,6 +35,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws IllegalValueException {
@@ -64,7 +67,9 @@ public class ParserUtil {
      */
     public static Optional<Name> parseName(Optional<String> name) throws IllegalValueException {
         requireNonNull(name);
-        return name.isPresent() ? Optional.of(parseName(name.get())) : Optional.empty();
+        return name.isPresent()
+               ? Optional.of(parseName(name.get()))
+               : Optional.empty();
     }
 
     /**
@@ -88,7 +93,9 @@ public class ParserUtil {
      */
     public static Optional<Phone> parsePhone(Optional<String> phone) throws IllegalValueException {
         requireNonNull(phone);
-        return phone.isPresent() ? Optional.of(parsePhone(phone.get())) : Optional.empty();
+        return phone.isPresent()
+               ? Optional.of(parsePhone(phone.get()))
+               : Optional.empty();
     }
 
     /**
@@ -112,7 +119,9 @@ public class ParserUtil {
      */
     public static Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
         requireNonNull(address);
-        return address.isPresent() ? Optional.of(parseAddress(address.get())) : Optional.empty();
+        return address.isPresent()
+               ? Optional.of(parseAddress(address.get()))
+               : Optional.empty();
     }
 
     /**
@@ -136,7 +145,9 @@ public class ParserUtil {
      */
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         requireNonNull(email);
-        return email.isPresent() ? Optional.of(parseEmail(email.get())) : Optional.empty();
+        return email.isPresent()
+               ? Optional.of(parseEmail(email.get()))
+               : Optional.empty();
     }
 
     /**
@@ -164,5 +175,35 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String role} into an {@code PersonRole} enum type.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code role} is invalid.
+     */
+    public static PersonRole parseRole(String role) throws IllegalValueException {
+        requireNonNull(role);
+        String trimmedRole = role.trim();
+        if (!PersonRole.isValidPersonRole(trimmedRole)) {
+            throw new IllegalValueException(VetTechnician.MESSAGE_ROLE_CONSTRAINTS);
+        }
+
+        return (role.equalsIgnoreCase("client"))
+               ? PersonRole.CLIENT
+               : PersonRole.TECHNICIAN;
+
+    }
+
+    /**
+     * Parses a {@code Optional<String> role} into an {@code Optional<PersonRole>} if {@code role} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<PersonRole> parseRole(Optional<String> role) throws IllegalValueException {
+        requireNonNull(role);
+        return role.isPresent()
+               ? Optional.of(parseRole(role.get()))
+               : Optional.empty();
     }
 }
