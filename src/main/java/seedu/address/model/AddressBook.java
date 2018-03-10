@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -136,7 +137,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
 
-        if (person instanceof Client) {
+        if (PersonRole.isClient(person)) {
             syncedPerson = new Client(person.getName(), person.getPhone(), person.getEmail(),
                     person.getAddress(), correctTagReferences, 1);
         } else {

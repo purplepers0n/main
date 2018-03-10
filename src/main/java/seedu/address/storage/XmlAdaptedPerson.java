@@ -47,8 +47,7 @@ public class XmlAdaptedPerson {
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {
-    }
+    public XmlAdaptedPerson() {}
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
@@ -77,7 +76,7 @@ public class XmlAdaptedPerson {
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
-        if (source instanceof Client) {
+        if (PersonRole.isClient(source)) {
             role = ROLE_CLIENT;
         } else {
             role = ROLE_TECHNICIAN;

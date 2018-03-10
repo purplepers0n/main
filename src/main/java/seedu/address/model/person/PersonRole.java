@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import seedu.address.model.client.Client;
+
 /**
  * Person roles that can be used.
  */
@@ -23,6 +25,16 @@ public enum PersonRole {
         }
         return (test.equalsIgnoreCase(PersonRole.CLIENT.toString())
                 || test.equalsIgnoreCase(PersonRole.TECHNICIAN.toString()));
+    }
+
+    /**
+     * Returns true if a given person is a client.
+     */
+    public static boolean isClient(Person person) {
+        if (person instanceof Client) {
+            return true;
+        }
+        return false;
     }
 
     /**

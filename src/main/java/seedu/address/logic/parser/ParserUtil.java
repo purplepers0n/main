@@ -35,7 +35,6 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
-     *
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws IllegalValueException {
@@ -67,9 +66,7 @@ public class ParserUtil {
      */
     public static Optional<Name> parseName(Optional<String> name) throws IllegalValueException {
         requireNonNull(name);
-        return name.isPresent()
-               ? Optional.of(parseName(name.get()))
-               : Optional.empty();
+        return name.isPresent() ? Optional.of(parseName(name.get())) : Optional.empty();
     }
 
     /**
@@ -93,9 +90,7 @@ public class ParserUtil {
      */
     public static Optional<Phone> parsePhone(Optional<String> phone) throws IllegalValueException {
         requireNonNull(phone);
-        return phone.isPresent()
-               ? Optional.of(parsePhone(phone.get()))
-               : Optional.empty();
+        return phone.isPresent() ? Optional.of(parsePhone(phone.get())) : Optional.empty();
     }
 
     /**
@@ -119,9 +114,7 @@ public class ParserUtil {
      */
     public static Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
         requireNonNull(address);
-        return address.isPresent()
-               ? Optional.of(parseAddress(address.get()))
-               : Optional.empty();
+        return address.isPresent() ? Optional.of(parseAddress(address.get())) : Optional.empty();
     }
 
     /**
@@ -145,9 +138,7 @@ public class ParserUtil {
      */
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         requireNonNull(email);
-        return email.isPresent()
-               ? Optional.of(parseEmail(email.get()))
-               : Optional.empty();
+        return email.isPresent() ? Optional.of(parseEmail(email.get())) : Optional.empty();
     }
 
     /**
@@ -189,11 +180,9 @@ public class ParserUtil {
         if (!PersonRole.isValidPersonRole(trimmedRole)) {
             throw new IllegalValueException(VetTechnician.MESSAGE_ROLE_CONSTRAINTS);
         }
-
         return (PersonRole.CLIENT.toString().equalsIgnoreCase(role))
                ? PersonRole.CLIENT
                : PersonRole.TECHNICIAN;
-
     }
 
     /**

@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.client.Client;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -101,13 +100,12 @@ public class Person {
     }
 
     public PersonRole getRole() {
-        if (this instanceof Client) {
+        if (PersonRole.isClient(this)) {
             return PersonRole.CLIENT;
         } else {
             return PersonRole.TECHNICIAN;
         }
     }
-
 
     /**
      * TODO dummy class
