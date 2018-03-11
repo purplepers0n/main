@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.client.Client;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -19,6 +21,8 @@ public class Pet {
     private final PetAge petAge;
     private final Species species;
     private final PetGender petGender;
+    private final Client petClient;
+    private final Appointment petAppointment;
 
     private final UniqueTagList tags;
 
@@ -26,12 +30,14 @@ public class Pet {
      * Every field must be present and not null
      */
     public Pet(PetName petName, PetAge petAge, Species species, PetGender petGender,
-               Set<Tag> tags) {
+               Client petClient, Appointment petAppointment, Set<Tag> tags) {
         requireAllNonNull(petName, petAge, species, petGender, tags);
         this.petName = petName;
         this.petAge = petAge;
         this.species = species;
         this.petGender = petGender;
+        this.petClient = petClient;
+        this.petAppointment = petAppointment;
 
         //protect internal tags from changes in the arg lis
         this.tags = new UniqueTagList(tags);
@@ -51,6 +57,14 @@ public class Pet {
 
     public PetGender getPetGender() {
         return petGender;
+    }
+
+    public Client getPetClient() {
+        return petClient;
+    }
+
+    public Appointment getPetAppointment() {
+        return petAppointment;
     }
 
     /**
@@ -75,13 +89,15 @@ public class Pet {
         return otherPet.getPetName().equals(this.getPetName())
                 && otherPet.getPetAge().equals(this.getPetAge())
                 && otherPet.getSpecies().equals(this.getSpecies())
-                && otherPet.getPetGender().equals(this.getPetGender());
+                && otherPet.getPetGender().equals(this.getPetGender())
+                && otherPet.getPetClient().equals(this.getPetClient())
+                && otherPet.getPetAppointment().equals(this.getPetAppointment());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(petName, petAge, species, petGender);
+        return Objects.hash(petName, petAge, species, petGender, petClient, petAppointment);
     }
 
     @Override
@@ -94,7 +110,11 @@ public class Pet {
                 .append(" Species: ")
                 .append(getSpecies())
                 .append(" Gender: ")
-                .append(getPetGender());
+                .append(getPetGender())
+                .append(" Pet Owner: ")
+                .append(getPetClient())
+                .append(" Appointment Date: ")
+                .append(getPetAppointment());
         getTags().forEach(builder::append);
         return builder.toString();
     }
