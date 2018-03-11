@@ -4,6 +4,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.client.Client;
+import seedu.address.model.pet.Pet;
+import seedu.address.model.vettechnician.VetTechnician;
+
 /**
  * Represents an Appointment in the application.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -12,14 +16,14 @@ public class Appointment {
 
     private final Date date;
     private final Time time;
-    private final String client; //dummy variable, class to be created
-    private final String pet; //dummy variable, class to be created
-    private final String vetTech; //dummy variable, class to be created
+    private final Client client; //dummy variable, class to be created
+    private final Pet pet; //dummy variable, class to be created
+    private final VetTechnician vetTech; //dummy variable, class to be created
 
     /**
      * Every field must be present and not null.
      */
-    public Appointment(Date date, Time time, String client, String pet, String vetTech) {
+    public Appointment(Date date, Time time, Client client, Pet pet, VetTechnician vetTech) {
         requireAllNonNull(date, time, client, pet, vetTech);
         this.date = date;
         this.time = time;
@@ -36,15 +40,15 @@ public class Appointment {
         return time;
     }
 
-    public String getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public String getPet() {
+    public Pet getPet() {
         return pet;
     }
 
-    public String getVetTech() {
+    public VetTechnician getVetTech() {
         return vetTech;
     }
 
@@ -75,6 +79,7 @@ public class Appointment {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+
         builder.append(getDate())
                 .append(" Date: ")
                 .append(getTime())
