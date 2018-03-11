@@ -80,16 +80,16 @@ public class Appointment {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
 
-        builder.append(getDate())
-                .append(" Date: ")
-                .append(getTime())
+        builder.append(" Date: ")
+                .append(getDate())
                 .append(" Time: ")
-                .append(getClient())
+                .append(getTime())
                 .append(" Client: ")
-                .append(getPet())
+                .append(getClient())
                 .append(" Pet: ")
-                .append(getVetTech())
-                .append(" Vet Tech: ");
+                .append(getPet())
+                .append(" Vet Tech: ")
+                .append(getVetTech());
         return builder.toString();
     }
 
