@@ -88,6 +88,8 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Role: ")
+                .append(getRole())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
