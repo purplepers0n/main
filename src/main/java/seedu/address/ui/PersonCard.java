@@ -58,7 +58,7 @@ public class PersonCard extends UiPart<Region> {
     private String getTagColorFor(String tagName) {
         return TAG_COLOR[Math.abs(tagName.hashCode()) % TAG_COLOR.length];
     }
-    
+
     private void initTags(Person person) {
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
