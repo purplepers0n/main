@@ -3,7 +3,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-VetterAppointments was developed by Team F09-B4 in CS2103T. +
+VetterAppointments was developed by Team F09-B4 in CS2103T.
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -12,6 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Jonathan Weng
 image::jonathanwj.jpg[width="150", align="left"]
+Studies computer science and passionate about Networks. Loves working on the backend +
 {empty} [https://github.com/jonathanwj[GitHub]]
 
 Role: Team Lead, Scheduling & Tracking +
@@ -19,24 +20,27 @@ Responsibilities: Logic component
 
 == Md Azhar
 image::md-azsa.jpg[width="150", align="left"]
+Studies computer science and highly interested in Information Security. +
 {empty}[http://www.comp.nus.edu.sg/~azharham[Home Page]]  [http://github.com/md-azsa[GitHub]]
 
-Role: Documentation, Deliverables & Deadlines  +
+Role: Documentation, Deliverables & Deadlines, Integration  +
 Responsibilities: Model component
 
 
 == Choo Wen Xin
 image::purplepers0n.jpg[width="150", align="left"]
+Studies computer science and obsessed with UI/UX, Multimedia, Information Retrieval and anything graphics related. +
 {empty}[http://github.com/purplepers0n[GitHub]]
 
-Role: Code Quality, Integration +
+Role: Code Quality, Integration, Documentation +
 Responsibilities: UI component
 
 
 == Zheng Xin
 image::Godxin.jpg[width="150", align="left"]
+Studies computer science and has strong interest in cyber security in general. +
 {empty}[http://github.com/Godxin[GitHub]]
 
-Role: Testing, Integration +
+Role: Testing, Integration, Deliverables & Deadlines +
 Responsibilities: Storage component
 
