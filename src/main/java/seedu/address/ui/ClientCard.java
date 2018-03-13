@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import javax.crypto.Cipher;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -8,11 +10,13 @@ import javafx.scene.layout.Region;
 import seedu.address.model.client.Client;
 
 /**
- * An UI component that displays information of a {@code client}.
+ * An UI component that displays information of a {@code Client}.
  */
 public class ClientCard extends UiPart<Region> {
 
-    private static final String FXML = "clientListCard.fxml";
+    private static final String FXML = "ClientListCard.fxml";
+    private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
+        "pink", "navy", "teal", "purple", "peach", "lightblue"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -47,7 +51,25 @@ public class ClientCard extends UiPart<Region> {
         phone.setText(client.getPhone().value);
         address.setText(client.getAddress().value);
         email.setText(client.getEmail().value);
-        client.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        initTags(client);
+    }
+
+    /**
+     * @return the color for {@code tagName}'s label
+     */
+    private String getTagColorFor(String tagName) {
+        return TAG_COLOR[Math.abs(tagName.hashCode()) % TAG_COLOR.length];
+    }
+
+    /**
+     * Creates the tag labels for {@code client}.
+     */
+    private void initTags(Client client) {
+        client.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add(getTagColorFor(tag.tagName));
+            tags.getChildren().add(tagLabel);
+        });
     }
 
     @Override

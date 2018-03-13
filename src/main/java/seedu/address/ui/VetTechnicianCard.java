@@ -13,6 +13,8 @@ import seedu.address.model.vettechnician.VetTechnician;
 public class VetTechnicianCard extends UiPart<Region> {
 
     private static final String FXML = "VetTechnicianListCard.fxml";
+    private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
+        "pink", "navy", "teal", "purple", "peach", "lightblue"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -48,6 +50,24 @@ public class VetTechnicianCard extends UiPart<Region> {
         address.setText(vetTechnician.getAddress().value);
         email.setText(vetTechnician.getEmail().value);
         vetTechnician.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    /**
+     * @return the color for {@code tagName}'s label
+     */
+    private String getTagColorFor(String tagName) {
+        return TAG_COLOR[Math.abs(tagName.hashCode()) % TAG_COLOR.length];
+    }
+
+    /**
+     * Creates the tag labels for {@code client}.
+     */
+    private void initTags(VetTechnician vetTechnician) {
+        vetTechnician.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add(getTagColorFor(tag.tagName));
+            tags.getChildren().add(tagLabel);
+        });
     }
 
     @Override

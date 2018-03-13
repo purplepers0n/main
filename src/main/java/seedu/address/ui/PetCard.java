@@ -12,7 +12,7 @@ import seedu.address.model.pet.Pet;
  */
 public class PetCard extends UiPart<Region> {
 
-    private static final String FXML = "petListCard.fxml";
+    private static final String FXML = "PetListCard.fxml";
     private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
         "pink", "navy", "teal", "purple", "peach", "lightblue"};
 
