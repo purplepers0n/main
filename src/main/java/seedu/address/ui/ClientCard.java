@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import javax.crypto.Cipher;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
