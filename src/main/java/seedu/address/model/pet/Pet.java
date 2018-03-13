@@ -18,7 +18,6 @@ public class Pet {
 
     private final PetName petName;
     private final PetAge petAge;
-    private final Species species;
     private final PetGender petGender;
     private final Client petClient;
     private final Appointment petAppointment;
@@ -28,12 +27,11 @@ public class Pet {
     /**
      * Every field must be present and not null
      */
-    public Pet(PetName petName, PetAge petAge, Species species, PetGender petGender,
+    public Pet(PetName petName, PetAge petAge, PetGender petGender,
                Client petClient, Appointment petAppointment, Set<Tag> tags) {
-        requireAllNonNull(petName, petAge, species, petGender, tags);
+        requireAllNonNull(petName, petAge, petGender, tags);
         this.petName = petName;
         this.petAge = petAge;
-        this.species = species;
         this.petGender = petGender;
         this.petClient = petClient;
         this.petAppointment = petAppointment;
@@ -48,10 +46,6 @@ public class Pet {
 
     public PetAge getPetAge() {
         return petAge;
-    }
-
-    public Species getSpecies() {
-        return species;
     }
 
     public PetGender getPetGender() {
@@ -87,7 +81,6 @@ public class Pet {
         Pet otherPet = (Pet) other;
         return otherPet.getPetName().equals(this.getPetName())
                 && otherPet.getPetAge().equals(this.getPetAge())
-                && otherPet.getSpecies().equals(this.getSpecies())
                 && otherPet.getPetGender().equals(this.getPetGender())
                 && otherPet.getPetClient().equals(this.getPetClient())
                 && otherPet.getPetAppointment().equals(this.getPetAppointment());
@@ -96,7 +89,7 @@ public class Pet {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(petName, petAge, species, petGender, petClient, petAppointment);
+        return Objects.hash(petName, petAge, petGender, petClient, petAppointment);
     }
 
     @Override
@@ -106,8 +99,6 @@ public class Pet {
                 .append(getPetName())
                 .append(" Pet Age: ")
                 .append(getPetAge())
-                .append(" Species: ")
-                .append(getSpecies())
                 .append(" Gender: ")
                 .append(getPetGender())
                 .append(" Pet Owner: ")
