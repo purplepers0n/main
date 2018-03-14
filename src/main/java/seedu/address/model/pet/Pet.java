@@ -108,6 +108,7 @@ public class Pet {
                 .append(getPetGender())
                 .append(" Pet Owner: ")
                 //TODO get client name and appointments dates from addressbook with referenced Uid
+                // any command object has a model object that allows to access all of addressbook data
                 .append(getPetClientUid().toString())
                 .append(" Appointment Date: ")
                 .append(getPetAppointmentUids().toString());
