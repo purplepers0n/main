@@ -97,7 +97,7 @@ public class Appointment {
     }
 
     /**
-     * @return AppointmentUid of appointment
+     * Returns the uid of the appointment as a {@code AppointmentUid}
      */
     public AppointmentUid getAppointmentUid() {
         return uid;

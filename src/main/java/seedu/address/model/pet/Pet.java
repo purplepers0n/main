@@ -116,7 +116,7 @@ public class Pet {
     }
 
     /**
-     * @return PetUid of pet
+     *  Returns the uid of the pet as a {@code PetUid}
      */
     public PetUid getPetUid() {
         return uid;

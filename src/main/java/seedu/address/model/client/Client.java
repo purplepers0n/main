@@ -46,14 +46,14 @@ public class Client extends Person {
     }
 
     /**
-     * @return ClientUid of client
+     * Returns the uid of the client as a {@code ClientUid}
      */
     public ClientUid getClientUid() {
         return uid;
     }
 
     /**
-     * @return UniquePetUidList of client
+     *  Returns a list of pet uids of client as a {@code UniquePetUidList}
      */
     public UniquePetUidList getListOfpetUids() {
         return listOfPetUids;

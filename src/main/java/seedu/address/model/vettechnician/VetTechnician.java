@@ -51,7 +51,7 @@ public class VetTechnician extends Person {
 
 
     /**
-     *  Returns the uid of vet technician as a {@code VetTechnicianUid}
+     *  Returns the uid of the vet technician as a {@code VetTechnicianUid}
      */
     public VetTechnicianUid getVetTechUid() {
         return uid;
