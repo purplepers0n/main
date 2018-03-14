@@ -4,9 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.client.Client;
-import seedu.address.model.pet.Pet;
-import seedu.address.model.vettechnician.VetTechnician;
+//import seedu.address.model.client.Client;
+//import seedu.address.model.pet.Pet;
+//import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * Represents an Appointment in the application.
@@ -16,22 +16,26 @@ public class Appointment {
 
     private final Date date;
     private final Time time;
-    private final Client client; //dummy variable, class to be created
-    private final Pet pet; //dummy variable, class to be created
-    private final VetTechnician vetTech; //dummy variable, class to be created
+    //private final Client client; //dummy variable, class to be created
+    //private final Pet pet; //dummy variable, class to be created
+    //private final VetTechnician vetTech; //dummy variable, class to be created
 
     /**
      * Every field must be present and not null.
      */
-    public Appointment(Date date, Time time, Client client, Pet pet, VetTechnician vetTech) {
+    /* public Appointment(Date date, Time time, Client client, Pet pet, VetTechnician vetTech) {
         requireAllNonNull(date, time, client, pet, vetTech);
         this.date = date;
         this.time = time;
         this.client = client;
         this.pet = pet;
         this.vetTech = vetTech;
+    }*/
+    public Appointment(Date date, Time time) {
+        requireAllNonNull(date, time);
+        this.date = date;
+        this.time = time;
     }
-
     public Date getDate() {
         return date;
     }
@@ -39,7 +43,7 @@ public class Appointment {
     public Time getTime() {
         return time;
     }
-
+    /*
     public Client getClient() {
         return client;
     }
@@ -50,7 +54,7 @@ public class Appointment {
 
     public VetTechnician getVetTech() {
         return vetTech;
-    }
+    }*/
 
     @Override
     public boolean equals(Object other) {
@@ -64,16 +68,16 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getDate().equals(this.getDate())
-                && otherAppointment.getTime().equals(this.getTime())
-                && otherAppointment.getClient().equals(this.getClient())
-                && otherAppointment.getPet().equals(this.getPet())
-                && otherAppointment.getVetTech().equals(this.getVetTech());
+                && otherAppointment.getTime().equals(this.getTime());
+               // && otherAppointment.getClient().equals(this.getClient())
+              //  && otherAppointment.getPet().equals(this.getPet())
+               // && otherAppointment.getVetTech().equals(this.getVetTech());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(date, time, client, pet, vetTech);
+        return Objects.hash(date, time); //, client, pet, vetTech);
     }
 
     @Override
@@ -83,13 +87,13 @@ public class Appointment {
         builder.append(" Date: ")
                 .append(getDate())
                 .append(" Time: ")
-                .append(getTime())
-                .append(" Client: ")
-                .append(getClient())
-                .append(" Pet: ")
-                .append(getPet())
-                .append(" Vet Tech: ")
-                .append(getVetTech());
+                .append(getTime());
+        //.append(" Client: ")
+        //.append(getClient())
+        //.append(" Pet: ")
+        //.append(getPet())
+        //.append(" Vet Tech: ")
+        // append(getVetTech());
         return builder.toString();
     }
 
