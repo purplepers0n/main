@@ -139,7 +139,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         if (PersonRole.isClient(person)) {
             syncedPerson = new Client(person.getName(), person.getPhone(), person.getEmail(),
-                    person.getAddress(), correctTagReferences, 1);
+                    person.getAddress(), correctTagReferences);
         } else {
             syncedPerson = new VetTechnician(person.getName(), person.getPhone(), person.getEmail(),
                     person.getAddress(), correctTagReferences);

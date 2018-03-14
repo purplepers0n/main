@@ -134,7 +134,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(VetTechnician.MESSAGE_ROLE_CONSTRAINTS);
         }
         if (PersonRole.CLIENT.toString().equalsIgnoreCase(this.role)) {
-            convertedPerson = new Client(name, phone, email, address, tags, 1);
+            convertedPerson = new Client(name, phone, email, address, tags);
         } else {
             convertedPerson = new VetTechnician(name, phone, email, address, tags);
         }

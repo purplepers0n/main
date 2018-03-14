@@ -55,7 +55,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
             Person person;
             if (role == PersonRole.CLIENT) {
-                person = new Client(name, phone, email, address, tagList, 1);
+                person = new Client(name, phone, email, address, tagList);
             } else {
                 person = new VetTechnician(name, phone, email, address, tagList);
             }
