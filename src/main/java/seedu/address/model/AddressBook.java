@@ -15,8 +15,6 @@ import seedu.address.model.client.Client;
 import seedu.address.model.client.UniqueClientList;
 import seedu.address.model.client.exceptions.ClientNotFoundException;
 import seedu.address.model.client.exceptions.DuplicateClientException;
-import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
-import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.UniquePersonList;
@@ -24,7 +22,11 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.vettechnician.UniqueVetTechnicianList;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
+import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
+
 
 /**
  * Wraps all data at the address-book level
