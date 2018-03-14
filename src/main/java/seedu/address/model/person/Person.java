@@ -13,7 +13,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public abstract class Person {
 
     private final Name name;
     private final Phone phone;
@@ -21,7 +21,6 @@ public class Person {
     private final Address address;
 
     private final UniqueTagList tags;
-    private final UniqueAppointmentList appointments;
 
     /**
      * Every field must be present and not null.
@@ -34,7 +33,6 @@ public class Person {
         this.address = address;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
-        appointments = new UniqueAppointmentList();
     }
 
     public Name getName() {
@@ -109,9 +107,4 @@ public class Person {
         }
     }
 
-    /**
-     * TODO dummy class
-     */
-    private class UniqueAppointmentList {
-    }
 }
