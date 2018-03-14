@@ -86,7 +86,7 @@ public class AddressBookParser {
             return new RedoCommand();
 
         case ScheduleCommand.COMMAND_WORD:
-            return new ScheduleCommand();
+            return new ScheduleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
