@@ -283,6 +283,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     *
+     * @throws VetTechnicianNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removeVetTechnician(VetTechnician key) throws VetTechnicianNotFoundException {
+        if (technicians.remove(key)) {
+            return true;
+        } else {
+            throw new VetTechnicianNotFoundException();
+        }
+    }
+
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
