@@ -75,8 +75,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.clients.setClients(clients);
     }
 
-    public void setTechnicians(List<VetTechnician> technicians) throws DuplicateVetTechnicianException {
-        this.technicians.setTechnicians(technicians);
+    public void setVetTechnicians(List<VetTechnician> technicians) throws DuplicateVetTechnicianException {
+        this.technicians.setVetTechnicians(technicians);
     }
 
     public void setTags(Set<Tag> tags) {
@@ -104,7 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                     .collect(Collectors.toList());
             setPersons(syncedPersonList);
             setClients(syncedClientList);
-            setTechnicians(syncedTechnicianList);
+            setVetTechnicians(syncedTechnicianList);
         } catch (DuplicatePersonException | DuplicateClientException
                 | DuplicateVetTechnicianException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
