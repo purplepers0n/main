@@ -1,12 +1,13 @@
 package seedu.address.model.pet;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.client.Client;
+import seedu.address.model.appointment.UniqueAppointmentUidList;
+import seedu.address.model.client.ClientUid;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -16,12 +17,14 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class Pet {
 
+    private final PetUid uid;
     private final PetName petName;
     private final PetAge petAge;
     private final PetGender petGender;
-    private final Client petClient;
-    private final Appointment petAppointment;
-    private final PetUid uid;
+
+    // UID References to other objects
+    private final UniqueAppointmentUidList petAppointmentUids;
+    private final ClientUid clientUid;
 
     private final UniqueTagList tags;
 
@@ -29,15 +32,15 @@ public class Pet {
      * Every field must be present and not null
      */
     public Pet(PetName petName, PetAge petAge, PetGender petGender,
-               Client petClient, Appointment petAppointment, Set<Tag> tags) {
+               UniqueAppointmentUidList petAppointmentUids, ClientUid clientUid, Set<Tag> tags) {
         requireAllNonNull(petName, petAge, petGender, tags);
         this.petName = petName;
         this.petAge = petAge;
         this.petGender = petGender;
-        this.petClient = petClient;
-        this.petAppointment = petAppointment;
-        uid = new PetUid();
+        this.petAppointmentUids = petAppointmentUids;
+        this.clientUid = clientUid;
 
+        uid = new PetUid();
         //protect internal tags from changes in the arg lis
         this.tags = new UniqueTagList(tags);
     }
@@ -54,12 +57,12 @@ public class Pet {
         return petGender;
     }
 
-    public Client getPetClient() {
-        return petClient;
+    public ClientUid getPetClientUid() {
+        return clientUid;
     }
 
-    public Appointment getPetAppointment() {
-        return petAppointment;
+    public UniqueAppointmentUidList getPetAppointmentUids() {
+        return petAppointmentUids;
     }
 
     /**
@@ -84,14 +87,14 @@ public class Pet {
         return otherPet.getPetName().equals(this.getPetName())
                 && otherPet.getPetAge().equals(this.getPetAge())
                 && otherPet.getPetGender().equals(this.getPetGender())
-                && otherPet.getPetClient().equals(this.getPetClient())
-                && otherPet.getPetAppointment().equals(this.getPetAppointment());
+                && otherPet.getPetClientUid().equals(this.getPetClientUid())
+                && otherPet.getPetAppointmentUids().equals(this.getPetAppointmentUids());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(petName, petAge, petGender, petClient, petAppointment);
+        return Objects.hash(petName, petAge, petGender, clientUid, petAppointmentUids);
     }
 
     @Override
@@ -104,15 +107,16 @@ public class Pet {
                 .append(" Gender: ")
                 .append(getPetGender())
                 .append(" Pet Owner: ")
-                .append(getPetClient())
+                //TODO get client name and appointments dates from addressbook with referenced Uid
+                .append(getPetClientUid().toString())
                 .append(" Appointment Date: ")
-                .append(getPetAppointment());
+                .append(getPetAppointmentUids().toString());
         getTags().forEach(builder::append);
         return builder.toString();
     }
 
     /**
-     * @return PetUid of vet technician
+     * @return PetUid of pet
      */
     public PetUid getPetUid() {
         return uid;

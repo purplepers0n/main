@@ -97,7 +97,7 @@ public class Appointment {
     }
 
     /**
-     * @return AppointmentUid of vet technician
+     * @return AppointmentUid of appointment
      */
     public AppointmentUid getAppointmentUid() {
         return uid;

@@ -8,9 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.client.ClientUid;
-import seedu.address.model.client.exceptions.DuplicateClientUidException;
 import seedu.address.model.client.exceptions.ClientUidNotFoundException;
+import seedu.address.model.client.exceptions.DuplicateClientUidException;
 
 /**
  * A list of clientUids that enforces uniqueness between its elements and does not allow nulls.

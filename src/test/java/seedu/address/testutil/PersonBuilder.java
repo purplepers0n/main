@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.appointment.UniqueAppointmentUidList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -93,7 +94,7 @@ public class PersonBuilder {
     }
 
     public Person buildWithRoleTechnician() {
-        return new VetTechnician(name, phone, email, address, tags);
+        return new VetTechnician(name, phone, email, address, tags, new UniqueAppointmentUidList());
     }
 
 }

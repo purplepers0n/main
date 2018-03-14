@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.UniqueAppointmentUidList;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -21,6 +22,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.Phone;
+import seedu.address.model.pet.UniquePetUidList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vettechnician.VetTechnician;
 
@@ -55,9 +57,9 @@ public class AddCommandParser implements Parser<AddCommand> {
 
             Person person;
             if (role == PersonRole.CLIENT) {
-                person = new Client(name, phone, email, address, tagList);
+                person = new Client(name, phone, email, address, tagList, new UniquePetUidList());
             } else {
-                person = new VetTechnician(name, phone, email, address, tagList);
+                person = new VetTechnician(name, phone, email, address, tagList, new UniqueAppointmentUidList());
             }
 
             return new AddCommand(person);

@@ -7,20 +7,24 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.pet.UniquePetUidList;
 import seedu.address.model.tag.Tag;
 
 /**
  * Guarantees: details are present and not null, field values are validated, immutable.
- *Represents a Person in the address book.
+ * Represents a Person in the address book.
  */
 
 public class Client extends Person {
 
     private final ClientUid uid;
+    private final UniquePetUidList listOfPetUids;
 
-    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  UniquePetUidList listOfPetUids) {
         super(name, phone, email, address, tags);
         uid = new ClientUid();
+        this.listOfPetUids = listOfPetUids;
     }
 
 
@@ -46,6 +50,13 @@ public class Client extends Person {
      */
     public ClientUid getClientUid() {
         return uid;
+    }
+
+    /**
+     * @return UniquePetUidList of client
+     */
+    public UniquePetUidList getListOfpetUids() {
+        return listOfPetUids;
     }
 
 }
