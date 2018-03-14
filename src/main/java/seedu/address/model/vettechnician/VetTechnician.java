@@ -17,11 +17,14 @@ public class VetTechnician extends Person {
 
     public static final String MESSAGE_ROLE_CONSTRAINTS = "Person Role can only be technician or client";
 
+    private final VetTechnicianUid uid;
+
     /**
      * Every field must be present and not null.
      */
     public VetTechnician(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
+        uid = new VetTechnicianUid();
     }
 
     @Override
@@ -39,5 +42,13 @@ public class VetTechnician extends Person {
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())
                 && otherPerson.getAddress().equals(this.getAddress());
+    }
+
+
+    /**
+     * @return VetTechnicianUid of vet technician
+     */
+    public VetTechnicianUid getVetTechUid() {
+        return uid;
     }
 }

@@ -19,6 +19,8 @@ public class Appointment {
     private final Client client; //dummy variable, class to be created
     private final Pet pet; //dummy variable, class to be created
     private final VetTechnician vetTech; //dummy variable, class to be created
+    private final AppointmentUid uid;
+
 
     /**
      * Every field must be present and not null.
@@ -30,6 +32,7 @@ public class Appointment {
         this.client = client;
         this.pet = pet;
         this.vetTech = vetTech;
+        uid = new AppointmentUid();
     }
 
     public Date getDate() {
@@ -91,6 +94,13 @@ public class Appointment {
                 .append(" Vet Tech: ")
                 .append(getVetTech());
         return builder.toString();
+    }
+
+    /**
+     * @return AppointmentUid of vet technician
+     */
+    public AppointmentUid getAppointmentUid() {
+        return uid;
     }
 
 }

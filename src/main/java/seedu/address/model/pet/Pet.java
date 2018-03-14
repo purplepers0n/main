@@ -21,6 +21,7 @@ public class Pet {
     private final PetGender petGender;
     private final Client petClient;
     private final Appointment petAppointment;
+    private final PetUid uid;
 
     private final UniqueTagList tags;
 
@@ -35,6 +36,7 @@ public class Pet {
         this.petGender = petGender;
         this.petClient = petClient;
         this.petAppointment = petAppointment;
+        uid = new PetUid();
 
         //protect internal tags from changes in the arg lis
         this.tags = new UniqueTagList(tags);
@@ -107,6 +109,13 @@ public class Pet {
                 .append(getPetAppointment());
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * @return PetUid of vet technician
+     */
+    public PetUid getPetUid() {
+        return uid;
     }
 
 }

@@ -16,21 +16,13 @@ import seedu.address.model.tag.Tag;
 
 public class Client extends Person {
 
-    //private final Pet pet;
-    private int clientId;
+    private final ClientUid uid;
 
-    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, int cid) {
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
-        this.clientId = cid;
+        uid = new ClientUid();
     }
 
-    public int getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(int setId) {
-        clientId = setId;
-    }
 
     @Override
     public boolean equals(Object other) {
@@ -47,6 +39,13 @@ public class Client extends Person {
                 && otherClient.getPhone().equals(this.getPhone())
                 && otherClient.getEmail().equals(this.getEmail())
                 && otherClient.getAddress().equals(this.getAddress());
+    }
+
+    /**
+     * @return ClientUid of client
+     */
+    public ClientUid getClientUid() {
+        return uid;
     }
 
 }
