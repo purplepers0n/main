@@ -7,6 +7,6 @@ import seedu.address.commons.exceptions.DuplicateDataException;
  */
 public class DuplicatePetUidException extends DuplicateDataException {
     public DuplicatePetUidException() {
-        super("Operation would result in duplicate pets");
+        super("Operation would result in duplicate petUids");
     }
 }

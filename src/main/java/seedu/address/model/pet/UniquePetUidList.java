@@ -50,7 +50,7 @@ public class UniquePetUidList implements Iterable<PetUid> {
      * @throws DuplicatePetUidException if the replacement is equivalent to another existing petUid in the list.
      * @throws PetUidNotFoundException if {@code target} could not be found in the list.
      */
-    public void setpetuid(PetUid target, PetUid editedPetUid)
+    public void setPetUid(PetUid target, PetUid editedPetUid)
             throws DuplicatePetUidException, PetUidNotFoundException {
         requireNonNull(editedPetUid);
 
