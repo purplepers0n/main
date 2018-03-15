@@ -3,8 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.appointment.Date;
-import seedu.address.model.appointment.Time;
+import seedu.address.model.appointment.Appointment;
 
 /**
  * Schedule the date and time for an appointment
@@ -13,19 +12,14 @@ public class ScheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "schedule";
 
-    private final Time time;
-    private final Date date;
-
+    private final Appointment toAdd;
     /**
-     * @param time of the appointment to be scheduled
-     * @param date of the appointment to be scheduled
+     * Creates an ScheduleCommand to add the specified {@code appointment}
      */
-    public ScheduleCommand(Time time, Date date) {
-        requireNonNull(time);
-        requireNonNull(date);
+    public ScheduleCommand(Appointment appointment) {
+        requireNonNull(appointment);
 
-        this.time = time;
-        this.date = date;
+        this.toAdd = appointment;
     }
     @Override
     protected CommandResult executeUndoableCommand() throws CommandException {
