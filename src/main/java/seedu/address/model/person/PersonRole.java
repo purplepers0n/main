@@ -10,6 +10,9 @@ public enum PersonRole {
     CLIENT("client"),
     TECHNICIAN("technician");
 
+    public static final String MESSAGE_ROLE_CONSTRAINTS =
+            "Person role can take only 'client' and 'technician' values, and it should not be blank";
+
     private String name;
 
     PersonRole(String name) {

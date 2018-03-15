@@ -16,7 +16,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -178,7 +177,7 @@ public class ParserUtil {
         requireNonNull(role);
         String trimmedRole = role.trim();
         if (!PersonRole.isValidPersonRole(trimmedRole)) {
-            throw new IllegalValueException(VetTechnician.MESSAGE_ROLE_CONSTRAINTS);
+            throw new IllegalValueException(PersonRole.MESSAGE_ROLE_CONSTRAINTS);
         }
         return (PersonRole.CLIENT.toString().equalsIgnoreCase(role))
                ? PersonRole.CLIENT
