@@ -6,11 +6,11 @@ https://ci.appveyor.com/project/jonwjbot/main/branch/master[image:https://ci.app
 https://coveralls.io/github/CS2103JAN2018-F09-B4/main?branch=master[image:https://coveralls.io/repos/github/CS2103JAN2018-F09-B4/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/Ui.png[width="800"]
 endif::[]
 
 VetterAppointments is a desktop address book application developed for veterinarians. VetterAppoinments allows you manage your veterinary technicians, clients, pets and appointments in a simple to use and beautifully designed desktop application.
