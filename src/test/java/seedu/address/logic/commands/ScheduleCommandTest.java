@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -15,12 +16,12 @@ public class ScheduleCommandTest {
 
     @Test
     public void equals() {
-      Appointment appointment1 = new AppointmentBuilder().withDate("12/12/2018").build();
-      Appointment appointment2 = new AppointmentBuilder().withTime("0000").build();
-      ScheduleCommand scheduleAppointment1 = new ScheduleCommand(appointment1);
-      ScheduleCommand scheduleAppointment2 = new ScheduleCommand(appointment2);
+        Appointment appointment1 = new AppointmentBuilder().withDate("12/12/2018").build();
+        Appointment appointment2 = new AppointmentBuilder().withTime("0000").build();
+        ScheduleCommand scheduleAppointment1 = new ScheduleCommand(appointment1);
+        ScheduleCommand scheduleAppointment2 = new ScheduleCommand(appointment2);
 
-      // same object -> returns true
+        // same object -> returns true
         assertTrue(scheduleAppointment1.equals(scheduleAppointment1));
 
         // same values -> returns true
@@ -36,5 +37,5 @@ public class ScheduleCommandTest {
         // different appointment -> returns false
         assertFalse(scheduleAppointment1.equals(scheduleAppointment2));
     }
-    }
+
 }
