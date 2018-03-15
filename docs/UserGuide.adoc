@@ -160,6 +160,21 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+=== Scheduling an appointment : `schedule`
+
+Schedules an appointment by specifying the date and time.
+Format: schedule da/DATE tm/TIME
+
+[NOTE]
+====
+The format for date should follow DD/MM/YYYY and for time should follow HHMM.
+====
+
+Examples:
+
+* `schedule da/10/10/2018 tm/1500` +
+Schedules an appointment on 10th October 2018 at 15:00.
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -261,6 +276,8 @@ e.g. `find James Jake`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Schedule* : `schedule` +
+e.g. `schedule da/05/05/2018 tm/1000`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
