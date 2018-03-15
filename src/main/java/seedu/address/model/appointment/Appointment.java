@@ -82,7 +82,8 @@ public class Appointment {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(date, time, client, pet, vetTech);
+        return Objects.hash(date, time);
+
     }
 
     @Override

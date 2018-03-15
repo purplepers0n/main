@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Appointment date should be all integers in format HHMM, and it should not be blank";
+            "Appointment time should be all integers in format HHMM, and it should not be blank";
 
     /*
      * The first character of the time must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String TIME_VALIDATION_REGEX = "([0-9]{4})";
+    public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])([0-5][0-9])";
 
     public final String time;
 
