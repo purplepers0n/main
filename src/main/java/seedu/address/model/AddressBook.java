@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
@@ -31,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
+    private final UniqueAppointmentList appointments;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -42,6 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
+        appointments = new UniqueAppointmentList();
     }
 
     public AddressBook() {}
@@ -64,6 +67,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    public void setAppointments(List<Appointment> appointments) throws DuplicateAppointmentException {
+        this.appointments.setAppointments(appointments);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -73,11 +80,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
+        List< Appointment > syncedAppointmentList = newData.getAppointmentList();
 
         try {
             setPersons(syncedPersonList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
+        }
+
+        try {
+            setAppointments(syncedAppointmentList);
+        } catch (DuplicateAppointmentException e) {
+            throw new AssertionError("AddressBooks should not have duplicate appointments");
         }
     }
 
@@ -174,8 +188,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Schedule an appointment to the address book.
      * @throws DuplicateAppointmentException if an equivalent person already exists.
      */
-    public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
-
+    public void scheduleAppointment(Appointment a) throws DuplicateAppointmentException {
+        appointments.add(a);
     }
 
     //// util methods
@@ -197,11 +211,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments.asObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
+                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags))
+                && this.appointments.equals(((AddressBook) other).appointments);
     }
 
     @Override
