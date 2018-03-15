@@ -1,7 +1,7 @@
 package seedu.address.model.appointment;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -28,4 +28,5 @@ public class AppointmentTest {
         Appointment differentAppointment = new Appointment(new Date("10/10/2018"), new Time("1515"));
         assertFalse(appointment1.equals(differentAppointment));
     }
+
 }
