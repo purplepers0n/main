@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
@@ -164,6 +166,16 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
+    }
+
+    //// appointment-level operations
+
+    /**
+     * Schedule an appointment to the address book.
+     * @throws DuplicateAppointmentException if an equivalent person already exists.
+     */
+    public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
+
     }
 
     //// util methods
