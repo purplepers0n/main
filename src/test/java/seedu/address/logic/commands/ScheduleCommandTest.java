@@ -28,7 +28,7 @@ public class ScheduleCommandTest {
         assertTrue(scheduleAppointment1.equals(scheduleAppointment1Copy));
 
         // different types -> returns false
-        assertFalse(scheduleAppointment1.equals(1));
+        assertFalse(scheduleAppointment1.equals(2));
 
         // null -> returns false
         assertFalse(scheduleAppointment1.equals(null));
