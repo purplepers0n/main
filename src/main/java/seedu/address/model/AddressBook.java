@@ -94,16 +94,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
-
+        List<Client> syncedClientList = newData.getClientList().stream()
+                .map(client -> (Person) client)
+                .map(this::syncWithMasterTagList)
+                .map(person -> (Client) person)
+                .collect(Collectors.toList());
+        List<VetTechnician> syncedTechnicianList = newData.getVetTechnicianList().stream()
+                .map(technician -> (Person) technician)
+                .map(this::syncWithMasterTagList)
+                .map(person -> (VetTechnician) person)
+                .collect(Collectors.toList());
         try {
-            List<Client> syncedClientList = syncedPersonList.stream()
-                    .filter(person -> person.getRole().equals(PersonRole.CLIENT))
-                    .map(person -> (Client) person)
-                    .collect(Collectors.toList());
-            List<VetTechnician> syncedTechnicianList = syncedPersonList.stream()
-                    .filter(person -> person.getRole().equals(PersonRole.TECHNICIAN))
-                    .map(person -> (VetTechnician) person)
-                    .collect(Collectors.toList());
             setPersons(syncedPersonList);
             setClients(syncedClientList);
             setVetTechnicians(syncedTechnicianList);

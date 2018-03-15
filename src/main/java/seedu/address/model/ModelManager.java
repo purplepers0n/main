@@ -18,6 +18,9 @@ import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
+import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Client> filteredClients;
+    private final FilteredList<VetTechnician> filteredVetTechnicians;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredClients = new FilteredList<>(this.addressBook.getClientList());
+        filteredVetTechnicians = new FilteredList<>(this.addressBook.getVetTechnicianList());
     }
 
     public ModelManager() {
@@ -63,6 +68,8 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
     }
+
+    //Person
 
     @Override
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
@@ -86,6 +93,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //Client
+
     @Override
     public synchronized void deleteClient(Client target) throws ClientNotFoundException {
         addressBook.removeClient(target);
@@ -108,6 +117,30 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    // VetTechnician
+
+    @Override
+    public synchronized void deleteVetTechnician(VetTechnician target) throws VetTechnicianNotFoundException {
+        addressBook.removeVetTechnician(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addVetTechnician(VetTechnician person) throws DuplicateVetTechnicianException {
+        addressBook.addVetTechnician(person);
+        updateFilteredVetTechnicianList(PREDICATE_SHOW_ALL_TECHNICIAN);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateVetTechnician(VetTechnician target, VetTechnician editedVetTechnician)
+            throws DuplicateVetTechnicianException, VetTechnicianNotFoundException {
+        requireAllNonNull(target, editedVetTechnician);
+
+        addressBook.updateVetTechnician(target, editedVetTechnician);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -125,6 +158,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //Client
+
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
      * {@code addressBook}
@@ -138,6 +173,23 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredClientList(Predicate<Client> predicate) {
         requireNonNull(predicate);
         filteredClients.setPredicate(predicate);
+    }
+
+    //Vet Technician
+
+    /**
+     * Returns an unmodifiable view of the list of {@code VetTechnician} backed by the internal list of
+     * {@code addressBook}
+     */
+    @Override
+    public ObservableList<VetTechnician> getFilteredVetTechnicianList() {
+        return FXCollections.unmodifiableObservableList(filteredVetTechnicians);
+    }
+
+    @Override
+    public void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate) {
+        requireNonNull(predicate);
+        filteredVetTechnicians.setPredicate(predicate);
     }
 
     @Override
@@ -156,7 +208,8 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons)
-                && filteredClients.equals(other.filteredClients);
+                && filteredClients.equals(other.filteredClients)
+                && filteredVetTechnicians.equals(other.filteredVetTechnicians);
     }
 
 }
