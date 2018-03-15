@@ -2,9 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.AddCommandParser.arePrefixesPresent;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+
+import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ScheduleCommand;
@@ -40,5 +41,13 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
