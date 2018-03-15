@@ -47,7 +47,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /** Adds the given person */
+    /** Schedule the given appointment according to date and time */
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
 
 }
