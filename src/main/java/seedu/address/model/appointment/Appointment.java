@@ -38,7 +38,7 @@ public class Appointment {
     public Time getTime() {
         return time;
     }
-    
+
     public void setClient(Client client) {
         this.client = client;
     }
