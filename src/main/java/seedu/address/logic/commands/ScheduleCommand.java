@@ -19,8 +19,8 @@ public class ScheduleCommand extends UndoableCommand {
             + PREFIX_DATE + "DATE "
             + PREFIX_TIME + "TIME\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + "01/05/2012 "
-            + PREFIX_TIME + "1500 ";
+            + PREFIX_DATE + "01/05/2018 "
+            + PREFIX_TIME + "1515 ";
 
     public static final String MESSAGE_SUCCESS = "New appointment scheduled";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "The date and time are taken ";
