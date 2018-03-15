@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
 /**
  * Schedule the date and time for an appointment
@@ -21,6 +22,9 @@ public class ScheduleCommand extends UndoableCommand {
             + PREFIX_DATE + "01/05/2012 "
             + PREFIX_TIME + "1500 ";
 
+    public static final String MESSAGE_SUCCESS = "New appointment scheduled";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "The date and time are taken ";
+
     private final Appointment toAdd;
 
     /**
@@ -33,6 +37,20 @@ public class ScheduleCommand extends UndoableCommand {
     }
     @Override
     protected CommandResult executeUndoableCommand() throws CommandException {
-        return null;
+        requireNonNull(model);
+        try {
+            model.addAppointment(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        } catch (DuplicateAppointmentException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleCommand // instanceof handles nulls
+                && toAdd.equals(((ScheduleCommand) other).toAdd));
+    }
+
 }
