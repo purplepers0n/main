@@ -19,7 +19,7 @@ public class Appointment {
     private Client client; //dummy variable, class to be created
     private Pet pet; //dummy variable, class to be created
     private VetTechnician vetTech; //dummy variable, class to be created
-    private AppointmentUid uid;
+    private final AppointmentUid uid;
 
 
     /**
@@ -76,7 +76,7 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getDate().equals(this.getDate())
-                && otherAppointment.getTime().equals(this.getTime())
+                && otherAppointment.getTime().equals(this.getTime());
 
     }
 
