@@ -18,14 +18,14 @@ public interface ReadOnlyAddressBook {
     ObservableList<Person> getPersonList();
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the Client list.
+     * This list will not contain any duplicate clients.
      */
     ObservableList<Client> getClientList();
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the vet technician list.
+     * This list will not contain any duplicate vet technician.
      */
     ObservableList<VetTechnician> getVetTechnicianList();
 
