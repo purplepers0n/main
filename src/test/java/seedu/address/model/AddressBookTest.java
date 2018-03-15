@@ -16,8 +16,10 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vettechnician.VetTechnician;
 
 public class AddressBookTest {
 
@@ -40,6 +42,13 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
+        AddressBook newData = getTypicalAddressBook();
+        addressBook.resetData(newData);
+        assertEquals(newData, addressBook);
+    }
+
+    @Test
+    public void myte() {
         AddressBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
@@ -73,6 +82,9 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Client> clients = FXCollections.observableArrayList();
+        private final ObservableList<VetTechnician> technicians = FXCollections.observableArrayList();
+
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags) {
@@ -83,6 +95,16 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Client> getClientList() {
+            return clients;
+        }
+
+        @Override
+        public ObservableList<VetTechnician> getVetTechnicianList() {
+            return technicians;
         }
 
         @Override
