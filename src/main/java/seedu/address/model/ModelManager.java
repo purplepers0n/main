@@ -125,6 +125,15 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
+     * {@code addressBook}
+     */
+    @Override
+    public ObservableList<Client> getFilteredClientList() {
+        return FXCollections.unmodifiableObservableList(filteredClients);
+    }
+
     @Override
     public void updateFilteredClientList(Predicate<Client> predicate) {
         requireNonNull(predicate);
@@ -146,7 +155,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredClients.equals(other.filteredClients);
     }
 
 }

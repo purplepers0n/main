@@ -4,6 +4,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.client.Client;
+import seedu.address.model.client.exceptions.ClientNotFoundException;
+import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -46,5 +48,33 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+
+    //Client API
+
+    /** Deletes the given client. */
+    void deleteClient(Client target) throws ClientNotFoundException;
+
+    /** Adds the given client */
+    void addClient(Client client) throws DuplicateClientException;
+
+    /**
+     * Replaces the given client {@code target} with {@code editedClient}.
+     *
+     * @throws DuplicateClientException if updating the client's details causes the client to be equivalent to
+     *      another existing client in the list.
+     * @throws ClientNotFoundException if {@code target} could not be found in the list.
+     */
+    void updateClient(Client target, Client editedClient)
+            throws DuplicateClientException, ClientNotFoundException;
+
+    /** Returns an unmodifiable view of the filtered client list */
+    ObservableList<Client> getFilteredClientList();
+
+    /**
+     * Updates the filter of the filtered client list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredClientList(Predicate<Client> predicate);
 
 }
