@@ -65,6 +65,18 @@ public class AddressBookTest {
     }
 
     @Test
+    public void getClientList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getClientList().remove(0);
+    }
+
+    @Test
+    public void getVetTechnicianList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getVetTechnicianList().remove(0);
+    }
+
+    @Test
     public void getTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getTagList().remove(0);
