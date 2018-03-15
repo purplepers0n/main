@@ -135,7 +135,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> email} into an {@code Optional<Email>} if {@code email} is present.
+
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
@@ -231,7 +231,7 @@ public class ParserUtil {
     public static Time parseTime(String time) throws IllegalValueException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        if (!Date.isValidDate(trimmedTime)) {
+        if (!Time.isValidTime(trimmedTime)) {
             throw new IllegalValueException(Time.MESSAGE_TIME_CONSTRAINTS);
         }
         return new Time(trimmedTime);

@@ -30,8 +30,11 @@ import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.AppointmentBuilder;
+import seedu.address.testutil.AppointmentUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -50,7 +53,10 @@ public class AddressBookParserTest {
     }
     @Test
     public void parseCommand_schedule() throws Exception {
-        assertTrue(parser.parseCommand(ScheduleCommand.COMMAND_WORD) instanceof ScheduleCommand);
+        Appointment appointment = new AppointmentBuilder().build();
+        ScheduleCommand command = (ScheduleCommand) parser.parseCommand(
+                                    AppointmentUtil.getScheduleCommand(appointment));
+        assertEquals(new ScheduleCommand(appointment), command);
     }
     @Test
     public void parseCommand_clear() throws Exception {

@@ -38,18 +38,6 @@ public class Appointment {
     public Time getTime() {
         return time;
     }
-    
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
-    public void setVetTech(VetTechnician vetTech) {
-        this.vetTech = vetTech;
-    }
 
     public void setClient(Client client) {
         this.client = client;
