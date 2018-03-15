@@ -16,8 +16,6 @@ import seedu.address.model.tag.Tag;
  */
 public class VetTechnician extends Person {
 
-    public static final String MESSAGE_ROLE_CONSTRAINTS = "Person Role can only be technician or client";
-
     private final VetTechnicianUid uid;
     private final UniqueAppointmentUidList appointmentUids;
 

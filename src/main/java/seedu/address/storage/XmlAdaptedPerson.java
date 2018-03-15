@@ -54,8 +54,10 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String role, String phone,
+                            String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
+        this.role = role;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -132,14 +134,19 @@ public class XmlAdaptedPerson {
 
         final Set<Tag> tags = new HashSet<>(personTags);
 
+        if (this.role == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PersonRole.class.getSimpleName()));
+        }
         if (!PersonRole.isValidPersonRole(this.role)) {
-            throw new IllegalValueException(VetTechnician.MESSAGE_ROLE_CONSTRAINTS);
+            throw new IllegalValueException(PersonRole.MESSAGE_ROLE_CONSTRAINTS);
         }
         if (PersonRole.CLIENT.toString().equalsIgnoreCase(this.role)) {
             convertedPerson = new Client(name, phone, email, address, tags, new UniquePetUidList());
         } else {
             convertedPerson = new VetTechnician(name, phone, email, address, tags, new UniqueAppointmentUidList());
         }
+
         return convertedPerson;
     }
 
