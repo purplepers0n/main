@@ -21,7 +21,6 @@ public class Appointment {
     private VetTechnician vetTech; //dummy variable, class to be created
     private final AppointmentUid uid;
 
-
     /**
      * Every field must be present and not null.
      */
