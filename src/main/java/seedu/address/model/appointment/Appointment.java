@@ -51,6 +51,18 @@ public class Appointment {
         this.vetTech = vetTech;
     }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    public void setVetTech(VetTechnician vetTech) {
+        this.vetTech = vetTech;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -82,7 +94,8 @@ public class Appointment {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(date, time, client, pet, vetTech);
+        return Objects.hash(date, time);
+
     }
 
     @Override
