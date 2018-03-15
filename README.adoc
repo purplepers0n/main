@@ -13,6 +13,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="800"]
 endif::[]
 
+{nbsp} +
 VetterAppointments is a desktop address book application developed for veterinarians. VetterAppoinments allows you manage your veterinary technicians, clients, pets and appointments in a simple to use and beautifully designed desktop application.
 
 The application is designed for veterinarians who prefer to type. The well crafted UI will assist you to quickly view details about an appointment or client.
