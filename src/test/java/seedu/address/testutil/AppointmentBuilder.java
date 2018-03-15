@@ -9,7 +9,7 @@ import seedu.address.model.appointment.Time;
  */
 public class AppointmentBuilder {
     public static final String DEFAULT_DATE = "11/11/2018";
-    public static final String DEFAULT_TIME = "1111";
+    public static final String DEFAULT_TIME = "1122";
 
     private Date date;
     private Time time;
