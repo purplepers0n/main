@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Appointment date should be all integers in format HHMM, and it should not be blank";
+            "Appointment time should be all integers in format HHMM, and it should not be blank";
 
     /*
      * The first character of the time must not be a whitespace,
