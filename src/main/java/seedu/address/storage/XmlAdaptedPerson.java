@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.appointment.UniqueAppointmentUidList;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -17,7 +16,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.Phone;
-import seedu.address.model.pet.UniquePetUidList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vettechnician.VetTechnician;
 
@@ -54,8 +52,10 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String role, String phone,
+                            String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
+        this.role = role;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -132,14 +132,19 @@ public class XmlAdaptedPerson {
 
         final Set<Tag> tags = new HashSet<>(personTags);
 
+        if (this.role == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PersonRole.class.getSimpleName()));
+        }
         if (!PersonRole.isValidPersonRole(this.role)) {
-            throw new IllegalValueException(VetTechnician.MESSAGE_ROLE_CONSTRAINTS);
+            throw new IllegalValueException(PersonRole.MESSAGE_ROLE_CONSTRAINTS);
         }
         if (PersonRole.CLIENT.toString().equalsIgnoreCase(this.role)) {
-            convertedPerson = new Client(name, phone, email, address, tags, new UniquePetUidList());
+            convertedPerson = new Client(name, phone, email, address, tags);
         } else {
-            convertedPerson = new VetTechnician(name, phone, email, address, tags, new UniqueAppointmentUidList());
+            convertedPerson = new VetTechnician(name, phone, email, address, tags);
         }
+
         return convertedPerson;
     }
 

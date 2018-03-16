@@ -3,6 +3,8 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.client.Client;
 import seedu.address.model.client.exceptions.ClientNotFoundException;
 import seedu.address.model.client.exceptions.DuplicateClientException;
@@ -109,5 +111,7 @@ public interface Model {
      */
     void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate);
 
+    /** Schedule the given appointment according to date and time */
+    void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
 
 }

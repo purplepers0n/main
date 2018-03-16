@@ -32,70 +32,70 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
 import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.AppointmentBuilder;
 
-public class AddCommandTest {
+public class ScheduleCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullAppointment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new ScheduleCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().buildWithRoleClient();
+    public void execute_appointmentAcceptedByModel_scheduleSuccessful() throws Exception {
+        ModelStubAcceptingAppointmentScheduled modelStub = new ModelStubAcceptingAppointmentScheduled();
+        Appointment validAppointment = new AppointmentBuilder().build();
 
-        CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
+        CommandResult commandResult = getScheduleCommandForAppointment(validAppointment, modelStub).execute();
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(ScheduleCommand.MESSAGE_SUCCESS, validAppointment), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validAppointment), modelStub.appointmentScheduled);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
-        Person validPerson = new PersonBuilder().buildWithRoleClient();
+    public void execute_duplicateAppointment_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubThrowingDuplicateAppointmentException();
+        Appointment validAppointment = new AppointmentBuilder().build();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(ScheduleCommand.MESSAGE_DUPLICATE_APPOINTMENT);
 
-        getAddCommandForPerson(validPerson, modelStub).execute();
+        getScheduleCommandForAppointment(validAppointment, modelStub).execute();
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").buildWithRoleClient();
-        Person bob = new PersonBuilder().withName("Bob").buildWithRoleClient();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Appointment appointment1 = new AppointmentBuilder().withDate("12/12/2018").build();
+        Appointment appointment2 = new AppointmentBuilder().withTime("0000").build();
+        ScheduleCommand scheduleAppointment1 = new ScheduleCommand(appointment1);
+        ScheduleCommand scheduleAppointment2 = new ScheduleCommand(appointment2);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(scheduleAppointment1.equals(scheduleAppointment1));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        ScheduleCommand scheduleAppointment1Copy = new ScheduleCommand(appointment1);
+        assertTrue(scheduleAppointment1.equals(scheduleAppointment1Copy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(scheduleAppointment1.equals(2));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(scheduleAppointment1.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different appointment -> returns false
+        assertFalse(scheduleAppointment1.equals(scheduleAppointment2));
     }
 
     /**
-     * Generates a new AddCommand with the details of the given person.
+     * Generates a new ScheduleCommand with the details of the given appointment.
      */
-    private AddCommand getAddCommandForPerson(Person person, Model model) {
-        AddCommand command = new AddCommand(person);
+    private ScheduleCommand getScheduleCommandForAppointment(Appointment appointment, Model model) {
+        ScheduleCommand command = new ScheduleCommand(appointment);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
@@ -154,13 +154,12 @@ public class AddCommandTest {
 
         @Override
         public void updateClient(Client target, Client editedClient)
-                throws DuplicateClientException, ClientNotFoundException {
+                throws ClientNotFoundException {
             fail("This method should not be called.");
         }
 
         @Override
         public ObservableList<Client> getFilteredClientList() {
-            fail("This method should not be called.");
             return null;
         }
 
@@ -187,6 +186,7 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<VetTechnician> getFilteredVetTechnicianList() {
+            fail("This method should not be called.");
             return null;
         }
 
@@ -195,18 +195,19 @@ public class AddCommandTest {
             fail("This method should not be called.");
         }
 
+        @Override
         public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
             fail("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that always throw a DuplicatePersonException when trying to add a person.
+     * A Model stub that always throw a DuplicateAppointmentException when trying to schedule an appointment.
      */
-    private class ModelStubThrowingDuplicatePersonException extends ModelStub {
+    private class ModelStubThrowingDuplicateAppointmentException extends ModelStub {
         @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
-            throw new DuplicatePersonException();
+        public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
+            throw new DuplicateAppointmentException();
         }
 
         @Override
@@ -216,15 +217,15 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the appointment being scheduled.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingAppointmentScheduled extends ModelStub {
+        final ArrayList<Appointment> appointmentScheduled = new ArrayList<>();
 
         @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
+            requireNonNull(appointment);
+            appointmentScheduled.add(appointment);
         }
 
         @Override

@@ -7,7 +7,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.pet.UniquePetUidList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,14 +16,9 @@ import seedu.address.model.tag.Tag;
 
 public class Client extends Person {
 
-    private final ClientUid uid;
-    private final UniquePetUidList listOfPetUids;
 
-    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  UniquePetUidList listOfPetUids) {
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
-        uid = new ClientUid();
-        this.listOfPetUids = listOfPetUids;
     }
 
 
@@ -43,20 +37,6 @@ public class Client extends Person {
                 && otherClient.getPhone().equals(this.getPhone())
                 && otherClient.getEmail().equals(this.getEmail())
                 && otherClient.getAddress().equals(this.getAddress());
-    }
-
-    /**
-     * Returns the uid of the client as a {@code ClientUid}
-     */
-    public ClientUid getClientUid() {
-        return uid;
-    }
-
-    /**
-     *  Returns a list of pet uids of client as a {@code UniquePetUidList}
-     */
-    public UniquePetUidList getListOfpetUids() {
-        return listOfPetUids;
     }
 
 }

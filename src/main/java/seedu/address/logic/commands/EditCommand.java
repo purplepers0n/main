@@ -20,7 +20,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.appointment.UniqueAppointmentUidList;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -30,7 +29,6 @@ import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.pet.UniquePetUidList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vettechnician.VetTechnician;
 
@@ -118,10 +116,10 @@ public class EditCommand extends UndoableCommand {
 
         if (updatedRole == PersonRole.CLIENT) {
             return new Client(updatedName, updatedPhone, updatedEmail,
-                    updatedAddress, updatedTags, new UniquePetUidList());
+                    updatedAddress, updatedTags);
         } else {
             return new VetTechnician(updatedName, updatedPhone, updatedEmail,
-                    updatedAddress, updatedTags, new UniqueAppointmentUidList());
+                    updatedAddress, updatedTags);
         }
 
     }

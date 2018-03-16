@@ -11,6 +11,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.client.Client;
 import seedu.address.model.client.UniqueClientList;
 import seedu.address.model.client.exceptions.ClientNotFoundException;
@@ -36,6 +39,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
+    private final UniqueAppointmentList appointments;
 
     private final UniqueClientList clients;
     private final UniqueVetTechnicianList technicians;
@@ -55,6 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         clients = new UniqueClientList();
         technicians = new UniqueVetTechnicianList();
 
+        appointments = new UniqueAppointmentList();
     }
 
     public AddressBook() {}
@@ -85,6 +90,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    public void setAppointments(List<Appointment> appointments) throws DuplicateAppointmentException {
+        this.appointments.setAppointments(appointments);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -104,6 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .map(this::syncWithMasterTagList)
                 .map(person -> (VetTechnician) person)
                 .collect(Collectors.toList());
+        List< Appointment > syncedAppointmentList = newData.getAppointmentList();
         try {
             setPersons(syncedPersonList);
             setClients(syncedClientList);
@@ -111,6 +121,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         } catch (DuplicatePersonException | DuplicateClientException
                 | DuplicateVetTechnicianException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
+        }
+
+        try {
+            setAppointments(syncedAppointmentList);
+        } catch (DuplicateAppointmentException e) {
+            throw new AssertionError("AddressBooks should not have duplicate appointments");
         }
     }
 
@@ -250,10 +266,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         if (PersonRole.isClient(person)) {
             syncedPerson = new Client(person.getName(), person.getPhone(), person.getEmail(),
-                    person.getAddress(), correctTagReferences, ((Client) person).getListOfpetUids());
+                    person.getAddress(), correctTagReferences);
         } else {
             syncedPerson = new VetTechnician(person.getName(), person.getPhone(), person.getEmail(),
-                    person.getAddress(), correctTagReferences, ((VetTechnician) person).getAppointmentUids());
+                    person.getAddress(), correctTagReferences);
         }
         return syncedPerson;
     }
@@ -303,6 +319,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.add(t);
     }
 
+    //// appointment-level operations
+
+    /**
+     * Schedule an appointment to the address book.
+     * @throws DuplicateAppointmentException if an equivalent person already exists.
+     */
+    public void scheduleAppointment(Appointment a) throws DuplicateAppointmentException {
+        appointments.add(a);
+    }
+
     //// util methods
 
     @Override
@@ -332,11 +358,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments.asObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
+                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags))
+                && this.appointments.equals(((AddressBook) other).appointments);
     }
 
     @Override
