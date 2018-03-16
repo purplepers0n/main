@@ -326,8 +326,7 @@ The `findp` command is similar to the `findc` command. See <<Finding clients by 
 Here is an example on how to use the command: +
 
 * `findp Garf`
-The user used the keyword Garf to find all pets containing the word Garf. 
-
+The user used the keyword Garf to find all pets containing the word Garf.
 [TIP]
 The keyword is case insensitive. This means typing, "GARF", "garf" or "GaRf" will result in the same output.
 
@@ -452,5 +451,4 @@ Exiting the program in the middle of a command will save the state. So there's n
 |redo |`redo` |Redo the undo command executed.
 |clear |`clear` |Deletes all data of the program.
 |exit |`exit` |Exits the program.
-
 |=======
