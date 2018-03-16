@@ -1,22 +1,38 @@
 package seedu.address.model.person;
 
-import seedu.address.model.client.Client;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Person roles that can be used.
+ * Represents a Person's role in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidPersonRole(String)}
  */
-public enum PersonRole {
 
-    CLIENT("client"),
-    TECHNICIAN("technician");
+public class PersonRole {
+
+    /**
+     * Person roles that can be used.
+     */
+    private enum Role {
+        CLIENT,
+        TECHNICIAN
+    }
 
     public static final String MESSAGE_ROLE_CONSTRAINTS =
             "Person role can take only 'client' and 'technician' values, and it should not be blank";
 
-    private String name;
+    private final Role role;
 
-    PersonRole(String name) {
-        this.name = name;
+    PersonRole(String role) {
+
+        requireNonNull(role);
+        checkArgument(isValidPersonRole(role), MESSAGE_ROLE_CONSTRAINTS);
+
+        if (role.equalsIgnoreCase("client")) {
+            this.role = Role.CLIENT;
+        } else {
+            this.role = Role.TECHNICIAN;
+        }
     }
 
     /**
@@ -26,24 +42,20 @@ public enum PersonRole {
         if (test == null) {
             return false;
         }
-        return (test.equalsIgnoreCase(PersonRole.CLIENT.toString())
-                || test.equalsIgnoreCase(PersonRole.TECHNICIAN.toString()));
+        return (test.equalsIgnoreCase(Role.CLIENT.toString())
+                || test.equalsIgnoreCase(Role.TECHNICIAN.toString()));
     }
 
     /**
-     * Returns true if a given person is a client.
-     */
-    public static boolean isClient(Person person) {
-        if (person instanceof Client) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Returns name of PersonRole type.
+     * Returns string of PersonRole type.
      */
     public String toString() {
-        return name;
+        requireNonNull(role);
+        if (role.equals(Role.CLIENT)) {
+            return "client";
+        } else {
+            return "technician";
+        }
+
     }
 }
