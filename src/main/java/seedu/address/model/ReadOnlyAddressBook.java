@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
+import seedu.address.model.pet.Pet;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,5 +28,11 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate appointments.
      */
     ObservableList<Appointment> getAppointmentList();
+
+    /**
+     * Retuns an unmodifiable view of the pets list.
+     * This list will not contain any duplicate appointments.
+     */
+    ObservableList<Pet> getPetList();
 
 }
