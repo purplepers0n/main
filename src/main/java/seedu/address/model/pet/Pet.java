@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.appointment.UniqueAppointmentUidList;
-import seedu.address.model.client.ClientUid;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -17,30 +15,21 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class Pet {
 
-    private final PetUid uid;
     private final PetName petName;
     private final PetAge petAge;
     private final PetGender petGender;
-
-    // UID References to other objects
-    private final UniqueAppointmentUidList petAppointmentUids;
-    private final ClientUid clientUid;
 
     private final UniqueTagList tags;
 
     /**
      * Every field must be present and not null
      */
-    public Pet(PetName petName, PetAge petAge, PetGender petGender,
-               UniqueAppointmentUidList petAppointmentUids, ClientUid clientUid, Set<Tag> tags) {
+    public Pet(PetName petName, PetAge petAge, PetGender petGender, Set<Tag> tags) {
         requireAllNonNull(petName, petAge, petGender, tags);
         this.petName = petName;
         this.petAge = petAge;
         this.petGender = petGender;
-        this.petAppointmentUids = petAppointmentUids;
-        this.clientUid = clientUid;
 
-        uid = new PetUid();
         //protect internal tags from changes in the arg lis
         this.tags = new UniqueTagList(tags);
     }
@@ -57,13 +46,6 @@ public class Pet {
         return petGender;
     }
 
-    public ClientUid getPetClientUid() {
-        return clientUid;
-    }
-
-    public UniqueAppointmentUidList getPetAppointmentUids() {
-        return petAppointmentUids;
-    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -86,15 +68,13 @@ public class Pet {
         Pet otherPet = (Pet) other;
         return otherPet.getPetName().equals(this.getPetName())
                 && otherPet.getPetAge().equals(this.getPetAge())
-                && otherPet.getPetGender().equals(this.getPetGender())
-                && otherPet.getPetClientUid().equals(this.getPetClientUid())
-                && otherPet.getPetAppointmentUids().equals(this.getPetAppointmentUids());
+                && otherPet.getPetGender().equals(this.getPetGender());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(petName, petAge, petGender, clientUid, petAppointmentUids);
+        return Objects.hash(petName, petAge, petGender);
     }
 
     @Override
@@ -107,20 +87,11 @@ public class Pet {
                 .append(" Gender: ")
                 .append(getPetGender())
                 .append(" Pet Owner: ")
-                //TODO get client name and appointments dates from addressbook with referenced Uid
-                // any command object has a model object that allows to access all of addressbook data
-                .append(getPetClientUid().toString())
-                .append(" Appointment Date: ")
-                .append(getPetAppointmentUids().toString());
+                .append(" Appointment Date: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
 
-    /**
-     *  Returns the uid of the pet as a {@code PetUid}
-     */
-    public PetUid getPetUid() {
-        return uid;
-    }
+
 
 }

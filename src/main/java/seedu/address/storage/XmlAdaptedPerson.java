@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.appointment.UniqueAppointmentUidList;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -17,7 +16,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.Phone;
-import seedu.address.model.pet.UniquePetUidList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vettechnician.VetTechnician;
 
@@ -142,9 +140,9 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(PersonRole.MESSAGE_ROLE_CONSTRAINTS);
         }
         if (PersonRole.CLIENT.toString().equalsIgnoreCase(this.role)) {
-            convertedPerson = new Client(name, phone, email, address, tags, new UniquePetUidList());
+            convertedPerson = new Client(name, phone, email, address, tags);
         } else {
-            convertedPerson = new VetTechnician(name, phone, email, address, tags, new UniqueAppointmentUidList());
+            convertedPerson = new VetTechnician(name, phone, email, address, tags);
         }
 
         return convertedPerson;

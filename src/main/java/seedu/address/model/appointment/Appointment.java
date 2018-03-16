@@ -19,7 +19,6 @@ public class Appointment {
     private Client client; //dummy variable, class to be created
     private Pet pet; //dummy variable, class to be created
     private VetTechnician vetTech; //dummy variable, class to be created
-    private final AppointmentUid uid;
 
     /**
      * Every field must be present and not null.
@@ -28,7 +27,6 @@ public class Appointment {
         requireAllNonNull(date, time);
         this.date = date;
         this.time = time;
-        uid = new AppointmentUid();
     }
 
     public Date getDate() {
@@ -117,11 +115,5 @@ public class Appointment {
         return builder.toString();
     }
 
-    /**
-     * Returns the uid of the appointment as a {@code AppointmentUid}
-     */
-    public AppointmentUid getAppointmentUid() {
-        return uid;
-    }
 
 }
