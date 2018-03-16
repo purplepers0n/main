@@ -8,7 +8,7 @@ import seedu.address.model.pet.PetAge;
 import seedu.address.model.pet.PetGender;
 import seedu.address.model.pet.PetName;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleDataUtilPet;
 
 /**
  * Util class to help with building Pet objects.
@@ -28,7 +28,7 @@ public class PetBuilder {
         petName = new PetName(DEFAULT_PET_NAME);
         petAge = new PetAge(DEFAULT_PET_AGE);
         petGender = new PetGender(DEFAULT_PET_GENDER);
-        tags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
+        tags = SampleDataUtilPet.getTagSet(DEFAULT_TAGS);
     }
 
     /**
@@ -69,7 +69,7 @@ public class PetBuilder {
      * Sets the tag
      */
     public PetBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = SampleDataUtilPet.getTagSet(tags);
         return this;
     }
 }
