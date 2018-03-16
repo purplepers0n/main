@@ -32,7 +32,7 @@ public class AddPetCommandParser implements Parser<AddPetCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PET_NAME, PREFIX_PET_AGE, PREFIX_PET_GENDER, PREFIX_TAG);
 
-        if(!arePrefixesPresent(argMultimap, PREFIX_PET_NAME, PREFIX_PET_AGE,
+        if (!arePrefixesPresent(argMultimap, PREFIX_PET_NAME, PREFIX_PET_AGE,
                 PREFIX_PET_GENDER, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPetCommand.MESSAGE_USAGE));

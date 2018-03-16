@@ -72,4 +72,11 @@ public class PetBuilder {
         this.tags = SampleDataUtilPet.getTagSet(tags);
         return this;
     }
+
+    /**
+     * Builts the pet object
+     */
+    public Pet build() {
+        return new Pet(petName, petAge, petGender, tags);
+    }
 }
