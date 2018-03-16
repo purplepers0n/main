@@ -17,6 +17,8 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.pet.Pet;
+import seedu.address.model.pet.exceptions.DuplicatePetException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -87,6 +89,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addPet(Pet pet) throws DuplicatePetException {
+        addressBook.addPet(pet);
+        indicateAddressBookChanged();
+
     }
 
     //=========== Filtered Person List Accessors =============================================================
