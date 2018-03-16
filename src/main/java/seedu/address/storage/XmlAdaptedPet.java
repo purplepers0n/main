@@ -95,7 +95,8 @@ public class XmlAdaptedPet {
         final PetAge petAge = new PetAge(this.petAge);
 
         if (this.petGender == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PetGender.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PetGender.class.getSimpleName()));
         }
 
         if (!PetGender.isValidGender(this.petGender)) {
