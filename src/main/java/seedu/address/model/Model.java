@@ -10,7 +10,6 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
-import seedu.address.model.pet.exceptions.PetNotFoundException;
 
 /**
  * The API of the Model component.
