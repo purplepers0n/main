@@ -54,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
             Person person;
-            if (role == PersonRole.CLIENT) {
+            if (role == PersonRole.CLIENT_ROLE) {
                 person = new Client(name, phone, email, address, tagList);
             } else {
                 person = new VetTechnician(name, phone, email, address, tagList);

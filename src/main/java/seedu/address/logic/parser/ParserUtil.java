@@ -184,9 +184,7 @@ public class ParserUtil {
         if (!PersonRole.isValidPersonRole(trimmedRole)) {
             throw new IllegalValueException(PersonRole.MESSAGE_ROLE_CONSTRAINTS);
         }
-        return (PersonRole.CLIENT.toString().equalsIgnoreCase(role))
-               ? PersonRole.CLIENT
-               : PersonRole.TECHNICIAN;
+        return new PersonRole(trimmedRole);
     }
 
     /**

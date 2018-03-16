@@ -78,7 +78,7 @@ public class XmlAdaptedPerson {
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
-        if (PersonRole.isClient(source)) {
+        if (source.getRole().equals(PersonRole.CLIENT_ROLE)) {
             role = ROLE_CLIENT;
         } else {
             role = ROLE_TECHNICIAN;
@@ -139,12 +139,13 @@ public class XmlAdaptedPerson {
         if (!PersonRole.isValidPersonRole(this.role)) {
             throw new IllegalValueException(PersonRole.MESSAGE_ROLE_CONSTRAINTS);
         }
-        if (PersonRole.CLIENT.toString().equalsIgnoreCase(this.role)) {
+        final PersonRole role = new PersonRole(this.role);
+
+        if (role.equals(PersonRole.CLIENT_ROLE)) {
             convertedPerson = new Client(name, phone, email, address, tags);
         } else {
             convertedPerson = new VetTechnician(name, phone, email, address, tags);
         }
-
         return convertedPerson;
     }
 

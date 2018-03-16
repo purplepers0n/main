@@ -19,18 +19,20 @@ public abstract class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
+    private final PersonRole role;
 
     private final UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, PersonRole role, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, role, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.role = role;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
     }
@@ -100,11 +102,7 @@ public abstract class Person {
     }
 
     public PersonRole getRole() {
-        if (PersonRole.isClient(this)) {
-            return PersonRole.CLIENT;
-        } else {
-            return PersonRole.TECHNICIAN;
-        }
+        return role;
     }
 
 }
