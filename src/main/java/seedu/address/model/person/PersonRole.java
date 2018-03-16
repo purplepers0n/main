@@ -29,6 +29,11 @@ public class PersonRole {
 
     private final Role role;
 
+    /**
+     * Constructs a PersonRole
+     *
+     * @param role a valid role
+     */
     public PersonRole(Role role) {
         requireNonNull(role);
         checkArgument(isValidPersonRole(role), MESSAGE_ROLE_CONSTRAINTS);
@@ -40,6 +45,11 @@ public class PersonRole {
         }
     }
 
+    /**
+     * Constructs a PersonRole
+     *
+     * @param role a valid string representation of {@code PersonRole}
+     */
     public PersonRole(String role) {
         requireNonNull(role);
         checkArgument(isValidPersonRole(role), MESSAGE_ROLE_CONSTRAINTS);
@@ -52,7 +62,7 @@ public class PersonRole {
     }
 
     /**
-     * Returns if a given Role is a valid person role.
+     * Returns true if a given Role is a valid person role.
      */
     public static boolean isValidPersonRole(Role test) {
         if (test == null) {
@@ -63,7 +73,7 @@ public class PersonRole {
     }
 
     /**
-     * Returns if a given String is a valid person role.
+     * Returns true if a given String represents a valid person role.
      */
     public static boolean isValidPersonRole(String test) {
         if (test == null) {
@@ -74,14 +84,14 @@ public class PersonRole {
     }
 
     /**
-     * Returns string of PersonRole type.
+     * Returns the string representation of PersonRole.
      */
     public String toString() {
         requireNonNull(role);
         if (role.equals(Role.CLIENT)) {
-            return "client";
+            return CLIENT_STRING;
         } else {
-            return "technician";
+            return TECHNICIAN_STRING;
         }
     }
 
