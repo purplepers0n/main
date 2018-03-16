@@ -53,6 +53,10 @@ public abstract class Person {
         return address;
     }
 
+    public PersonRole getRole() {
+        return role;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -75,7 +79,8 @@ public abstract class Person {
         return otherPerson.getName().equals(this.getName())
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress());
+                && otherPerson.getAddress().equals(this.getAddress())
+                && otherPerson.getRole().equals(this.getRole());
     }
 
     @Override
@@ -99,10 +104,6 @@ public abstract class Person {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
-    }
-
-    public PersonRole getRole() {
-        return role;
     }
 
 }

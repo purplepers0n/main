@@ -19,7 +19,7 @@ public class Client extends Person {
 
 
     public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        super(name, phone, email, address, PersonRole.TECHNICIAN_ROLE, tags);
+        super(name, phone, email, address, PersonRole.CLIENT_ROLE, tags);
     }
 
 
@@ -37,7 +37,9 @@ public class Client extends Person {
         return otherClient.getName().equals(this.getName())
                 && otherClient.getPhone().equals(this.getPhone())
                 && otherClient.getEmail().equals(this.getEmail())
-                && otherClient.getAddress().equals(this.getAddress());
+                && otherClient.getAddress().equals(this.getAddress())
+                && otherClient.getRole().equals(this.getRole());
+
     }
 
 }

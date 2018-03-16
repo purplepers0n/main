@@ -114,7 +114,7 @@ public class EditCommand extends UndoableCommand {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        if (updatedRole == PersonRole.CLIENT_ROLE) {
+        if (updatedRole.equals(PersonRole.CLIENT_ROLE)) {
             return new Client(updatedName, updatedPhone, updatedEmail,
                     updatedAddress, updatedTags);
         } else {
@@ -253,6 +253,7 @@ public class EditCommand extends UndoableCommand {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
+                    && getRole().equals(e.getRole())
                     && getTags().equals(e.getTags());
         }
 

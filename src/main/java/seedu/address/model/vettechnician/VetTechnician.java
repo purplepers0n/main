@@ -37,11 +37,12 @@ public class VetTechnician extends Person {
             return false;
         }
 
-        VetTechnician otherPerson = (VetTechnician) other;
-        return otherPerson.getName().equals(this.getName())
-                && otherPerson.getPhone().equals(this.getPhone())
-                && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress());
+        VetTechnician otherTechnician = (VetTechnician) other;
+        return otherTechnician.getName().equals(this.getName())
+                && otherTechnician.getPhone().equals(this.getPhone())
+                && otherTechnician.getEmail().equals(this.getEmail())
+                && otherTechnician.getAddress().equals(this.getAddress())
+                && otherTechnician.getRole().equals(this.getRole());
     }
 
 
