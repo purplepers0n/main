@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.swing.text.html.Option;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
@@ -17,6 +19,9 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.Phone;
+import seedu.address.model.pet.PetAge;
+import seedu.address.model.pet.PetGender;
+import seedu.address.model.pet.PetName;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -243,5 +248,70 @@ public class ParserUtil {
     public static Optional<Time> parseTime(Optional<String> time) throws IllegalValueException {
         requireNonNull(time);
         return time.isPresent() ? Optional.of(parseTime(time.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String petName} into {@code PetName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code petName} is invalid.
+     */
+    public static PetName parsePetName(String petName) throws IllegalValueException {
+        requireNonNull(petName);
+        String trimmedPetName = petName.trim();
+        if (!PetName.isValidPetName(trimmedPetName)) {
+            throw new IllegalValueException(PetName.MESSAGE_PETNAME_CONSTRAINTS);
+        }
+        return new PetName(trimmedPetName);
+    }
+
+    /**
+     * Parses a {@code Optional<String> name} into an {@code Optional<PetName>}
+     */
+    public static Optional<PetName> parsePetName(Optional<String> petName) throws IllegalValueException {
+        requireNonNull(petName);
+        return petName.isPresent() ? Optional.of(parsePetName(petName.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses {@code String petAge} into {@code PetAge}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static PetAge parsePetAge(String petAge) throws IllegalValueException {
+        requireNonNull(petAge);
+        String trimmedPetAge = petAge.trim();
+        if (!PetAge.isValidPetAge(trimmedPetAge)) {
+            throw new IllegalValueException(PetAge.MESSAGE_PETAGE_CONSTRAINTS);
+        }
+        return new PetAge(trimmedPetAge);
+    }
+
+    /**
+     * Parses a {@code Optional<String> petAge} into an {@code Optional<PetAge>}
+     */
+    public static Optional<PetAge> parsePetAge(Optional<String> petAge) throws IllegalValueException {
+        requireNonNull(petAge);
+        return petAge.isPresent() ? Optional.of(parsePetAge(petAge.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses {@code String petGender} into {@code PetGender}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static PetGender parsePetGender(String petGender) throws IllegalValueException {
+        requireNonNull(petGender);
+        String trimmedPetGender = petGender.trim();
+        if (!PetGender.isValidGender(trimmedPetGender)) {
+            throw new IllegalValueException(PetGender.MESSAGE_PETGENDER_CONSTRAINTS);
+        }
+        return new PetGender(trimmedPetGender);
+    }
+
+    /**
+     * Parses a {@code Optional<String> petGender} into {@code PetGender}.
+     */
+    public static Optional<PetGender> parsePetGender(Optional<String> petGender) throws IllegalValueException {
+        requireNonNull(petGender);
+        return petGender.isPresent() ? Optional.of(parsePetGender(petGender.get())) : Optional.empty();
     }
 }
