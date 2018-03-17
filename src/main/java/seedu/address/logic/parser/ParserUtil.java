@@ -34,6 +34,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_TYPE = "Type is not 'client', 'pet' or 'vettech.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
 
     /**
@@ -309,5 +310,18 @@ public class ParserUtil {
     public static Optional<PetGender> parsePetGender(Optional<String> petGender) throws IllegalValueException {
         requireNonNull(petGender);
         return petGender.isPresent() ? Optional.of(parsePetGender(petGender.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses {@code valueType} into a {@code String} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws IllegalValueException if the specified type is invalid (not 'client', 'pet' or 'vettech').
+     */
+    public static String parseType(String valueType) throws IllegalValueException {
+        String trimmedValue = valueType.trim();
+        if (!trimmedValue.matches("pet") && !trimmedValue.matches("client") && !trimmedValue.matches("vettech")) {
+            throw new IllegalValueException(MESSAGE_INVALID_TYPE);
+        }
+        return trimmedValue;
     }
 }

@@ -127,6 +127,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateFilteredPetList(Predicate<Pet> predicate) {
+        requireNonNull(predicate);
+        filteredPet.setPredicate(predicate);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -143,5 +149,4 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons);
     }
-
 }
