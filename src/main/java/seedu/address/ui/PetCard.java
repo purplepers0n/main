@@ -47,9 +47,9 @@ public class PetCard extends UiPart<Region> {
         this.pet = pet;
         id.setText(displayedIndex + ". ");
         name.setText(pet.getPetName().fullPetName);
-        gender.setText(pet.getPetGender().fullGender);
+        gender.setText("Gender: " + pet.getPetGender().fullGender);
         age.setText(pet.getPetAge().value + " years old");
-        client.setText("Owner: " + "");
+        client.setText("Owner: ");
         initTags(pet);
     }
 
