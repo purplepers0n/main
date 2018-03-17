@@ -107,4 +107,11 @@ public abstract class Person {
         }
     }
 
+    /**
+     *  Returns true if person is a client
+     */
+    public boolean isClient(){
+        return PersonRole.isClient(this);
+    }
+
 }
