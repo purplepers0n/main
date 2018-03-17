@@ -122,15 +122,15 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.updatePerson(target, editedPerson);
         try {
             if (target.isClient() && !editedPerson.isClient()) {
-                addressBook.removeClient((Client) target);
-                addressBook.addVetTechnician((VetTechnician) editedPerson);
+                deleteClient((Client) target);
+                addVetTechnician((VetTechnician) editedPerson);
             } else if (!target.isClient() && editedPerson.isClient()) {
-                addressBook.removeVetTechnician((VetTechnician) target);
-                addressBook.addClient((Client) editedPerson);
+                deleteVetTechnician((VetTechnician) target);
+                addClient((Client) editedPerson);
             } else if (target.isClient()) {
-                addressBook.updateClient((Client) target, (Client) editedPerson);
+                updateClient((Client) target, (Client) editedPerson);
             } else if (!target.isClient()) {
-                addressBook.updateVetTechnician((VetTechnician) target, (VetTechnician) editedPerson);
+                updateVetTechnician((VetTechnician) target, (VetTechnician) editedPerson);
             }
         } catch (DuplicateVetTechnicianException | DuplicateClientException e) {
             throw new DuplicatePersonException();
@@ -142,21 +142,28 @@ public class ModelManager extends ComponentManager implements Model {
 
     //Client
 
-    @Override
-    public synchronized void deleteClient(Client target) throws ClientNotFoundException {
+    /**
+     *  Deletes the given Client
+     */
+    private synchronized void deleteClient(Client target) throws ClientNotFoundException {
         addressBook.removeClient(target);
         indicateAddressBookChanged();
     }
 
-    @Override
-    public synchronized void addClient(Client person) throws DuplicateClientException {
+
+    /**
+     *  Adds the given Client
+     */
+    private synchronized void addClient(Client person) throws DuplicateClientException {
         addressBook.addClient(person);
         updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
         indicateAddressBookChanged();
     }
 
-    @Override
-    public void updateClient(Client target, Client editedClient)
+    /**
+     *  Update target Client with a Client
+     */
+    private void updateClient(Client target, Client editedClient)
             throws DuplicateClientException, ClientNotFoundException {
         requireAllNonNull(target, editedClient);
 
@@ -166,21 +173,27 @@ public class ModelManager extends ComponentManager implements Model {
 
     // VetTechnician
 
-    @Override
-    public synchronized void deleteVetTechnician(VetTechnician target) throws VetTechnicianNotFoundException {
+    /**
+     *  Deletes the given Vet Technician
+     */
+    private synchronized void deleteVetTechnician(VetTechnician target) throws VetTechnicianNotFoundException {
         addressBook.removeVetTechnician(target);
         indicateAddressBookChanged();
     }
 
-    @Override
-    public synchronized void addVetTechnician(VetTechnician person) throws DuplicateVetTechnicianException {
+    /**
+     *  Adds the given Vet Technician
+     */
+    private synchronized void addVetTechnician(VetTechnician person) throws DuplicateVetTechnicianException {
         addressBook.addVetTechnician(person);
         updateFilteredVetTechnicianList(PREDICATE_SHOW_ALL_TECHNICIAN);
         indicateAddressBookChanged();
     }
 
-    @Override
-    public void updateVetTechnician(VetTechnician target, VetTechnician editedVetTechnician)
+    /**
+     *  Update Vet Technician with a Vet Technician
+     */
+    private void updateVetTechnician(VetTechnician target, VetTechnician editedVetTechnician)
             throws DuplicateVetTechnicianException, VetTechnicianNotFoundException {
         requireAllNonNull(target, editedVetTechnician);
 

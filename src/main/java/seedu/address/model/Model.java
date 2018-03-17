@@ -6,16 +6,13 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.client.Client;
-import seedu.address.model.client.exceptions.ClientNotFoundException;
-import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.vettechnician.VetTechnician;
-import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
-import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
+
 
 
 /**
@@ -58,25 +55,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-
-    //Client API
-
-    /** Deletes the given client. */
-    void deleteClient(Client target) throws ClientNotFoundException;
-
-    /** Adds the given client */
-    void addClient(Client client) throws DuplicateClientException;
-
-    /**
-     * Replaces the given client {@code target} with {@code editedClient}.
-     *
-     * @throws DuplicateClientException if updating the client's details causes the client to be equivalent to
-     *      another existing client in the list.
-     * @throws ClientNotFoundException if {@code target} could not be found in the list.
-     */
-    void updateClient(Client target, Client editedClient)
-            throws DuplicateClientException, ClientNotFoundException;
-
     /** Returns an unmodifiable view of the filtered client list */
     ObservableList<Client> getFilteredClientList();
 
@@ -86,30 +64,11 @@ public interface Model {
      */
     void updateFilteredClientList(Predicate<Client> predicate);
 
-    //VetTechnician API
-
-    /** Deletes the given vetTechnician. */
-    void deleteVetTechnician(VetTechnician target) throws VetTechnicianNotFoundException;
-
-    /** Adds the given vetTechnician */
-    void addVetTechnician(VetTechnician vetTechnician) throws DuplicateVetTechnicianException;
-
-    /**
-     * Replaces the given vetTechnician {@code target} with {@code editedVetTechnician}.
-     *
-     * @throws DuplicateVetTechnicianException if updating
-     * the vetTechnician's details causes the vetTechnician to be equivalent to
-     * another existing vetTechnician in the list.
-     * @throws VetTechnicianNotFoundException if {@code target} could not be found in the list.
-     */
-    void updateVetTechnician(VetTechnician target, VetTechnician editedVetTechnician)
-            throws DuplicateVetTechnicianException, VetTechnicianNotFoundException;
-
     /** Returns an unmodifiable view of the filtered vetTechnician list */
     ObservableList<VetTechnician> getFilteredVetTechnicianList();
 
     /**
-     * Updates the filter of the filtered vetTechnician list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered vet technician list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate);

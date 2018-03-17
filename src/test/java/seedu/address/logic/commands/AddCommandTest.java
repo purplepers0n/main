@@ -24,16 +24,12 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.client.Client;
-import seedu.address.model.client.exceptions.ClientNotFoundException;
-import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.vettechnician.VetTechnician;
-import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
-import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -145,22 +141,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteClient(Client target) throws ClientNotFoundException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void addClient(Client client) throws DuplicateClientException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void updateClient(Client target, Client editedClient)
-                throws DuplicateClientException, ClientNotFoundException {
-            fail("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Client> getFilteredClientList() {
             fail("This method should not be called.");
             return null;
@@ -168,22 +148,6 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredClientList(Predicate<Client> predicate) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void deleteVetTechnician(VetTechnician target) throws VetTechnicianNotFoundException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void addVetTechnician(VetTechnician vetTechnician) throws DuplicateVetTechnicianException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void updateVetTechnician(VetTechnician target, VetTechnician editedVetTechnician)
-                throws DuplicateVetTechnicianException, VetTechnicianNotFoundException {
             fail("This method should not be called.");
         }
 
