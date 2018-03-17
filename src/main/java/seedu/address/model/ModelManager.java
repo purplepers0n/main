@@ -120,6 +120,23 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.updatePerson(target, editedPerson);
+        try {
+            if (target.isClient() && !editedPerson.isClient()) {
+                addressBook.removeClient((Client) target);
+                addressBook.addVetTechnician((VetTechnician) editedPerson);
+            } else if (!target.isClient() && editedPerson.isClient()) {
+                addressBook.removeVetTechnician((VetTechnician) target);
+                addressBook.addClient((Client) editedPerson);
+            } else if (target.isClient()) {
+                addressBook.updateClient((Client) target, (Client) editedPerson);
+            } else if (!target.isClient()) {
+                addressBook.updateVetTechnician((VetTechnician) target, (VetTechnician) editedPerson);
+            }
+        } catch (DuplicateVetTechnicianException | DuplicateClientException e) {
+            throw new DuplicatePersonException();
+        } catch (ClientNotFoundException | VetTechnicianNotFoundException e) {
+            throw new PersonNotFoundException();
+        }
         indicateAddressBookChanged();
     }
 
