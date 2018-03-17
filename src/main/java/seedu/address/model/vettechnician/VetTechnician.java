@@ -6,6 +6,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -22,7 +23,7 @@ public class VetTechnician extends Person {
      */
     public VetTechnician(Name name, Phone phone, Email email,
                          Address address, Set<Tag> tags) {
-        super(name, phone, email, address, tags);
+        super(name, phone, email, address, PersonRole.TECHNICIAN_ROLE, tags);
 
     }
 
@@ -36,11 +37,12 @@ public class VetTechnician extends Person {
             return false;
         }
 
-        VetTechnician otherPerson = (VetTechnician) other;
-        return otherPerson.getName().equals(this.getName())
-                && otherPerson.getPhone().equals(this.getPhone())
-                && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress());
+        VetTechnician otherTechnician = (VetTechnician) other;
+        return otherTechnician.getName().equals(this.getName())
+                && otherTechnician.getPhone().equals(this.getPhone())
+                && otherTechnician.getEmail().equals(this.getEmail())
+                && otherTechnician.getAddress().equals(this.getAddress())
+                && otherTechnician.getRole().equals(this.getRole());
     }
 
 

@@ -282,7 +282,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
 
-        if (PersonRole.isClient(person)) {
+        if (person.getRole().equals(PersonRole.CLIENT_ROLE)) {
             syncedPerson = new Client(person.getName(), person.getPhone(), person.getEmail(),
                     person.getAddress(), correctTagReferences);
         } else {
