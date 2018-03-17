@@ -21,6 +21,8 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedPerson> persons;
     @XmlElement
     private List<XmlAdaptedTag> tags;
+    @XmlElement
+    private List<XmlAdaptedPet> pets;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -29,6 +31,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
         tags = new ArrayList<>();
+        pets = new ArrayList<>();
     }
 
     /**
@@ -38,6 +41,7 @@ public class XmlSerializableAddressBook {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
+        pets.addAll(src.getPetList().stream().map(XmlAdaptedPet::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +58,9 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedPerson p : persons) {
             addressBook.addPerson(p.toModelType());
         }
+        for (XmlAdaptedPet pet : pets) {
+            addressBook.addPet(pet.toModelType());
+        }
         return addressBook;
     }
 
@@ -68,6 +75,8 @@ public class XmlSerializableAddressBook {
         }
 
         XmlSerializableAddressBook otherAb = (XmlSerializableAddressBook) other;
-        return persons.equals(otherAb.persons) && tags.equals(otherAb.tags);
+        return persons.equals(otherAb.persons)
+                && tags.equals(otherAb.tags)
+                && pets.equals(otherAb.pets);
     }
 }

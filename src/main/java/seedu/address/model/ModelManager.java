@@ -20,6 +20,8 @@ import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.pet.Pet;
+import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
 import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
@@ -146,6 +148,14 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedVetTechnician);
 
         addressBook.updateVetTechnician(target, editedVetTechnician);
+        indicateAddressBookChanged();
+    }
+
+    // Pet
+
+    @Override
+    public synchronized void addPet(Pet pet) throws DuplicatePetException {
+        addressBook.addPet(pet);
         indicateAddressBookChanged();
     }
 

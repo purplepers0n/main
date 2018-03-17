@@ -11,9 +11,12 @@ import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.pet.Pet;
+import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
 import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
+
 
 /**
  * The API of the Model component.
@@ -113,5 +116,6 @@ public interface Model {
 
     /** Schedule the given appointment according to date and time */
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
-
+    /** Adds the given pet */
+    void addPet(Pet pet) throws DuplicatePetException;
 }

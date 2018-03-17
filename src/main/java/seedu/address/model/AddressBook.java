@@ -23,6 +23,9 @@ import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.pet.Pet;
+import seedu.address.model.pet.UniquePetList;
+import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.vettechnician.UniqueVetTechnicianList;
@@ -40,6 +43,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueTagList tags;
     private final UniqueAppointmentList appointments;
+    private final UniquePetList pets;
 
     private final UniqueClientList clients;
     private final UniqueVetTechnicianList technicians;
@@ -60,6 +64,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         technicians = new UniqueVetTechnicianList();
 
         appointments = new UniqueAppointmentList();
+        pets = new UniquePetList();
     }
 
     public AddressBook() {}
@@ -94,6 +99,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.appointments.setAppointments(appointments);
     }
 
+    public void setPets(List<Pet> pets) throws DuplicatePetException {
+        this.pets.setPets(pets);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -113,7 +122,6 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .map(this::syncWithMasterTagList)
                 .map(person -> (VetTechnician) person)
                 .collect(Collectors.toList());
-        List< Appointment > syncedAppointmentList = newData.getAppointmentList();
         try {
             setPersons(syncedPersonList);
             setClients(syncedClientList);
@@ -123,10 +131,20 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
 
+        List< Appointment > syncedAppointmentList = newData.getAppointmentList();
         try {
             setAppointments(syncedAppointmentList);
         } catch (DuplicateAppointmentException e) {
-            throw new AssertionError("AddressBooks should not have duplicate appointments");
+            throw new AssertionError("Program should not have duplicate appointments");
+        }
+
+        List<Pet> syncedPetList = newData.getPetList().stream()
+                .map(this::syncWithMasterPetTagList)
+                .collect(Collectors.toList());
+        try {
+            setPets(syncedPetList);
+        } catch (DuplicatePetException e) {
+            throw new AssertionError("Program should not have duplicate pets");
         }
     }
 
@@ -329,6 +347,43 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments.add(a);
     }
 
+    //// pet-level operations
+
+    /**
+     * Adds a pet to the program.
+     * Also checks the new pet's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the pet to point to those in {@link #tags}.
+     *
+     * @throws DuplicatePetException if an equivalent pet already exists.
+     */
+    public void addPet(Pet p) throws DuplicatePetException {
+        Pet pet = syncWithMasterPetTagList(p);
+        pets.add(pet);
+    }
+
+    /**
+     *  Updates the master tag list to include tags in {@code person} that are not in the list.
+     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
+     *  list.
+     */
+    private Pet syncWithMasterPetTagList(Pet pet) {
+        Pet syncedPet;
+
+        final UniqueTagList petTags = new UniqueTagList(pet.getTags());
+        tags.mergeFrom(petTags);
+
+        // Create map with values = tag object references in the master list
+        // used for checking person tag references
+        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+        tags.forEach(tag -> masterTagObjects.put(tag, tag));
+
+        // Rebuild the list of person tags to point to the relevant tags in the master tag list.
+        final Set<Tag> correctTagReferences = new HashSet<>();
+        petTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
+
+        syncedPet = new Pet(pet.getPetName(), pet.getPetAge(), pet.getPetGender(), correctTagReferences);
+        return syncedPet;
+    }
     //// util methods
 
     @Override
@@ -363,17 +418,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Pet> getPetList() {
+        return pets.asObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
                 && this.tags.equalsOrderInsensitive(((AddressBook) other).tags))
-                && this.appointments.equals(((AddressBook) other).appointments);
+                && this.appointments.equals(((AddressBook) other).appointments)
+                && this.pets.equals(((AddressBook) other).pets);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(persons, tags, appointments, pets);
     }
 }
