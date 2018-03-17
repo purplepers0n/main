@@ -14,7 +14,8 @@ public class VetTechnicianCard extends UiPart<Region> {
 
     private static final String FXML = "VetTechnicianListCard.fxml";
     private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
-        "pink", "navy", "teal", "purple", "peach", "lightblue"};
+            "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
+            "green2", "white", "wine", "fuchsia", "sea"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
