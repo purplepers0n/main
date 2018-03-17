@@ -78,12 +78,32 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
+
+        try {
+            if (target.isClient()) {
+                deleteClient((Client) target);
+            } else {
+                deleteVetTechnician((VetTechnician) target);
+            }
+        } catch (ClientNotFoundException | VetTechnicianNotFoundException e) {
+            throw new PersonNotFoundException();
+        }
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addPerson(Person person) throws DuplicatePersonException {
         addressBook.addPerson(person);
+
+        try {
+            if (person.isClient()) {
+                addClient((Client) person);
+            } else {
+                addVetTechnician((VetTechnician) person);
+            }
+        } catch (DuplicateClientException | DuplicateVetTechnicianException e) {
+            throw new DuplicatePersonException();
+        }
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
