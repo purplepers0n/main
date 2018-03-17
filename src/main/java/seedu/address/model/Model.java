@@ -53,4 +53,7 @@ public interface Model {
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
     /** Adds the given pet */
     void addPet(Pet pet) throws DuplicatePetException;
+
+    /** Returns an unmodifiable view of the filtered pet list */
+    ObservableList<Pet> getFilteredPetList();
 }
