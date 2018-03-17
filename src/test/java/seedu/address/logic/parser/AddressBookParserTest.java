@@ -56,12 +56,15 @@ public class AddressBookParserTest {
         assertEquals(new AddCommand(person), command);
     }
 
+<<<<<<< HEAD
 //    @Test
 //    public void parseCommand_addPet() throws Exception {
 //        Pet pet = new PetBuilder().build();
 //        AddPetCommand command = (AddPetCommand) parser.parseCommand(PetUtil.getAddPetCommand(pet));
 //        assertEquals(new AddPetCommand(pet), command);
 //    }
+=======
+>>>>>>> 3b21fc77b09d0f5d0b7538c7490bd5fd8b8611e7
 
     @Test
     public void parseCommand_schedule() throws Exception {
