@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddPetCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -34,14 +33,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.pet.Pet;
 import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.AppointmentUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
-import seedu.address.testutil.PetBuilder;
-import seedu.address.testutil.PetUtil;
 
 public class AddressBookParserTest {
     @Rule
@@ -56,15 +52,6 @@ public class AddressBookParserTest {
         assertEquals(new AddCommand(person), command);
     }
 
-<<<<<<< HEAD
-//    @Test
-//    public void parseCommand_addPet() throws Exception {
-//        Pet pet = new PetBuilder().build();
-//        AddPetCommand command = (AddPetCommand) parser.parseCommand(PetUtil.getAddPetCommand(pet));
-//        assertEquals(new AddPetCommand(pet), command);
-//    }
-=======
->>>>>>> 3b21fc77b09d0f5d0b7538c7490bd5fd8b8611e7
 
     @Test
     public void parseCommand_schedule() throws Exception {
