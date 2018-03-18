@@ -4,7 +4,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PET;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.ChangeListTabEvent;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Lists all persons in the address book to the user.
@@ -28,7 +30,7 @@ public class ListCommand extends Command {
 
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws CommandException {
 
         switch (targetType) {
         case "client":
@@ -47,7 +49,7 @@ public class ListCommand extends Command {
             break;
 
         default:
-            break;
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetType));
