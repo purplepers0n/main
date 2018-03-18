@@ -109,7 +109,7 @@ The user chooses to re-order the parameter of the command. +
 
 Command format: `addp pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG...` +
 
-The `addp` command adds a pet to the program. 
+The `addp` command adds a pet to the program.
 The command expects these parameters when adding a pet to a client: +
 
 [horizontal]
@@ -159,7 +159,7 @@ Command format: `list pet` +
 The `list pet` command will display all pets that are stored in the program.
 It automatically switches to the pet view tab so you can view all your pets at a glance.
 
-=== Listing all vet technicians: `list vettech` 
+=== Listing all vet technicians: `list vettech`
 
 Command format: `list vettech` +
 
@@ -228,7 +228,7 @@ The command expects this parameter when called: +
 Here is an example of using the command `deletep`: +
 
 * `deletep 1` +
-Suppose there is only one pet in the program called Garfield, Garfield will be entirely removed from the program. 
+Suppose there is only one pet in the program called Garfield, Garfield will be entirely removed from the program.
 
 === Removing a pet from a client: `rmpetfrom` `coming v2.0`
 
