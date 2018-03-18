@@ -23,12 +23,14 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
+import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.testutil.AppointmentBuilder;
 
 public class ScheduleCommandTest {
@@ -146,6 +148,26 @@ public class ScheduleCommandTest {
         }
 
         @Override
+        public ObservableList<Client> getFilteredClientList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredClientList(Predicate<Client> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<VetTechnician> getFilteredVetTechnicianList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate) {
+            fail("This method should not be called.");
+        }
+
         public void updateFilteredPetList(Predicate<Pet> predicate) {
             fail("This method should not be called.");
         }

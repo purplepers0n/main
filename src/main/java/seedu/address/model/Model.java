@@ -5,12 +5,15 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
+import seedu.address.model.vettechnician.VetTechnician;
+
 
 /**
  * The API of the Model component.
@@ -18,6 +21,8 @@ import seedu.address.model.pet.exceptions.PetNotFoundException;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Client> PREDICATE_SHOW_ALL_CLIENTS = unused -> true;
+    Predicate<VetTechnician> PREDICATE_SHOW_ALL_TECHNICIAN = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Pet> PREDICATE_SHOW_ALL_PET = unused -> true;
@@ -52,6 +57,24 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered client list */
+    ObservableList<Client> getFilteredClientList();
+
+    /**
+     * Updates the filter of the filtered client list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredClientList(Predicate<Client> predicate);
+
+    /** Returns an unmodifiable view of the filtered vetTechnician list */
+    ObservableList<VetTechnician> getFilteredVetTechnicianList();
+
+    /**
+     * Updates the filter of the filtered vet technician list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate);
 
     /** Schedule the given appointment according to date and time */
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;

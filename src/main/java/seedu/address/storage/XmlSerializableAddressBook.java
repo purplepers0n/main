@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.client.Client;
+import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -55,9 +57,16 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedTag t : tags) {
             addressBook.addTag(t.toModelType());
         }
+
         for (XmlAdaptedPerson p : persons) {
             addressBook.addPerson(p.toModelType());
+            if (p.toModelType().isClient()) {
+                addressBook.addClient((Client) p.toModelType());
+            } else {
+                addressBook.addVetTechnician((VetTechnician) p.toModelType());
+            }
         }
+
         for (XmlAdaptedPet pet : pets) {
             addressBook.addPet(pet.toModelType());
         }

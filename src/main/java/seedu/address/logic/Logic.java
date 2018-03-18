@@ -4,8 +4,10 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.pet.Pet;
+import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * API of the Logic component
@@ -22,6 +24,12 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of clients */
+    ObservableList<Client> getFilteredClientList();
+
+    /** Returns an unmodifiable view of the filtered list of vet technician */
+    ObservableList<VetTechnician> getFilteredVetTechnicianList();
 
     /** Returns an unmodifiable view of the filtered list of pets */
     ObservableList<Pet> getFilteredPetList();

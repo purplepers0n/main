@@ -106,4 +106,12 @@ public abstract class Person {
         return builder.toString();
     }
 
+    /**
+     *  Returns true if person is a client
+     */
+    public boolean isClient() {
+        return role.equals(PersonRole.CLIENT_ROLE);
+    }
+
+
 }

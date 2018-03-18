@@ -17,9 +17,11 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vettechnician.VetTechnician;
 
 public class AddressBookTest {
 
@@ -65,6 +67,18 @@ public class AddressBookTest {
     }
 
     @Test
+    public void getClientList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getClientList().remove(0);
+    }
+
+    @Test
+    public void getVetTechnicianList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getVetTechnicianList().remove(0);
+    }
+
+    @Test
     public void getTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getTagList().remove(0);
@@ -75,6 +89,9 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Client> clients = FXCollections.observableArrayList();
+        private final ObservableList<VetTechnician> technicians = FXCollections.observableArrayList();
+
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<Pet> pets = FXCollections.observableArrayList();
@@ -89,6 +106,16 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Client> getClientList() {
+            return clients;
+        }
+
+        @Override
+        public ObservableList<VetTechnician> getVetTechnicianList() {
+            return technicians;
         }
 
         @Override
