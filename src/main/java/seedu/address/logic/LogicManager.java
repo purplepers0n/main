@@ -11,8 +11,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.pet.Pet;
+import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.ui.VetTechnicianCard;
 
 /**
  * The main LogicManager of the app.
@@ -49,6 +52,16 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Client> getFilteredClientList() {
+        return model.getFilteredClientList();
+    }
+
+    @Override
+    public ObservableList<VetTechnician> getFilteredVetTechnicianList() {
+        return model.getFilteredVetTechnicianList();
     }
 
     @Override
