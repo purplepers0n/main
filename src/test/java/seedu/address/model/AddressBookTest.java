@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.fxml.FXML;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
