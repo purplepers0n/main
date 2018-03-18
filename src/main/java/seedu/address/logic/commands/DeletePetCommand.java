@@ -43,7 +43,7 @@ public class DeletePetCommand extends UndoableCommand {
 
     @Override
     public boolean equals(Object other) {
-        return other == this 
+        return other == this
                 || (other instanceof DeletePetCommand
                 && this.targetIndex.equals(((DeletePetCommand) other).targetIndex)
                 && Objects.equals(this.petToDelete, ((DeletePetCommand) other).petToDelete));
