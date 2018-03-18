@@ -146,35 +146,39 @@ Here are some valid examples on using the `addapptto` command: +
 * `addapptto n/Alice Peterson pn/Garfield date/01.02.2018 time/1430 vettech/Bob cmt/Sterilize the cat` +
 The user chooses to add an appointment to Alice Peterson's pet called Garfield on 01.02.2018 at 1430HRS. Bob is the vet tech in-charge of this appointment, which is to sterilize Garfield.
 
-=== Listing all clients: `listc`
+=== Listing all clients: `list client`
 
-Command format: `listc` +
+Command format: `list client` +
 
-The `listc` command will display all clients that are stored in the program. It automatically switches to the client view tab so you can view all your clients at a glance.
+The `list client` command will display all clients that are stored in the program.
+It automatically switches to the client view tab so you can view all your clients at a glance.
 
-=== Listing all pets: `listp`
+=== Listing all pets: `list pet`
 
-Command format: `listp` +
+Command format: `list pet` +
 
-The `listp` command will display all pets that are stored in the program. It automatically switches to the pet view tab so you can view all your pets at a glance.
+The `list pet` command will display all pets that are stored in the program.
+It automatically switches to the pet view tab so you can view all your pets at a glance.
 
-=== Listing all appointments: `listappt`
+=== Listing all vet technicians: `list vettech`
 
-Command format: `listappt` +
+Command format: `list vettech` +
 
-The `listappt` command will display all appointments that are pending for the user. The list sorts upcoming appointments by date and then by time.
+The `list vettech` command will display all vet technicians that are stored in the program.
+It automatically switches to the vet technician tab so that you can view them at a glance.
 
-=== Listing all vet technicians: `listv`
+=== Listing all appointments: `list appt`
 
-Command format: `listv` +
+Command format: `list appt` +
 
-The `listv` command will display all vet technicians in the program. It automatically switches to the vet technician tab upon calling the command.
+The `list appt` command will display all appointments that are pending for the user.
+The list sorts upcoming appointments by date and then by time.
 
 === Listing all information: `listall`
 
 Command format: `listall INDEX` +
 
-The `listall` command will display all clients, pets and appointments that are tagged to them.
+The `listall` command will display all pets and appointments that are tagged to a client.
 The command expects this parameter when called: +
 
 [horizontal]
@@ -430,10 +434,10 @@ Exiting the program in the middle of a command will save the state. So there's n
 |add |`add r/ROLE n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]…` |Adds a person into the program.
 |addpetto |`addpetto n/CLIENT_NAME pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG…​` |Adds a pet to a cient.
 |addapptto |`addapptto n/CLIENT_NAME pn/PET_NAME date/DATE (DD.MM.YYYY) time/TIME (HHMM) vettech/VET_TECHNICIAN_NAME cmt/COMMENTS` |Adds an appointment to a pet.
-|listc |`listc` |Lists all clients.
-|listp |`listp` |Lists all pets.
-|listappt |`listappt` |Lists all appointments.
-|listv |`listv` |Lists all vet technicians.
+|list client |`list client` |Lists all clients.
+|list pet |`list pet` |Lists all pets.
+|list vettech |`list vettech` |Lists all vet technicians.
+|list appt |`list appt` |Lists all appointments.
 |listall |`listall INDEX` |Lists all details for a particular client.
 |sort |`sort` |Sorts the client list alphabetically.
 |sortc |`sortc` |Sorts the client list chronologically.

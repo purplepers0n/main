@@ -136,6 +136,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Pet> getFilteredPetList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             fail("This method should not be called.");
         }
@@ -161,6 +167,11 @@ public class AddCommandTest {
             fail("This method should not be called.");
         }
 
+        public void updateFilteredPetList(Predicate<Pet> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
             fail("This method should not be called.");
         }

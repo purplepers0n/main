@@ -24,6 +24,9 @@ public interface Model {
     Predicate<Client> PREDICATE_SHOW_ALL_CLIENTS = unused -> true;
     Predicate<VetTechnician> PREDICATE_SHOW_ALL_TECHNICIAN = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Pet> PREDICATE_SHOW_ALL_PET = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
@@ -77,4 +80,13 @@ public interface Model {
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
     /** Adds the given pet */
     void addPet(Pet pet) throws DuplicatePetException;
+
+    /** Returns an unmodifiable view of the filtered pet list */
+    ObservableList<Pet> getFilteredPetList();
+
+    /**
+     * Updates the filter of the filtered pet list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPetList(Predicate<Pet> predicate);
 }

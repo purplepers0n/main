@@ -136,6 +136,12 @@ public class ScheduleCommandTest {
         }
 
         @Override
+        public ObservableList<Pet> getFilteredPetList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             fail("This method should not be called.");
         }
@@ -158,6 +164,10 @@ public class ScheduleCommandTest {
 
         @Override
         public void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate) {
+            fail("This method should not be called.");
+        }
+
+        public void updateFilteredPetList(Predicate<Pet> predicate) {
             fail("This method should not be called.");
         }
 

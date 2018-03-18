@@ -37,6 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Client> filteredClients;
     private final FilteredList<VetTechnician> filteredVetTechnicians;
+    private final FilteredList<Pet> filteredPet;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -51,6 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredClients = new FilteredList<>(this.addressBook.getClientList());
         filteredVetTechnicians = new FilteredList<>(this.addressBook.getVetTechnicianList());
+        filteredPet = new FilteredList<>((this.addressBook.getPetList()));
     }
 
     public ModelManager() {
@@ -220,6 +222,15 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Pet} backed by the internal list of
+     * {@code addressBook}
+     */
+    @Override
+    public ObservableList<Pet> getFilteredPetList() {
+        return FXCollections.unmodifiableObservableList(filteredPet);
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
@@ -261,6 +272,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateFilteredPetList(Predicate<Pet> predicate) {
+        requireNonNull(predicate);
+        filteredPet.setPredicate(predicate);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -279,5 +296,4 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredClients.equals(other.filteredClients)
                 && filteredVetTechnicians.equals(other.filteredVetTechnicians);
     }
-
 }
