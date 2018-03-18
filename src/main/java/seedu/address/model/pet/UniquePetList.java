@@ -17,7 +17,6 @@ import seedu.address.model.pet.exceptions.PetNotFoundException;
  * Supports a minimal set of list operations.
  *
  * @see Pet#equals(Object)
- * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniquePetList implements Iterable<Pet> {
 
