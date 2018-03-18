@@ -14,7 +14,8 @@ public class PetCard extends UiPart<Region> {
 
     private static final String FXML = "PetListCard.fxml";
     private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
-        "pink", "navy", "teal", "purple", "peach", "lightblue"};
+        "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
+        "green2", "white", "wine", "fuchsia", "sea"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -47,9 +48,9 @@ public class PetCard extends UiPart<Region> {
         this.pet = pet;
         id.setText(displayedIndex + ". ");
         name.setText(pet.getPetName().fullPetName);
-        gender.setText(pet.getPetGender().fullGender);
+        gender.setText("Gender: " + pet.getPetGender().fullGender);
         age.setText(pet.getPetAge().value + " years old");
-        client.setText("Owner: " + "");
+        client.setText("Owner: ");
         initTags(pet);
     }
 

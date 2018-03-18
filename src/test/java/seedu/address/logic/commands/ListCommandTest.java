@@ -19,6 +19,8 @@ import seedu.address.model.UserPrefs;
  */
 public class ListCommandTest {
 
+    private static final String LIST_EXPECTED_MESSAGE_SUCCESS = "Listed all clients";
+
     private Model model;
     private Model expectedModel;
     private ListCommand listCommand;
@@ -28,18 +30,18 @@ public class ListCommandTest {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
-        listCommand = new ListCommand();
+        listCommand = new ListCommand("client");
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(listCommand, model, LIST_EXPECTED_MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(listCommand, model, LIST_EXPECTED_MESSAGE_SUCCESS, expectedModel);
     }
 }

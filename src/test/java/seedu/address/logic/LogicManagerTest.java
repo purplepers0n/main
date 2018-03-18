@@ -19,6 +19,9 @@ import seedu.address.model.UserPrefs;
 
 
 public class LogicManagerTest {
+
+    private static final String LIST_EXPECTED_MESSAGE_SUCCESS = "Listed all clients";
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -41,8 +44,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListCommand.COMMAND_WORD + " client";
+        assertCommandSuccess(listCommand, LIST_EXPECTED_MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
     }
 

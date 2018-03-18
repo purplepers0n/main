@@ -420,3 +420,33 @@
      -fx-text-fill: #10334C;
      -fx-background-color: #8EC8F2;
 }
+
+#tags .darkpurple {
+     -fx-text-fill: #E2D3DD;
+     -fx-background-color: #2B061E;
+}
+
+#tags .green2 {
+     -fx-text-fill: #DEF7E8;
+     -fx-background-color: #23CE6B;
+}
+
+#tags .white {
+     -fx-text-fill: #222223;
+     -fx-background-color: #F6F8FF;
+}
+
+#tags .wine {
+     -fx-text-fill: #DDBABB;
+     -fx-background-color: #400406;
+}
+
+#tags .wine {
+     -fx-text-fill: #440E3B;
+     -fx-background-color: #C45AB3;
+}
+
+#tags .sea {
+     -fx-text-fill: #CDF2F4;
+     -fx-background-color: #105A5E;
+}
