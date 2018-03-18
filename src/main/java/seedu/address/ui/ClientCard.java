@@ -14,8 +14,8 @@ public class ClientCard extends UiPart<Region> {
 
     private static final String FXML = "ClientListCard.fxml";
     private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
-            "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
-            "green2", "white", "wine", "fuchsia", "sea"};
+        "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
+        "green2", "white", "wine", "fuchsia", "sea"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

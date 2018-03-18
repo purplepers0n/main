@@ -5,7 +5,7 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Indicates a request to change the tab to show other list
  */
-public class ChangeListTabEvent extends BaseEvent{
+public class ChangeListTabEvent extends BaseEvent {
 
     public final int targetIndex;
 
