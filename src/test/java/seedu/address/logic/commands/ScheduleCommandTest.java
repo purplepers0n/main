@@ -28,6 +28,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
+import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.testutil.AppointmentBuilder;
 
 public class ScheduleCommandTest {
@@ -156,6 +157,11 @@ public class ScheduleCommandTest {
 
         @Override
         public void addPet(Pet pet) throws DuplicatePetException {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void deletePet(Pet pet) throws PetNotFoundException {
             fail("This method should not be called");
         }
     }

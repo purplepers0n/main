@@ -10,6 +10,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
+import seedu.address.model.pet.exceptions.PetNotFoundException;
 
 /**
  * The API of the Model component.
@@ -54,8 +55,12 @@ public interface Model {
 
     /** Schedule the given appointment according to date and time */
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
+
     /** Adds the given pet */
     void addPet(Pet pet) throws DuplicatePetException;
+
+    /** Removes the given pet */
+    void deletePet(Pet pet) throws PetNotFoundException;
 
     /** Returns an unmodifiable view of the filtered pet list */
     ObservableList<Pet> getFilteredPetList();
