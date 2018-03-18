@@ -150,28 +150,28 @@ The user chooses to add an appointment to Alice Peterson's pet called Garfield o
 
 Command format: `list client` +
 
-The `list client` command will display all clients that are stored in the program. 
+The `list client` command will display all clients that are stored in the program.
 It automatically switches to the client view tab so you can view all your clients at a glance.
 
 === Listing all pets: `list pet`
 
 Command format: `list pet` +
 
-The `list pet` command will display all pets that are stored in the program. 
+The `list pet` command will display all pets that are stored in the program.
 It automatically switches to the pet view tab so you can view all your pets at a glance.
 
 === Listing all vet technicians: `list vettech`
 
 Command format: `list vettech` +
 
-The `list vettech` command will display all vet technicians that are stored in the program. 
+The `list vettech` command will display all vet technicians that are stored in the program.
 It automatically switches to the vet technician tab so that you can view them at a glance.
 
 === Listing all appointments: `list appt`
 
 Command format: `list appt` +
 
-The `list appt` command will display all appointments that are pending for the user. 
+The `list appt` command will display all appointments that are pending for the user.
 The list sorts upcoming appointments by date and then by time.
 
 === Listing all information: `listall`
