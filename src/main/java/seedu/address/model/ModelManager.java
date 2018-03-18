@@ -22,6 +22,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
+import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
 import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
@@ -208,6 +209,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addPet(Pet pet) throws DuplicatePetException {
         addressBook.addPet(pet);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void deletePet(Pet target) throws PetNotFoundException {
+        addressBook.removePet(target);
         indicateAddressBookChanged();
     }
 

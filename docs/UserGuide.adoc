@@ -105,28 +105,27 @@ The user adds multiple tags.
 * `add r/VetTechnician p/91234567 n/Carley Riady a/Blk 123, Bedok Reservoir St24 t/friend t/part_timer e/carlyriady@email.com` +
 The user chooses to re-order the parameter of the command. +
 
-=== Adding a pet to a client: `addpetto`
+=== Adding a pet to a client: `addp`
 
-Command format: `addpetto n/CLIENT_NAME pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG...` +
+Command format: `addp pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG...` +
 
-The `addpetto` command adds a pet to an existing client. A client can have multiple pets but adding a pet to a client should be done sequentially. +
+The `addp` command adds a pet to the program.
 The command expects these parameters when adding a pet to a client: +
 
 [horizontal]
-*CLIENT NAME*:: The name of an existing client must be supplied by the user. +
 *PET NAME*:: The name of the pet to be added to a client must be supplied by the user. +
 *PET AGE*:: The age of the pet must be supplied by the user. It must contain only numbers. +
 *PET GENDER*:: The gender of the pet must be supplied by the user. It can only be male or female. +
 *PET TAGS*:: The pet tags should be supplied by the user. Pet tags will represent the species and breed of the pet.
 
-Here are some valid examples on how to use the `addpetto` command: +
+Here are some valid examples on how to use the `addp` command: +
 
-* `addpetto n/Alice Peterson pn/Garfield pa/10 pg/M t/cat t/tabby` +
-The user chooses to add Garfield of age 10 and is a male to Alice Peterson. Garfield is a cat and a tabby. +
-* `addpetto n/Alice Peterson pn/Scooby Doo pa/5 pg/M t/dog t/great_dane` +
-The user chooses to add another pet called Scooby Doo of age 5 and is a male to Alice Peterson. Scooby Doo is a dog and a great dane.
+* `addp pn/Garfield pa/10 pg/M t/cat t/tabby` +
+The user chooses to add Garfield of age 10 and is a male. Garfield is a cat and a tabby. +
+* `addp pn/Scooby Doo pa/5 pg/M t/dog t/great_dane` +
+The user chooses to add another pet called Scooby Doo of age 5 and is a male. Scooby Doo is a dog and a great dane.
 
-=== Adding an appointment to a pet: `addapptto`
+=== Adding an appointment to a pet: `addapptto` `coming v2.0`
 
 Command format: `addapptto n/CLIENT_NAME pn/PET_NAME date/DATE (DD.MM.YYYY) time/TIME (HHMM) vettech/VET_TECHNICIAN_NAME cmt/COMMENTS` +
 
@@ -189,34 +188,49 @@ Here is an example of using the command `listall`: +
 * `listall 1`  +
 Suppose there is only one client in the program and is stored at index 1. This command will then display all the information regarding the person at index one. +
 
-=== Sorting clients in alphabetical order: `sort`
+=== Sorting clients in alphabetical order: `sort` `coming v2.0`
 
 Command format: `sort` +
 
 The `sort` command will sort all existing clients in the program in alphabetical order. By default, the program displays the list clients in chronological order. +
 
-=== Sorting clients in chronological order: `sortc`
+=== Sorting clients in chronological order: `sortc` `coming v2.0`
 
 Command format: `sortc` +
 
 The `sortc` command will sort all existing clients in the program in most recently added. This is the default ordering that is displayed in the program. +
 
-=== Removing a client: `rmc`
+=== Removing a client: `delete`
 
-Command format: `rmc INDEX` +
+Command format: `delete INDEX` +
 
-The `rmc` command will remove a client from the program. Executing this command will remove all the pets associated to the client. +
+The `delete` command will remove a client from the program. Executing this command will remove all the pets associated to the client. +
 The command expects this parameter when called: +
 
 [horizontal]
 *INDEX*:: The client's index in the program. This must be supplied by the user.
 
-Here is an example of using the command `rmc`: +
+Here is an example of using the command `delete`: +
 
-* `rmc 1` +
+* `delete 1` +
 Suppose there is only one person in the program called Alice Peterson and she has Garfield and Scooby Doo as her associated pets. This command will remove Alice, Garfield and Scooby Doo from the program.
 
-=== Removing a pet from a client: `rmpetfrom`
+=== Removing a pet: `deletep`
+
+Command format: `deletep INDEX` +
+
+The `deletep` command will remove a pet from the program. Executing this command will remove the pet from the program. +
+The command expects this parameter when called: +
+
+[horizontal]
+*INDEX*:: The client's index in the program. This must be supplied by the user.
+
+Here is an example of using the command `deletep`: +
+
+* `deletep 1` +
+Suppose there is only one pet in the program called Garfield, Garfield will be entirely removed from the program.
+
+=== Removing a pet from a client: `rmpetfrom` `coming v2.0`
 
 Command format: `rmpetfrom n/CLIENT_NAME pn/PET_NAME` +
 
@@ -231,7 +245,7 @@ Here is an example of using the command `rmpetfrom`: +
 * `rmpetfrom n/Alice Peterson pn/Garfield` +
 When this command is executed, Garfield, which is Alice Peterson's pet will be removed from the program. The appointment associated to Garfield will also be removed.
 
-=== Removing an appointment from a pet: `rmapptfrom`
+=== Removing an appointment from a pet: `rmapptfrom` `coming v2.0`
 
 Command format: `rmapptfrom n/CLIENT_NAME pn/PET_NAME`
 
@@ -268,7 +282,7 @@ Here the user chooses to amend person 1 and changed the person's role, email, ad
 * `edit 1 n/Client` +
 Here the user chooses to only change the role of the person specified at index 1 and omits the remaining parameters.
 
-=== Editing a pet's details: `editp`
+=== Editing a pet's details: `editp` `coming v2.0`
 
 Command format: `editp INDEX [pn/PET_NAME] [pa/PET_AGE] [pg/PET_GENDER] [t/PET_TAGS]...`
 
@@ -286,7 +300,7 @@ Here is an example of using the `editp` command: +
 * `editp 1 pn/Jerry pa/2 pg/M` +
 The user chooses to edit the pet of the first index and changed the existing name, age and gender to Jerry, 2 and male.
 
-=== Editing a pet's appointment: `editappt`
+=== Editing a pet's appointment: `editappt` `coming v2.0`
 
 Command format: `editappt n/CLIENT_NAME pn/PET_NAME [date/DATE (DD.MM.YYYY)] [time/TIME (HHMM)] [vettech/VET_TECHNICIAN_NAME] [cmt/COMMENTS]`
 
@@ -301,28 +315,28 @@ The `editappt` command edits the appointment date and detail of an existing pet.
 *COMMENTS*:: The new comments for the appointment. It need not be supplied by the user.
 
 
-=== Finding clients by name: `findc`
+=== Finding clients by name: `find`
 
-Command format: `findc KEYWORD`
+Command format: `find KEYWORD`
 
-The `findc` command displays all existing clients containing the keyword. The command expeccts these parameters: +
+The `find` command displays all existing clients containing the keyword. The command expeccts these parameters: +
 
 [horizontal]
 *KEYWORD*:: The keyword to find the client. It must be supplied by the user.
 
-Here is an example on how to use the `findc` command: +
+Here is an example on how to use the `find` command: +
 
-* `findc alice` +
+* `find alice` +
 The user used the keyword alice to find all clients containing the word alice in their names.
 
 [TIP]
 The keyword is case insensitive.This means typing, "ALICE", "alice" or 'AlIcE" will result in the same output.
 
-=== Finding pets by name: `findp`
+=== Finding pets by name: `findp` `coming v2.0`
 
 Command format: `findp KEYWORD`
 
-The `findp` command is similar to the `findc` command. See <<Finding clients by name: `findc`>>. The `findp` command displays all existing pets containing the keyword. The command expects these parameters:
+The `findp` command is similar to the `find` command. See <<Finding clients by name: `find`>>. The `findp` command displays all existing pets containing the keyword. The command expects these parameters:
 
 [horizontal]
 *KEYWORD*:: The keyword to find the pet. It must be supplied by the user.
@@ -384,7 +398,7 @@ Restores the address book to the state before the previous _undoable_ command wa
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content: +
-`add` `addpetto` `addapptto` `sort` `sortc` `rmc` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
+`add` `addp` `addapptto` `sort` `sortc` `rmc` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
 ====
 
 === Redoing the previously undone command : `redo`
@@ -396,7 +410,7 @@ Reverses the most recent `undo` command. +
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content: +
-`add` `addpetto` `addapptto` `sort` `sortc` `rmc` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
+`add` `addp` `addapptto` `sort` `sortc` `rmc` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
 ====
 
 === Clearing all entries : `clear`
@@ -432,7 +446,7 @@ Exiting the program in the middle of a command will save the state. So there's n
 |*Command* |*Command Format* |*Description*
 |help |`help` |Displays the user guide.
 |add |`add r/ROLE n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]…` |Adds a person into the program.
-|addpetto |`addpetto n/CLIENT_NAME pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG…​` |Adds a pet to a cient.
+|addp |`addp n/CLIENT_NAME pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG…​` |Adds a pet to a cient.
 |addapptto |`addapptto n/CLIENT_NAME pn/PET_NAME date/DATE (DD.MM.YYYY) time/TIME (HHMM) vettech/VET_TECHNICIAN_NAME cmt/COMMENTS` |Adds an appointment to a pet.
 |list client |`list client` |Lists all clients.
 |list pet |`list pet` |Lists all pets.
@@ -447,7 +461,7 @@ Exiting the program in the middle of a command will save the state. So there's n
 |edit |`edit INDEX [n/ROLE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` |Edits a person's details.
 |editp |`editp INDEX [pn/PET_NAME] [pa/PET_AGE] [pg/PET_GENDER] [t/PET_TAGS]…​` |Edits a pet's details.
 |editappt |`editappt n/CLIENT_NAME pn/PET_NAME [date/DATE (DD.MM.YYYY)] [time/TIME (HHMM)] [vettech/VET_TECHNICIAN_NAME] [cmt/COMMENTS]` |Edits an appointment's details.
-|findc |`findc KEYWORD` |Finds a client with keyword.
+|find |`find KEYWORD` |Finds a client with keyword.
 |findp |`findp KEYWORD` |finds a pet with keyword.
 |select |`select INDEX` |Selects an index.
 |history |`history` |Lists the history of commands executed.

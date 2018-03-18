@@ -26,6 +26,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.UniquePetList;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
+import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.vettechnician.UniqueVetTechnicianList;
@@ -359,6 +360,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addPet(Pet p) throws DuplicatePetException {
         Pet pet = syncWithMasterPetTagList(p);
         pets.add(pet);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     *
+     * @throws PetNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removePet(Pet key) throws PetNotFoundException {
+        if (pets.remove(key)) {
+            return true;
+        } else {
+            throw new PetNotFoundException();
+        }
     }
 
     /**
