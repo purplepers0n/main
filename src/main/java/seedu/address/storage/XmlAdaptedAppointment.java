@@ -1,0 +1,93 @@
+package seedu.address.storage;
+
+import java.util.Objects;
+
+import javax.xml.bind.annotation.XmlElement;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Time;
+
+/**
+ * JAXB-friendly version of the Appointment.
+ */
+public class XmlAdaptedAppointment {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
+
+    @XmlElement(required = true)
+    private String date;
+    @XmlElement(required = true)
+    private String time;
+
+    /**
+     * Constructs an XmlAdaptedAppointment.
+     * This is the no-arg constructor that is required by JAXB.
+     */
+    public XmlAdaptedAppointment() {}
+
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     */
+    public XmlAdaptedAppointment(String date, String time) {
+        this.date = date;
+        this.time = time;
+    }
+
+    /**
+     * Converts a given Appointment into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedAppointment
+     */
+    public XmlAdaptedAppointment(Appointment source) {
+        date = source.getDate().toString();
+        time = source.getTime().toString();
+    }
+
+    /**
+     * Converts this jaxb-friendly adapted appointment object into the model's Appointment object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted appointment
+     */
+    public Appointment toModelType() throws IllegalValueException {
+
+        Appointment convertedAppointment;
+
+        if (this.date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+        }
+        if (!Date.isValidDate(this.date)) {
+            throw new IllegalValueException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        final Date date = new Date(this.date);
+
+        if (this.time == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+        }
+        if (!Time.isValidTime(this.time)) {
+            throw new IllegalValueException(Time.MESSAGE_TIME_CONSTRAINTS);
+        }
+        final Time time = new Time(this.time);
+
+        convertedAppointment = new Appointment(date, time);
+
+        return convertedAppointment;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedPerson)) {
+            return false;
+        }
+
+        XmlAdaptedAppointment otherAppointment = (XmlAdaptedAppointment) other;
+        return Objects.equals(date, otherAppointment.date)
+                && Objects.equals(time, otherAppointment.time);
+
+    }
+}
