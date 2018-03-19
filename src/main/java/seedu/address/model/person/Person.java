@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -23,6 +27,8 @@ public abstract class Person {
 
     private final UniqueTagList tags;
 
+    private UniqueAppointmentList appointments;
+
     /**
      * Every field must be present and not null.
      */
@@ -35,6 +41,7 @@ public abstract class Person {
         this.role = role;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        appointments = new UniqueAppointmentList();
     }
 
     public Name getName() {
@@ -63,6 +70,33 @@ public abstract class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags.toSet());
+    }
+
+    /**
+     * @return appointments as a {@code UniqueAppointmentList}
+     */
+    public UniqueAppointmentList getAppointments() {
+        return appointments;
+    }
+
+    /**
+     * Adds new appointment to person
+     * @param toAdd new appointment
+     * @throws DuplicateAppointmentException
+     */
+    public void addAppointment(Appointment toAdd)
+            throws DuplicateAppointmentException {
+        appointments.add(toAdd);
+    }
+
+    /**
+     * Removes old appointment from person
+     * @param toRemove old appointment
+     * @throws AppointmentNotFoundException
+     */
+    public void removeApppoinment(Appointment toRemove)
+            throws AppointmentNotFoundException {
+        appointments.remove(toRemove);
     }
 
     @Override
