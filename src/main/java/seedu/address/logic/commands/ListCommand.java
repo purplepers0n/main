@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-    public static final String COMMAND_ALIS = "ls";
+    public static final String COMMAND_ALIAS = "ls";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Lists the specified type\n"
