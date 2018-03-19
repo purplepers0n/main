@@ -795,7 +795,95 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * Prefers typing over mouse input
 * Is reasonably comfortable using CLI apps
 
-*Value proposition*: Allow vets to easily manage their clients and schedule appointments
+*Value proposition*: 
+
+Allow vets to easily manage their clients and schedule appointments
+
+*Feature Contributions*:
+
+*Jonathan Weng*
+
+[none]
+* *Major Enhancement*: Support auto-complete for all commands
++
+[none]
+** When the vet presses the 'Tab' button on the keyboard once while in the command box, the application
+will auto-complete the text. Auto-complete support not only works on command words, but also when
+searching for the names of existing clients, pets and vet technicians in the application. This will allow the vet
+to partially type a command and quickly complete it to improve typing efficiency.
+** When the vet presses the 'Tab' button on the keyboard twice in quick succession while in the command box,
+the application will list down all possible text to be auto-completed to.
+
+* *Minor Enhancement*: Support for adding clients and vet technicians to the application
++
+[none]
+** The `add` command now takes in a ROLE parameter (either 'Client' or 'VetTechnician')
+so that the vet can add the new person to the correct list.
+** The `delete` and `edit` command will also allow the vet to remove and edit clients and vet technicians. 
+
+*Md Azhar*
+
+[none]
+* *Major Enhancement*: Support all pet related commands
++
+[none]
+** The `addp`, `deletep` and `editp` commands will support the updating of the
+pet list whenever the vet requires to add a pet to the list, delete a pet from the list
+or edit a pet that currently exists in the list.
+** The `findp` command will allow the vet to efficiently search for a pet of a specific name
+in the list.
+** The `addapptto` command will add an appointment to an existing pet in the application.
+This will allow the vet to easily schedule an appointment for the relevant pet.
+The vet will also state the date, time, vet technician assigned to the appointment as well
+as any comments he/she wishes to add. `rmapptfrom` will remove the appointment from a pet.
+
+* *Minor Enhancement*: Implement aliases for command words
++
+[none]
+** The aliases of command words will allow the vet to reduce the amount of typing
+required for command words, to increase efficiency in using the application.
+
+*Choo Wen Xin*
+
+[none]
+* *Major Enhancement*: Support all new list commands and display on UI
++
+[none]
+** The `list` command now takes in a parameter (either 'client', 'pet' or 'vettech')
+which will toggle the tabs in the sidebar of the application and display the appropriate list
+for easy viewing and keeping track.
+** The `list appt` command will display all appointments in the main section of the application
+listed in date order, and in time order within each (date) section. This is for the vet to
+easily keep track of his/her appointments in chronological order.
+** The `listall` command will take in a client index parameter and display all the
+pets and appointments the particular client has in the main section of the application. This is to easily see the relevant
+details when dealing with a client.
+
+* *Minor Enhancement*: Reorganization of UI display
++
+[none]
+** The display will now have a header bar, displaying the application logo and name,
+and the command and result bar will be moved into the top of the right splitpane instead.
+
+*Zhong Zheng Xin*
+
+[none]
+* *Major Enhancement*: Support for all appointment related commands
++
+[none]
+** The `schedule` command allows the vet to schedule an appointment of a certain date and time.
+** The `editappt` command allows the vet to update the details of an appointment,
+such as the assigned vet technician and the data and time. Client and Pet can be
+changed as well if necessary. The affected clients, pets and vet technicians should
+be updated accordingly as well.
+** The `deleteappt` command allows the vet to delete an appointment he/she no longer wants.
+
+* *Minor Enhancement*: Add constraints to Appointment parameters
++
+[none]
+** The application will prompt the vet if he/she has scheduled an appointment that
+clashes with or is too close to another appointment. Only appointments with reasonable
+date and time can be scheduled to help the vet maintain appropriate appointment schedules.
 
 [appendix]
 == User Stories
