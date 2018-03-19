@@ -369,12 +369,12 @@ Format: schedule da/DATE tm/TIME
 
 [NOTE]
 ====
-The format for date should follow DD/MM/YYYY and for time should follow HHMM.
+The format for date should follow YYYY-MM-DD and for time should follow HH:MM.
 ====
 
 Examples:
 
-* `schedule da/10/10/2018 tm/1500` +
+* `schedule da/2018-10-10 tm/15:00` +
 Schedules an appointment on 10th October 2018 at 15:00.
 
 === Listing entered commands : `history`
