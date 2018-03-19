@@ -16,12 +16,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.client.Client;
-import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.vettechnician.VetTechnician;
-import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
+
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -72,12 +69,7 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             try {
                 ab.addPerson(person);
-                if (person.isClient()) {
-                    ab.addClient((Client) person);
-                } else {
-                    ab.addVetTechnician((VetTechnician) person);
-                }
-            } catch (DuplicatePersonException | DuplicateClientException | DuplicateVetTechnicianException e) {
+            } catch (DuplicatePersonException e) {
                 throw new AssertionError("not possible");
             }
         }
