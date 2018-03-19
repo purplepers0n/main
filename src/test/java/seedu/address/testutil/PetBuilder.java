@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.pet.Pet;
@@ -31,15 +30,6 @@ public class PetBuilder {
         tags = SampleDataUtilPet.getTagSet(DEFAULT_TAGS);
     }
 
-    /**
-     * Inits the PetBuilder with the data of {@code petToCopy}
-     */
-    public PetBuilder(Pet petToCopy) {
-        petName = petToCopy.getPetName();
-        petAge = petToCopy.getPetAge();
-        petGender = petToCopy.getPetGender();
-        tags = new HashSet<>(petToCopy.getTags());
-    }
 
     /**
      * Sets the {@code PetName} of the {@code Pet} we are building
