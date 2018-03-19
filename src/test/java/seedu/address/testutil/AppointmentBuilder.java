@@ -8,8 +8,8 @@ import seedu.address.model.appointment.Time;
  * A utility class to help with building Appointment objects.
  */
 public class AppointmentBuilder {
-    public static final String DEFAULT_DATE = "11/11/2018";
-    public static final String DEFAULT_TIME = "1122";
+    public static final String DEFAULT_DATE = "2018-01-01";
+    public static final String DEFAULT_TIME = "00:00";
 
     private Date date;
     private Time time;
