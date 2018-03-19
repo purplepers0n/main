@@ -55,6 +55,10 @@ public class CommandBox extends UiPart<Region> {
             keyEvent.consume();
             navigateToNextInput();
             break;
+        case TAB:
+            keyEvent.consume();
+            //TODO create a trie store of all available commands, tech,client,pet names.
+            break;
         default:
             // let JavaFx handle the keypress
         }
