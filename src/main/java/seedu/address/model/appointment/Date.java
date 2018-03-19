@@ -10,13 +10,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Appointment date should be all integers in format DD/MM/YYYY, and it should not be blank";
+            "Appointment date should be all integers in format YYYY-MM-DD, and it should not be blank";
 
     /*
      * The first character of the date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String DATE_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})/([0-9]{4})";
+    public static final String DATE_VALIDATION_REGEX =
+            "([2-9][0-9][1-9][89])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])";
 
     public final String date;
 
