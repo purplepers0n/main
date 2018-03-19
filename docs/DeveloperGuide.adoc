@@ -795,7 +795,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * Prefers typing over mouse input
 * Is reasonably comfortable using CLI apps
 
-*Value proposition*: 
+*Value proposition*:
 
 Allow vets to easily manage their clients and schedule appointments
 
@@ -819,7 +819,7 @@ the application will list down all possible text to be auto-completed to.
 [none]
 ** The `add` command now takes in a ROLE parameter (either 'Client' or 'VetTechnician')
 so that the vet can add the new person to the correct list.
-** The `delete` and `edit` command will also allow the vet to remove and edit clients and vet technicians. 
+** The `delete` and `edit` command will also allow the vet to remove and edit clients and vet technicians.
 
 *Md Azhar*
 
