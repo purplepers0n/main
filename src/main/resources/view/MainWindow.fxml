@@ -68,7 +68,7 @@
                 </Tab>
                 <Tab text=" Vet Tech ">
                   <content>
-                    <ListView prefHeight="427.0" prefWidth="248.0"/>
+                    <StackPane fx:id="vetTechnicianListPanelPlaceholder" prefHeight="427.0" prefWidth="248.0" />
                   </content>
                 </Tab>
               </tabs>
