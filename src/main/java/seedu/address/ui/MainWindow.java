@@ -38,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ClientListPanel clientListPanel;
     private PetListPanel petListPanel;
     private VetTechnicianListPanel vetTechnicianListPanel;
     private Config config;
@@ -54,13 +54,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane clientListPanelPlaceholder;
 
     @FXML
     private StackPane petListPanelPlaceholder;
 
     @FXML
-    private StackPane vetTechnicianPlaceholder;
+    private StackPane vetTechnicianListPanelPlaceholder;
 
     @FXML
     private TabPane listPanel;
@@ -134,14 +134,14 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        clientListPanel = new ClientListPanel(logic.getFilteredClientList());
+        clientListPanelPlaceholder.getChildren().add(clientListPanel.getRoot());
 
         petListPanel = new PetListPanel(logic.getFilteredPetList());
         petListPanelPlaceholder.getChildren().add(petListPanel.getRoot());
 
-        //vetTechnicianListPanel = new VetTechnicianListPanel(logic.getFilteredVetTechnicianList());
-        //vetTechnicianPlaceholder.getChildren().add(vetTechnicianListPanel.getRoot());
+        vetTechnicianListPanel = new VetTechnicianListPanel(logic.getFilteredVetTechnicianList());
+        vetTechnicianListPanelPlaceholder.getChildren().add(vetTechnicianListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -202,13 +202,18 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
+    public ClientListPanel getClientListPanel() {
+        return this.clientListPanel;
     }
 
     public PetListPanel getPetListPanel() {
         return this.petListPanel;
     }
+
+    public VetTechnicianListPanel getVetTechnicianListPanel() {
+        return this.vetTechnicianListPanel;
+    }
+
 
     /**
      * Changes to the {@code Tab} at the {@code index} and selects it.
