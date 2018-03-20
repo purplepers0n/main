@@ -36,4 +36,12 @@ public interface Logic {
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    /**
+     * Sets the index of the current list that is viewed
+     */
+    void setCurrentList(int currList);
+
+    /** Get the index of the current list that is viewed */
+    int getCurrentList();
 }

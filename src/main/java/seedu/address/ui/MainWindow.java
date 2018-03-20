@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -227,7 +229,20 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleChangeListTabEvent(ChangeListTabEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        changeTo(event.targetIndex);
+        changeTo(event.targetList);
+        updateCurrentList();
+    }
+
+    /**
+     * Updates the current index being viewed
+     */
+    private void updateCurrentList() {
+        listPanel.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                logic.setCurrentList(newValue.intValue());
+            }
+        });
     }
 
     void releaseResources() {

@@ -7,10 +7,10 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class ChangeListTabEvent extends BaseEvent {
 
-    public final int targetIndex;
+    public final int targetList;
 
-    public ChangeListTabEvent(int targetIndex) {
-        this.targetIndex = targetIndex;
+    public ChangeListTabEvent(int targetList) {
+        this.targetList = targetList;
     }
 
     @Override

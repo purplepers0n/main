@@ -59,12 +59,13 @@ public class EditCommand extends UndoableCommand {
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
+    private int currList = 0; //default is on client list upon opening app
 
     private Person personToEdit;
     private Person editedPerson;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -73,6 +74,10 @@ public class EditCommand extends UndoableCommand {
 
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+    }
+
+    public void setCurrentList() {
+        this.currList = model.getCurrentList();
     }
 
     @Override
@@ -90,7 +95,18 @@ public class EditCommand extends UndoableCommand {
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<? extends Person> lastShownList;
+
+        setCurrentList();
+
+        if (currList == 0) {
+            System.out.println("test");
+            lastShownList = model.getFilteredClientList();
+        } else if (currList == 2) {
+            lastShownList = model.getFilteredVetTechnicianList();
+        } else {
+            throw new CommandException("Not currently on a list that 'edit' command can change");
+        }
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -155,7 +171,8 @@ public class EditCommand extends UndoableCommand {
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditPersonDescriptor() {
+        }
 
         /**
          * Copy constructor.

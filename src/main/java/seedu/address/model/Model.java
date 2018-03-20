@@ -93,4 +93,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPetList(Predicate<Pet> predicate);
+
+    /** Sets the index of the current list that is viewed */
+    void setCurrentList(int currList);
+    
+    /** Get the index of the current list that is viewed */
+    int getCurrentList();
 }

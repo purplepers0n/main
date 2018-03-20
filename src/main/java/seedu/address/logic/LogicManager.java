@@ -26,6 +26,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private final UndoRedoStack undoRedoStack;
+    private int currList = 0;
 
     public LogicManager(Model model) {
         this.model = model;
@@ -71,5 +72,16 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    @Override
+    public void setCurrentList(int currList) {
+        this.currList = currList;
+        model.setCurrentList(currList);
+    }
+
+    @Override
+    public int getCurrentList() {
+        return this.currList;
     }
 }
