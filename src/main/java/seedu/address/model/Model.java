@@ -7,7 +7,8 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
-import seedu.address.model.association.exceptions.ClientPetAssociationNotFound;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -104,10 +105,10 @@ public interface Model {
     /**
      * Associates pet to client
      */
-    void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException;
+    void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException;
 
     /**
      * Removes association from pet and client
      */
-    void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFound;
+    void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException;
 }

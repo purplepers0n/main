@@ -19,7 +19,8 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
-import seedu.address.model.association.exceptions.ClientPetAssociationNotFound;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -159,14 +160,15 @@ public class ModelManager extends ComponentManager implements Model {
     // Association
 
     @Override
-    public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
+    public void addPetToClient(Pet pet, Client client)
+            throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
         requireAllNonNull(pet, client);
         addressBook.addPetToClient(pet, client);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFound {
+    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
         requireAllNonNull(pet, client);
         addressBook.removePetFromClient(pet, client);
         indicateAddressBookChanged();

@@ -17,7 +17,8 @@ import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
-import seedu.address.model.association.exceptions.ClientPetAssociationNotFound;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
@@ -275,10 +276,20 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Associates pet to client
+     *
      * @throws ClientAlreadyOwnsPetException
+     * @throws PetAlreadyHasOwnerException
      */
-    public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
+    public void addPetToClient(Pet pet, Client client)
+            throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
         ClientOwnPet toAdd = new ClientOwnPet(client, pet);
+
+        for (ClientOwnPet a : clientPetAssociations) {
+            if (a.getPet().equals(pet)) {
+                throw new PetAlreadyHasOwnerException();
+            }
+        }
+
         if (!clientPetAssociations.contains(toAdd)) {
             clientPetAssociations.add(toAdd);
         } else {
@@ -289,14 +300,15 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes association from pet and client
-     * @throws ClientPetAssociationNotFound
+     *
+     * @throws ClientPetAssociationNotFoundException
      */
-    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFound {
+    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
         ClientOwnPet toRemove = new ClientOwnPet(client, pet);
         if (clientPetAssociations.contains(toRemove)) {
             clientPetAssociations.remove(toRemove);
         } else {
-            throw new ClientPetAssociationNotFound();
+            throw new ClientPetAssociationNotFoundException();
         }
     }
 
