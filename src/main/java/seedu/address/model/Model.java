@@ -19,84 +19,118 @@ import seedu.address.model.vettechnician.VetTechnician;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Client> PREDICATE_SHOW_ALL_CLIENTS = unused -> true;
     Predicate<VetTechnician> PREDICATE_SHOW_ALL_TECHNICIAN = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Pet> PREDICATE_SHOW_ALL_PET = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyAddressBook newData);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given person. */
+    /**
+     * Deletes the given person.
+     */
     void deletePerson(Person target) throws PersonNotFoundException;
 
-    /** Adds the given person */
+    /**
+     * Adds the given person
+     */
     void addPerson(Person person) throws DuplicatePersonException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
-     * @throws PersonNotFoundException if {@code target} could not be found in the list.
+     *                                  another existing person in the list.
+     * @throws PersonNotFoundException  if {@code target} could not be found in the list.
      */
     void updatePerson(Person target, Person editedPerson)
             throws DuplicatePersonException, PersonNotFoundException;
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /** Returns an unmodifiable view of the filtered client list */
+    /**
+     * Returns an unmodifiable view of the filtered client list
+     */
     ObservableList<Client> getFilteredClientList();
 
     /**
      * Updates the filter of the filtered client list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredClientList(Predicate<Client> predicate);
 
-    /** Returns an unmodifiable view of the filtered vetTechnician list */
+    /**
+     * Returns an unmodifiable view of the filtered vetTechnician list
+     */
     ObservableList<VetTechnician> getFilteredVetTechnicianList();
 
     /**
      * Updates the filter of the filtered vet technician list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate);
 
-    /** Schedule the given appointment according to date and time */
+    /**
+     * Schedule the given appointment according to date and time
+     */
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
 
-    /** Adds the given pet */
+    /**
+     * Adds the given pet
+     */
     void addPet(Pet pet) throws DuplicatePetException;
 
-    /** Removes the given pet */
+    /**
+     * Removes the given pet
+     */
     void deletePet(Pet pet) throws PetNotFoundException;
 
-    /** Returns an unmodifiable view of the filtered pet list */
+    /**
+     * Returns an unmodifiable view of the filtered pet list
+     */
     ObservableList<Pet> getFilteredPetList();
 
     /**
      * Updates the filter of the filtered pet list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPetList(Predicate<Pet> predicate);
 
-    /** Sets the index of the current list that is viewed */
+    /**
+     * Sets the index of the current list that is viewed
+     */
     void setCurrentList(int currList);
-    
-    /** Get the index of the current list that is viewed */
+
+    /**
+     * Get the index of the current list that is viewed
+     */
     int getCurrentList();
 }
