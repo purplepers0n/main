@@ -100,7 +100,6 @@ public class EditCommand extends UndoableCommand {
         setCurrentList();
 
         if (currList == 0) {
-            System.out.println("test");
             lastShownList = model.getFilteredClientList();
         } else if (currList == 2) {
             lastShownList = model.getFilteredVetTechnicianList();
