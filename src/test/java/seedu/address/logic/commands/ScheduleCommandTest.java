@@ -68,8 +68,8 @@ public class ScheduleCommandTest {
 
     @Test
     public void equals() {
-        Appointment appointment1 = new AppointmentBuilder().withDate("12/12/2018").build();
-        Appointment appointment2 = new AppointmentBuilder().withTime("0000").build();
+        Appointment appointment1 = new AppointmentBuilder().withDate("2018-12-12").build();
+        Appointment appointment2 = new AppointmentBuilder().withTime("00:00").build();
         ScheduleCommand scheduleAppointment1 = new ScheduleCommand(appointment1);
         ScheduleCommand scheduleAppointment2 = new ScheduleCommand(appointment2);
 

@@ -4,10 +4,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.client.Client;
-import seedu.address.model.pet.Pet;
-import seedu.address.model.vettechnician.VetTechnician;
-
 /**
  * Represents an Appointment in the application.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -16,9 +12,6 @@ public class Appointment {
 
     private final Date date;
     private final Time time;
-    private Client client; //dummy variable, class to be created
-    private Pet pet; //dummy variable, class to be created
-    private VetTechnician vetTech; //dummy variable, class to be created
 
     /**
      * Every field must be present and not null.
@@ -27,6 +20,7 @@ public class Appointment {
         requireAllNonNull(date, time);
         this.date = date;
         this.time = time;
+
     }
 
     public Date getDate() {
@@ -35,30 +29,6 @@ public class Appointment {
 
     public Time getTime() {
         return time;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
-    public void setVetTech(VetTechnician vetTech) {
-        this.vetTech = vetTech;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
-    public VetTechnician getVetTech() {
-        return vetTech;
     }
 
     @Override
@@ -95,25 +65,5 @@ public class Appointment {
 
         return builder.toString();
     }
-
-    /**
-     * @return String of full details of the appointment
-     */
-    public String toStringFull() {
-        final StringBuilder builder = new StringBuilder();
-
-        builder.append(" Date: ")
-                .append(getDate())
-                .append(" Time: ")
-                .append(getTime())
-                .append(" Client: ")
-                .append(getClient())
-                .append(" Pet: ")
-                .append(getPet())
-                .append(" Vet Tech: ")
-                .append(getVetTech());
-        return builder.toString();
-    }
-
 
 }

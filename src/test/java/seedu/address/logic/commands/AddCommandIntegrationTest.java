@@ -28,7 +28,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() throws Exception {
+    public void execute_newPersonOrClient_success() throws Exception {
         Person validPerson = new PersonBuilder().buildWithRoleClient();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -39,7 +39,25 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_newVetTechnician_success() throws Exception {
+        Person validVetTechnician = new PersonBuilder().buildWithRoleVetTechnician();
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(validVetTechnician);
+
+        assertCommandSuccess(prepareCommand(validVetTechnician, model), model,
+                String.format(AddCommand.MESSAGE_SUCCESS, validVetTechnician), expectedModel);
+    }
+
+
+    @Test
+    public void execute_duplicatePersonOrClient_throwsCommandException() {
+        Person personInList = model.getAddressBook().getPersonList().get(1);
+        assertCommandFailure(prepareCommand(personInList, model), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
+    public void execute_duplicateVetTechnician_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
         assertCommandFailure(prepareCommand(personInList, model), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
