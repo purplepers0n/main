@@ -186,6 +186,17 @@ public class AddCommandTest {
         public void deletePet(Pet pet) throws PetNotFoundException {
             fail("This method should not be called");
         }
+
+        @Override
+        public void setCurrentList(int currentList) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public int getCurrentList() {
+            fail("This method should not be called");
+            return -1;
+        }
     }
 
     /**
