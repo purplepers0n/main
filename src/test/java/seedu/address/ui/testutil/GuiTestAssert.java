@@ -54,7 +54,7 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code clientListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
     public static void assertListMatching(ClientListPanelHandle clientListPanelHandle, Person... persons) {

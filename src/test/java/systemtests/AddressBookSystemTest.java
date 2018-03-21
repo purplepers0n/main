@@ -150,8 +150,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        System.out.println(getModel().getFilteredClientList().size());
-        assertTrue(getModel().getFilteredClientList().size() < getModel().getAddressBook().getPersonList().size());
+        assertTrue(getModel().getFilteredPersonList().size() <= getModel().getAddressBook().getPersonList().size());
     }
 
     /**
