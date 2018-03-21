@@ -349,14 +349,14 @@ The user used the keyword Garf to find all pets containing the word Garf.
 The keyword is case insensitive. This means typing, "GARF", "garf" or "GaRf" will result in the same output.
 
 
-=== Selecting a client or vet technician: `select`
+=== Selecting a client, pet or vet technician: `select`
 
 Command format: `select INDEX` +
 
-The `select` command selects the client or vet technician identified by the index number on the currently viewed list. The command expects this parameter: +
+The `select` command selects the client, pet or vet technician identified by the index number on the currently viewed list. The command expects this parameter: +
 
 [horizontal]
-*INDEX*:: The index of the client or vet technician that the user wants to select. It must be supplied by the user.
+*INDEX*:: The index of the client, pet or vet technician that the user wants to select. It must be supplied by the user.
 
 Here is an example on using the command: +
 
