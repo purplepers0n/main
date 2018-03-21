@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -58,6 +59,10 @@ public class CommandBox extends UiPart<Region> {
         case TAB:
             keyEvent.consume();
             //TODO create a trie store of all available commands, tech,client,pet names.
+            if (!commandTextField.getText().isEmpty()) {
+                List<String> listOfAutoComplete = logic.getListOfAutoComplete(commandTextField.getText());
+                System.out.println(listOfAutoComplete);
+            }
             break;
         default:
             // let JavaFx handle the keypress

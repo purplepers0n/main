@@ -2,6 +2,7 @@ package seedu.address.logic.autocomplete;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,6 +12,9 @@ public class Trie {
 
     private Node root;
 
+    /**
+     * Represents node a Trie
+     */
     private class Node {
         private HashMap<Character, Node> children = new HashMap<>();
         private boolean isCompleteWord = false;
@@ -31,7 +35,7 @@ public class Trie {
     }
 
     /**
-     *  Recursive insert to insert part of key into Trie
+     * Recursive insert to insert part of key into Trie
      */
     private void insert(Node currNode, String key) {
         if (!key.isEmpty()) {
@@ -46,11 +50,14 @@ public class Trie {
 
     /**
      * Auto-complete strings
-     *
+     * <p>
      * Returns an {@code ArrayList<String>} of auto-completed words
      */
-    public ArrayList<String> autoComplete(String prefix) {
-        ArrayList<String> result = new ArrayList<>();
+    public List<String> autoComplete(String prefix) {
+        List<String> result = new ArrayList<>();
+        if (search(root, prefix) == null) {
+            return result;
+        }
         for (String s : getAllPostFix(search(root, prefix))) {
             result.add(prefix + s);
         }
@@ -61,7 +68,7 @@ public class Trie {
      * Recursive search for end node
      */
     private Node search(Node currNode, String key) {
-        if (!key.isEmpty()) {
+        if (!key.isEmpty() && currNode != null) {
             return search(currNode.children.get(key.charAt(0)), key.substring(1));
         } else {
             return currNode;
@@ -70,9 +77,9 @@ public class Trie {
 
 
     /**
-     *  Returns arraylist of all postfix from node
+     * Returns arraylist of all postfix from node
      */
-    private ArrayList<String> getAllPostFix(Node node) {
+    private List<String> getAllPostFix(Node node) {
         ArrayList<String> listOfPostFix = new ArrayList<>();
         return getAllPostFix(node, "", null, listOfPostFix);
     }
@@ -80,7 +87,7 @@ public class Trie {
     /**
      * Recursive method to get all postfix string
      */
-    private ArrayList<String> getAllPostFix(Node node, String s, Character next, ArrayList<String> listOfPostFix) {
+    private List<String> getAllPostFix(Node node, String s, Character next, List<String> listOfPostFix) {
         if (next != null) {
             s += next;
         }
