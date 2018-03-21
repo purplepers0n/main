@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PET;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TECHNICIAN;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -35,7 +36,7 @@ public class ListCommand extends Command {
 
         switch (targetType) {
         case "client":
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
             EventsCenter.getInstance().post(new ChangeListTabEvent(0));
             break;
 
@@ -45,7 +46,7 @@ public class ListCommand extends Command {
             break;
 
         case "vettech":
-            //model.updateFilteredVetTechList(PREDICATE_SHOW_ALL_VETTECH);
+            model.updateFilteredVetTechnicianList(PREDICATE_SHOW_ALL_TECHNICIAN);
             EventsCenter.getInstance().post(new ChangeListTabEvent(2));
             break;
 
