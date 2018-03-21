@@ -35,7 +35,7 @@ public class Duration {
     /**
      * Returns the integer value of duration
      */
-    public int getDuration() {
+    public int getDurationValue() {
         return Integer.parseInt(this.duration);
     }
 
