@@ -17,5 +17,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_PET_NAME = new Prefix("pn/");
     public static final Prefix PREFIX_PET_AGE = new Prefix("pa/");
     public static final Prefix PREFIX_PET_GENDER = new Prefix("pg/");
+    public static final Prefix PREFIX_PET_INDEX = new Prefix("p/");
+    public static final Prefix PREFIX_CLIENT_INDEX = new Prefix("c/");
+
 
 }

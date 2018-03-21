@@ -3,6 +3,9 @@ package seedu.address.model.association;
 import seedu.address.model.client.Client;
 import seedu.address.model.pet.Pet;
 
+/**
+ * Represents a pet to client association
+ */
 public class ClientOwnPet {
     private final Client client;
     private final Pet pet;
