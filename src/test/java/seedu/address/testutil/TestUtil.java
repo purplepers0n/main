@@ -42,7 +42,7 @@ public class TestUtil {
      * Returns the last index of the person in the {@code model}'s person list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getAddressBook().getPersonList().size());
+        return Index.fromOneBased(model.getFilteredClientList().size());
     }
 
     /**

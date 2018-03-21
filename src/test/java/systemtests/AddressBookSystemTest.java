@@ -22,6 +22,7 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.ClientListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -101,8 +102,8 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public ClientListPanelHandle getClientListPanel() {
+        return mainWindowHandle.getClientListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -149,7 +150,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        System.out.println(getModel().getFilteredClientList().size());
+        assertTrue(getModel().getFilteredClientList().size() < getModel().getAddressBook().getPersonList().size());
     }
 
     /**
@@ -157,7 +159,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void selectPerson(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getClientListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -179,7 +181,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(expectedModel, getModel());
         assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getClientListPanel(), expectedModel.getFilteredClientList());
     }
 
     /**
@@ -191,7 +193,7 @@ public abstract class AddressBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getClientListPanel().rememberSelectedClientCard();
     }
 
     /**
@@ -201,7 +203,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getClientListPanel().isAnyCardSelected());
     }
 
     /**
@@ -211,7 +213,7 @@ public abstract class AddressBookSystemTest {
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        String selectedCardName = getClientListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
@@ -220,7 +222,7 @@ public abstract class AddressBookSystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getClientListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -230,7 +232,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getClientListPanel().isSelectedClientCardChanged());
     }
 
     /**
@@ -275,7 +277,7 @@ public abstract class AddressBookSystemTest {
         try {
             assertEquals("", getCommandBox().getInput());
             assertEquals("", getResultDisplay().getText());
-            assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+            assertListMatching(getClientListPanel(), getModel().getFilteredClientList());
             assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
             assertEquals("./" + testApp.getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
             assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

@@ -62,14 +62,14 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredClientList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getFilteredClientList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
