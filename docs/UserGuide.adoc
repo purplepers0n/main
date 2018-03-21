@@ -262,13 +262,14 @@ When this command is executed, Scooby's Doo which is Bradly Cooper's pet's appoi
 
 === Editing a client or vet technician's details : `edit`
 
-Command format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Command format: `edit INDEX [r/ROLE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 The `edit` command amends the details of an existing client or vet technician, depending on which list the vet is currently viewing.
 The details of the specified person's index will be replaced with the supplied parameters from the user.
 The existing details will be overriden. The command expects these parameters: +
 [horizontal]
 *INDEX*:: The index of the person that the user wants to edit. It must be supplied by the user.
+*ROLE*:: The new role of the person that the user wants. It need not be supplied by the user.
 *NAME*:: The new name of the person that the user wants. It need not be supplied by the user.
 *PHONE*:: The new phone number of the person that the user wants. It need not be supplied by the user.
 *EMAIL*:: The new email of the person that the user wants. It need not be supplied by the user.
