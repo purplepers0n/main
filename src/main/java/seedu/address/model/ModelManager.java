@@ -17,6 +17,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFound;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -150,6 +153,21 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removePet(target);
         indicateAddressBookChanged();
     }
+
+    // Command
+
+    public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
+        requireAllNonNull(pet, client);
+        addressBook.addPetToClient(pet, client);
+        indicateAddressBookChanged();
+    }
+
+    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFound {
+        requireAllNonNull(pet, client);
+        addressBook.removePetFromClient(pet, client);
+        indicateAddressBookChanged();
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 

@@ -10,10 +10,14 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFound;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
@@ -40,6 +44,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueAppointmentList appointments;
     private final UniquePetList pets;
 
+    private final ObservableList<ClientOwnPet> clientPetAssociations;
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -53,6 +59,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         appointments = new UniqueAppointmentList();
         pets = new UniquePetList();
+
+        clientPetAssociations = FXCollections.observableArrayList();
     }
 
     public AddressBook() {}
@@ -262,6 +270,28 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncedPet = new Pet(pet.getPetName(), pet.getPetAge(), pet.getPetGender(), correctTagReferences);
         return syncedPet;
     }
+
+    //// command methods
+
+    public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
+        ClientOwnPet toAdd = new ClientOwnPet(client, pet);
+        if (!clientPetAssociations.contains(toAdd)) {
+            clientPetAssociations.add(toAdd);
+        } else {
+            throw new ClientAlreadyOwnsPetException();
+        }
+    }
+
+    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFound {
+        ClientOwnPet toRemove = new ClientOwnPet(client, pet);
+        if (clientPetAssociations.contains(toRemove)) {
+            clientPetAssociations.remove(toRemove);
+        } else {
+            throw new ClientPetAssociationNotFound();
+        }
+    }
+
+
     //// util methods
 
     @Override
@@ -288,6 +318,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Pet> getPetList() {
         return pets.asObservableList();
+    }
+
+
+    public ObservableList<ClientOwnPet> getClientPetAssociations() {
+        return clientPetAssociations;
     }
 
     @Override
