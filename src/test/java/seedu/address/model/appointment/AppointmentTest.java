@@ -9,7 +9,7 @@ public class AppointmentTest {
 
     @Test
     public void equals() {
-        Appointment appointment1 = new Appointment(new Date("01/01/2018"), new Time("1400"));
+        Appointment appointment1 = new Appointment(new Date("2018-01-01"), new Time("14:00"));
 
         // same object -> returns true
         assertTrue(appointment1.equals(appointment1));
@@ -24,8 +24,8 @@ public class AppointmentTest {
         // null -> returns false
         assertFalse(appointment1.equals(null));
 
-        // different remark -> returns false
-        Appointment differentAppointment = new Appointment(new Date("10/10/2018"), new Time("1515"));
+        // different appointment -> returns false
+        Appointment differentAppointment = new Appointment(new Date("2018-11-20"), new Time("15:15"));
         assertFalse(appointment1.equals(differentAppointment));
     }
 
