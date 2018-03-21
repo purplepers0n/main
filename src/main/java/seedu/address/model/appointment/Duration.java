@@ -35,12 +35,16 @@ public class Duration {
     /**
      * Returns the integer value of duration
      */
-    public int getDuration() { return Integer.parseInt(this.duration); }
+    public int getDuration() {
+        return Integer.parseInt(this.duration);
+    }
 
     /**
      * Returns true if a given string is a valid duration.
      */
-    public static boolean isValidDuration(String test) { return test.matches(DURATION_VALIDATION_REGEX); }
+    public static boolean isValidDuration(String test) {
+        return test.matches(DURATION_VALIDATION_REGEX);
+    }
 
     @Override
     public String toString() {
