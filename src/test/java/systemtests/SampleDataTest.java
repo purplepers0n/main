@@ -26,11 +26,8 @@ public class SampleDataTest extends AddressBookSystemTest {
      * Returns a non-existent file location to force test app to load sample data.
      */
     @Override
-   
-    
-    
-    
-    
+
+
     protected String getDataFileLocation() {
         String filePath = TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
         deleteFileIfExists(filePath);

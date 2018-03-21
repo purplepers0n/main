@@ -90,7 +90,7 @@ public class FindCommandTest {
     private void assertCommandSuccess(FindCommand command, String expectedMessage, List<Person> expectedList) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         CommandResult commandResult = command.execute();
-        
+
         assertEquals(expectedMessage, commandResult.feedbackToUser);
         assertEquals(expectedList, model.getFilteredClientList());
         assertEquals(expectedAddressBook, model.getAddressBook());
