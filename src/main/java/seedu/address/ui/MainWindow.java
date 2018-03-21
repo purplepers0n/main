@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ChangeListTabEvent;
@@ -88,6 +89,8 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
         registerAsAnEventHandler(this);
+
+        updateCurrentList();
     }
 
     public Stage getPrimaryStage() {
@@ -218,11 +221,11 @@ public class MainWindow extends UiPart<Stage> {
 
 
     /**
-     * Changes to the {@code Tab} at the {@code index} and selects it.
+     * Changes to the {@code Tab} of the specific {@code list} requested and selects it.
      */
-    private void changeTo(int index) {
+    private void changeTo(int list) {
         Platform.runLater(() -> {
-            listPanel.getSelectionModel().select(index);
+            listPanel.getSelectionModel().select(list);
         });
     }
 
@@ -230,17 +233,17 @@ public class MainWindow extends UiPart<Stage> {
     private void handleChangeListTabEvent(ChangeListTabEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         changeTo(event.targetList);
-        updateCurrentList();
+        logic.setCurrentList(event.targetList);
     }
 
     /**
-     * Updates the current index being viewed
+     * Updates the current index being viewed if tab is changed by mouseclick event
      */
     private void updateCurrentList() {
         listPanel.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                logic.setCurrentList(newValue.intValue());
+                EventsCenter.getInstance().post(new ChangeListTabEvent(newValue.intValue()));
             }
         });
     }
