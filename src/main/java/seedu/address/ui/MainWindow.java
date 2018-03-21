@@ -17,7 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ChangeListTabEvent;
@@ -243,7 +242,7 @@ public class MainWindow extends UiPart<Stage> {
         listPanel.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                EventsCenter.getInstance().post(new ChangeListTabEvent(newValue.intValue()));
+                logic.setCurrentList(newValue.intValue());
             }
         });
     }
