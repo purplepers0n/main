@@ -123,9 +123,15 @@ public class CommandTestUtil {
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredClientList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+
+        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = person.getName().fullName.split("\\s+");
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredPersonList().size());
 
         Person clientToBeShownAtIndex = model.getFilteredClientList().get(targetIndex.getZeroBased());
-        final String[] splitName = clientToBeShownAtIndex.getName().fullName.split("\\s+");
         model.updateFilteredClientList(new Predicate<Client>() {
             @Override
             public boolean test(Client client) {
