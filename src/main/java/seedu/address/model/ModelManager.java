@@ -105,7 +105,9 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
     }
@@ -154,14 +156,16 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    // Command
+    // Association
 
+    @Override
     public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
         requireAllNonNull(pet, client);
         addressBook.addPetToClient(pet, client);
         indicateAddressBookChanged();
     }
 
+    @Override
     public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFound {
         requireAllNonNull(pet, client);
         addressBook.removePetFromClient(pet, client);
@@ -233,6 +237,17 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPetList(Predicate<Pet> predicate) {
         requireNonNull(predicate);
         filteredPet.setPredicate(predicate);
+    }
+
+    //Association
+
+    /**
+     * Returns an unmodifiable view of the list of {@code ClientOwnPet} backed by the internal list of
+     * {@code addressBook}
+     */
+    @Override
+    public ObservableList<ClientOwnPet> getClientPetAssociationList() {
+        return FXCollections.unmodifiableObservableList(addressBook.getClientPetAssociations());
     }
 
     @Override

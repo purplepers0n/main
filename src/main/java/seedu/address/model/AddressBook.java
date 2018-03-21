@@ -15,8 +15,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
-import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFound;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
@@ -271,8 +271,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         return syncedPet;
     }
 
-    //// command methods
+    //// Association methods
 
+    /**
+     * Associates pet to client
+     * @throws ClientAlreadyOwnsPetException
+     */
     public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
         ClientOwnPet toAdd = new ClientOwnPet(client, pet);
         if (!clientPetAssociations.contains(toAdd)) {
@@ -282,6 +286,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+
+    /**
+     * Removes association from pet and client
+     * @throws ClientPetAssociationNotFound
+     */
     public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFound {
         ClientOwnPet toRemove = new ClientOwnPet(client, pet);
         if (clientPetAssociations.contains(toRemove)) {
