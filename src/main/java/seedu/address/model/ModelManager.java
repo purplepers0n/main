@@ -3,11 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-
-import org.fxmisc.easybind.EasyBind;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +14,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -38,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Client> filteredClients;
     private final FilteredList<VetTechnician> filteredVetTechnicians;
     private final FilteredList<Pet> filteredPet;
+    private final ObservableList<ClientOwnPet> clientPetAssocation;
 
     private int currList = 0;
     private final FilteredList<Appointment> filteredAppointment;
@@ -54,46 +56,15 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredClients = new FilteredList<>(getClientList(this.addressBook.getPersonList()));
-        filteredVetTechnicians = new FilteredList<>(getVetTechnicianList(this.addressBook.getPersonList()));
+        filteredClients = new FilteredList<>(this.addressBook.getClientList());
+        filteredVetTechnicians = new FilteredList<>(this.addressBook.getVetTechnicianList());
         filteredPet = new FilteredList<>((this.addressBook.getPetList()));
+        clientPetAssocation = getClientPetAssociationList();
         filteredAppointment = new FilteredList<>((this.addressBook.getAppointmentList()));
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
-    }
-
-    /**
-     * Returns an observable client list from an {@code ObservableList<Person>}
-     */
-    private ObservableList<Client> getClientList(ObservableList<Person> personList) {
-        requireNonNull(personList);
-        ObservableList<Client> clientList = EasyBind.map(this.addressBook.getPersonList(), (person) -> {
-            if (person.isClient()) {
-                return (Client) person;
-            } else {
-                return null;
-            }
-        });
-        clientList = FXCollections.unmodifiableObservableList(clientList).filtered(Objects::nonNull);
-        return clientList;
-    }
-
-    /**
-     * Returns an observable vet technician list from an {@code ObservableList<Person>}
-     */
-    private ObservableList<VetTechnician> getVetTechnicianList(ObservableList<Person> personList) {
-        requireNonNull(personList);
-        ObservableList<VetTechnician> technicianList = EasyBind.map(this.addressBook.getPersonList(), (person) -> {
-            if (!person.isClient()) {
-                return (VetTechnician) person;
-            } else {
-                return null;
-            }
-        });
-        technicianList = FXCollections.unmodifiableObservableList(technicianList).filtered(Objects::nonNull);
-        return technicianList;
     }
 
     @Override
@@ -157,6 +128,24 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removePet(target);
         indicateAddressBookChanged();
     }
+
+    // Association
+
+    @Override
+    public void addPetToClient(Pet pet, Client client)
+            throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
+        requireAllNonNull(pet, client);
+        addressBook.addPetToClient(pet, client);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
+        requireAllNonNull(pet, client);
+        addressBook.removePetFromClient(pet, client);
+        indicateAddressBookChanged();
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -224,6 +213,17 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPet.setPredicate(predicate);
     }
 
+    //Association
+
+    /**
+     * Returns an unmodifiable view of the list of {@code ClientOwnPet} backed by the internal list of
+     * {@code addressBook}
+     */
+    @Override
+    public ObservableList<ClientOwnPet> getClientPetAssociationList() {
+        return FXCollections.unmodifiableObservableList(addressBook.getClientPetAssociations());
+    }
+
     // Appointment
 
     /**
@@ -234,6 +234,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Appointment> getFilteredAppointmentList() {
         return FXCollections.unmodifiableObservableList(filteredAppointment);
     }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -251,7 +252,8 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredClients.equals(other.filteredClients)
-                && filteredVetTechnicians.equals(other.filteredVetTechnicians);
+                && filteredVetTechnicians.equals(other.filteredVetTechnicians)
+                && clientPetAssocation.equals(other.clientPetAssocation);
     }
 
     @Override
