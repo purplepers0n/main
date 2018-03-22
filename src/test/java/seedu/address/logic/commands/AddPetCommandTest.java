@@ -177,6 +177,12 @@ public class AddPetCommandTest {
         }
 
         @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
         public void addPet(Pet pet) throws DuplicatePetException {
             fail("This method should not be called");
         }
