@@ -185,14 +185,14 @@ Command format: `list vettech` +
 The `list vettech` command will display all vet technicians that are stored in the program.
 It automatically switches to the vet technician tab so that you can view them at a glance.
 
-=== Listing all appointments: `list appt`
+=== Listing all appointments: `list appt` `coming v2.0`
 
 Command format: `list appt` +
 
 The `list appt` command will display all appointments that are pending for the user.
 The list sorts upcoming appointments by date and then by time.
 
-=== Listing all information: `listall`
+=== Listing all information: `listall` `coming v2.0`
 
 Command format: `listall INDEX` +
 
@@ -219,27 +219,26 @@ Command format: `sortc` +
 
 The `sortc` command will sort all existing clients in the program in most recently added. This is the default ordering that is displayed in the program. +
 
-=== Removing a client: `delete`
+=== Removing a client or vet technician: `delete`
 
 Command format: `delete INDEX` +
 
-The `delete` command will remove a client from the program. Executing this command will remove all the pets associated to the client. +
-The command expects this parameter when called: +
+The `delete` command will remove a client from the program if the vet is viewing the client list. Executing this command will remove all the pets associated to the client. +
+The `delete` command will remove a vet technician from the program if the vet is viewing the vet technician list. The command expects this parameter when called: +
 
 [horizontal]
-*INDEX*:: The client's index in the program. This must be supplied by the user.
+*INDEX*:: The client or vet technician's index on the list displayed in the program. This must be supplied by the user.
 
 Here is an example of using the command `delete`: +
 
 * `delete 1` +
-Suppose there is only one person in the program called Alice Peterson and she has Garfield and Scooby Doo as her associated pets. This command will remove Alice, Garfield and Scooby Doo from the program.
+Suppose the vet is currently viewing the 'client' list and there is only one client in the program called Alice Peterson and she has Garfield and Scooby Doo as her associated pets. This command will remove Alice, Garfield and Scooby Doo from the program.
 
 === Removing a pet: `deletep`
 
 Command format: `deletep INDEX` +
 
-The `deletep` command will remove a pet from the program. Executing this command will remove the pet from the program. +
-The command expects this parameter when called: +
+The `deletep` command will remove a pet from the program. Executing this command will remove the pet from the program. The command expects this parameter when called: +
 
 [horizontal]
 *INDEX*:: The client's index in the program. This must be supplied by the user.
@@ -280,11 +279,13 @@ Here is an exammple of using the command `rmapptfrom`: +
 When this command is executed, Scooby's Doo which is Bradly Cooper's pet's appointment will be removed.
 
 
-=== Editing a client or vet tech's details : `edit`
+=== Editing a client or vet technician's details : `edit`
 
-Command format: `edit INDEX [n/ROLE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Command format: `edit INDEX [r/ROLE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
-The `edit` command amends the detail of an existing person. The details of the specified person's index will be replaced with the supplied parameters from the user. The existing details will be override. The command expects these parameters: +
+The `edit` command amends the details of an existing client or vet technician, depending on which list the vet is currently viewing.
+The details of the specified person's index will be replaced with the supplied parameters from the user.
+The existing details will be overriden. The command expects these parameters: +
 [horizontal]
 *INDEX*:: The index of the person that the user wants to edit. It must be supplied by the user.
 *ROLE*:: The new role of the person that the user wants. It need not be supplied by the user.
@@ -296,10 +297,10 @@ The `edit` command amends the detail of an existing person. The details of the s
 
 The `edit` command is very similar to the `add` command. Here are some examples on using the command: +
 
-* `edit 1 n/VetTechnician e/newemail@email.com a/Blk 123, Clementi Ave 3 t/friend t/part_timer` +
-Here the user chooses to amend person 1 and changed the person's role, email, address and tags.
-* `edit 1 n/Client` +
-Here the user chooses to only change the role of the person specified at index 1 and omits the remaining parameters.
+* `edit 1 e/newemail@email.com a/Blk 123, Clementi Ave 3 t/friend t/part_timer` +
+Here the user chooses to amend person 1 on the currently viewed list and changes the person's email, address and tags.
+* `edit 1 n/Mary Tan` +
+Here the user chooses to only change the name of the person specified at index 1 on the currently viewed list and omits the remaining parameters.
 
 === Editing a pet's details: `editp` `coming v2.0`
 
@@ -368,18 +369,20 @@ The user used the keyword Garf to find all pets containing the word Garf.
 The keyword is case insensitive. This means typing, "GARF", "garf" or "GaRf" will result in the same output.
 
 
-=== Selecting a client : `select`
+=== Selecting a client, pet or vet technician: `select`
 
 Command format: `select INDEX` +
 
-The `select` command selects the client identified by the index number. The command expects this parameter: +
+The `select` command selects the client, pet or vet technician identified by the index number on the currently viewed list. The command expects this parameter: +
 
 [horizontal]
-*INDEX*:: The index of the client that the user wants to amend. It must be supplied by the user.
+*INDEX*:: The index of the client, pet or vet technician that the user wants to select. It must be supplied by the user.
 
 Here is an example on using the command: +
 
-* `select 1`
+* `select 3` +
+The user is currently viewing the client list and wishes to select the 3rd client on the list.
+The program will scroll to and select the 3rd client on the list.
 
 === Scheduling an appointment : `schedule`
 

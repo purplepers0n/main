@@ -28,4 +28,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
                 && this.keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
     }
 
+    public List<String> getKeywords() {
+        return keywords;
+    }
 }

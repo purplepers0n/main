@@ -101,6 +101,7 @@ public class AddPetCommandTest {
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
+
     /**
      * Default model stub that has all the methods failing
      */
@@ -204,6 +205,17 @@ public class AddPetCommandTest {
         public void deletePet(Pet pet) throws PetNotFoundException {
             fail("This method should not be called");
         }
+
+        @Override
+        public void setCurrentList(int currentList) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public int getCurrentList() {
+            fail("This method should not be called");
+            return -1;
+        }
     }
 
     /**
@@ -232,6 +244,7 @@ public class AddPetCommandTest {
             requireNonNull(pet);
             petsAdded.add(pet);
         }
+
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();

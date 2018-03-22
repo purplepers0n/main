@@ -40,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<VetTechnician> filteredVetTechnicians;
     private final FilteredList<Pet> filteredPet;
     private final ObservableList<ClientOwnPet> clientPetAssocation;
+    private int currList = 0;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -238,5 +239,15 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredClients.equals(other.filteredClients)
                 && filteredVetTechnicians.equals(other.filteredVetTechnicians)
                 && clientPetAssocation.equals(other.clientPetAssocation);
+    }
+
+    @Override
+    public void setCurrentList(int currList) {
+        this.currList = currList;
+    }
+
+    @Override
+    public int getCurrentList() {
+        return this.currList;
     }
 }

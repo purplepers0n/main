@@ -64,7 +64,9 @@ public class PetListPanel extends UiPart<Region> {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        scrollTo(event.targetIndex);
+        if (event.targetList == 1) {
+            scrollTo(event.targetIndex);
+        }
     }
 
     /**

@@ -50,7 +50,7 @@ public class VetTechnicianCard extends UiPart<Region> {
         phone.setText(vetTechnician.getPhone().value);
         address.setText(vetTechnician.getAddress().value);
         email.setText(vetTechnician.getEmail().value);
-        vetTechnician.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        initTags(vetTechnician);
     }
 
     /**

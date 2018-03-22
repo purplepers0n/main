@@ -60,6 +60,8 @@ public abstract class UndoableCommand extends Command {
                     + "it should not fail now");
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
+        model.updateFilteredVetTechnicianList(PREDICATE_SHOW_ALL_TECHNICIAN);
         model.updateFilteredPetList(PREDICATE_SHOW_ALL_PET);
     }
 

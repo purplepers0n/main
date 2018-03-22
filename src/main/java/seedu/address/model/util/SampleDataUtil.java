@@ -48,8 +48,8 @@ public class SampleDataUtil {
 
     public static Pet[] getSamplePets() {
         return new Pet[] {
-                new Pet(new PetName("Tweety"), new PetAge("2"), new PetGender("M"), getTagSet("Bird")),
-                new Pet(new PetName("Sylvester"), new PetAge("1"), new PetGender("M"), getTagSet("Cat")),
+            new Pet(new PetName("Tweety"), new PetAge("2"), new PetGender("M"), getTagSet("Bird")),
+            new Pet(new PetName("Sylvester"), new PetAge("1"), new PetGender("M"), getTagSet("Cat")),
         };
     }
 
