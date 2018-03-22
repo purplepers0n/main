@@ -364,6 +364,50 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+// tag::addpettoclient[]
+=== Add pet to client feature
+==== Current Implementation
+
+The `AddPetToClientCommand` allows the user to add an existing pet to and existing client. A user can execute the command by providing the index of the pet and the index of the client in the following format `addpettoclient p/PET_INDEX c/CLIENT_INDEX`.
+
+.Structure of part of Logic Component
+image::addpettoclient_logic_command_class_diagram.png[width="800"]
+
+As can be seen from the diagram, the `AddPetToClientCommand` is implemented to extend an `UndoableCommand` which enables the user to undo and redo the `AddPetToClientCommand` that is executed.
+
+The `AddPetToClientCommand` interacts with the `Model` component to add pet to a client.
+
+.Structure of part of Model Component
+image::addpettoclientmodelclassdiagram.png[width="800"]
+
+The following sequence diagram shows how the add pet to client command works.
+
+.Interactions inside the Logic Component for `addpetto p/1 c/1` Command
+image::addpettoclientSequence.png[width="800"]
+
+
+==== Design Considerations
+
+===== Aspect: Implementation of `AddPetToClientCommand`
+
+* **Alternative 1 (current choice):** Add a new command that extends `UndoableCommand`
+** Pros: We will be able to utilize undone/redone functionality.
+** Cons: Hard for new developers to understand undo/redo implementation.
+* **Alternative 2:** Just add a new command that extends `Command`
+** Pros: Does not involve `UndoableCommand`, easier for new developers to understand.
+** Cons: Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
+
+
+===== Aspect: Data structure to support the add pet to client command
+
+* **Alternative 1 (current choice):** Use an association class `ClientOwnPet` to link `Pet` and `Client`
+** Pros: Low coupling between `Pet` and `Client`.
+** Cons: More steps required for other implementations to obtain pet and client relationship.
+* **Alternative 2:** Bi-directional association between `Pet` with `Client`
+** Pros: Need not need to maintain a separate association class.
+** Cons: High coupling.
+// end::addpettoclient[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

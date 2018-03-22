@@ -106,7 +106,7 @@ public class AddressBookParser {
             return new DeletePetCommandParser().parse(arguments);
 
         case AddPetToClientCommand.COMMAND_WORD:
-            return new AddPetToClientParser().parse(arguments);
+            return new AddPetToClientCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

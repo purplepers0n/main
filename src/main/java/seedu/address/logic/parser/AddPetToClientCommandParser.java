@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new AddPetToClientCommand object
  */
-public class AddPetToClientParser implements Parser<AddPetToClientCommand> {
+public class AddPetToClientCommandParser implements Parser<AddPetToClientCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddPetToClientCommand

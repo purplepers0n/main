@@ -137,7 +137,7 @@ The command expects these parameters when adding a pet to a client: +
 *PET INDEX*:: The index of the pet shown on the list +
 *CLIENT INDEX*:: The index of the client shown on the list +
 
-Here are some valid examples on how to use the `adaddpettoclient` command: +
+Here are some valid examples on how to use the `addpettoclient` command: +
 
 * `addpettoclient p/1 c/2` +
 The user chooses to add pet of index 1 to client of index 2 +

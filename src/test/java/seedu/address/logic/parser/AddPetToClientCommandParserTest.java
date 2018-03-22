@@ -11,12 +11,12 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddPetToClientCommand;
 
-public class AddPetToClientParserTest {
+public class AddPetToClientCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPetToClientCommand.MESSAGE_USAGE);
 
-    private AddPetToClientParser parser = new AddPetToClientParser();
+    private AddPetToClientCommandParser parser = new AddPetToClientCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
