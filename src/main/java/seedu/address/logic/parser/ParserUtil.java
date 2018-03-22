@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -245,6 +246,30 @@ public class ParserUtil {
     public static Optional<Time> parseTime(Optional<String> time) throws IllegalValueException {
         requireNonNull(time);
         return time.isPresent() ? Optional.of(parseTime(time.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String duration} into a {@code Duration}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code duration} is invalid.
+     */
+    public static Duration parseDuration(String duration) throws IllegalValueException {
+        requireNonNull(duration);
+        String trimmedDuration = duration.trim();
+        if (!Duration.isValidDuration(trimmedDuration)) {
+            throw new IllegalValueException(Duration.MESSAGE_DURATION_CONSTRAINTS);
+        }
+        return new Duration(trimmedDuration);
+    }
+
+    /**
+     * Parses a {@code Optional<String> duration} into an {@code Optional<Duration>} if {@code duration} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Duration> parseDuration(Optional<String> duration) throws IllegalValueException {
+        requireNonNull(duration);
+        return duration.isPresent() ? Optional.of(parseDuration(duration.get())) : Optional.empty();
     }
 
     /**
