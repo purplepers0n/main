@@ -40,7 +40,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<VetTechnician> filteredVetTechnicians;
     private final FilteredList<Pet> filteredPet;
     private final ObservableList<ClientOwnPet> clientPetAssocation;
+
     private int currList = 0;
+    private final FilteredList<Appointment> filteredAppointment;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -57,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredVetTechnicians = new FilteredList<>(this.addressBook.getVetTechnicianList());
         filteredPet = new FilteredList<>((this.addressBook.getPetList()));
         clientPetAssocation = getClientPetAssociationList();
+        filteredAppointment = new FilteredList<>((this.addressBook.getAppointmentList()));
     }
 
     public ModelManager() {
@@ -218,6 +222,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<ClientOwnPet> getClientPetAssociationList() {
         return FXCollections.unmodifiableObservableList(addressBook.getClientPetAssociations());
+    }
+
+    // Appointment
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
+     * {@code addressBook}
+     */
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return FXCollections.unmodifiableObservableList(filteredAppointment);
     }
 
     @Override

@@ -12,14 +12,17 @@ public class Appointment {
 
     private final Date date;
     private final Time time;
+    private final Duration duration;
+
 
     /**
      * Every field must be present and not null.
      */
-    public Appointment(Date date, Time time) {
+    public Appointment(Date date, Time time, Duration duration) {
         requireAllNonNull(date, time);
         this.date = date;
         this.time = time;
+        this.duration = duration;
 
     }
 
@@ -29,6 +32,10 @@ public class Appointment {
 
     public Time getTime() {
         return time;
+    }
+
+    public Duration getDuration() {
+        return duration;
     }
 
     @Override
@@ -50,7 +57,7 @@ public class Appointment {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(date, time);
+        return Objects.hash(date, time, duration);
 
     }
 
@@ -61,7 +68,10 @@ public class Appointment {
         builder.append(" Date: ")
                 .append(getDate())
                 .append(" Time: ")
-                .append(getTime());
+                .append(getTime())
+                .append(" Duration: ")
+                .append(getDuration());
+
 
         return builder.toString();
     }

@@ -30,6 +30,7 @@ public interface Model {
     Predicate<Client> PREDICATE_SHOW_ALL_CLIENTS = unused -> true;
     Predicate<Pet> PREDICATE_SHOW_ALL_PETS = unused -> true;
     Predicate<VetTechnician> PREDICATE_SHOW_ALL_TECHNICIAN = unused -> true;
+    Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENT = unused -> true;
 
     /**
      * {@code Predicate} that always evaluate to true
@@ -106,6 +107,11 @@ public interface Model {
      * Schedule the given appointment according to date and time
      */
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
+
+    /**
+     * Returns an unmodifiable view of the filtered appointment list
+     **/
+    ObservableList<Appointment> getFilteredAppointmentList();
 
     /**
      * Adds the given pet
