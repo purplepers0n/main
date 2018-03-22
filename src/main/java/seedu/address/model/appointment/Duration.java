@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Duration {
 
     public static final String MESSAGE_DURATION_CONSTRAINTS =
-            "Appointment duration should be all integers in format MMM (in minute), "
-                    + "and it should not be blank";
+            "Appointment duration should be all integers in format DD or DDD (in minute), "
+                    + "ranging from 15-120 minutes and it should not be blank";
 
     /*
      * The first character of the date must not be a whitespace,
