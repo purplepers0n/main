@@ -26,6 +26,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Client> PREDICATE_SHOW_ALL_CLIENTS = unused -> true;
+    Predicate<Pet> PREDICATE_SHOW_ALL_PETS = unused -> true;
     Predicate<VetTechnician> PREDICATE_SHOW_ALL_TECHNICIAN = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */

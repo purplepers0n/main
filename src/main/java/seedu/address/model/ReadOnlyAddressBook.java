@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.pet.Pet;
@@ -35,6 +36,11 @@ public interface ReadOnlyAddressBook {
      * Returns an unmodifiable view of the pets list.
      */
     ObservableList<Pet> getPetList();
+
+    /**
+     * Returns an unmodifiable view of the client pet association list.
+     */
+    ObservableList<ClientOwnPet> getClientPetAssociations();
 
     /**
      * Returns an unmodifiable view of the client list.

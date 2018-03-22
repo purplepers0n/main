@@ -94,6 +94,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.pets.setPets(pets);
     }
 
+    public void setClientPetAssociations(List<ClientOwnPet> associations) {
+        this.clientPetAssociations.setAll(associations);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -109,7 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
 
-        List< Appointment > syncedAppointmentList = newData.getAppointmentList();
+        List<Appointment> syncedAppointmentList = newData.getAppointmentList();
         try {
             setAppointments(syncedAppointmentList);
         } catch (DuplicateAppointmentException e) {
@@ -124,6 +128,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         } catch (DuplicatePetException e) {
             throw new AssertionError("Program should not have duplicate pets");
         }
+
+        setClientPetAssociations(newData.getClientPetAssociations());
     }
 
     //// person-level operations
@@ -343,6 +349,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return pets.asObservableList();
     }
 
+    @Override
     public ObservableList<ClientOwnPet> getClientPetAssociations() {
         return clientPetAssociations;
     }

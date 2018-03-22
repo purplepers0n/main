@@ -3,8 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLIENT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PET_INDEX;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PETS;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -35,8 +38,8 @@ public class AddPetToClientCommand extends UndoableCommand {
     private final Index petIndex;
     private final Index clientIndex;
 
-    private Pet pet;
-    private Client client;
+    private Optional<Pet> pet;
+    private Optional<Client> client;
 
     /**
      * @param petIndex of the pet in the filtered pet list to add
@@ -49,21 +52,23 @@ public class AddPetToClientCommand extends UndoableCommand {
         this.petIndex = petIndex;
         this.clientIndex = clientIndex;
 
-        pet = null;
-        client = null;
+        pet = Optional.empty();
+        client = Optional.empty();
     }
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
+        requireNonNull(pet.get());
+        requireNonNull(client.get());
         try {
-            model.addPetToClient(pet, client);
+            model.addPetToClient(pet.get(), client.get());
         } catch (ClientAlreadyOwnsPetException e) {
             throw new CommandException(MESSAGE_CLIENT_HAS_PET);
         } catch (PetAlreadyHasOwnerException e) {
             throw new CommandException(MESSAGE_PET_HAS_OWNER);
         }
-        return new CommandResult(String.format(MESSAGE_ADD_PET_TO_CLIENT_SUCCESS, pet, client));
+        return new CommandResult(String.format(MESSAGE_ADD_PET_TO_CLIENT_SUCCESS, pet.get(), client.get()));
 
     }
 
@@ -76,9 +81,10 @@ public class AddPetToClientCommand extends UndoableCommand {
                 || clientIndex.getZeroBased() >= lastShownListClient.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
-        pet = lastShownListPet.get(petIndex.getZeroBased());
-        client = lastShownListClient.get(clientIndex.getZeroBased());
+        pet = Optional.of(lastShownListPet.get(petIndex.getZeroBased()));
+        client = Optional.of(lastShownListClient.get(clientIndex.getZeroBased()));
+        model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
+        model.updateFilteredPetList(PREDICATE_SHOW_ALL_PETS);
     }
 
     @Override
@@ -96,7 +102,9 @@ public class AddPetToClientCommand extends UndoableCommand {
         // state check
         AddPetToClientCommand e = (AddPetToClientCommand) other;
         return petIndex.equals(e.petIndex)
-                && clientIndex.equals(e.clientIndex);
+                && clientIndex.equals(e.clientIndex)
+                && pet.equals(e.pet)
+                && client.equals(e.client);
     }
 
 }

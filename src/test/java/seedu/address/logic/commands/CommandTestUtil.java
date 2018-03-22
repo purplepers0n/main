@@ -20,9 +20,11 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.pet.Pet;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -127,6 +129,32 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the pet at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showPetAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPetList().size());
+
+        Pet petToShow = model.getFilteredPetList().get(targetIndex.getZeroBased());
+        model.updateFilteredPetList(pet -> petToShow.equals(pet));
+
+        assertEquals(1, model.getFilteredPetList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the pet at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showClientAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredClientList().size());
+
+        Client clientToShow = model.getFilteredClientList().get(targetIndex.getZeroBased());
+        model.updateFilteredClientList(pet -> clientToShow.equals(pet));
+
+        assertEquals(1, model.getFilteredClientList().size());
     }
 
     /**
