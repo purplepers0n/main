@@ -12,6 +12,11 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.pet.Pet;
+import seedu.address.model.pet.PetAge;
+import seedu.address.model.pet.PetGender;
+import seedu.address.model.pet.PetName;
+import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,15 +46,27 @@ public class SampleDataUtil {
         };
     }
 
+    public static Pet[] getSamplePets() {
+        return new Pet[] {
+                new Pet(new PetName("Tweety"), new PetAge("2"), new PetGender("M"), getTagSet("Bird")),
+                new Pet(new PetName("Sylvester"), new PetAge("1"), new PetGender("M"), getTagSet("Cat")),
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         try {
             AddressBook sampleAb = new AddressBook();
             for (Person samplePerson : getSamplePersons()) {
                 sampleAb.addPerson(samplePerson);
             }
+            for (Pet samplePet : getSamplePets()) {
+                sampleAb.addPet(samplePet);
+            }
             return sampleAb;
         } catch (DuplicatePersonException e) {
             throw new AssertionError("sample data cannot contain duplicate persons", e);
+        } catch (DuplicatePetException e) {
+            throw new AssertionError("sample data cannot contain duplicate pets", e);
         }
     }
 
