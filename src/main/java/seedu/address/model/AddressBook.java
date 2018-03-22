@@ -10,6 +10,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.fxmisc.easybind.EasyBind;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
@@ -341,7 +343,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return pets.asObservableList();
     }
 
-
     public ObservableList<ClientOwnPet> getClientPetAssociations() {
         return clientPetAssociations;
     }
@@ -354,6 +355,32 @@ public class AddressBook implements ReadOnlyAddressBook {
                 && this.tags.equalsOrderInsensitive(((AddressBook) other).tags))
                 && this.appointments.equals(((AddressBook) other).appointments)
                 && this.pets.equals(((AddressBook) other).pets);
+    }
+
+    @Override
+    public ObservableList<Client> getClientList() {
+        ObservableList<Client> clientList = EasyBind.map(getPersonList(), (person) -> {
+            if (person.isClient()) {
+                return (Client) person;
+            } else {
+                return null;
+            }
+        });
+        clientList = FXCollections.unmodifiableObservableList(clientList).filtered(Objects::nonNull);
+        return clientList;
+    }
+
+    @Override
+    public ObservableList<VetTechnician> getVetTechnicianList() {
+        ObservableList<VetTechnician> technicianList = EasyBind.map(getPersonList(), (person) -> {
+            if (!person.isClient()) {
+                return (VetTechnician) person;
+            } else {
+                return null;
+            }
+        });
+        technicianList = FXCollections.unmodifiableObservableList(technicianList).filtered(Objects::nonNull);
+        return technicianList;
     }
 
     @Override

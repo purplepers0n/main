@@ -3,11 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-
-import org.fxmisc.easybind.EasyBind;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,45 +51,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredClients = new FilteredList<>(getClientList(this.addressBook.getPersonList()));
-        filteredVetTechnicians = new FilteredList<>(getVetTechnicianList(this.addressBook.getPersonList()));
+        filteredClients = new FilteredList<>(this.addressBook.getClientList());
+        filteredVetTechnicians = new FilteredList<>(this.addressBook.getVetTechnicianList());
         filteredPet = new FilteredList<>((this.addressBook.getPetList()));
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
-    }
-
-    /**
-     * Returns an observable client list from an {@code ObservableList<Person>}
-     */
-    private ObservableList<Client> getClientList(ObservableList<Person> personList) {
-        requireNonNull(personList);
-        ObservableList<Client> clientList = EasyBind.map(this.addressBook.getPersonList(), (person) -> {
-            if (person.isClient()) {
-                return (Client) person;
-            } else {
-                return null;
-            }
-        });
-        clientList = FXCollections.unmodifiableObservableList(clientList).filtered(Objects::nonNull);
-        return clientList;
-    }
-
-    /**
-     * Returns an observable vet technician list from an {@code ObservableList<Person>}
-     */
-    private ObservableList<VetTechnician> getVetTechnicianList(ObservableList<Person> personList) {
-        requireNonNull(personList);
-        ObservableList<VetTechnician> technicianList = EasyBind.map(this.addressBook.getPersonList(), (person) -> {
-            if (!person.isClient()) {
-                return (VetTechnician) person;
-            } else {
-                return null;
-            }
-        });
-        technicianList = FXCollections.unmodifiableObservableList(technicianList).filtered(Objects::nonNull);
-        return technicianList;
     }
 
     @Override
