@@ -18,9 +18,9 @@ public class Time {
      */
     public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3]):([0-5][0-9])";
 
-    private static final int MINUTE_START_INDEX = 0;
-    private static final int MINUTE_END_INDEX = 2;
-    private static final int HOUR_START_INDEX = 3;
+    private static final int HOUR_START_INDEX = 0;
+    private static final int HOUR_END_INDEX = 2;
+    private static final int MINUTE_START_INDEX = 3;
 
     public final String time;
 
@@ -46,7 +46,7 @@ public class Time {
      *  Returns the integer value of the Minute in time
      */
     public int getMinute() {
-        String minute = this.toString().substring(MINUTE_START_INDEX, MINUTE_END_INDEX);
+        String minute = this.toString().substring(MINUTE_START_INDEX);
 
         return Integer.parseInt(minute);
     }
@@ -55,7 +55,7 @@ public class Time {
      *  Returns the integer value of Hour in time
      */
     public int getHour() {
-        String hour = this.toString().substring(HOUR_START_INDEX);
+        String hour = this.toString().substring(HOUR_START_INDEX, HOUR_END_INDEX);
 
         return Integer.parseInt(hour);
 
