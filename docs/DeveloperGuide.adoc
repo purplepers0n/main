@@ -491,6 +491,7 @@ public class ListCommand extends Command {
 The `MainWindow` then handles the `ChangeListTabEvent` by changing to the corresponding list on the UI display,
 and updates `logic` with the index of the current list so that other commands like `edit` and `delete`
 can perform the command on the correct list, like so:
+
 [source, java]
 ----
 public class MainWindow extends UiPart<Stage> {
