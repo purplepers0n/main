@@ -38,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Client> filteredClients;
     private final FilteredList<VetTechnician> filteredVetTechnicians;
     private final FilteredList<Pet> filteredPet;
+    private int currList = 0;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -102,7 +103,9 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
     }
@@ -235,5 +238,15 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredClients.equals(other.filteredClients)
                 && filteredVetTechnicians.equals(other.filteredVetTechnicians);
+    }
+
+    @Override
+    public void setCurrentList(int currList) {
+        this.currList = currList;
+    }
+
+    @Override
+    public int getCurrentList() {
+        return this.currList;
     }
 }

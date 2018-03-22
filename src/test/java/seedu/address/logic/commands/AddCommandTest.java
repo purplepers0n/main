@@ -209,6 +209,17 @@ public class AddCommandTest {
         public void deletePet(Pet pet) throws PetNotFoundException {
             fail("This method should not be called");
         }
+
+        @Override
+        public void setCurrentList(int currentList) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public int getCurrentList() {
+            fail("This method should not be called");
+            return -1;
+        }
     }
 
     /**
@@ -242,6 +253,18 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) { }
+
+        @Override
+        public void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate) { }
+
+        @Override
+        public void updateFilteredPetList(Predicate<Pet> predicate) { }
+
+        @Override
+        public void updateFilteredClientList(Predicate<Client> predicate) { }
     }
 
 }
