@@ -447,7 +447,7 @@ public class PetListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<PetCard> petListView;
-    
+
     private void setConnections(ObservableList<Pet> petList) {
         ObservableList<PetCard> mappedList = EasyBind.map(
                 petList, (pet) -> new PetCard(pet, petList.indexOf(pet) + 1));
@@ -475,7 +475,7 @@ to `EventCenter` like so:
 public class ListCommand extends Command {
     @Override
         public CommandResult execute() throws CommandException {
-    
+
             switch (targetType) {
             case "pet":
                 model.updateFilteredPetList(PREDICATE_SHOW_ALL_PET);
