@@ -292,17 +292,27 @@ public class AddressBook implements ReadOnlyAddressBook {
             throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
         ClientOwnPet toAdd = new ClientOwnPet(client, pet);
 
-        for (ClientOwnPet a : clientPetAssociations) {
-            if (a.getPet().equals(pet)) {
+        if (!clientPetAssociations.contains(toAdd)) {
+            if (hasOwner(pet)) {
                 throw new PetAlreadyHasOwnerException();
             }
-        }
-
-        if (!clientPetAssociations.contains(toAdd)) {
             clientPetAssociations.add(toAdd);
         } else {
             throw new ClientAlreadyOwnsPetException();
         }
+
+    }
+
+    /**
+     * Returns true if specified pet has an owner
+     */
+    private boolean hasOwner(Pet pet) {
+        for (ClientOwnPet a : clientPetAssociations) {
+            if (a.getPet().equals(pet)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
