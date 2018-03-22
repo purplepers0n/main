@@ -105,7 +105,7 @@ The user adds multiple tags.
 * `add r/VetTechnician p/91234567 n/Carley Riady a/Blk 123, Bedok Reservoir St24 t/friend t/part_timer e/carlyriady@email.com` +
 The user chooses to re-order the parameter of the command. +
 
-=== Adding a pet to a client: `addp`
+=== Adding a pet: `addp`
 
 Command format: `addp pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG...` +
 
@@ -124,6 +124,25 @@ Here are some valid examples on how to use the `addp` command: +
 The user chooses to add Garfield of age 10 and is a male. Garfield is a cat and a tabby. +
 * `addp pn/Scooby Doo pa/5 pg/M t/dog t/great_dane` +
 The user chooses to add another pet called Scooby Doo of age 5 and is a male. Scooby Doo is a dog and a great dane.
+
+
+=== Adding a pet to a client: `addpettoclient` `Since v1.2`
+
+Command format: `p/PET_INDEX c/CLIENT_INDEX` +
+
+The `addpettoclient` command adds a pet to the client.
+The command expects these parameters when adding a pet to a client: +
+
+[horizontal]
+*PET INDEX*:: The index of the pet shown on the list +
+*CLIENT INDEX*:: The index of the client shown on the list +
+
+Here are some valid examples on how to use the `adaddpettoclient` command: +
+
+* `addpettoclient p/1 c/2` +
+The user chooses to add pet of index 1 to client of index 2 +
+* `addpettoclient p/3 c/5` +
+The user chooses to add another of index 3 to client of index 5.
 
 === Adding an appointment to a pet: `addapptto` `coming v2.0`
 
