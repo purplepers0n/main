@@ -30,8 +30,7 @@ public class AddPetToClientParser implements Parser<AddPetToClientCommand> {
         Index indexPet;
         Index indexClient;
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PET_INDEX, PREFIX_CLIENT_INDEX)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_PET_INDEX, PREFIX_CLIENT_INDEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddPetToClientCommand.MESSAGE_USAGE));
         }
@@ -40,7 +39,8 @@ public class AddPetToClientParser implements Parser<AddPetToClientCommand> {
             indexPet = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PET_INDEX).get());
             indexClient = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CLIENT_INDEX).get());
         } catch (IllegalValueException ive) {
-            throw new ParseException(ive.getMessage(), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddPetToClientCommand.MESSAGE_USAGE));
         }
 
         return new AddPetToClientCommand(indexPet, indexClient);

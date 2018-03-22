@@ -96,9 +96,7 @@ public class AddPetToClientCommand extends UndoableCommand {
         // state check
         AddPetToClientCommand e = (AddPetToClientCommand) other;
         return petIndex.equals(e.petIndex)
-                && clientIndex.equals(e.clientIndex)
-                && pet.equals(e.pet)
-                && client.equals(e.client);
+                && clientIndex.equals(e.clientIndex);
     }
 
 }
