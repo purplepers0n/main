@@ -253,6 +253,18 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) { }
+
+        @Override
+        public void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate) { }
+
+        @Override
+        public void updateFilteredPetList(Predicate<Pet> predicate) { }
+
+        @Override
+        public void updateFilteredClientList(Predicate<Client> predicate) { }
     }
 
 }
