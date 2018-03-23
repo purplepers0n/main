@@ -386,19 +386,18 @@ The program will scroll to and select the 3rd client on the list.
 
 === Scheduling an appointment : `schedule`
 
-Schedules an appointment by specifying the date, time and duration.
-Format: schedule da/DATE tm/TIME du/DURATION
+Schedules an appointment by specifying the date and time.
+Format: schedule da/DATE tm/TIME
 
 [NOTE]
 ====
 The format for date should follow YYYY-MM-DD and for time should follow HH:MM.
-The durition of an appointment can be ranged from 15 to 120 minutes.
 ====
 
 Examples:
 
-* `schedule da/2018-10-10 tm/15:00 du/60` +
-Schedules an appointment on 10th October 2018 at 15:00 for about 60 minutes.
+* `schedule da/2018-10-10 tm/15:00` +
+Schedules an appointment on 10th October 2018 at 15:00.
 
 === Listing entered commands : `history`
 
@@ -487,7 +486,6 @@ Exiting the program in the middle of a command will save the state. So there's n
 |find |`find KEYWORD` |Finds a client with keyword.
 |findp |`findp KEYWORD` |finds a pet with keyword.
 |select |`select INDEX` |Selects an index.
-|schedule|`schedule da/DATE tm/TIME du/DURATION` |Schedules an appointment.
 |history |`history` |Lists the history of commands executed.
 |undo |`undo` |Undo the previous command executed.
 |redo |`redo` |Redo the undo command executed.

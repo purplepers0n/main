@@ -613,62 +613,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-=== Schedule feature
-This feature supports one of the main functionality of *Vetter Appointments* which is to facilitate the process of scheduling appoints with clients.
-
-==== Current Implementation
-The schedule command will takes in three parameters which are date, time and duration.
-
-image::ModelAppointmentClassDiagram.png[width="800"]
-
-As you can see from the class diagram, there are three attributes of an appointment but an appointment is uniquely identified by its date and time.
-
-To differentiate each appointment the equals method is implemented this way:
-[source,java]
-----
-public boolean equals(Object other) {
-    ......
-    ......
-    Appointment otherAppointment = (Appointment) other;
-    return otherAppointment.getDate().equals(this.getDate())
-           && otherAppointment.getTime().equals(this.getTime());
-}
-----
-The constraints for a valid date are implemented this way:
-[source,java]
-----
- public static final String DATE_VALIDATION_REGEX =
-            "([2-9][0-9][1-9][89])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])";
-----
-By checking the date regex only date entered in the format of YYYY-MM-DD will be accepted.
-
-[NOTE]
-The year should be later than 2018
-
-The constraints for a valid time are implemented this way:
-[source,java]
-----
- public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3]):([0-5][0-9])";
-----
-By checking the time regex only time entered in the format of HH:MM will be accepted.
-
-[NOTE]
-Time is expressed in 24 hour format hence hour ranges from 00 to 23 and minute from 01 to 60.
-
-The constraints for duration are implemented this way:
-[source,java]
-----
- public static final String DURATION_VALIDATION_REGEX = "(1[5-9]|[2-9][0-9]|1[01][0-9]|120)";
-----
-
-[NOTE] Duration can be either two or three digit number and the value is in minute.
-
-Suppose the user wants to schedule a new appointment on 2018-04-01 at 11:00 and the expected duration will be 60 minutes.
-
-image::AppointmentClassDemo.png[width="1600"]
-
-==== Design Considerations
-=======
 
 == Documentation
 
