@@ -10,10 +10,17 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.fxmisc.easybind.EasyBind;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
@@ -40,6 +47,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueAppointmentList appointments;
     private final UniquePetList pets;
 
+    private final ObservableList<ClientOwnPet> clientPetAssociations;
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -53,6 +62,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         appointments = new UniqueAppointmentList();
         pets = new UniquePetList();
+
+        clientPetAssociations = FXCollections.observableArrayList();
     }
 
     public AddressBook() {}
@@ -83,6 +94,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.pets.setPets(pets);
     }
 
+    public void setClientPetAssociations(List<ClientOwnPet> associations) {
+        this.clientPetAssociations.setAll(associations);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -98,7 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
 
-        List< Appointment > syncedAppointmentList = newData.getAppointmentList();
+        List<Appointment> syncedAppointmentList = newData.getAppointmentList();
         try {
             setAppointments(syncedAppointmentList);
         } catch (DuplicateAppointmentException e) {
@@ -113,6 +128,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         } catch (DuplicatePetException e) {
             throw new AssertionError("Program should not have duplicate pets");
         }
+
+        setClientPetAssociations(newData.getClientPetAssociations());
     }
 
     //// person-level operations
@@ -262,6 +279,58 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncedPet = new Pet(pet.getPetName(), pet.getPetAge(), pet.getPetGender(), correctTagReferences);
         return syncedPet;
     }
+
+    //// Association methods
+
+    /**
+     * Associates pet to client
+     *
+     * @throws ClientAlreadyOwnsPetException
+     * @throws PetAlreadyHasOwnerException
+     */
+    public void addPetToClient(Pet pet, Client client)
+            throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
+        ClientOwnPet toAdd = new ClientOwnPet(client, pet);
+
+        if (!clientPetAssociations.contains(toAdd)) {
+            if (hasOwner(pet)) {
+                throw new PetAlreadyHasOwnerException();
+            }
+            clientPetAssociations.add(toAdd);
+        } else {
+            throw new ClientAlreadyOwnsPetException();
+        }
+
+    }
+
+    /**
+     * Returns true if specified pet has an owner
+     */
+    private boolean hasOwner(Pet pet) {
+        for (ClientOwnPet a : clientPetAssociations) {
+            if (a.getPet().equals(pet)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Removes association from pet and client
+     *
+     * @throws ClientPetAssociationNotFoundException
+     */
+    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
+        ClientOwnPet toRemove = new ClientOwnPet(client, pet);
+        if (clientPetAssociations.contains(toRemove)) {
+            clientPetAssociations.remove(toRemove);
+        } else {
+            throw new ClientPetAssociationNotFoundException();
+        }
+    }
+
+
     //// util methods
 
     @Override
@@ -291,6 +360,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<ClientOwnPet> getClientPetAssociations() {
+        return clientPetAssociations;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
@@ -298,6 +372,32 @@ public class AddressBook implements ReadOnlyAddressBook {
                 && this.tags.equalsOrderInsensitive(((AddressBook) other).tags))
                 && this.appointments.equals(((AddressBook) other).appointments)
                 && this.pets.equals(((AddressBook) other).pets);
+    }
+
+    @Override
+    public ObservableList<Client> getClientList() {
+        ObservableList<Client> clientList = EasyBind.map(getPersonList(), (person) -> {
+            if (person.isClient()) {
+                return (Client) person;
+            } else {
+                return null;
+            }
+        });
+        clientList = FXCollections.unmodifiableObservableList(clientList).filtered(Objects::nonNull);
+        return clientList;
+    }
+
+    @Override
+    public ObservableList<VetTechnician> getVetTechnicianList() {
+        ObservableList<VetTechnician> technicianList = EasyBind.map(getPersonList(), (person) -> {
+            if (!person.isClient()) {
+                return (VetTechnician) person;
+            } else {
+                return null;
+            }
+        });
+        technicianList = FXCollections.unmodifiableObservableList(technicianList).filtered(Objects::nonNull);
+        return technicianList;
     }
 
     @Override

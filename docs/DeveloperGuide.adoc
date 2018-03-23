@@ -364,12 +364,234 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+=== Pet Component Feature
+
+==== Reasons for implementation
+
+VetterAppointments is designed for vets who manages his team of vet technician, clients and most importantly, the pets.
+The Pet component feature stores the necessary Pet details like name, gender, age, tags as well as appointment.
+Such details are essential to facilitate other functions such as viewing the client's appointments and the pet's appointments at a glance displayed on the GUI.
+
+==== Current implementation
+
+*Model component* +
+Currently the `Pet` object is initialized by calling it's constructor. The constructor
+initializes the four fields of `Pet` to respective arguments supplied by the user. +
+
+*Constructing a `Pet` object*
+[source,java]
+----
+public Pet(PetName petName, PetAge petAge, PetGender petGender, Set<Tag> tags) {
+    requireAllNonNull(petName, petAge, petGender, tags);
+    this.petName = petName;
+    this.petAge = petAge;
+    this.petGender = petGender;
+    this.tags = tags;
+}
+----
+Explanation for arguments: +
+
+`PetName`: A class that takes in a String supplied by the user with the prefix `pn/`. It stores the details of the pet name
+and creates an object for the `Pet` constructor to consume.
+[NOTE]
+The `PetName` validates the name of the pet supplied. Only alphanumeric characters are allowed. +
+
+The constraints for a valid pet name is implemented this way:
+[source,java]
+----
+public static final String PETNAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+----
+
+`PetAge`: A class that takes in a String supplied by the user with the prefix `pa/`. It then stores the details of the pet age
+and creates an object for the `Pet` constructor to consume.
+[NOTE]
+The `PetAge` validates the age supplied by the user. Only 1-2 digit numbers are allowed. +
+
+The constraints for a valid pet age is implemented this way:
+[source,java]
+----
+public static final String PET_VALIDATIONS_REGEX = "\\d{1,2}";
+----
+
+`Petgender`: A class that takes in a String supplied by the user with the prefix `pg\`. It stores the pet gender details
+and creates an object for the `Pet` constructor to consume.
+[NOTE]
+The `PetGender` validates for supplied gender. Only M or F is allowed, representing Male or Female.
+It is case insensitive. +
+
+The constraints for a valid pet gender is implemented this way:
+[source,java]
+----
+public static final String GENDER_VALIDATION_REGEX = "[m,f,M,F]";
+----
+
+`Set<Tag>`: In addition to the PetName, PetAge and PetGender, a `Set<Tag>` is also needed for the construction of a `Pet` object. +
+[NOTE]
+The tags for a pet is used to represent the species and breed for that particular pet. +
+
+All the `Pet` objects that were created in the program will be stored in a class called `UniquePetList`.
+The `UniquePetList` class ensures that no duplicates of the same pet are stored inside the program.
+
+The figure below shows a simple overview of the `Pet` class. +
+
+.Pet class diagram snippet
+image::pet_diagram_snippet.png[width="790"]
+
+==== Logic component
+The `Pet` object interacts with several commands in the program. +
+1. `addp` +
+2. `deletep` +
+3. `list pet` +
+4. `sortp` `*NOT IMPLEMENTED YET*` +
+5. `addapptto` `*NOT IMPLEMENTED YET*` +
+6. `findp` `*NOT IMPLEMENTED YET*` +
+
+==== Storage component
+All pet details will be stored in a seperate XML file.
+
+==== UI component
+All pet information will be displayed in the UI in a `Pet` list. All changes made to the pet will be reflected immediately after interacting with the commands.
+
+// tag::addpettoclient[]
+=== Add pet to client feature
+==== Current Implementation
+The `AddPetToClientCommand` allows the user to add an existing pet to and existing client. A user can execute the command by providing the index of the pet and the index of the client in the following format `addpettoclient p/PET_INDEX c/CLIENT_INDEX`.
+
+.Structure of part of Logic Component
+image::addpettoclient_logic_command_class_diagram.png[width="800"]
+As can be seen from the diagram, the `AddPetToClientCommand` is implemented to extend an `UndoableCommand` which enables the user to undo and redo the `AddPetToClientCommand` that is executed.
+The `AddPetToClientCommand` interacts with the `Model` component to add pet to a client.
+
+.Structure of part of Model Component
+image::addpettoclientmodelclassdiagram.png[width="800"]
+
+The following sequence diagram shows how the add pet to client command works. +
+
+.Interactions inside the Logic Component for `addpetto p/1 c/1` Command
+image::addpettoclientSequence.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Implementation of `AddPetToClientCommand`
+* **Alternative 1 (current choice):** Add a new command that extends `UndoableCommand`
+** Pros: We will be able to utilize undone/redone functionality.
+** Cons: Hard for new developers to understand undo/redo implementation.
+* **Alternative 2:** Just add a new command that extends `Command`
+** Pros: Does not involve `UndoableCommand`, easier for new developers to understand.
+** Cons: Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
+
+===== Aspect: Data structure to support the add pet to client command
+* **Alternative 1 (current choice):** Use an association class `ClientOwnPet` to link `Pet` and `Client`
+** Pros: Low coupling between `Pet` and `Client`.
+** Cons: More steps required for other implementations to obtain pet and client relationship.
+* **Alternative 2:** Bi-directional association between `Pet` with `Client`
+** Pros: Need not need to maintain a separate association class.
+** Cons: High coupling.
+// end::addpettoclient[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+=== List and display clients, pets and vet technicians
+
+==== Current Implementation
+
+The side bar of the user interface implements a `TabPane` with three tabs,
+'Client', 'Pet' and 'Vet Tech' where clicking on each tab will show the
+corresponding list. We will use the pet list to demonstrate the implementation.
+
+The 'Pet' `Tab` consists of a `StackPane` called `petListPanelPlaceholder` in the `MainWindow.fxml` file.
+
+In the `MainWindow.java` file, the `petListPanel`
+retrieves the updated list of pets from `logic`, and the `petListPanel` is added to `petListPanelPlaceholder` to be displayed like so:
+
+[source, java]
+----
+public class MainWindow extends UiPart<Stage> {
+    void fillInnerParts() {
+        petListPanel = new PetListPanel(logic.getFilteredPetList());
+        petListPanelPlaceholder.getChildren().add(petListPanel.getRoot());
+        // ...other placeholders...
+    }
+}
+----
+
+The `PetListPanel` is a `ListView` which contains a list of `PetCard` which is implemented like so:
+
+[soruce, java]
+----
+public class PetListPanel extends UiPart<Region> {
+
+    @FXML
+    private ListView<PetCard> petListView;
+
+    private void setConnections(ObservableList<Pet> petList) {
+        ObservableList<PetCard> mappedList = EasyBind.map(
+                petList, (pet) -> new PetCard(pet, petList.indexOf(pet) + 1));
+        petListView.setItems(mappedList);
+        petListView.setCellFactory(listView -> new PetListViewCell());
+    }
+}
+----
+
+The `PetCard` contains a single pet and sets the pet's details and the layout of the display of details.
+
+Figure 11 below is a screenshot of the final displayed pet list, where each pet, for example 'Garfield',
+is contained in a `PetCard`, and the cards of all pets are presented in a list form by using `PetListPanel`.
+
+.Screenshot of a List of Pets
+image::list_pet.png[width="350"]
+
+Aside from toggling the lists by clicking on the tabs, the `list` command is implemented to take in a parameter
+of either 'client', 'pet' or 'vettech' so that the list view updates appropriately when the `list` command is used.
+
+To implement this, depending on the parameter, the `ListCommand` creates and adds `ChangeListTabEvent`
+to `EventCenter` like so:
+[source, java]
+----
+public class ListCommand extends Command {
+    @Override
+        public CommandResult execute() throws CommandException {
+
+            switch (targetType) {
+            case "pet":
+                model.updateFilteredPetList(PREDICATE_SHOW_ALL_PET);
+                EventsCenter.getInstance().post(new ChangeListTabEvent(1));
+                break;
+                // ...other cases...
+            }
+            // ...return...
+        }
+}
+----
+
+The `MainWindow` then handles the `ChangeListTabEvent` by changing to the corresponding list on the UI display,
+and updates `logic` with the index of the current list so that other commands like `edit` and `delete`
+can perform the command on the correct list, like so:
+
+[source, java]
+----
+public class MainWindow extends UiPart<Stage> {
+    @Subscribe
+    private void handleChangeListTabEvent(ChangeListTabEvent event) {
+        changeTo(event.targetList);
+        logic.setCurrentList(event.targetList);
+    }
+    private void changeTo(int list) {
+        Platform.runLater(() -> {
+            listPanel.getSelectionModel().select(list);
+        });
+    }
+}
+----
+
+With this implementation, whether changing list by mouse-click or by command,
+the application always contains the index of the current list being viewed,
+so that the correct list will be displayed, and so that all other commands will
+be executed on the correct list.
 
 === Logging
 
@@ -446,6 +668,7 @@ Suppose the user wants to schedule a new appointment on 2018-04-01 at 11:00 and 
 image::AppointmentClassDemo.png[width="1600"]
 
 ==== Design Considerations
+=======
 
 == Documentation
 
@@ -893,8 +1116,8 @@ This will allow the vet to easily schedule an appointment for the relevant pet.
 The vet will also state the date, time, vet technician assigned to the appointment as well
 as any comments he/she wishes to add. `rmapptfrom` will remove the appointment from a pet.
 
-* *Minor Enhancement*: Implement aliases for command words
-+
+* *Minor Enhancement*: Implement aliases for command words +
+
 [none]
 ** The aliases of command words will allow the vet to reduce the amount of typing
 required for command words, to increase efficiency in using the application.

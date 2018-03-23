@@ -23,6 +23,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -192,6 +195,22 @@ public class AddCommandTest {
         }
 
         public void updateFilteredPetList(Predicate<Pet> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ClientOwnPet> getClientPetAssociationList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
             fail("This method should not be called.");
         }
 
