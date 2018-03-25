@@ -1616,23 +1616,6 @@ JUnit is a unit testing framework for the Java programming language
 Gradle is an advanced general purpose build management system based on Groovy and Kotlin. Gradle supports the automatic download and configuration of dependencies or other libraries
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
