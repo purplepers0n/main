@@ -12,7 +12,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-F09-B4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `F09-B4`      Since: `March 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -103,7 +103,7 @@ When you are ready to start coding,
 === Architecture
 
 .Architecture Diagram
-image::Architecture.png[width="600"]
+image::Architecture.png[width="600", caption="Figure 3-1. "]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -134,24 +134,24 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+.Logic Component Class Diagram
+image::LogicClassDiagram.png[width="800", caption="Figure 3-2. "]
 
 [discrete]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+.Component Interactions for `delete 1` Command (part 1)
+image::SDforDeletePerson.png[width="800", caption="Figure 3-3. "]
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+.Component Interactions for `delete 1` Command (part 2)
+image::SDforDeletePersonEventHandling.png[width="800", caption="Figure 3-4. "]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -162,7 +162,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagram.png[width="800", caption="Figure 3-5. "]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -181,10 +181,12 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram.png[width="800", caption="Figure 3-6. "]
 
-.Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in <<fig-LogicClassDiagram>>
-image::LogicCommandClassDiagram.png[width="800"]
+Figure 3-7 shows finer details concerning `XYZCommand` and `Command` in Figure 3-6.
+
+.Structure of Commands in the Logic Component.
+image::LogicCommandClassDiagram.png[width="800", caption="Figure 3-7. "]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -194,16 +196,16 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Figure 3-8 shows the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeletePersonSdForLogic.png[width="800", caption="Figure 3-8. "]
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagram.png[width="800", caption="Figure 3-9. "]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -218,7 +220,7 @@ The `Model`,
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagram.png[width="800", caption="Figure 3-10. "]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -242,9 +244,10 @@ This section describes some noteworthy details on how certain features are imple
 
 The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
 
-`UndoRedoStack` only deals with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. The following diagram shows the inheritance diagram for commands:
+`UndoRedoStack` only deals with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. Figure 4-1 shows the inheritance diagram for commands.
 
-image::LogicCommandClassDiagram.png[width="800"]
+.Logic Command Class Diagram
+image::LogicCommandClassDiagram.png[width="800", caption="Figure 4-1. "]
 
 As you can see from the diagram, `UndoableCommand` adds an extra layer between the abstract `Command` class and concrete commands that can be undone, such as the `DeleteCommand`. Note that extra tasks need to be done when executing a command in an _undoable_ way, such as saving the state of the address book before execution. `UndoableCommand` contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern].
 
@@ -283,27 +286,31 @@ Suppose that the user has just launched the application. The `UndoRedoStack` wil
 
 The user executes a new `UndoableCommand`, `delete 5`, to delete the 5th person in the address book. The current state of the address book is saved before the `delete 5` command executes. The `delete 5` command will then be pushed onto the `undoStack` (the current state is saved together with the command).
 
-image::UndoRedoStartingStackDiagram.png[width="800"]
+.Undo/Redo Initial Stack Diagram
+image::UndoRedoStartingStackDiagram.png[width="800", caption="Figure 4-2. "]
 
 As the user continues to use the program, more commands are added into the `undoStack`. For example, the user may execute `add n/David ...` to add a new person.
 
-image::UndoRedoNewCommand1StackDiagram.png[width="800"]
+.Undo/Redo New Command Stack Diagram
+image::UndoRedoNewCommand1StackDiagram.png[width="800", caption="Figure 4-3. "]
 
 [NOTE]
 If a command fails its execution, it will not be pushed to the `UndoRedoStack` at all.
 
 The user now decides that adding the person was a mistake, and decides to undo that action using `undo`.
 
-We will pop the most recent command out of the `undoStack` and push it back to the `redoStack`. We will restore the address book to the state before the `add` command executed.
+The program will pop the most recent command out of the `undoStack` and push it back to the `redoStack`. Next the program will restore the address book to the state before the `add` command was executed.
 
-image::UndoRedoExecuteUndoStackDiagram.png[width="800"]
+.Undo/Redo Executed Undo Command Stack Diagram
+image::UndoRedoExecuteUndoStackDiagram.png[width="800", caption="Figure 4-4. "]
 
 [NOTE]
 If the `undoStack` is empty, then there are no other commands left to be undone, and an `Exception` will be thrown when popping the `undoStack`.
 
-The following sequence diagram shows how the undo operation works:
+Figure 4-5 shows a sequence diagram of how the undo operation works:
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+.Undo/Redo Sequence Diagram
+image::UndoRedoSequenceDiagram.png[width="800", caption="Figure 4-5. "]
 
 The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores the address book to the state after the command is executed).
 
@@ -312,15 +319,18 @@ If the `redoStack` is empty, then there are no other commands left to be redone,
 
 The user now decides to execute a new command, `clear`. As before, `clear` will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/David` command (this is the behavior that most modern desktop applications follow).
 
-image::UndoRedoNewCommand2StackDiagram.png[width="800"]
+.Undo/Redo New Command Stack Diagram (Clear)
+image::UndoRedoNewCommand2StackDiagram.png[width="800", caption="Figure 4-6. "]
 
 Commands that are not undoable are not added into the `undoStack`. For example, `list`, which inherits from `Command` rather than `UndoableCommand`, will not be added after execution:
 
-image::UndoRedoNewCommand3StackDiagram.png[width="800"]
+.Undo/Redo New Command Stack Diagram (List)
+image::UndoRedoNewCommand3StackDiagram.png[width="800", caption="Figure 4-7. "]
 
-The following activity diagram summarize what happens inside the `UndoRedoStack` when a user executes a new command:
+Figure 4-8 shows the activity diagram that summarize what happens inside the `UndoRedoStack` when a user executes a new command:
 
-image::UndoRedoActivityDiagram.png[width="650"]
+.Undo/Redo Activity Digram
+image::UndoRedoActivityDiagram.png[width="650", caption="Figure 4-8. "]
 
 ==== Design Considerations
 
@@ -435,7 +445,7 @@ The `UniquePetList` class ensures that no duplicates of the same pet are stored 
 The figure below shows a simple overview of the `Pet` class. +
 
 .Pet class diagram snippet
-image::pet_diagram_snippet.png[width="790"]
+image::pet_diagram_snippet.png[width="790", caption="Figure 4-9. "]
 
 ==== Logic component
 The `Pet` object interacts with several commands in the program. +
@@ -457,18 +467,18 @@ All pet information will be displayed in the UI in a `Pet` list. All changes mad
 ==== Current Implementation
 The `AddPetToClientCommand` allows the user to add an existing pet to and existing client. A user can execute the command by providing the index of the pet and the index of the client in the following format `addpettoclient p/PET_INDEX c/CLIENT_INDEX`.
 
-.Structure of part of Logic Component
-image::addpettoclient_logic_command_class_diagram.png[width="800"]
+.Structure of the Logic Component
+image::addpettoclient_logic_command_class_diagram.png[width="800", caption="Figure 4-10. "]
 As can be seen from the diagram, the `AddPetToClientCommand` is implemented to extend an `UndoableCommand` which enables the user to undo and redo the `AddPetToClientCommand` that is executed.
 The `AddPetToClientCommand` interacts with the `Model` component to add pet to a client.
 
-.Structure of part of Model Component
-image::addpettoclientmodelclassdiagram.png[width="800"]
+.Structure of the Model Component
+image::addpettoclientmodelclassdiagram.png[width="800" caption="Figure 4-11. "]
 
 The following sequence diagram shows how the add pet to client command works. +
 
-.Interactions inside the Logic Component for `addpetto p/1 c/1` Command
-image::addpettoclientSequence.png[width="800"]
+.Interaction of the Logic Component for `addpetto p/1 c/1` Command
+image::addpettoclientSequence.png[width="800" caption="Figure 4-12. "]
 
 ==== Design Considerations
 ===== Aspect: Implementation of `AddPetToClientCommand`
@@ -543,7 +553,7 @@ Figure 11 below is a screenshot of the final displayed pet list, where each pet,
 is contained in a `PetCard`, and the cards of all pets are presented in a list form by using `PetListPanel`.
 
 .Screenshot of a List of Pets
-image::list_pet.png[width="350"]
+image::list_pet.png[width="350" caption="Figure 4-13. "]
 
 Aside from toggling the lists by clicking on the tabs, the `list` command is implemented to take in a parameter
 of either 'client', 'pet' or 'vettech' so that the list view updates appropriately when the `list` command is used.
@@ -642,7 +652,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 .Saving documentation as PDF files in Chrome
-image::chrome_save_as_pdf.png[width="300"]
+image::chrome_save_as_pdf.png[width="300" caption="Figure 5-1. "]
 
 [[Testing]]
 == Testing
