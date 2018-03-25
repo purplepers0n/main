@@ -58,6 +58,11 @@ public interface Model {
     void addPerson(Person person) throws DuplicatePersonException;
 
     /**
+     * Sorts the given client list.
+     */
+    void sortClientList();
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
