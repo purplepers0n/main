@@ -248,7 +248,12 @@ public class AddCommandTest {
 
         @Override
         public void sortClientList() {
-            fail("This methodshould not be called");
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void sortPetList() {
+            fail("This method should not be called.");
         }
     }
 
