@@ -9,8 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.showClientAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showPetAtIndex;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PET;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PET;
@@ -172,6 +170,38 @@ public class AddPetToClientCommandTest {
         // redo -> add the same pet to client in unfiltered lists
         expectedModel.addPetToClient(petToAdd, clientToAddPetTo);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_addPetToClient_success() throws Exception {
+        Pet petInFilteredList = model.getFilteredPetList().get(INDEX_FIRST_PET.getZeroBased());
+        Client clientInFilteredList = model.getFilteredClientList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPetToClient(petInFilteredList, clientInFilteredList);
+
+        AddPetToClientCommand aptcCommand = prepareCommand(INDEX_FIRST_PET, INDEX_FIRST_PERSON);
+        String expectedMessage = String.format(AddPetToClientCommand.MESSAGE_ADD_PET_TO_CLIENT_SUCCESS,
+                petInFilteredList, clientInFilteredList);
+
+        assertCommandSuccess(aptcCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_clientAlreadyOwnsPet_throwsCommandException() throws Exception {
+        AddPetToClientCommand aptcCommand = prepareCommand(INDEX_FIRST_PET, INDEX_FIRST_PERSON);
+        aptcCommand.execute();
+
+        assertCommandFailure(aptcCommand, model, AddPetToClientCommand.MESSAGE_CLIENT_HAS_PET);
+    }
+
+    @Test
+    public void execute_petAlreadyHasOwner_throwsCommandException() throws Exception {
+        AddPetToClientCommand aptcCommand = prepareCommand(INDEX_FIRST_PET, INDEX_FIRST_PERSON);
+        aptcCommand.execute();
+        aptcCommand = prepareCommand(INDEX_FIRST_PET, INDEX_SECOND_PERSON);
+
+        assertCommandFailure(aptcCommand, model, AddPetToClientCommand.MESSAGE_PET_HAS_OWNER);
     }
 
     @Test
