@@ -152,6 +152,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void sortPetList() {
+        addressBook.sortPetList();
+        indicateAddressBookChanged();
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 

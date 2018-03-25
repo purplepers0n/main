@@ -140,6 +140,11 @@ public interface Model {
      */
     void updateFilteredPetList(Predicate<Pet> predicate);
 
+    /**
+     * Sorts the pet list.
+     */
+    void sortPetList();
+
     /** Returns an unmodifiable view of the filtered client pet association list */
     ObservableList<ClientOwnPet> getClientPetAssociationList();
 
