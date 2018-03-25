@@ -469,13 +469,10 @@ The `AddPetToClientCommand` allows the user to add an existing pet to and existi
 
 .Structure of the Logic Component
 image::addpettoclient_logic_command_class_diagram.png[width="800", caption="Figure 4-10. "]
-As can be seen from the diagram, the `AddPetToClientCommand` is implemented to extend an `UndoableCommand` which enables the user to undo and redo the `AddPetToClientCommand` that is executed.
+As seen from Figure 4-10, the `AddPetToClientCommand` is implemented to extend an `UndoableCommand` which enables the user to undo and redo the `AddPetToClientCommand` that is executed.
 The `AddPetToClientCommand` interacts with the `Model` component to add pet to a client.
 
-.Structure of the Model Component
-image::addpettoclientmodelclassdiagram.png[width="800" caption="Figure 4-11. "]
-
-The following sequence diagram shows how the add pet to client command works. +
+Figure 4-12 show the sequence diagram of how the add pet to client command works.
 
 .Interaction of the Logic Component for `addpetto p/1 c/1` Command
 image::addpettoclientSequence.png[width="800" caption="Figure 4-12. "]
