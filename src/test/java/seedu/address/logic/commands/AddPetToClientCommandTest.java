@@ -9,6 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.showClientAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showPetAtIndex;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PET;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PET;
@@ -61,7 +63,11 @@ public class AddPetToClientCommandTest {
         Index outOfBoundIndexPet = Index.fromOneBased(model.getFilteredPetList().size() + 1);
         Index outOfBoundIndexClient = Index.fromOneBased(model.getFilteredClientList().size() + 1);
 
-        AddPetToClientCommand aptcCommand = prepareCommand(outOfBoundIndexClient, outOfBoundIndexPet);
+        AddPetToClientCommand aptcCommand = prepareCommand(outOfBoundIndexPet, INDEX_FIRST_PERSON);
+
+        assertCommandFailure(aptcCommand, model, Messages.MESSAGE_INVALID_PET_DISPLAYED_INDEX);
+
+        aptcCommand = prepareCommand(INDEX_FIRST_PET, outOfBoundIndexClient);
 
         assertCommandFailure(aptcCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -72,17 +78,25 @@ public class AddPetToClientCommandTest {
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
-        showPetAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndexPet = INDEX_SECOND_PERSON;
+        showClientAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndexClient = INDEX_SECOND_PERSON;
 
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndexPet.getZeroBased() < model.getAddressBook().getPetList().size());
         assertTrue(outOfBoundIndexClient.getZeroBased() < model.getAddressBook().getClientList().size());
 
-        AddPetToClientCommand aptcCommand = prepareCommand(outOfBoundIndexPet, outOfBoundIndexClient);
+        AddPetToClientCommand aptcCommand = prepareCommand(INDEX_FIRST_PET, outOfBoundIndexClient);
 
         assertCommandFailure(aptcCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        showPetAtIndex(model, INDEX_FIRST_PET);
+        Index outOfBoundIndexPet = INDEX_SECOND_PET;
+
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundIndexPet.getZeroBased() < model.getAddressBook().getClientList().size());
+
+        aptcCommand = prepareCommand(outOfBoundIndexPet, INDEX_FIRST_PERSON);
+
+        assertCommandFailure(aptcCommand, model, Messages.MESSAGE_INVALID_PET_DISPLAYED_INDEX);
     }
 
     @Test
