@@ -230,6 +230,11 @@ public class ScheduleCommandTest {
             fail("This method should not be called");
             return -1;
         }
+
+        @Override
+        public void sortClientList() {
+            fail("This methodshould not be called");
+        }
     }
 
     /**
