@@ -1,7 +1,6 @@
-package seedu.address.logic.commands.exceptions;
+package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Sorts the client list
@@ -9,8 +8,6 @@ import seedu.address.logic.commands.UndoableCommand;
 public class SortClientCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "sortc";
-
-    public static final String MESSAGE_USAGE = "This is the message usage placeholder";
 
     public static final String MESSAGE_SUCCESS = "Client list sorted";
 
