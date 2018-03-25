@@ -207,17 +207,11 @@ Here is an example of using the command `listall`: +
 * `listall 1`  +
 Suppose there is only one client in the program and is stored at index 1. This command will then display all the information regarding the person at index one. +
 
-=== Sorting clients in alphabetical order: `sort` `coming v2.0`
-
-Command format: `sort` +
-
-The `sort` command will sort all existing clients in the program in alphabetical order. By default, the program displays the list clients in chronological order. +
-
-=== Sorting clients in chronological order: `sortc` `coming v2.0`
+=== Sorting clients in alphabetical order: `sortc`
 
 Command format: `sortc` +
 
-The `sortc` command will sort all existing clients in the program in most recently added. This is the default ordering that is displayed in the program. +
+The `sortc` command will sort all existing clients in the program in alphabetical ordering.
 
 === Removing a client or vet technician: `delete`
 
@@ -410,7 +404,7 @@ Restores the address book to the state before the previous _undoable_ command wa
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content: +
-`add` `addp` `addapptto` `sort` `sortc` `delete` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
+`add` `addp` `addapptto` `sortc` `delete` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
 ====
 
 === Redoing the previously undone command : `redo`
@@ -422,7 +416,7 @@ Reverses the most recent `undo` command. +
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content: +
-`add` `addp` `addapptto` `sort` `sortc` `delete` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
+`add` `addp` `addapptto` `sortc` `delete` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
 ====
 
 === Clearing all entries : `clear`
@@ -465,8 +459,7 @@ Exiting the program in the middle of a command will save the state. So there's n
 |list vettech |`list vettech` |Lists all vet technicians.
 |list appt |`list appt` |Lists all appointments.
 |listall |`listall INDEX` |Lists all details for a particular client.
-|sort |`sort` |Sorts the client list alphabetically.
-|sortc |`sortc` |Sorts the client list chronologically.
+|sortc |`sortc` |Sorts the client list alphabetically.
 |delete |`delete INDEX` |Remove a client from the program based on index.
 |deletep |`deletep INDEX` |Removes a pet from the program based on index.
 |rmpetfrom |`rmpetfrom n/CLIENT_NAME pn/PET_NAME` |Removes a pet from a client.
