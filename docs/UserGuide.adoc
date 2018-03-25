@@ -335,38 +335,28 @@ The `editappt` command edits the appointment date and detail of an existing pet.
 *COMMENTS*:: The new comments for the appointment. It need not be supplied by the user.
 
 
-=== Finding clients by name: `find`
+=== Finding by name: `find`
 
 Command format: `find KEYWORD`
 
-The `find` command displays all existing clients containing the keyword. The command expeccts these parameters: +
+The `find` command displays all existing clients or pets containing the keyword. The command expects these parameters: +
 
 [horizontal]
-*KEYWORD*:: The keyword to find the client. It must be supplied by the user.
+*KEYWORD*:: The keyword to find the client or pet. It must be supplied by the user.
 
 Here is an example on how to use the `find` command: +
 
 * `find alice` +
 The user used the keyword alice to find all clients containing the word alice in their names.
 
+* `find gArfIeld` +
+The user used the keyword gArfIeld to find all pets containing the word garfield in their names.
+
 [TIP]
 The keyword is case insensitive.This means typing, "ALICE", "alice" or 'AlIcE" will result in the same output.
-
-=== Finding pets by name: `findp` `coming v2.0`
-
-Command format: `findp KEYWORD`
-
-The `findp` command is similar to the `find` command. See <<Finding clients by name: `find`>>. The `findp` command displays all existing pets containing the keyword. The command expects these parameters:
-
-[horizontal]
-*KEYWORD*:: The keyword to find the pet. It must be supplied by the user.
-
-Here is an example on how to use the command: +
-
-* `findp Garf`
-The user used the keyword Garf to find all pets containing the word Garf.
-[TIP]
-The keyword is case insensitive. This means typing, "GARF", "garf" or "GaRf" will result in the same output.
+[NOTE]
+You need to be in the client list to find clients by name. Likewise, you need to be in the pet list to find
+pets by name.
 
 
 === Selecting a client, pet or vet technician: `select`
@@ -420,7 +410,7 @@ Restores the address book to the state before the previous _undoable_ command wa
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content: +
-`add` `addp` `addapptto` `sort` `sortc` `rmc` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
+`add` `addp` `addapptto` `sort` `sortc` `delete` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
 ====
 
 === Redoing the previously undone command : `redo`
@@ -432,7 +422,7 @@ Reverses the most recent `undo` command. +
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content: +
-`add` `addp` `addapptto` `sort` `sortc` `rmc` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
+`add` `addp` `addapptto` `sort` `sortc` `delete` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
 ====
 
 === Clearing all entries : `clear`
@@ -477,7 +467,8 @@ Exiting the program in the middle of a command will save the state. So there's n
 |listall |`listall INDEX` |Lists all details for a particular client.
 |sort |`sort` |Sorts the client list alphabetically.
 |sortc |`sortc` |Sorts the client list chronologically.
-|rmc |`rmc INDEX` |Remove a client.
+|delete |`delete INDEX` |Remove a client from the program based on index.
+|deletep |`deletep INDEX` |Removes a pet from the program based on index.
 |rmpetfrom |`rmpetfrom n/CLIENT_NAME pn/PET_NAME` |Removes a pet from a client.
 |rmapptfrom |`rmapptfrom n/CLIENT_NAME pn/PET_NAME` |Removes an appointment from a pet.
 |edit |`edit INDEX [n/ROLE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` |Edits a person's details.
