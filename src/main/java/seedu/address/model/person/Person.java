@@ -10,6 +10,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.client.Client;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -23,7 +24,6 @@ public abstract class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
-    private final PersonRole role;
 
     private final UniqueTagList tags;
 
@@ -32,13 +32,12 @@ public abstract class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, PersonRole role, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, role, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.role = role;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
         appointments = new UniqueAppointmentList();
@@ -60,9 +59,7 @@ public abstract class Person {
         return address;
     }
 
-    public PersonRole getRole() {
-        return role;
-    }
+    public abstract PersonRole getRole();
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -144,7 +141,7 @@ public abstract class Person {
      *  Returns true if person is a client
      */
     public boolean isClient() {
-        return role.equals(PersonRole.CLIENT_ROLE);
+        return this instanceof Client;
     }
 
 
