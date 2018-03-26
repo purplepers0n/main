@@ -586,6 +586,7 @@ the application always contains the index of the current list being viewed,
 so that the correct list will be displayed, and so that all other commands will
 be executed on the correct list.
 
+// tag::scheduleappt[]
 === Schedule feature
 This feature supports one of the main functionality of *Vetter Appointments* which is to facilitate the process of scheduling appointments with clients.
 
@@ -595,9 +596,10 @@ This feature supports one of the main functionality of *Vetter Appointments* whi
 * *Overview*:
 In order to schedule an appointment, the Vet must create an appointment by specifying the date, time and duration.
 
-    The diagram below illustrates the overview of the appointment class.(Figure 4-1)
+The diagram below illustrates the overview of the appointment class.(Figure 16) +
 
-image::ModelAppointmentClassDiagram.png[width="800", caption="Figure 4-1. "]
+.View the appointment class in addressbook
+image::ModelAppointmentClassDiagram.png[width="800", caption="Figure 16. "]
 
 As you can see from the class diagram, there are three attributes of an appointment and each of them is implemented by an individual class.
 
@@ -605,9 +607,10 @@ As you can see from the class diagram, there are three attributes of an appointm
 Date & time +
 We are not using the java date and time class but implementing our self-defined classes. The reason is to check the invalidity more efficiently.
 
-    The diagrams below shows the class diagram for date and time.(Figure 4-2)
+The diagrams below shows the class diagram for date and time.(Figure 17) +
 
-image::AppointmentClassDemo.png[width="800", caption="Figure 4-2. "]
+.Date and time class diagram snippet
+image::AppointmentClassDemo.png[width="800", caption="Figure 17. "]
 
 The method to check for for a valid date is implemented this way:
 [source,java]
@@ -632,9 +635,10 @@ Time is expressed in 24 hour format hence hour ranges from 00 to 23 and minute f
 
 Duration +
 
-    The diagram below shows the class diagram of duration.(Figure 4-3)
+The diagram below shows the class diagram of duration.(Figure 18) +
 
-image::AppointmentClassDemo2.png[width="800", caption="Figure 4-3. "]
+.Duration class diagram snippet
+image::AppointmentClassDemo2.png[width="800", caption="Figure 18. "]
 
 The method to check for a valid duration is implemented this way:
 [source,java]
@@ -647,9 +651,10 @@ Duration can be either two or three digit number and the value is in minute.
 
 Appointment +
 
-    The diagram below shows the class diagram of appointment.(Figure 4-4)
+The diagram below shows the class diagram of appointment.(Figure 19)
 
-image::AppointmentClassDemo3.png[width="800", caption="Figure 4-4. "]
+.Appoint class diagram snippet
+image::AppointmentClassDemo3.png[width="800", caption="Figure 19. "]
 
 To differentiate appointments, the equals method is implemented this way:
 
@@ -668,8 +673,23 @@ public boolean equals(Object other) {
 Only date and time are responsible for duplicate appointments.
 
 ==== Logic component
+The following diagram shows how the schedule command works.(Figure 20) +
+
+.Interactions inside the Logic Component for `schedule date time duration` Command
+
+image::ScheduleLogicSequenceDiagram.png[width="800", caption="Figure 20. "]
+
+As you can see from the above diagram, the schedule command first goes to the `logicManager` and then get parsed by the `ScheduleCommand Parser`.
+After getting the appointment object from `Model`, the command result returns to `LogicManager`.
 
 ==== Storage component
+The following diagram shows how the appointment be stored in the addressBook.(Figure 21) +
+
+.Stores the appointment
+image::AppointmentStorageClassDiagram.png[width="800", caption="Figure 21. "]
+
+As shown in the above diagram, appointments are saved and read back in xml format.
+// end::scheduleappt[]
 
 === Logging
 
