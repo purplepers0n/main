@@ -521,7 +521,7 @@ public class MainWindow extends UiPart<Stage> {
 
 The `PetListPanel` is a `ListView` which contains a list of `PetCard` which is implemented like so:
 
-[soruce, java]
+[source, java]
 ----
 public class PetListPanel extends UiPart<Region> {
 

@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.SortPetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPetCommand;
 import seedu.address.logic.commands.AddPetToClientCommand;
@@ -25,6 +24,7 @@ import seedu.address.logic.commands.RemovePetFromClientCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortClientCommand;
+import seedu.address.logic.commands.SortPetCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
