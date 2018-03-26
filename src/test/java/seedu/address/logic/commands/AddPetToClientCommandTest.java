@@ -61,7 +61,11 @@ public class AddPetToClientCommandTest {
         Index outOfBoundIndexPet = Index.fromOneBased(model.getFilteredPetList().size() + 1);
         Index outOfBoundIndexClient = Index.fromOneBased(model.getFilteredClientList().size() + 1);
 
-        AddPetToClientCommand aptcCommand = prepareCommand(outOfBoundIndexClient, outOfBoundIndexPet);
+        AddPetToClientCommand aptcCommand = prepareCommand(outOfBoundIndexPet, INDEX_FIRST_PERSON);
+
+        assertCommandFailure(aptcCommand, model, Messages.MESSAGE_INVALID_PET_DISPLAYED_INDEX);
+
+        aptcCommand = prepareCommand(INDEX_FIRST_PET, outOfBoundIndexClient);
 
         assertCommandFailure(aptcCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -72,17 +76,25 @@ public class AddPetToClientCommandTest {
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
-        showPetAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndexPet = INDEX_SECOND_PERSON;
+        showClientAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndexClient = INDEX_SECOND_PERSON;
 
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndexPet.getZeroBased() < model.getAddressBook().getPetList().size());
         assertTrue(outOfBoundIndexClient.getZeroBased() < model.getAddressBook().getClientList().size());
 
-        AddPetToClientCommand aptcCommand = prepareCommand(outOfBoundIndexPet, outOfBoundIndexClient);
+        AddPetToClientCommand aptcCommand = prepareCommand(INDEX_FIRST_PET, outOfBoundIndexClient);
 
         assertCommandFailure(aptcCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        showPetAtIndex(model, INDEX_FIRST_PET);
+        Index outOfBoundIndexPet = INDEX_SECOND_PET;
+
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundIndexPet.getZeroBased() < model.getAddressBook().getClientList().size());
+
+        aptcCommand = prepareCommand(outOfBoundIndexPet, INDEX_FIRST_PERSON);
+
+        assertCommandFailure(aptcCommand, model, Messages.MESSAGE_INVALID_PET_DISPLAYED_INDEX);
     }
 
     @Test
@@ -158,6 +170,38 @@ public class AddPetToClientCommandTest {
         // redo -> add the same pet to client in unfiltered lists
         expectedModel.addPetToClient(petToAdd, clientToAddPetTo);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_addPetToClient_success() throws Exception {
+        Pet petInFilteredList = model.getFilteredPetList().get(INDEX_FIRST_PET.getZeroBased());
+        Client clientInFilteredList = model.getFilteredClientList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPetToClient(petInFilteredList, clientInFilteredList);
+
+        AddPetToClientCommand aptcCommand = prepareCommand(INDEX_FIRST_PET, INDEX_FIRST_PERSON);
+        String expectedMessage = String.format(AddPetToClientCommand.MESSAGE_ADD_PET_TO_CLIENT_SUCCESS,
+                petInFilteredList, clientInFilteredList);
+
+        assertCommandSuccess(aptcCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_clientAlreadyOwnsPet_throwsCommandException() throws Exception {
+        AddPetToClientCommand aptcCommand = prepareCommand(INDEX_FIRST_PET, INDEX_FIRST_PERSON);
+        aptcCommand.execute();
+
+        assertCommandFailure(aptcCommand, model, AddPetToClientCommand.MESSAGE_CLIENT_HAS_PET);
+    }
+
+    @Test
+    public void execute_petAlreadyHasOwner_throwsCommandException() throws Exception {
+        AddPetToClientCommand aptcCommand = prepareCommand(INDEX_FIRST_PET, INDEX_FIRST_PERSON);
+        aptcCommand.execute();
+        aptcCommand = prepareCommand(INDEX_FIRST_PET, INDEX_SECOND_PERSON);
+
+        assertCommandFailure(aptcCommand, model, AddPetToClientCommand.MESSAGE_PET_HAS_OWNER);
     }
 
     @Test

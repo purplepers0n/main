@@ -82,6 +82,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    public void sortClientList() {
+        this.persons.sort();
+    }
+
     public void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);
     }
@@ -92,6 +96,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void setPets(List<Pet> pets) throws DuplicatePetException {
         this.pets.setPets(pets);
+    }
+
+    public void sortPetList() {
+        this.pets.sort();
     }
 
     public void setClientPetAssociations(List<ClientOwnPet> associations) {
