@@ -488,14 +488,6 @@ image::addpettoclientSequence.png[width="800"]
 ** Cons: High coupling.
 // end::addpettoclient[]
 
-// tag::dataencryption[]
-
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === List and display clients, pets and vet technicians
 
 ==== Current Implementation
