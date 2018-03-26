@@ -93,6 +93,14 @@ public class UniquePetList implements Iterable<Pet> {
     }
 
     /**
+     * Sorts the internal list.
+     */
+    public void sort() {
+        internalList.sort((Pet one, Pet two) -> one.getPetName().toString()
+                .compareTo(two.getPetName().toString()));
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Pet> asObservableList() {

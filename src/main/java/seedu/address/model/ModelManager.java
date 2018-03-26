@@ -114,6 +114,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void sortClientList() {
+        addressBook.sortClientList();
+        indicateAddressBookChanged();
+    }
+
 
     // Pet
 
@@ -143,6 +149,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
         requireAllNonNull(pet, client);
         addressBook.removePetFromClient(pet, client);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void sortPetList() {
+        addressBook.sortPetList();
         indicateAddressBookChanged();
     }
 

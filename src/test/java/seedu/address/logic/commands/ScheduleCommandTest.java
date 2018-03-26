@@ -212,12 +212,12 @@ public class ScheduleCommandTest {
 
         @Override
         public void addPet(Pet pet) throws DuplicatePetException {
-            fail("This method should not be called");
+            fail("This method should not be called.");
         }
 
         @Override
         public void deletePet(Pet pet) throws PetNotFoundException {
-            fail("This method should not be called");
+            fail("This method should not be called.");
         }
 
         @Override
@@ -227,8 +227,18 @@ public class ScheduleCommandTest {
 
         @Override
         public int getCurrentList() {
-            fail("This method should not be called");
+            fail("This method should not be called.");
             return -1;
+        }
+
+        @Override
+        public void sortClientList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortPetList() {
+            fail("This method should not be called.");
         }
     }
 
