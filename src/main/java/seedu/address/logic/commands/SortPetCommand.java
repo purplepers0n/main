@@ -1,7 +1,5 @@
-package seedu.address.logic;
+package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
