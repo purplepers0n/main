@@ -22,11 +22,12 @@ public class ScheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "schedule";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Schedule an appointment with "
-            + "date, time and duration.  "
+            + "date, time, duration and description.  "
             + "Parameters: "
             + PREFIX_DATE + "DATE "
             + PREFIX_TIME + "TIME "
-            + PREFIX_DURATION + "DURATION\n"
+            + PREFIX_DURATION + "DURATION "
+            + PREFIX_DESCRIPTION + "DESCRIPTION\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "2018-05-01 "
             + PREFIX_TIME + "15:15 "

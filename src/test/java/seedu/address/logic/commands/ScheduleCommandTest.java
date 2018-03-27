@@ -79,15 +79,18 @@ public class ScheduleCommandTest {
         Appointment appointment1 = new AppointmentBuilder().withDate("2018-12-12").build();
         Appointment appointment2 = new AppointmentBuilder().withTime("00:00").build();
         Appointment appointment3 = new AppointmentBuilder().withDuration("30").build();
+        Appointment appointment4 = new AppointmentBuilder().withDescription("Sterilize Garfield").build();
 
         ScheduleCommand scheduleAppointment1 = new ScheduleCommand(appointment1);
         ScheduleCommand scheduleAppointment2 = new ScheduleCommand(appointment2);
         ScheduleCommand scheduleAppointment3 = new ScheduleCommand(appointment3);
+        ScheduleCommand scheduleAppointment4 = new ScheduleCommand(appointment4);
 
         // same object -> returns true
         assertTrue(scheduleAppointment1.equals(scheduleAppointment1));
         assertTrue(scheduleAppointment2.equals(scheduleAppointment2));
         assertTrue(scheduleAppointment3.equals(scheduleAppointment3));
+        assertTrue(scheduleAppointment4.equals(scheduleAppointment4));
 
         // same values -> returns true
         ScheduleCommand scheduleAppointment1Copy = new ScheduleCommand(appointment1);

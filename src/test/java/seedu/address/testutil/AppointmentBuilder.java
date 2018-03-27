@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Description;
 import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 
@@ -12,24 +13,18 @@ public class AppointmentBuilder {
     public static final String DEFAULT_DATE = "2018-01-01";
     public static final String DEFAULT_TIME = "00:00";
     public static final String DEFAULT_DURATION = "30";
+    public static final String DEFAULT_DESCRIPTION = "Sterilize garfield";
 
     private Date date;
     private Time time;
     private Duration duration;
+    private Description description;
 
     public AppointmentBuilder() {
         date = new Date(DEFAULT_DATE);
         time = new Time(DEFAULT_TIME);
         duration = new Duration(DEFAULT_DURATION);
-    }
-
-    /**
-     * Initializes the AppointmentBuilder with the data of {@code appointmentToCopy}.
-     */
-    public AppointmentBuilder(Appointment appointmentToCopy) {
-        date = appointmentToCopy.getDate();
-        time = appointmentToCopy.getTime();
-        duration = appointmentToCopy.getDuration();
+        description = new Description(DEFAULT_DESCRIPTION);
     }
 
     /**
@@ -55,8 +50,17 @@ public class AppointmentBuilder {
         this.duration = new Duration(duration);
         return this;
     }
+
+    /**
+     * Sets the {@code Description} of the code {@code Appointment} that we are building.
+     */
+    public AppointmentBuilder withDescription(String description) {
+        this.description = new Description(description);
+        return this;
+    }
+
     public Appointment build() {
-        return new Appointment(date, time, duration);
+        return new Appointment(date, time, duration, description);
     }
 
 }

@@ -267,7 +267,7 @@ public class ParserUtil {
      * Parses a {@code String description} into a {@code Descripton}
      * leading and trailing whitespaces will be trimmed.
      */
-    public static Description parseDescription(String description) {
+    public static Description parseDescription(String description) throws IllegalValueException {
         requireNonNull(description);
         return new Description(description.trim());
     }

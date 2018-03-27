@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
@@ -33,6 +34,7 @@ public class AppointmentUtil {
         sb.append(PREFIX_DATE + appointment.getDate().toString() + " ");
         sb.append(PREFIX_TIME + appointment.getTime().toString() + " ");
         sb.append(PREFIX_DURATION + appointment.getDuration().toString() + " ");
+        sb.append(PREFIX_DESCRIPTION + appointment.getDescription().toString() + " ");
 
         return sb.toString();
     }

@@ -89,6 +89,9 @@ public class XmlAdaptedAppointment {
         }
         final Duration duration = new Duration(this.duration);
 
+        if (!Description.isValidDescription(this.description)) {
+            throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+        }
         final Description description = new Description(this.description);
 
         convertedAppointment = new Appointment(date, time, duration, description);
