@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -22,10 +23,15 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
+    private static final int DOUBLE_PRESS_DELAY = 300;
+    private static final String EMPTY_STRING = "";
+    private static final String MESSAGE_AVAILABLE_AUTOCOMPLETE = "Command suggestions: ";
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private ListElementPointer historySnapshot;
+
+    private long previousTabPressTime;
 
     @FXML
     private TextField commandTextField;
@@ -36,6 +42,7 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
+        previousTabPressTime = 0;
     }
 
     /**
@@ -48,16 +55,66 @@ public class CommandBox extends UiPart<Region> {
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
             keyEvent.consume();
-
             navigateToPreviousInput();
             break;
         case DOWN:
             keyEvent.consume();
             navigateToNextInput();
             break;
+        case TAB:
+            keyEvent.consume();
+            showAutoComplete();
+            break;
         default:
             // let JavaFx handle the keypress
         }
+    }
+
+    /**
+     * Shows auto completed words on the UI
+     */
+    private void showAutoComplete() {
+        if (commandTextField.getText().isEmpty()) {
+            return;
+        }
+
+        List<String> listOfAutoComplete = logic.autoCompleteCommands(commandTextField.getText());
+
+        if (listOfAutoComplete.isEmpty()) {
+            return;
+        }
+        logger.info("Auto Complete Suggestions '"
+                + commandTextField.getText() + "' : " + listToString(listOfAutoComplete));
+
+        if (listOfAutoComplete.size() > 1 && isTabDoubleTap()) {
+            raise(new NewResultAvailableEvent(MESSAGE_AVAILABLE_AUTOCOMPLETE + listToString(listOfAutoComplete)));
+        } else {
+            commandTextField.setText(listOfAutoComplete.get(0));
+            commandTextField.positionCaret(commandTextField.getText().length());
+            raise(new NewResultAvailableEvent(EMPTY_STRING));
+        }
+
+    }
+
+    /**
+     * Returns the {@code String} representative of given the list of Strings.
+     */
+    private String listToString(List<String> listOfAutoComplete) {
+        String toString = listOfAutoComplete.toString();
+        toString = toString.substring(1, toString.length() - 1).trim();
+        return toString;
+    }
+
+    /**
+     * Returns true if TAB is pressed in quick succession
+     */
+    private boolean isTabDoubleTap() {
+        if (System.currentTimeMillis() - previousTabPressTime < DOUBLE_PRESS_DELAY) {
+            return true;
+        } else {
+            previousTabPressTime = System.currentTimeMillis();
+        }
+        return false;
     }
 
     /**

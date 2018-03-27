@@ -38,6 +38,14 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
     }
 
     /**
+     * Enters the given string in the Command Box.
+     */
+    public void setInput(String text) {
+        guiRobot.interact(() -> getRootNode().setText(text));
+        guiRobot.pauseForHuman();
+    }
+
+    /**
      * Returns the list of style classes present in the command box.
      */
     public ObservableList<String> getStyleClass() {

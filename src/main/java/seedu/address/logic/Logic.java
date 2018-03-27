@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -44,6 +46,11 @@ public interface Logic {
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    /** Returns the sorted list of autocomplete commands with prefix {@code keyWord},
+     *  encapsulated in a {@code List<String>} object
+     */
+    List<String> autoCompleteCommands(String keyWord);
 
     /**
      * Sets the index of the current list that is viewed
