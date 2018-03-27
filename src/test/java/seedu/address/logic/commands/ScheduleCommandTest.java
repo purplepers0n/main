@@ -29,6 +29,7 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -238,6 +239,16 @@ public class ScheduleCommandTest {
 
         @Override
         public void sortPetList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException {
             fail("This method should not be called.");
         }
     }

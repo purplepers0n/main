@@ -17,6 +17,7 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
@@ -103,6 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
         addressBook.scheduleAppointment(appointment);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
         indicateAddressBookChanged();
     }
 
@@ -158,6 +160,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException {
+        requireAllNonNull(appointment, pet);
+        addressBook.addAppointmentToPet(appointment, pet);
+        indicateAddressBookChanged();
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -183,6 +192,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+        requireNonNull(predicate);
+        filteredAppointment.setPredicate(predicate);
     }
 
     //Client

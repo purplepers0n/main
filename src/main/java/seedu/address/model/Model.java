@@ -8,6 +8,7 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
@@ -157,6 +158,17 @@ public interface Model {
      * Removes association from pet and client
      */
     void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException;
+
+    /**
+     * Updates the filteredAppointmentList
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+    /**
+     * Adds an appointment to a pet.
+     */
+    void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException;
 
     /**
      * Sets the index of the current list that is viewed

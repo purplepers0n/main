@@ -20,6 +20,7 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
@@ -309,6 +310,28 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new ClientAlreadyOwnsPetException();
         }
 
+    }
+
+    /**
+     * Finds the pet and adds the appointment
+     */
+    public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException {
+        boolean isAdded = false;
+
+        if (clientPetAssociations.isEmpty()) {
+            throw new AssertionError("No client association found");
+        }
+
+        for (ClientOwnPet a : clientPetAssociations) {
+            if (a.getPet().equals(pet) && appointment.getClientOwnPet() == null) {
+                appointment.setClientOwnPet(a);
+                isAdded = true;
+            }
+        }
+
+        if (!isAdded) {
+            throw new PetAlreadyHasAppointmentException();
+        }
     }
 
     /**

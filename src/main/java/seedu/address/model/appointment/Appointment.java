@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.association.ClientOwnPet;
+
 /**
  * Represents an Appointment in the application.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -13,7 +15,7 @@ public class Appointment {
     private final Date date;
     private final Time time;
     private final Duration duration;
-
+    private ClientOwnPet clientOwnPet;
 
     /**
      * Every field must be present and not null.
@@ -23,6 +25,7 @@ public class Appointment {
         this.date = date;
         this.time = time;
         this.duration = duration;
+        this.clientOwnPet = null;
 
     }
 
@@ -36,6 +39,14 @@ public class Appointment {
 
     public Duration getDuration() {
         return duration;
+    }
+
+    public void setClientOwnPet(ClientOwnPet clientOwnPet) {
+        this.clientOwnPet = clientOwnPet;
+    }
+
+    public ClientOwnPet getClientOwnPet() {
+        return clientOwnPet;
     }
 
     @Override
