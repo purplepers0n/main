@@ -15,7 +15,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PetPanelSelectionChangedEvent;
-import seedu.address.model.pet.Pet;
+import seedu.address.model.association.ClientOwnPet;
 
 /**
  * Panel containing the list of pets.
@@ -27,16 +27,15 @@ public class PetListPanel extends UiPart<Region> {
     @FXML
     private ListView<PetCard> petListView;
 
-    public PetListPanel(ObservableList<Pet> petList) {
+    public PetListPanel(ObservableList<ClientOwnPet> clientOwnPetList) {
         super(FXML);
-        setConnections(petList);
+        setConnections(clientOwnPetList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Pet> petList) {
-        ObservableList<PetCard> mappedList = EasyBind.map(
-                petList, (pet) -> new PetCard(pet, petList.indexOf(pet) + 1));
-        petListView.setItems(mappedList);
+    private void setConnections(ObservableList<ClientOwnPet> clientOwnPetList) {
+        petListView.setItems(EasyBind.map(clientOwnPetList, (clientOwnPet) -> new PetCard(clientOwnPet,
+                clientOwnPetList.indexOf(clientOwnPet) + 1)));
         petListView.setCellFactory(listView -> new PetListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }

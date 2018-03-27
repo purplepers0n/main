@@ -5,10 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.pet.Pet;
 
 /**
- * An UI component that displays information of a {@code Pet}.
+ * An UI component that displays information of a {@code clientOwnPet}.
  */
 public class PetCard extends UiPart<Region> {
 
@@ -25,6 +26,7 @@ public class PetCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
+    public final ClientOwnPet clientOwnPet;
     public final Pet pet;
 
     @FXML
@@ -43,14 +45,15 @@ public class PetCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PetCard(Pet pet, int displayedIndex) {
+    public PetCard(ClientOwnPet clientOwnPet, int displayedIndex) {
         super(FXML);
-        this.pet = pet;
+        this.clientOwnPet = clientOwnPet;
+        pet = clientOwnPet.getPet();
         id.setText(displayedIndex + ". ");
         name.setText(pet.getPetName().fullPetName);
         gender.setText("Gender: " + pet.getPetGender().fullGender);
         age.setText(pet.getPetAge().value + " years old");
-        client.setText("Owner: ");
+        client.setText("Owner: " + clientOwnPet.getClient().getName());
         initTags(pet);
     }
 

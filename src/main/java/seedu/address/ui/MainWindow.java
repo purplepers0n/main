@@ -141,7 +141,7 @@ public class MainWindow extends UiPart<Stage> {
         clientListPanel = new ClientListPanel(logic.getFilteredClientList());
         clientListPanelPlaceholder.getChildren().add(clientListPanel.getRoot());
 
-        petListPanel = new PetListPanel(logic.getFilteredPetList());
+        petListPanel = new PetListPanel(logic.getClientPetAssociationList());
         petListPanelPlaceholder.getChildren().add(petListPanel.getRoot());
 
         vetTechnicianListPanel = new VetTechnicianListPanel(logic.getFilteredVetTechnicianList());
