@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Description;
 import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 import seedu.address.model.person.Address;
@@ -36,7 +37,6 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_TYPE = "Type is not 'client', 'pet' or 'vettech.";
-    public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -264,12 +264,12 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> duration} into an {@code Optional<Duration>} if {@code duration} is present.
-     * See header comment of this class regarding the use of {@code Optional} parameters.
+     * Parses a {@code String description} into a {@code Descripton}
+     * leading and trailing whitespaces will be trimmed.
      */
-    public static Optional<Duration> parseDuration(Optional<String> duration) throws IllegalValueException {
-        requireNonNull(duration);
-        return duration.isPresent() ? Optional.of(parseDuration(duration.get())) : Optional.empty();
+    public static Description parseDescription(String description) {
+        requireNonNull(description);
+        return new Description(description.trim());
     }
 
     /**
@@ -287,13 +287,6 @@ public class ParserUtil {
         return new PetName(trimmedPetName);
     }
 
-    /**
-     * Parses a {@code Optional<String> name} into an {@code Optional<PetName>}
-     */
-    public static Optional<PetName> parsePetName(Optional<String> petName) throws IllegalValueException {
-        requireNonNull(petName);
-        return petName.isPresent() ? Optional.of(parsePetName(petName.get())) : Optional.empty();
-    }
 
     /**
      * Parses {@code String petAge} into {@code PetAge}.
@@ -309,14 +302,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> petAge} into an {@code Optional<PetAge>}
-     */
-    public static Optional<PetAge> parsePetAge(Optional<String> petAge) throws IllegalValueException {
-        requireNonNull(petAge);
-        return petAge.isPresent() ? Optional.of(parsePetAge(petAge.get())) : Optional.empty();
-    }
-
-    /**
      * Parses {@code String petGender} into {@code PetGender}.
      * Leading and trailing whitespaces will be trimmed.
      */
@@ -327,14 +312,6 @@ public class ParserUtil {
             throw new IllegalValueException(PetGender.MESSAGE_PETGENDER_CONSTRAINTS);
         }
         return new PetGender(trimmedPetGender);
-    }
-
-    /**
-     * Parses a {@code Optional<String> petGender} into {@code PetGender}.
-     */
-    public static Optional<PetGender> parsePetGender(Optional<String> petGender) throws IllegalValueException {
-        requireNonNull(petGender);
-        return petGender.isPresent() ? Optional.of(parsePetGender(petGender.get())) : Optional.empty();
     }
 
     /**

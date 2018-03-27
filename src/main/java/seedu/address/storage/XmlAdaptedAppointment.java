@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Description;
 import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 
@@ -23,6 +24,8 @@ public class XmlAdaptedAppointment {
     private String time;
     @XmlElement(required = true)
     private String duration;
+    @XmlElement(required = true)
+    private String description;
 
     /**
      * Constructs an XmlAdaptedAppointment.
@@ -33,10 +36,11 @@ public class XmlAdaptedAppointment {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedAppointment(String date, String time, String duration) {
+    public XmlAdaptedAppointment(String date, String time, String duration, String description) {
         this.date = date;
         this.time = time;
         this.duration = duration;
+        this.description = description;
     }
 
     /**
@@ -48,6 +52,7 @@ public class XmlAdaptedAppointment {
         date = source.getDate().toString();
         time = source.getTime().toString();
         duration = source.getDuration().toString();
+        description = source.getDescription().toString();
     }
 
     /**
@@ -84,7 +89,9 @@ public class XmlAdaptedAppointment {
         }
         final Duration duration = new Duration(this.duration);
 
-        convertedAppointment = new Appointment(date, time, duration);
+        final Description description = new Description(this.description);
+
+        convertedAppointment = new Appointment(date, time, duration, description);
 
         return convertedAppointment;
     }
@@ -101,7 +108,9 @@ public class XmlAdaptedAppointment {
 
         XmlAdaptedAppointment otherAppointment = (XmlAdaptedAppointment) other;
         return Objects.equals(date, otherAppointment.date)
-                && Objects.equals(time, otherAppointment.time);
+                && Objects.equals(time, otherAppointment.time)
+                && Objects.equals(duration, otherAppointment.duration)
+                && Objects.equals(description, otherAppointment.description);
 
     }
 }

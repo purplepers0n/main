@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
@@ -29,13 +30,17 @@ public class ScheduleCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "2018-05-01 "
             + PREFIX_TIME + "15:15 "
-            + PREFIX_DURATION + "60 ";
+            + PREFIX_DURATION + "60 "
+            + PREFIX_DESCRIPTION + "Sterilize Garfield";
 
 
     public static final String MESSAGE_SUCCESS = "New appointment scheduled";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "The date and time are taken ";
-    public static final String MESSAGE_CLOSE_APPOINTMENT_PREVIOUS = "The appointment is to close to previous one";
-    public static final String MESSAGE_CLOSE_APPOINTMENT_NEXT = "The appointment is to close to next one";
+    public static final String MESSAGE_CLOSE_APPOINTMENT_PREVIOUS = "The appointment is too close to previous one";
+    public static final String MESSAGE_CLOSE_APPOINTMENT_NEXT = "The appointment is too close to next one";
+    private static final int MINIMUM_INTERVAL = 1440;
+    private static final int CORRECT_DURATION = 120;
+    private static final int CONVERSION_TIME = 60;
 
     private final Appointment toAdd;
 
@@ -60,8 +65,8 @@ public class ScheduleCommand extends UndoableCommand {
         int hour = newAppointmentTime.getHour();
 
         int interval;
-        int minInterval = 1440;
-        int correctDuration = 120;
+        int minInterval = MINIMUM_INTERVAL;
+        int correctDuration = CORRECT_DURATION;
 
         for (Appointment earlierAppointment: existingAppointmentList) {
             Date earlierAppointmentDate = earlierAppointment.getDate();
@@ -69,7 +74,7 @@ public class ScheduleCommand extends UndoableCommand {
 
             if (earlierAppointmentDate.equals(newAppointmentDate)) {
                 if ((earlierAppointmentTime.getHour() <= hour) & (min != earlierAppointmentTime.getMinute())) {
-                    interval = (hour - earlierAppointmentTime.getHour()) * 60
+                    interval = (hour - earlierAppointmentTime.getHour()) * CONVERSION_TIME
                             + (min - earlierAppointmentTime.getMinute());
                     if (interval < minInterval) {
                         minInterval = interval;
@@ -103,7 +108,7 @@ public class ScheduleCommand extends UndoableCommand {
 
             if (laterAppointmentDate.equals(newAppointmentDate)) {
                 if ((laterAppointmentTime.getHour() >= hour) & (min != laterAppointmentTime.getMinute())) {
-                    interval = (laterAppointmentTime.getHour() - hour) * 60
+                    interval = (laterAppointmentTime.getHour() - hour) * CONVERSION_TIME
                             + (laterAppointmentTime.getMinute() - min);
                     if (interval <= minInterval) {
                         throw new AppointmentCloseToNextException(" Appointment is too close to later one");
