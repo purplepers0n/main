@@ -34,8 +34,9 @@ public class PetListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<ClientOwnPet> clientOwnPetList) {
-        petListView.setItems(EasyBind.map(clientOwnPetList, (clientOwnPet) -> new PetCard(clientOwnPet,
-                clientOwnPetList.indexOf(clientOwnPet) + 1)));
+        ObservableList<PetCard> mappedList = EasyBind.map(clientOwnPetList, (clientOwnPet) -> new PetCard(clientOwnPet,
+                clientOwnPetList.indexOf(clientOwnPet) + 1));
+        petListView.setItems(mappedList);
         petListView.setCellFactory(listView -> new PetListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
