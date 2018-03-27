@@ -543,7 +543,7 @@ Figure 4-12 below is a screenshot of the final displayed pet list, where each pe
 is contained in a `PetCard`, and the cards of all pets are presented in a list form by using `PetListPanel`.
 
 .Screenshot of a List of Pets
-image::list_pet.png[width="350" caption="Figure 4-12. "]
+image::list_pet.PNG[width="350" caption="Figure 4-12. "]
 
 Aside from toggling the lists by clicking on the tabs, the `list` command is implemented to take in a parameter
 of either 'client', 'pet' or 'vettech' so that the list view updates appropriately when the `list` command is used.
