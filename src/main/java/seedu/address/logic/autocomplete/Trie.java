@@ -1,5 +1,7 @@
 package seedu.address.logic.autocomplete;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Map;
 public class Trie {
 
     private Node root;
+    private int size = 0;
 
     /**
      * Represents node a Trie
@@ -31,6 +34,7 @@ public class Trie {
      * Insert a word into Trie
      */
     public void insertWord(String word) {
+        requireNonNull(word);
         insert(root, word);
     }
 
@@ -44,6 +48,9 @@ public class Trie {
             }
             insert(currNode.children.get(key.charAt(0)), key.substring(1));
         } else {
+            if (currNode.isCompleteWord == false) {
+                size++;
+            }
             currNode.isCompleteWord = true;
         }
     }
@@ -98,6 +105,13 @@ public class Trie {
             listOfPostFix.add(s);
         }
         return listOfPostFix;
+    }
+
+    /**
+     * @return size of Trie
+     */
+    public int size() {
+        return size;
     }
 
 }
