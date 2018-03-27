@@ -83,6 +83,8 @@ public class CommandBox extends UiPart<Region> {
         if (listOfAutoComplete.isEmpty()) {
             return;
         }
+        logger.info("Auto Complete Suggestions '"
+                + commandTextField.getText() + "' : " + listToString(listOfAutoComplete));
 
         if (listOfAutoComplete.size() > 1 && isTabDoubleTap()) {
             raise(new NewResultAvailableEvent(MESSAGE_AVAILABLE_AUTOCOMPLETE + listToString(listOfAutoComplete)));
