@@ -315,20 +315,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Finds the pet and adds the appointment
      */
-    public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException {
+    public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException,
+            ClientPetAssociationNotFoundException {
+
         boolean isAdded = false;
+        boolean isPresent = false;
 
         if (clientPetAssociations.isEmpty()) {
-            throw new AssertionError("No client association found");
+            throw new ClientPetAssociationNotFoundException();
         }
-
         for (ClientOwnPet a : clientPetAssociations) {
-            if (a.getPet().equals(pet) && appointment.getClientOwnPet() == null) {
-                appointment.setClientOwnPet(a);
-                isAdded = true;
+            if (a.getPet().equals(pet)) {
+                isPresent = true;
+                if (appointment.getClientOwnPet() == null) {
+                    appointment.setClientOwnPet(a);
+                    isAdded = true;
+                }
             }
         }
-
+        if (!isPresent) {
+            throw new ClientPetAssociationNotFoundException();
+        }
         if (!isAdded) {
             throw new PetAlreadyHasAppointmentException();
         }

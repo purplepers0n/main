@@ -161,7 +161,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException {
+    public void addAppointmentToPet(Appointment appointment, Pet pet)
+            throws PetAlreadyHasAppointmentException, ClientPetAssociationNotFoundException {
         requireAllNonNull(appointment, pet);
         addressBook.addAppointmentToPet(appointment, pet);
         indicateAddressBookChanged();

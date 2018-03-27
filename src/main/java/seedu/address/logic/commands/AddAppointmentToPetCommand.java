@@ -12,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.pet.Pet;
 
@@ -30,8 +31,9 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " " + PREFIX_APPOINTMENT_INDEX + "1 "
             + PREFIX_PET_INDEX + "2";
 
-    public static final String MESSAGE_ADD_APPOINTMENT_TO_PET_SUCCESS = "Added appointment to pet!";
+    public static final String MESSAGE_ADD_APPOINTMENT_TO_PET_SUCCESS = "Added Appointment to Pet:\n%1$s\n>> %2$s";
     public static final String MESSAGE_PET_HAS_APPOINTMENT = "Pet already has an appointment.";
+    public static final String MESSAGE_PET_DOES_NOT_HAVE_OWNER = "This pet does not have an owner yet!";
 
     private final Index appointmentIndex;
     private final Index petIndex;
@@ -60,8 +62,10 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
             model.addAppointmentToPet(appointment.get(), pet.get());
         } catch (PetAlreadyHasAppointmentException e) {
             throw new CommandException(MESSAGE_PET_HAS_APPOINTMENT);
+        } catch (ClientPetAssociationNotFoundException e) {
+            throw new CommandException(MESSAGE_PET_DOES_NOT_HAVE_OWNER);
         }
-        return new CommandResult(MESSAGE_ADD_APPOINTMENT_TO_PET_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_TO_PET_SUCCESS, appointment.get(), pet.get()));
     }
 
     @Override
