@@ -15,16 +15,18 @@ public class Appointment {
     private final Date date;
     private final Time time;
     private final Duration duration;
+    private final Description description;
     private ClientOwnPet clientOwnPet;
 
     /**
      * Every field must be present and not null.
      */
-    public Appointment(Date date, Time time, Duration duration) {
-        requireAllNonNull(date, time);
+    public Appointment(Date date, Time time, Duration duration, Description description) {
+        requireAllNonNull(date, time, duration, description);
         this.date = date;
         this.time = time;
         this.duration = duration;
+        this.description = description;
         this.clientOwnPet = null;
 
     }
@@ -41,12 +43,16 @@ public class Appointment {
         return duration;
     }
 
-    public void setClientOwnPet(ClientOwnPet clientOwnPet) {
-        this.clientOwnPet = clientOwnPet;
+    public Description getDescription() {
+        return description;
     }
 
     public ClientOwnPet getClientOwnPet() {
         return clientOwnPet;
+    }
+
+    public void setClientOwnPet(ClientOwnPet clientOwnPet) {
+        this.clientOwnPet = clientOwnPet;
     }
 
     @Override
@@ -61,14 +67,16 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getDate().equals(this.getDate())
-                && otherAppointment.getTime().equals(this.getTime());
+                && otherAppointment.getTime().equals(this.getTime())
+                && otherAppointment.getDuration().equals(this.getDuration())
+                && otherAppointment.getDescription().equals(this.getDescription());
 
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(date, time, duration);
+        return Objects.hash(date, time, duration, description);
 
     }
 
@@ -81,8 +89,9 @@ public class Appointment {
                 .append(" Time: ")
                 .append(getTime())
                 .append(" Duration: ")
-                .append(getDuration());
-
+                .append(getDuration())
+                .append(" Description: ")
+                .append(getDescription());
 
         return builder.toString();
     }
