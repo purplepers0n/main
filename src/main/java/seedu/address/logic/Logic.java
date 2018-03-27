@@ -43,10 +43,10 @@ public interface Logic {
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
 
-    /** Returns the list of sorted autocomplete words input entered by the user,
+    /** Returns the sorted list of autocomplete commands with prefix {@code keyWord},
      *  encapsulated in a {@code List<String>} object
      */
-    List<String> getListOfAutoComplete(String keyWord);
+    List<String> autoCompleteCommands(String keyWord);
 
     /**
      * Sets the index of the current list that is viewed

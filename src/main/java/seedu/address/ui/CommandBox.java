@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -24,13 +23,15 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final int doublePressDelay = 300;
+    private static final int DOUBLE_PRESS_DELAY = 300;
+    private static final String EMPTY_STRING = "";
+    private static final String MESSAGE_AVAILABLE_AUTOCOMPLETE = "Command suggestions: ";
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private ListElementPointer historySnapshot;
 
-    private long lastTabPressTime;
+    private long previousTabPressTime;
 
     @FXML
     private TextField commandTextField;
@@ -41,7 +42,7 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
-        lastTabPressTime = 0;
+        previousTabPressTime = 0;
     }
 
     /**
@@ -63,19 +64,7 @@ public class CommandBox extends UiPart<Region> {
             break;
         case TAB:
             keyEvent.consume();
-            System.currentTimeMillis();
-            //TODO create a trie store of all available commands, tech,client,pet names.
-            if (!commandTextField.getText().isEmpty()) {
-                List<String> listOfAutoComplete = logic.getListOfAutoComplete(commandTextField.getText());
-                if (listOfAutoComplete.size() == 1){
-                    commandTextField.setText(listOfAutoComplete.get(0));
-                    commandTextField.positionCaret(commandTextField.getText().length());
-                } else if (isDoubleTap(keyEvent)){
-                    if (!listOfAutoComplete.isEmpty()) {
-                        raise(new NewResultAvailableEvent(listOfAutoComplete.toString()));
-                    }
-                }
-            }
+            showAutoComplete();
             break;
         default:
             // let JavaFx handle the keypress
@@ -83,13 +72,46 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Returns true if keyEvent is pressed in quick succession
+     * Shows auto completed words on the UI
      */
-    private boolean isDoubleTap(KeyEvent keyEvent) {
-        if (System.currentTimeMillis() - lastTabPressTime < doublePressDelay) {
+    private void showAutoComplete() {
+        if (commandTextField.getText().isEmpty()) {
+            return;
+        }
+
+        List<String> listOfAutoComplete = logic.autoCompleteCommands(commandTextField.getText());
+
+        if (listOfAutoComplete.isEmpty()) {
+            return;
+        }
+
+        if (listOfAutoComplete.size() > 1 && isTabDoubleTap()) {
+            raise(new NewResultAvailableEvent(MESSAGE_AVAILABLE_AUTOCOMPLETE + listToString(listOfAutoComplete)));
+        } else {
+            commandTextField.setText(listOfAutoComplete.get(0));
+            commandTextField.positionCaret(commandTextField.getText().length());
+            raise(new NewResultAvailableEvent(EMPTY_STRING));
+        }
+
+    }
+
+    /**
+     * Returns the {@code String} representative of given the list of Strings.
+     */
+    private String listToString(List<String> listOfAutoComplete) {
+        String toString = listOfAutoComplete.toString();
+        toString = toString.substring(1, toString.length() - 1).trim();
+        return toString;
+    }
+
+    /**
+     * Returns true if TAB is pressed in quick succession
+     */
+    private boolean isTabDoubleTap() {
+        if (System.currentTimeMillis() - previousTabPressTime < DOUBLE_PRESS_DELAY) {
             return true;
         } else {
-            lastTabPressTime = System.currentTimeMillis();
+            previousTabPressTime = System.currentTimeMillis();
         }
         return false;
     }

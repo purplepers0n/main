@@ -85,8 +85,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public List<String> getListOfAutoComplete(String keyWord) {
-        return autoComplete.getAutoCompleteWords(keyWord);
+    public List<String> autoCompleteCommands(String keyWord) {
+        return autoComplete.autoCompleteCommands(keyWord);
     }
 
     public void setCurrentList(int currList) {
