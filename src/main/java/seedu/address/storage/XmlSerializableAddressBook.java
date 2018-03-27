@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 
 
 /**
@@ -18,6 +20,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 
+    private static final String CLIENT_ALREADY_OWNS_PET = "Client already owns pet";
+    private static final String PET_ALREADY_HAS_OWNER = "Pet already has owner";
     @XmlElement
     private List<XmlAdaptedPerson> persons;
     @XmlElement
@@ -26,6 +30,8 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedPet> pets;
     @XmlElement
     private List<XmlAdaptedAppointment> appointments;
+    @XmlElement
+    private List<XmlAdaptedClientOwnPet> clientPetAssociations;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -36,6 +42,7 @@ public class XmlSerializableAddressBook {
         tags = new ArrayList<>();
         pets = new ArrayList<>();
         appointments = new ArrayList<>();
+        clientPetAssociations = new ArrayList<>();
     }
 
     /**
@@ -47,6 +54,8 @@ public class XmlSerializableAddressBook {
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
         pets.addAll(src.getPetList().stream().map(XmlAdaptedPet::new).collect(Collectors.toList()));
         appointments.addAll(src.getAppointmentList().stream().map(XmlAdaptedAppointment::new).collect(
+                Collectors.toList()));
+        clientPetAssociations.addAll(src.getClientPetAssociations().stream().map(XmlAdaptedClientOwnPet::new).collect(
                 Collectors.toList()));
     }
 
@@ -72,6 +81,15 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedAppointment appointment : appointments) {
             addressBook.scheduleAppointment(appointment.toModelType());
         }
+        for (XmlAdaptedClientOwnPet association : clientPetAssociations) {
+            try {
+                addressBook.addPetToClient(association.getPet(), association.getClient());
+            } catch (ClientAlreadyOwnsPetException e) {
+                throw new IllegalValueException(CLIENT_ALREADY_OWNS_PET);
+            } catch (PetAlreadyHasOwnerException e) {
+                throw new IllegalValueException(PET_ALREADY_HAS_OWNER);
+            }
+        }
         return addressBook;
     }
 
@@ -89,6 +107,7 @@ public class XmlSerializableAddressBook {
         return persons.equals(otherAb.persons)
                 && tags.equals(otherAb.tags)
                 && pets.equals(otherAb.pets)
-                && appointments.equals(otherAb.appointments);
+                && appointments.equals(otherAb.appointments)
+                && clientPetAssociations.equals(otherAb.clientPetAssociations);
     }
 }
