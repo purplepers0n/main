@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -38,8 +40,9 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ClientListPanel clientListPanel;
     private PetListPanel petListPanel;
+    private VetTechnicianListPanel vetTechnicianListPanel;
     private Config config;
     private UserPrefs prefs;
 
@@ -53,10 +56,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane clientListPanelPlaceholder;
 
     @FXML
     private StackPane petListPanelPlaceholder;
+
+    @FXML
+    private StackPane vetTechnicianListPanelPlaceholder;
 
     @FXML
     private TabPane listPanel;
@@ -82,6 +88,8 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
         registerAsAnEventHandler(this);
+
+        updateCurrentList();
     }
 
     public Stage getPrimaryStage() {
@@ -130,11 +138,14 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        clientListPanel = new ClientListPanel(logic.getFilteredClientList());
+        clientListPanelPlaceholder.getChildren().add(clientListPanel.getRoot());
 
         petListPanel = new PetListPanel(logic.getFilteredPetList());
         petListPanelPlaceholder.getChildren().add(petListPanel.getRoot());
+
+        vetTechnicianListPanel = new VetTechnicianListPanel(logic.getFilteredVetTechnicianList());
+        vetTechnicianListPanelPlaceholder.getChildren().add(vetTechnicianListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -195,27 +206,45 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
+    public ClientListPanel getClientListPanel() {
+        return this.clientListPanel;
     }
 
     public PetListPanel getPetListPanel() {
         return this.petListPanel;
     }
 
+    public VetTechnicianListPanel getVetTechnicianListPanel() {
+        return this.vetTechnicianListPanel;
+    }
+
+
     /**
-     * Changes to the {@code Tab} at the {@code index} and selects it.
+     * Changes to the {@code Tab} of the specific {@code list} requested and selects it.
      */
-    private void changeTo(int index) {
+    private void changeTo(int list) {
         Platform.runLater(() -> {
-            listPanel.getSelectionModel().select(index);
+            listPanel.getSelectionModel().select(list);
         });
     }
 
     @Subscribe
     private void handleChangeListTabEvent(ChangeListTabEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        changeTo(event.targetIndex);
+        changeTo(event.targetList);
+        logic.setCurrentList(event.targetList);
+    }
+
+    /**
+     * Updates the current index being viewed if tab is changed by mouseclick event
+     */
+    private void updateCurrentList() {
+        listPanel.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                logic.setCurrentList(newValue.intValue());
+            }
+        });
     }
 
     void releaseResources() {

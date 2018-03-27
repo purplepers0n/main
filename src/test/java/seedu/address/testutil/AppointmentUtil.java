@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import seedu.address.logic.commands.ScheduleCommand;
@@ -10,6 +11,11 @@ import seedu.address.model.appointment.Appointment;
  * A utility class for Appointment.
  */
 public class AppointmentUtil {
+
+
+
+
+
 
     /**
      * Returns an schedule command string for scheduling the {@code appointment}.
@@ -26,6 +32,7 @@ public class AppointmentUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_DATE + appointment.getDate().toString() + " ");
         sb.append(PREFIX_TIME + appointment.getTime().toString() + " ");
+        sb.append(PREFIX_DURATION + appointment.getDuration().toString() + " ");
 
         return sb.toString();
     }

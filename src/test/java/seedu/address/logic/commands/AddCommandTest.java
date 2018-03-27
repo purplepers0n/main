@@ -23,6 +23,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -45,7 +49,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_personOrClientAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().buildWithRoleClient();
 
@@ -53,10 +57,22 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_vetTechnicianAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validTechnician = new PersonBuilder().buildWithRoleVetTechnician();
+
+        CommandResult commandResult = getAddCommandForPerson(validTechnician, modelStub).execute();
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTechnician), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validTechnician), modelStub.personsAdded);
+    }
+
+    @Test
+    public void execute_duplicatePersonOrClient_throwsCommandException() throws Exception {
         ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
         Person validPerson = new PersonBuilder().buildWithRoleClient();
 
@@ -64,6 +80,17 @@ public class AddCommandTest {
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         getAddCommandForPerson(validPerson, modelStub).execute();
+    }
+
+    @Test
+    public void execute_duplicateVetTechnician_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
+        Person validVetTechnician = new PersonBuilder().buildWithRoleVetTechnician();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+
+        getAddCommandForPerson(validVetTechnician, modelStub).execute();
     }
 
     @Test
@@ -173,8 +200,30 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<ClientOwnPet> getClientPetAssociationList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
             fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            fail("This method should not be called.");
+            return null;
         }
 
         @Override
@@ -185,6 +234,37 @@ public class AddCommandTest {
         @Override
         public void deletePet(Pet pet) throws PetNotFoundException {
             fail("This method should not be called");
+        }
+
+        @Override
+        public void setCurrentList(int currentList) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public int getCurrentList() {
+            fail("This method should not be called");
+            return -1;
+        }
+
+        @Override
+        public void sortClientList() {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void sortPetList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException {
+            fail("This method should not be called.");
         }
     }
 
@@ -219,6 +299,18 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) { }
+
+        @Override
+        public void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate) { }
+
+        @Override
+        public void updateFilteredPetList(Predicate<Pet> predicate) { }
+
+        @Override
+        public void updateFilteredClientList(Predicate<Client> predicate) { }
     }
 
 }

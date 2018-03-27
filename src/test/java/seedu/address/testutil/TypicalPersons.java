@@ -16,12 +16,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.client.Client;
-import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.vettechnician.VetTechnician;
-import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
+
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -45,7 +42,7 @@ public class TypicalPersons {
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("little tokyo").buildWithRoleClient();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").buildWithRoleClient();
+            .withEmail("anna@example.com").withAddress("4th street").buildWithRoleVetTechnician();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -72,12 +69,7 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             try {
                 ab.addPerson(person);
-                if (person.isClient()) {
-                    ab.addClient((Client) person);
-                } else {
-                    ab.addVetTechnician((VetTechnician) person);
-                }
-            } catch (DuplicatePersonException | DuplicateClientException | DuplicateVetTechnicianException e) {
+            } catch (DuplicatePersonException e) {
                 throw new AssertionError("not possible");
             }
         }

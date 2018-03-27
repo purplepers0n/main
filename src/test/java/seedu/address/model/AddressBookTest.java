@@ -9,7 +9,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
+import org.fxmisc.easybind.EasyBind;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -17,6 +19,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.pet.Pet;
@@ -67,18 +70,6 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getClientList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getClientList().remove(0);
-    }
-
-    @Test
-    public void getVetTechnicianList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getVetTechnicianList().remove(0);
-    }
-
-    @Test
     public void getTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getTagList().remove(0);
@@ -89,33 +80,24 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final ObservableList<Client> clients = FXCollections.observableArrayList();
-        private final ObservableList<VetTechnician> technicians = FXCollections.observableArrayList();
 
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<Pet> pets = FXCollections.observableArrayList();
+        private final ObservableList<ClientOwnPet> associations = FXCollections.observableArrayList();
+
 
         AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags) {
             this.persons.setAll(persons);
             this.tags.setAll(tags);
             this.appointments.setAll(appointments);
             this.pets.setAll(pets);
+            this.associations.setAll(associations);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
-        }
-
-        @Override
-        public ObservableList<Client> getClientList() {
-            return clients;
-        }
-
-        @Override
-        public ObservableList<VetTechnician> getVetTechnicianList() {
-            return technicians;
         }
 
         @Override
@@ -131,6 +113,37 @@ public class AddressBookTest {
         @Override
         public ObservableList<Pet> getPetList() {
             return pets;
+        }
+
+        @Override
+        public ObservableList<ClientOwnPet> getClientPetAssociations() {
+            return associations;
+        }
+
+        @Override
+        public ObservableList<Client> getClientList() {
+            ObservableList<Client> clientList = EasyBind.map(getPersonList(), (person) -> {
+                if (person.isClient()) {
+                    return (Client) person;
+                } else {
+                    return null;
+                }
+            });
+            clientList = FXCollections.unmodifiableObservableList(clientList).filtered(Objects::nonNull);
+            return clientList;
+        }
+
+        @Override
+        public ObservableList<VetTechnician> getVetTechnicianList() {
+            ObservableList<VetTechnician> technicianList = EasyBind.map(getPersonList(), (person) -> {
+                if (!person.isClient()) {
+                    return (VetTechnician) person;
+                } else {
+                    return null;
+                }
+            });
+            technicianList = FXCollections.unmodifiableObservableList(technicianList).filtered(Objects::nonNull);
+            return technicianList;
         }
     }
 

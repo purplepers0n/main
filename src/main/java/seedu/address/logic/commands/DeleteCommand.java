@@ -17,6 +17,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class DeleteCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_ALIAS = "del";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number used in the last person listing.\n"
@@ -27,12 +28,17 @@ public class DeleteCommand extends UndoableCommand {
 
     private final Index targetIndex;
 
+    private int currList = 0; //default is on client list upon opening app
+
     private Person personToDelete;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
+    public void setCurrentList() {
+        this.currList = model.getCurrentList();
+    }
 
     @Override
     public CommandResult executeUndoableCommand() {
@@ -48,7 +54,17 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<? extends Person> lastShownList;
+
+        setCurrentList();
+
+        if (currList == 0) {
+            lastShownList = model.getFilteredClientList();
+        } else if (currList == 2) {
+            lastShownList = model.getFilteredVetTechnicianList();
+        } else {
+            throw new CommandException("Not currently on a list that 'delete' command can change");
+        }
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

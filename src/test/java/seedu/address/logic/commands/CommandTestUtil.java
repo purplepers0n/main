@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -20,9 +21,11 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.pet.Pet;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -45,6 +48,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String ROLE_DESC_CLIENT = " " + PREFIX_PERSON_ROLE + VALID_ROLE_CLIENT;
+    public static final String ROLE_DESC_VETTECHNICIAN = " " + PREFIX_PERSON_ROLE + VALID_ROLE_TECHNICIAN;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -56,6 +60,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String INVALID_ROLE_DESC = " " + PREFIX_PERSON_ROLE + "baker"; // 'baker' not allowed in names
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -120,6 +125,7 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredClientList().size());
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
@@ -127,6 +133,42 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+
+        Person clientToBeShownAtIndex = model.getFilteredClientList().get(targetIndex.getZeroBased());
+        model.updateFilteredClientList(new Predicate<Client>() {
+            @Override
+            public boolean test(Client client) {
+                return clientToBeShownAtIndex.equals(client);
+            }
+        });
+
+        assertEquals(1, model.getFilteredClientList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the pet at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showPetAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPetList().size());
+
+        Pet petToShow = model.getFilteredPetList().get(targetIndex.getZeroBased());
+        model.updateFilteredPetList(pet -> petToShow.equals(pet));
+
+        assertEquals(1, model.getFilteredPetList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the pet at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showClientAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredClientList().size());
+
+        Client clientToShow = model.getFilteredClientList().get(targetIndex.getZeroBased());
+        model.updateFilteredClientList(pet -> clientToShow.equals(pet));
+
+        assertEquals(1, model.getFilteredClientList().size());
     }
 
     /**

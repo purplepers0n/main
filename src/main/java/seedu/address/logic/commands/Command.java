@@ -25,6 +25,16 @@ public abstract class Command {
     }
 
     /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of pets.
+     *
+     * @param displaySize used to generate summary
+     * @return summary message for persons displayed
+     */
+    public static String getMessageForPetListShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_PETS_LISTED_OVERVIEW, displaySize);
+    }
+
+    /**
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display

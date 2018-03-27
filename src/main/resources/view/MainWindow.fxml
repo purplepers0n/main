@@ -58,7 +58,7 @@
               <tabs>
                 <Tab text="  Client  ">
                   <content>
-                    <StackPane fx:id="personListPanelPlaceholder" prefHeight="427.0" prefWidth="248.0" />
+                    <StackPane fx:id="clientListPanelPlaceholder" prefHeight="427.0" prefWidth="248.0" />
                   </content>
                 </Tab>
                 <Tab text="    Pet    ">
@@ -68,7 +68,7 @@
                 </Tab>
                 <Tab text=" Vet Tech ">
                   <content>
-                    <ListView prefHeight="427.0" prefWidth="248.0"/>
+                    <StackPane fx:id="vetTechnicianListPanelPlaceholder" prefHeight="427.0" prefWidth="248.0" />
                   </content>
                 </Tab>
               </tabs>

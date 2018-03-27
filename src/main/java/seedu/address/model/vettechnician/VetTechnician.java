@@ -16,15 +16,18 @@ import seedu.address.model.tag.Tag;
  */
 public class VetTechnician extends Person {
 
-
-
     /**
      * Every field must be present and not null.
      */
     public VetTechnician(Name name, Phone phone, Email email,
                          Address address, Set<Tag> tags) {
-        super(name, phone, email, address, PersonRole.TECHNICIAN_ROLE, tags);
+        super(name, phone, email, address, tags);
 
+    }
+
+    @Override
+    public PersonRole getRole() {
+        return PersonRole.TECHNICIAN_ROLE;
     }
 
     @Override
@@ -41,8 +44,7 @@ public class VetTechnician extends Person {
         return otherTechnician.getName().equals(this.getName())
                 && otherTechnician.getPhone().equals(this.getPhone())
                 && otherTechnician.getEmail().equals(this.getEmail())
-                && otherTechnician.getAddress().equals(this.getAddress())
-                && otherTechnician.getRole().equals(this.getRole());
+                && otherTechnician.getAddress().equals(this.getAddress());
     }
 
 

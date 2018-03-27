@@ -17,6 +17,7 @@ import seedu.address.model.pet.exceptions.PetNotFoundException;
 public class DeletePetCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "deletep";
+    public static final String COMMAND_ALIAS = "delp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the pet identified by the indexnumber used in the last pet listing\n"

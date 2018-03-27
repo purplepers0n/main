@@ -10,14 +10,19 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.fxmisc.easybind.EasyBind;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
+import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
-import seedu.address.model.client.UniqueClientList;
-import seedu.address.model.client.exceptions.ClientNotFoundException;
-import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.UniquePersonList;
@@ -29,10 +34,7 @@ import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.vettechnician.UniqueVetTechnicianList;
 import seedu.address.model.vettechnician.VetTechnician;
-import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
-import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 
 /**
@@ -46,9 +48,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueAppointmentList appointments;
     private final UniquePetList pets;
 
-    private final UniqueClientList clients;
-    private final UniqueVetTechnicianList technicians;
-
+    private final ObservableList<ClientOwnPet> clientPetAssociations;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -61,11 +61,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
 
-        clients = new UniqueClientList();
-        technicians = new UniqueVetTechnicianList();
-
         appointments = new UniqueAppointmentList();
         pets = new UniquePetList();
+
+        clientPetAssociations = FXCollections.observableArrayList();
     }
 
     public AddressBook() {}
@@ -84,12 +83,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-    public void setClients(List<Client> clients) throws DuplicateClientException {
-        this.clients.setClients(clients);
-    }
-
-    public void setVetTechnicians(List<VetTechnician> technicians) throws DuplicateVetTechnicianException {
-        this.technicians.setVetTechnicians(technicians);
+    public void sortClientList() {
+        this.persons.sort();
     }
 
     public void setTags(Set<Tag> tags) {
@@ -104,6 +99,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.pets.setPets(pets);
     }
 
+    public void sortPetList() {
+        this.pets.sort();
+    }
+
+    public void setClientPetAssociations(List<ClientOwnPet> associations) {
+        this.clientPetAssociations.setAll(associations);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -113,26 +116,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
-        List<Client> syncedClientList = newData.getClientList().stream()
-                .map(client -> (Person) client)
-                .map(this::syncWithMasterTagList)
-                .map(person -> (Client) person)
-                .collect(Collectors.toList());
-        List<VetTechnician> syncedTechnicianList = newData.getVetTechnicianList().stream()
-                .map(technician -> (Person) technician)
-                .map(this::syncWithMasterTagList)
-                .map(person -> (VetTechnician) person)
-                .collect(Collectors.toList());
         try {
             setPersons(syncedPersonList);
-            setClients(syncedClientList);
-            setVetTechnicians(syncedTechnicianList);
-        } catch (DuplicatePersonException | DuplicateClientException
-                | DuplicateVetTechnicianException e) {
+        } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
 
-        List< Appointment > syncedAppointmentList = newData.getAppointmentList();
+        List<Appointment> syncedAppointmentList = newData.getAppointmentList();
         try {
             setAppointments(syncedAppointmentList);
         } catch (DuplicateAppointmentException e) {
@@ -147,6 +137,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         } catch (DuplicatePetException e) {
             throw new AssertionError("Program should not have duplicate pets");
         }
+
+        setClientPetAssociations(newData.getClientPetAssociations());
     }
 
     //// person-level operations
@@ -164,82 +156,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
         persons.add(person);
-    }
-
-    /**
-     * Adds a client to the address book.
-     * Also checks the new client's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the client to point to those in {@link #tags}.
-     *
-     * @throws DuplicateClientException if an equivalent client already exists.
-     */
-    public void addClient(Client c) throws DuplicateClientException {
-        Person person = syncWithMasterTagList(c);
-        Client client = (Client) person;
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any person
-        // in the person list.
-        clients.add(client);
-    }
-
-    /**
-     * Adds a vetTechnician to the address book.
-     * Also checks the new vetTechnician's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the vetTechnician to point to those in {@link #tags}.
-     *
-     * @throws DuplicateVetTechnicianException if an equivalent vetTechnician already exists.
-     */
-    public void addVetTechnician(VetTechnician c) throws DuplicateVetTechnicianException {
-        Person person = syncWithMasterTagList(c);
-        VetTechnician vetTechnician = (VetTechnician) person;
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any person
-        // in the person list.
-        technicians.add(vetTechnician);
-    }
-
-    /**
-     * Replaces the given client {@code target} in the list with {@code editedClient}.
-     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedClient}.
-     *
-     * @throws DuplicateClientException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
-     * @throws ClientNotFoundException if {@code target} could not be found in the list.
-     *
-     * @see #syncWithMasterTagList(Person)
-     */
-    public void updateClient(Client target, Client editedClient)
-            throws DuplicateClientException, ClientNotFoundException {
-        requireNonNull(editedClient);
-
-        Person syncedEditedPerson = syncWithMasterTagList(editedClient);
-        Client syncedEditedClient = (Client) syncedEditedPerson;
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any person
-        // in the person list.
-        clients.setClient(target, syncedEditedClient);
-    }
-
-    /**
-     * Replaces the given vetTechnician {@code target} in the list with {@code editedVetTechnician}.
-     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedVetTechnician}.
-     *
-     * @throws DuplicateVetTechnicianException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
-     * @throws VetTechnicianNotFoundException if {@code target} could not be found in the list.
-     *
-     * @see #syncWithMasterTagList(Person)
-     */
-    public void updateVetTechnician(VetTechnician target, VetTechnician editedVetTechnician)
-            throws DuplicateVetTechnicianException, VetTechnicianNotFoundException {
-        requireNonNull(editedVetTechnician);
-
-        Person syncedEditedPerson = syncWithMasterTagList(editedVetTechnician);
-        VetTechnician syncedEditedVetTechnician = (VetTechnician) syncedEditedPerson;
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any person
-        // in the person list.
-        technicians.setVetTechnician(target, syncedEditedVetTechnician);
     }
 
     /**
@@ -303,32 +219,6 @@ public class AddressBook implements ReadOnlyAddressBook {
             return true;
         } else {
             throw new PersonNotFoundException();
-        }
-    }
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     *
-     * @throws ClientNotFoundException if the {@code key} is not in this {@code AddressBook}.
-     */
-    public boolean removeClient(Client key) throws ClientNotFoundException {
-        if (clients.remove(key)) {
-            return true;
-        } else {
-            throw new ClientNotFoundException();
-        }
-    }
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     *
-     * @throws VetTechnicianNotFoundException if the {@code key} is not in this {@code AddressBook}.
-     */
-    public boolean removeVetTechnician(VetTechnician key) throws VetTechnicianNotFoundException {
-        if (technicians.remove(key)) {
-            return true;
-        } else {
-            throw new VetTechnicianNotFoundException();
         }
     }
 
@@ -398,6 +288,80 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncedPet = new Pet(pet.getPetName(), pet.getPetAge(), pet.getPetGender(), correctTagReferences);
         return syncedPet;
     }
+
+    //// Association methods
+
+    /**
+     * Associates pet to client
+     *
+     * @throws ClientAlreadyOwnsPetException
+     * @throws PetAlreadyHasOwnerException
+     */
+    public void addPetToClient(Pet pet, Client client)
+            throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
+        ClientOwnPet toAdd = new ClientOwnPet(client, pet);
+
+        if (!clientPetAssociations.contains(toAdd)) {
+            if (hasOwner(pet)) {
+                throw new PetAlreadyHasOwnerException();
+            }
+            clientPetAssociations.add(toAdd);
+        } else {
+            throw new ClientAlreadyOwnsPetException();
+        }
+
+    }
+
+    /**
+     * Finds the pet and adds the appointment
+     */
+    public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException {
+        boolean isAdded = false;
+
+        if (clientPetAssociations.isEmpty()) {
+            throw new AssertionError("No client association found");
+        }
+
+        for (ClientOwnPet a : clientPetAssociations) {
+            if (a.getPet().equals(pet) && appointment.getClientOwnPet() == null) {
+                appointment.setClientOwnPet(a);
+                isAdded = true;
+            }
+        }
+
+        if (!isAdded) {
+            throw new PetAlreadyHasAppointmentException();
+        }
+    }
+
+    /**
+     * Returns true if specified pet has an owner
+     */
+    private boolean hasOwner(Pet pet) {
+        for (ClientOwnPet a : clientPetAssociations) {
+            if (a.getPet().equals(pet)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Removes association from pet and client
+     *
+     * @throws ClientPetAssociationNotFoundException
+     */
+    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
+        ClientOwnPet toRemove = new ClientOwnPet(client, pet);
+        if (clientPetAssociations.contains(toRemove)) {
+            clientPetAssociations.remove(toRemove);
+        } else {
+            throw new ClientPetAssociationNotFoundException();
+        }
+    }
+
+
     //// util methods
 
     @Override
@@ -409,16 +373,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asObservableList();
-    }
-
-    @Override
-    public ObservableList<Client> getClientList() {
-        return clients.asObservableList();
-    }
-
-    @Override
-    public ObservableList<VetTechnician> getVetTechnicianList() {
-        return technicians.asObservableList();
     }
 
     @Override
@@ -437,6 +391,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<ClientOwnPet> getClientPetAssociations() {
+        return clientPetAssociations;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
@@ -444,6 +403,32 @@ public class AddressBook implements ReadOnlyAddressBook {
                 && this.tags.equalsOrderInsensitive(((AddressBook) other).tags))
                 && this.appointments.equals(((AddressBook) other).appointments)
                 && this.pets.equals(((AddressBook) other).pets);
+    }
+
+    @Override
+    public ObservableList<Client> getClientList() {
+        ObservableList<Client> clientList = EasyBind.map(getPersonList(), (person) -> {
+            if (person.isClient()) {
+                return (Client) person;
+            } else {
+                return null;
+            }
+        });
+        clientList = FXCollections.unmodifiableObservableList(clientList).filtered(Objects::nonNull);
+        return clientList;
+    }
+
+    @Override
+    public ObservableList<VetTechnician> getVetTechnicianList() {
+        ObservableList<VetTechnician> technicianList = EasyBind.map(getPersonList(), (person) -> {
+            if (!person.isClient()) {
+                return (VetTechnician) person;
+            } else {
+                return null;
+            }
+        });
+        technicianList = FXCollections.unmodifiableObservableList(technicianList).filtered(Objects::nonNull);
+        return technicianList;
     }
 
     @Override

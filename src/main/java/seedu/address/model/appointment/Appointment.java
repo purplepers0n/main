@@ -4,9 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.client.Client;
-import seedu.address.model.pet.Pet;
-import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.association.ClientOwnPet;
 
 /**
  * Represents an Appointment in the application.
@@ -16,17 +14,19 @@ public class Appointment {
 
     private final Date date;
     private final Time time;
-    private Client client; //dummy variable, class to be created
-    private Pet pet; //dummy variable, class to be created
-    private VetTechnician vetTech; //dummy variable, class to be created
+    private final Duration duration;
+    private ClientOwnPet clientOwnPet;
 
     /**
      * Every field must be present and not null.
      */
-    public Appointment(Date date, Time time) {
+    public Appointment(Date date, Time time, Duration duration) {
         requireAllNonNull(date, time);
         this.date = date;
         this.time = time;
+        this.duration = duration;
+        this.clientOwnPet = null;
+
     }
 
     public Date getDate() {
@@ -37,28 +37,16 @@ public class Appointment {
         return time;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public Duration getDuration() {
+        return duration;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setClientOwnPet(ClientOwnPet clientOwnPet) {
+        this.clientOwnPet = clientOwnPet;
     }
 
-    public void setVetTech(VetTechnician vetTech) {
-        this.vetTech = vetTech;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
-    public VetTechnician getVetTech() {
-        return vetTech;
+    public ClientOwnPet getClientOwnPet() {
+        return clientOwnPet;
     }
 
     @Override
@@ -80,7 +68,7 @@ public class Appointment {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(date, time);
+        return Objects.hash(date, time, duration);
 
     }
 
@@ -91,29 +79,12 @@ public class Appointment {
         builder.append(" Date: ")
                 .append(getDate())
                 .append(" Time: ")
-                .append(getTime());
-
-        return builder.toString();
-    }
-
-    /**
-     * @return String of full details of the appointment
-     */
-    public String toStringFull() {
-        final StringBuilder builder = new StringBuilder();
-
-        builder.append(" Date: ")
-                .append(getDate())
-                .append(" Time: ")
                 .append(getTime())
-                .append(" Client: ")
-                .append(getClient())
-                .append(" Pet: ")
-                .append(getPet())
-                .append(" Vet Tech: ")
-                .append(getVetTech());
+                .append(" Duration: ")
+                .append(getDuration());
+
+
         return builder.toString();
     }
-
 
 }

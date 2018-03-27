@@ -6,10 +6,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.UniqueAppointmentList;
-import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
-import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.client.Client;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -23,25 +20,20 @@ public abstract class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
-    private final PersonRole role;
 
     private final UniqueTagList tags;
-
-    private UniqueAppointmentList appointments;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, PersonRole role, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, role, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.role = role;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
-        appointments = new UniqueAppointmentList();
     }
 
     public Name getName() {
@@ -60,9 +52,7 @@ public abstract class Person {
         return address;
     }
 
-    public PersonRole getRole() {
-        return role;
-    }
+    public abstract PersonRole getRole();
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -70,51 +60,6 @@ public abstract class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags.toSet());
-    }
-
-    /**
-     * @return appointments as a {@code UniqueAppointmentList}
-     */
-    public UniqueAppointmentList getAppointments() {
-        return appointments;
-    }
-
-    /**
-     * Adds new appointment to person
-     * @param toAdd new appointment
-     * @throws DuplicateAppointmentException
-     */
-    public void addAppointment(Appointment toAdd)
-            throws DuplicateAppointmentException {
-        appointments.add(toAdd);
-    }
-
-    /**
-     * Removes old appointment from person
-     * @param toRemove old appointment
-     * @throws AppointmentNotFoundException
-     */
-    public void removeApppoinment(Appointment toRemove)
-            throws AppointmentNotFoundException {
-        appointments.remove(toRemove);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Person)) {
-            return false;
-        }
-
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(this.getName())
-                && otherPerson.getPhone().equals(this.getPhone())
-                && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress())
-                && otherPerson.getRole().equals(this.getRole());
     }
 
     @Override
@@ -141,10 +86,10 @@ public abstract class Person {
     }
 
     /**
-     *  Returns true if person is a client
+     * Returns true if person is a client
      */
     public boolean isClient() {
-        return role.equals(PersonRole.CLIENT_ROLE);
+        return this instanceof Client;
     }
 
 

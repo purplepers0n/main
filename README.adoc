@@ -27,7 +27,6 @@ Head on over to the https://github.com/CS2103JAN2018-F09-B4/main/blob/master/doc
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 

@@ -95,6 +95,13 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Sorts the internal list
+     */
+    public void sort() {
+        internalList.sort((Person one, Person two) -> one.getName().toString().compareTo(two.getName().toString()));
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Person> asObservableList() {

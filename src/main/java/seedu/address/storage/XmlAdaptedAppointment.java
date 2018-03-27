@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 
 /**
@@ -20,6 +21,8 @@ public class XmlAdaptedAppointment {
     private String date;
     @XmlElement(required = true)
     private String time;
+    @XmlElement(required = true)
+    private String duration;
 
     /**
      * Constructs an XmlAdaptedAppointment.
@@ -30,9 +33,10 @@ public class XmlAdaptedAppointment {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedAppointment(String date, String time) {
+    public XmlAdaptedAppointment(String date, String time, String duration) {
         this.date = date;
         this.time = time;
+        this.duration = duration;
     }
 
     /**
@@ -43,6 +47,7 @@ public class XmlAdaptedAppointment {
     public XmlAdaptedAppointment(Appointment source) {
         date = source.getDate().toString();
         time = source.getTime().toString();
+        duration = source.getDuration().toString();
     }
 
     /**
@@ -70,7 +75,16 @@ public class XmlAdaptedAppointment {
         }
         final Time time = new Time(this.time);
 
-        convertedAppointment = new Appointment(date, time);
+        if (this.duration == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Duration.class.getSimpleName()));
+        }
+        if (!Duration.isValidDuration(this.duration)) {
+            throw new IllegalValueException(Duration.MESSAGE_DURATION_CONSTRAINTS);
+        }
+        final Duration duration = new Duration(this.duration);
+
+        convertedAppointment = new Appointment(date, time, duration);
 
         return convertedAppointment;
     }

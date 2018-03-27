@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.pet.Pet;
@@ -29,6 +30,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final AddressBookParser addressBookParser;
     private final UndoRedoStack undoRedoStack;
     private final AutoComplete autoComplete;
+    private int currList = 0;
 
     public LogicManager(Model model) {
         this.model = model;
@@ -73,6 +75,11 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return model.getFilteredAppointmentList();
+    }
+
+    @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
     }
@@ -80,5 +87,15 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public List<String> getListOfAutoComplete(String keyWord) {
         return autoComplete.getAutoCompleteWords(keyWord);
+    }
+
+    public void setCurrentList(int currList) {
+        this.currList = currList;
+        model.setCurrentList(currList);
+    }
+
+    @Override
+    public int getCurrentList() {
+        return this.currList;
     }
 }

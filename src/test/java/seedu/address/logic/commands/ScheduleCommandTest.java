@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,9 +21,15 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
+import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -37,6 +44,7 @@ public class ScheduleCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_nullAppointment_throwsNullPointerException() {
@@ -68,13 +76,18 @@ public class ScheduleCommandTest {
 
     @Test
     public void equals() {
-        Appointment appointment1 = new AppointmentBuilder().withDate("12/12/2018").build();
-        Appointment appointment2 = new AppointmentBuilder().withTime("0000").build();
+        Appointment appointment1 = new AppointmentBuilder().withDate("2018-12-12").build();
+        Appointment appointment2 = new AppointmentBuilder().withTime("00:00").build();
+        Appointment appointment3 = new AppointmentBuilder().withDuration("30").build();
+
         ScheduleCommand scheduleAppointment1 = new ScheduleCommand(appointment1);
         ScheduleCommand scheduleAppointment2 = new ScheduleCommand(appointment2);
+        ScheduleCommand scheduleAppointment3 = new ScheduleCommand(appointment3);
 
         // same object -> returns true
         assertTrue(scheduleAppointment1.equals(scheduleAppointment1));
+        assertTrue(scheduleAppointment2.equals(scheduleAppointment2));
+        assertTrue(scheduleAppointment3.equals(scheduleAppointment3));
 
         // same values -> returns true
         ScheduleCommand scheduleAppointment1Copy = new ScheduleCommand(appointment1);
@@ -173,18 +186,70 @@ public class ScheduleCommandTest {
         }
 
         @Override
+        public ObservableList<ClientOwnPet> getClientPetAssociationList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
             fail("This method should not be called.");
         }
 
         @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            return model.getFilteredAppointmentList();
+        }
+
+        @Override
         public void addPet(Pet pet) throws DuplicatePetException {
-            fail("This method should not be called");
+            fail("This method should not be called.");
         }
 
         @Override
         public void deletePet(Pet pet) throws PetNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentList(int currentList) {
             fail("This method should not be called");
+        }
+
+        @Override
+        public int getCurrentList() {
+            fail("This method should not be called.");
+            return -1;
+        }
+
+        @Override
+        public void sortClientList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortPetList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException {
+            fail("This method should not be called.");
         }
     }
 
