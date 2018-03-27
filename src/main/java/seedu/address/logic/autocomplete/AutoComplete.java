@@ -1,5 +1,6 @@
 package seedu.address.logic.autocomplete;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +63,8 @@ public class AutoComplete {
      * Returns a sorted list of auto completed commands with prefix {@code keyWord}
      */
     public List<String> autoCompleteCommands(String keyWord) {
-        return commandTrie.autoComplete(keyWord).stream().sorted().collect(Collectors.toList());
+        return commandTrie.autoComplete(keyWord).stream()
+                .sorted(Comparator.comparingInt(String::length))
+                .collect(Collectors.toList());
     }
 }
