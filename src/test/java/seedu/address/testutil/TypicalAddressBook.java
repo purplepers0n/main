@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.pet.Pet;
@@ -15,7 +18,8 @@ import seedu.address.model.pet.exceptions.DuplicatePetException;
  */
 public class TypicalAddressBook {
 
-    private TypicalAddressBook() {} // prevents instantiation
+    private TypicalAddressBook() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
@@ -36,6 +40,14 @@ public class TypicalAddressBook {
                 throw new AssertionError("not possible");
             }
         }
+        for (ClientOwnPet cop : getTypicalAssociations()) {
+            try {
+                ab.addPetToClient(cop.getPet(), cop.getClient());
+            } catch (ClientAlreadyOwnsPetException | PetAlreadyHasOwnerException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+
         return ab;
     }
 
@@ -46,4 +58,9 @@ public class TypicalAddressBook {
     public static List<Pet> getTypicalPets() {
         return new ArrayList<>(TypicalPets.getTypicalPets());
     }
+
+    public static List<ClientOwnPet> getTypicalAssociations() {
+        return new ArrayList<>(TypicalAssociations.getTypicalAssociations());
+    }
+
 }

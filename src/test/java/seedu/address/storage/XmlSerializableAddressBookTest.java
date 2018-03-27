@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
+import seedu.address.testutil.TypicalAddressBook;
 import seedu.address.testutil.TypicalPersons;
 
 public class XmlSerializableAddressBookTest {
@@ -20,6 +21,8 @@ public class XmlSerializableAddressBookTest {
     private static final File TYPICAL_PERSONS_FILE = new File(TEST_DATA_FOLDER + "typicalPersonsAddressBook.xml");
     private static final File INVALID_PERSON_FILE = new File(TEST_DATA_FOLDER + "invalidPersonAddressBook.xml");
     private static final File INVALID_TAG_FILE = new File(TEST_DATA_FOLDER + "invalidTagAddressBook.xml");
+    private static final File TYPICAL_FILE = new File(TEST_DATA_FOLDER + "typicalAddressBookWithAssociations.xml");
+
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -47,5 +50,14 @@ public class XmlSerializableAddressBookTest {
                 XmlSerializableAddressBook.class);
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
+    }
+
+    @Test
+    public void toModelType_typicalFile_success() throws Exception {
+        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_FILE,
+                XmlSerializableAddressBook.class);
+        AddressBook addressBookFromFile = dataFromFile.toModelType();
+        AddressBook typicalPersonsAddressBook = TypicalAddressBook.getTypicalAddressBook();
+        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 }
