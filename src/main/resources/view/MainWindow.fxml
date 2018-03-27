@@ -14,6 +14,10 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Text?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600">
   <icons>
@@ -36,17 +40,14 @@
           </Menu>
         </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
+        <StackPane VBox.vgrow="NEVER" styleClass="pane-with-border" minHeight="80" prefHeight="80" maxHeight="80">
+          <ImageView fitHeight="70" fitWidth="70" pickOnBounds="true" preserveRatio="true" translateX="10"
+                     StackPane.alignment="CENTER_LEFT">
+            <Image url="@/images/logo.png" />
+          </ImageView>
+          <GridPane>
+            <Text id="header-text" text="VetterAppointments" translateX="80" translateY="27"/>
+          </GridPane>
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
@@ -75,11 +76,22 @@
             </TabPane>
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-          </StackPane>
+          <VBox prefWidth="340">
+            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane"
+                       minHeight="50" prefHeight="50" maxHeight="50">
+              <padding>
+                <Insets top="5" right="5" bottom="5" />
+              </padding>
+            </StackPane>
+
+            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane"
+                       minHeight="100" prefHeight="100" maxHeight="100">
+              <padding>
+                <Insets right="5" bottom="5" />
+              </padding>
+            </StackPane>
+
+          </VBox>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

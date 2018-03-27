@@ -39,15 +39,12 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private ClientListPanel clientListPanel;
     private PetListPanel petListPanel;
     private VetTechnicianListPanel vetTechnicianListPanel;
     private Config config;
     private UserPrefs prefs;
-
-    @FXML
-    private StackPane browserPlaceholder;
+    
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -83,6 +80,7 @@ public class MainWindow extends UiPart<Stage> {
         this.prefs = prefs;
 
         // Configure the UI
+        config.setAppTitle("VetterAppointments");
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
@@ -135,8 +133,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         clientListPanel = new ClientListPanel(logic.getFilteredClientList());
         clientListPanelPlaceholder.getChildren().add(clientListPanel.getRoot());
@@ -245,10 +241,6 @@ public class MainWindow extends UiPart<Stage> {
                 logic.setCurrentList(newValue.intValue());
             }
         });
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe
