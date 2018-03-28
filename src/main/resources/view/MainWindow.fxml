@@ -20,92 +20,98 @@
 <?import javafx.scene.text.Text?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
-  </icons>
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
+    <icons>
+        <Image url="@/images/address_book_32.png"/>
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css"/>
+                <URL value="@Extensions.css"/>
+            </stylesheets>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+            <VBox>
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                    <Menu mnemonicParsing="false" text="File">
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Help">
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                    </Menu>
+                </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" styleClass="pane-with-border" minHeight="80" prefHeight="80" maxHeight="80">
-          <ImageView fitHeight="70" fitWidth="70" pickOnBounds="true" preserveRatio="true" translateX="10"
-                     StackPane.alignment="CENTER_LEFT">
-            <Image url="@/images/logo.png" />
-          </ImageView>
-          <GridPane>
-            <Text id="header-text" text="VetterAppointments" translateX="80" translateY="27"/>
-          </GridPane>
-        </StackPane>
+                <StackPane fx:id="stackPane" VBox.vgrow="NEVER" styleClass="pane-with-border" minHeight="80" prefHeight="80"
+                           maxHeight="80">
+                    <ImageView fitHeight="70" fitWidth="70" pickOnBounds="true" preserveRatio="true" translateX="10"
+                               StackPane.alignment="CENTER_LEFT">
+                        <Image url="@/images/logo.png"/>
+                    </ImageView>
+                    <GridPane>
+                        <Text id="header-text" text="VetterAppointments" translateX="80" translateY="27"/>
+                    </GridPane>
+                </StackPane>
 
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <TabPane id="tab-pane-list" fx:id="listPanel" prefWidth="248.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-              <tabs>
-                <Tab text="  Client  ">
-                  <content>
-                    <StackPane fx:id="clientListPanelPlaceholder" prefHeight="427.0" prefWidth="248.0" />
-                  </content>
-                </Tab>
-                <Tab text="    Pet    ">
-                  <content>
-                    <StackPane fx:id="petListPanelPlaceholder" prefHeight="427.0" prefWidth="248.0" />
-                  </content>
-                </Tab>
-                <Tab text=" Vet Tech ">
-                  <content>
-                    <StackPane fx:id="vetTechnicianListPanelPlaceholder" prefHeight="427.0" prefWidth="248.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-          </VBox>
+                <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <TabPane id="tab-pane-list" fx:id="listPanel" prefWidth="248.0" tabClosingPolicy="UNAVAILABLE"
+                                 VBox.vgrow="ALWAYS">
+                            <tabs>
+                                <Tab text="  Client  ">
+                                    <content>
+                                        <StackPane fx:id="clientListPanelPlaceholder" prefHeight="427.0"
+                                                   prefWidth="248.0"/>
+                                    </content>
+                                </Tab>
+                                <Tab text="    Pet    ">
+                                    <content>
+                                        <StackPane fx:id="petListPanelPlaceholder" prefHeight="427.0"
+                                                   prefWidth="248.0"/>
+                                    </content>
+                                </Tab>
+                                <Tab text=" Vet Tech ">
+                                    <content>
+                                        <StackPane fx:id="vetTechnicianListPanelPlaceholder" prefHeight="427.0"
+                                                   prefWidth="248.0"/>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </VBox>
 
-          <VBox prefWidth="340">
-            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane"
-                       minHeight="50" prefHeight="50" maxHeight="50">
-              <padding>
-                <Insets top="5" right="5" bottom="5" />
-              </padding>
-            </StackPane>
-            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane"
-                       minHeight="100" prefHeight="100" maxHeight="100">
-              <padding>
-                <Insets right="5" bottom="5" />
-              </padding>
-            </StackPane>
-            <SplitPane id="splitPane" dividerPositions="0.8" VBox.vgrow="ALWAYS">
-              <VBox id="appt-display" minWidth="700" prefWidth="700" maxWidth="700">
-                <padding>
-                  <Insets top="10" right="10" bottom="10" left="10" />
-                </padding>
-              </VBox>
-              <VBox id="details-display">
-                <padding>
-                  <Insets top="10" right="10" bottom="10" left="10" />
-                </padding>
-              </VBox>
-            </SplitPane>
-          </VBox>
-        </SplitPane>
+                    <VBox fx:id="placeHolder" prefWidth="340">
+                        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane"
+                                   minHeight="50" prefHeight="50" maxHeight="50">
+                            <padding>
+                                <Insets top="5" right="5" bottom="5"/>
+                            </padding>
+                        </StackPane>
+                        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane"
+                                   minHeight="100" prefHeight="100" maxHeight="100">
+                            <padding>
+                                <Insets right="5" bottom="5"/>
+                            </padding>
+                        </StackPane>
+            
+                        <SplitPane id="splitPane" dividerPositions="0.8" VBox.vgrow="ALWAYS">
+                            <VBox id="appt-display" minWidth="700" prefWidth="700" maxWidth="700">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                            </VBox>
+                            <VBox id="details-display">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                            </VBox>
+                        </SplitPane>
+                    </VBox>
+                </SplitPane>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+            </VBox>
+        </Scene>
+    </scene>
 </fx:root>

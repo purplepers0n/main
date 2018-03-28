@@ -44,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private VetTechnicianListPanel vetTechnicianListPanel;
     private Config config;
     private UserPrefs prefs;
-    
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -80,7 +80,7 @@ public class MainWindow extends UiPart<Stage> {
         this.prefs = prefs;
 
         // Configure the UI
-        config.setAppTitle("VetterAppointments");
+        //config.setAppTitle("VetterAppointments");
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
