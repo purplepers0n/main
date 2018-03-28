@@ -43,7 +43,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertHelpWindowOpen();
 
         getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowNotOpen();
+        assertHelpWindowOpen();
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();
