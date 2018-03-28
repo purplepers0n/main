@@ -219,7 +219,7 @@ public class MainWindow extends UiPart<Stage> {
     public VetTechnicianListPanel getVetTechnicianListPanel() {
         return this.vetTechnicianListPanel;
     }
-    
+
     /**
      * Changes to the {@code Tab} of the specific {@code list} requested and selects it.
      */

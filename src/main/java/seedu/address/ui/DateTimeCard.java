@@ -62,8 +62,7 @@ public class DateTimeCard extends UiPart<Region> {
 
                         if (min < 10) {
                             minute = "0" + String.valueOf(min);
-                        }
-                        else {
+                        } else {
                             minute = String.valueOf(min);
                         }
 
