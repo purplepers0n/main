@@ -38,9 +38,9 @@ public abstract class StageHandle {
      */
     public void focus() {
         String windowTitle = stage.getTitle();
-        logger.info("Focusing on" + windowTitle);
+        logger.info("Focusing on " + windowTitle);
         guiRobot.interact(stage::requestFocus);
-        logger.info("Finishing focus on" + windowTitle);
+        logger.info("Finishing focus on " + windowTitle);
     }
 
     /**
