@@ -80,7 +80,7 @@ public class MainWindow extends UiPart<Stage> {
         this.prefs = prefs;
 
         // Configure the UI
-        //config.setAppTitle("VetterAppointments");
+        config.setAppTitle("VetterAppointments");
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
