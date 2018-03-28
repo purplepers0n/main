@@ -37,9 +37,10 @@ public class AppointmentTest {
                     new Time("15:15"), new Duration("30"), new Description("Sterilize Garfield"));
         assertFalse(appointment1.equals(differentAppointmentWithSameDuration));
 
+        // same timing and date
         Appointment duplicateAppointmentWithDifferentDuration = new Appointment(new Date("2018-01-01"),
                 new Time("14:00"), new Duration("100"), new Description("Sterilize Garfield"));
-        assertFalse(appointment1.equals(duplicateAppointmentWithDifferentDuration));
+        assertTrue(appointment1.equals(duplicateAppointmentWithDifferentDuration));
 
         //duplicate appointment -> returns true
 
