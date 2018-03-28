@@ -111,9 +111,7 @@ public class XmlAdaptedAppointment {
 
         XmlAdaptedAppointment otherAppointment = (XmlAdaptedAppointment) other;
         return Objects.equals(date, otherAppointment.date)
-                && Objects.equals(time, otherAppointment.time)
-                && Objects.equals(duration, otherAppointment.duration)
-                && Objects.equals(description, otherAppointment.description);
+                && Objects.equals(time, otherAppointment.time);
 
     }
 }

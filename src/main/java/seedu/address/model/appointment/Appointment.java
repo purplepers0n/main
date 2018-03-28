@@ -67,9 +67,7 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getDate().equals(this.getDate())
-                && otherAppointment.getTime().equals(this.getTime())
-                && otherAppointment.getDuration().equals(this.getDuration())
-                && otherAppointment.getDescription().equals(this.getDescription());
+                && otherAppointment.getTime().equals(this.getTime());
 
     }
 
