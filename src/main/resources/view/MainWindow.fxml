@@ -40,8 +40,8 @@
                     </Menu>
                 </MenuBar>
 
-                <StackPane fx:id="stackPane" VBox.vgrow="NEVER" styleClass="pane-with-border" minHeight="80" prefHeight="80"
-                           maxHeight="80">
+                <StackPane fx:id="stackPane" VBox.vgrow="NEVER" styleClass="pane-with-border" minHeight="75" prefHeight="75"
+                           maxHeight="75">
                     <ImageView fitHeight="70" fitWidth="70" pickOnBounds="true" preserveRatio="true" translateX="10"
                                StackPane.alignment="CENTER_LEFT">
                         <Image url="@/images/logo.png"/>
@@ -49,10 +49,11 @@
                     <GridPane>
                         <Text id="header-text" text="VetterAppointments" translateX="80" translateY="27"/>
                     </GridPane>
+                    <StackPane fx:id="dateTimePlaceholder" prefHeight="80"/>
                 </StackPane>
 
                 <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-                    <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                    <VBox fx:id="personList" minWidth="305" prefWidth="305" SplitPane.resizableWithParent="false">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
@@ -94,6 +95,7 @@
                                 <Insets right="5" bottom="5"/>
                             </padding>
                         </StackPane>
+            
                         <SplitPane id="splitPane" dividerPositions="0.8" VBox.vgrow="ALWAYS">
                             <VBox id="appt-display" minWidth="700" prefWidth="700" maxWidth="700">
                                 <padding>

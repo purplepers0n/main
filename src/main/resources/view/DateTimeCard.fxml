@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.Label?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="150" prefWidth="150" />
+        </columnConstraints>
+        <VBox alignment="BOTTOM_RIGHT" minHeight="50" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="5" right="15" bottom="5" left="5" />
+            </padding>
+            <Label fx:id="date" styleClass="date-time-label" text="\$date" translateY="20"/>
+        </VBox>
+    </GridPane>
+</HBox>

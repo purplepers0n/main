@@ -456,3 +456,9 @@
     -fx-fill: white;
     -fx-font-size: 28px;
 }
+
+.date-time-label {
+    -fx-font-family: Helvetica;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}

@@ -42,9 +42,12 @@ public class MainWindow extends UiPart<Stage> {
     private ClientListPanel clientListPanel;
     private PetListPanel petListPanel;
     private VetTechnicianListPanel vetTechnicianListPanel;
+    private DateTimeCard dateTimeCard;
     private Config config;
     private UserPrefs prefs;
 
+    @FXML
+    private StackPane dateTimePlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -151,6 +154,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        dateTimeCard = new DateTimeCard();
+        dateTimePlaceholder.getChildren().add(dateTimeCard.getRoot());
     }
 
     void hide() {
@@ -213,8 +219,7 @@ public class MainWindow extends UiPart<Stage> {
     public VetTechnicianListPanel getVetTechnicianListPanel() {
         return this.vetTechnicianListPanel;
     }
-
-
+    
     /**
      * Changes to the {@code Tab} of the specific {@code list} requested and selects it.
      */
