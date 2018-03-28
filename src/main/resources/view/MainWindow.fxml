@@ -95,7 +95,6 @@
                                 <Insets right="5" bottom="5"/>
                             </padding>
                         </StackPane>
-            
                         <SplitPane id="splitPane" dividerPositions="0.8" VBox.vgrow="ALWAYS">
                             <VBox id="appt-display" minWidth="700" prefWidth="700" maxWidth="700">
                                 <padding>
