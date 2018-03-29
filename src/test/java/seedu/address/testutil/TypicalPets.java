@@ -33,6 +33,11 @@ public class TypicalPets {
             .withPetGender("M")
             .withTags("bear", "purple")
             .build();
+    public static final Pet NOFONO = new PetBuilder().withPetName("Nofono Not")
+            .withPetAge("5")
+            .withPetGender("M")
+            .withTags("tiger", "green")
+            .build();
 
     private TypicalPets() {} // prevents instantiation
 

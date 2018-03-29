@@ -42,7 +42,6 @@ public class AddPetCommand extends UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "New pet added: %1$s";
     public static final String MESSAGE_DUPLICATE_PET = "This pet already exists in the address book";
-    public static final String MESSAGE_ADD_PET_TO_CLIENT_SUCCESS = "Added Pet To client:\n%1$s\n>> %2$s";
     public static final String MESSAGE_CLIENT_HAS_PET = "Client already has pet";
     public static final String MESSAGE_PET_HAS_OWNER = "Pet already has an owner";
 
