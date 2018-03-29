@@ -1,10 +1,12 @@
 package seedu.address.model.util;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -53,6 +55,13 @@ public class SampleDataUtil {
         };
     }
 
+    public static ClientOwnPet[] getSampleClientOwnpetAssociation() {
+        return new ClientOwnPet[] {
+            new ClientOwnPet((Client) getSamplePersons()[0], getSamplePets()[0]),
+            new ClientOwnPet((Client) getSamplePersons()[1], getSamplePets()[1])
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         try {
             AddressBook sampleAb = new AddressBook();
@@ -62,6 +71,8 @@ public class SampleDataUtil {
             for (Pet samplePet : getSamplePets()) {
                 sampleAb.addPet(samplePet);
             }
+            sampleAb.setClientPetAssociations(Arrays.asList(getSampleClientOwnpetAssociation()));
+
             return sampleAb;
         } catch (DuplicatePersonException e) {
             throw new AssertionError("sample data cannot contain duplicate persons", e);

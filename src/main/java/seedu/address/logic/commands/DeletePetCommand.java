@@ -8,6 +8,7 @@ import java.util.Objects;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 
@@ -41,6 +42,8 @@ public class DeletePetCommand extends UndoableCommand {
             model.deletePet(petToDelete);
         } catch (PetNotFoundException pnfe) {
             throw new AssertionError("The target pet cannot be missing");
+        } catch (ClientPetAssociationNotFoundException e) {
+            throw new AssertionError("Client pet association cannot be missing");
         }
         return new CommandResult(String.format(MESSAGE_DELETE_PET_SUCCESS, petToDelete));
     }

@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
@@ -28,6 +31,8 @@ import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.client.Client;
+import seedu.address.model.client.UniqueClientList;
+import seedu.address.model.client.exceptions.DuplicateClientException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -45,7 +50,7 @@ public class AddPetCommandTest {
     @Test
     public void constructor_nullPet_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddPetCommand(null);
+        new AddPetCommand(null, null);
     }
 
     @Test
@@ -74,14 +79,14 @@ public class AddPetCommandTest {
     public void equals() {
         Pet garfield = new PetBuilder().withPetName("Garfield").build();
         Pet ginger = new PetBuilder().withPetName("Ginger").build();
-        AddPetCommand addGarfieldCommand = new AddPetCommand(garfield);
-        AddPetCommand addGinger = new AddPetCommand(ginger);
+        AddPetCommand addGarfieldCommand = new AddPetCommand(garfield, INDEX_FIRST_PERSON);
+        AddPetCommand addGinger = new AddPetCommand(ginger, INDEX_FIRST_PERSON);
 
         // same object -> returns true
         assertTrue(addGarfieldCommand.equals(addGarfieldCommand));
 
         // same values -> return true
-        AddPetCommand addGarfieldCommandCpy = new AddPetCommand(garfield);
+        AddPetCommand addGarfieldCommandCpy = new AddPetCommand(garfield, INDEX_FIRST_PERSON);
         assertTrue(addGarfieldCommand.equals(addGarfieldCommandCpy));
 
         // different types -> return false
@@ -98,7 +103,7 @@ public class AddPetCommandTest {
      * Generates a new AddPetCommand with the details of the given pet
      */
     private AddPetCommand getAddPetCommandForPet(Pet pet, Model model) {
-        AddPetCommand command = new AddPetCommand(pet);
+        AddPetCommand command = new AddPetCommand(pet, INDEX_FIRST_PERSON);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
@@ -249,9 +254,21 @@ public class AddPetCommandTest {
      * Model stub that always throws DuplicatePetException
      */
     private class ModelStubThrowingDuplicatePetException extends ModelStub {
+        final UniqueClientList clientSample;
+
+        private ModelStubThrowingDuplicatePetException() throws DuplicateClientException {
+            clientSample = new UniqueClientList();
+            clientSample.add((Client) ALICE);
+        }
+
         @Override
         public void addPet(Pet pet) throws DuplicatePetException {
             throw new DuplicatePetException();
+        }
+
+        @Override
+        public ObservableList<Client> getFilteredClientList() {
+            return FXCollections.unmodifiableObservableList(clientSample.asObservableList());
         }
 
         @Override
@@ -265,6 +282,12 @@ public class AddPetCommandTest {
      */
     private class ModelStubAcceptingPetAdded extends ModelStub {
         final ArrayList<Pet> petsAdded = new ArrayList<>();
+        final UniqueClientList clientSample;
+
+        private ModelStubAcceptingPetAdded() throws DuplicateClientException {
+            clientSample = new UniqueClientList();
+            clientSample.add((Client) ALICE);
+        }
 
         @Override
         public void addPet(Pet pet) throws DuplicatePetException {
@@ -275,6 +298,20 @@ public class AddPetCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public void addPetToClient(Pet pet, Client client) throws ClientAlreadyOwnsPetException {
+
+        }
+
+        @Override
+        public ObservableList<Client> getFilteredClientList() {
+            return FXCollections.unmodifiableObservableList(clientSample.asObservableList());
+        }
+
+        @Override
+        public void updateFilteredPetList(Predicate<Pet> predicate) {
         }
 
     }

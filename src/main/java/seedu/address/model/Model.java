@@ -127,7 +127,7 @@ public interface Model {
     /**
      * Removes the given pet
      */
-    void deletePet(Pet pet) throws PetNotFoundException;
+    void deletePet(Pet pet) throws PetNotFoundException, ClientPetAssociationNotFoundException;
 
     /**
      * Returns an unmodifiable view of the filtered pet list

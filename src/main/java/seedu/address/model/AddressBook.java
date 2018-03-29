@@ -257,7 +257,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws PetNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
-    public boolean removePet(Pet key) throws PetNotFoundException {
+    public boolean removePet(Pet key) throws PetNotFoundException, ClientPetAssociationNotFoundException {
+        boolean found = false;
+        for (ClientOwnPet association : clientPetAssociations) {
+            if (association.getPet().equals(key)) {
+                clientPetAssociations.remove(association);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            throw new ClientPetAssociationNotFoundException();
+        }
         if (pets.remove(key)) {
             return true;
         } else {

@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLIENT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PET_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PET_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PET_NAME;
@@ -9,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddPetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -30,15 +32,19 @@ public class AddPetCommandParser implements Parser<AddPetCommand> {
      */
     public AddPetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PET_NAME, PREFIX_PET_AGE, PREFIX_PET_GENDER, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CLIENT_INDEX,
+                        PREFIX_PET_NAME, PREFIX_PET_AGE, PREFIX_PET_GENDER, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PET_NAME, PREFIX_PET_AGE,
+        Index indexClient;
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_CLIENT_INDEX, PREFIX_PET_NAME, PREFIX_PET_AGE,
                 PREFIX_PET_GENDER, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPetCommand.MESSAGE_USAGE));
         }
 
         try {
+            indexClient = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CLIENT_INDEX).get());
             PetName petName = ParserUtil.parsePetName(argMultimap.getValue(PREFIX_PET_NAME).get());
             PetAge petAge = ParserUtil.parsePetAge(argMultimap.getValue(PREFIX_PET_AGE).get());
             PetGender petGender = ParserUtil.parsePetGender(argMultimap.getValue(PREFIX_PET_GENDER).get());
@@ -46,7 +52,7 @@ public class AddPetCommandParser implements Parser<AddPetCommand> {
 
             Pet pet = new Pet(petName, petAge, petGender, tagList);
 
-            return new AddPetCommand(pet);
+            return new AddPetCommand(pet, indexClient);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

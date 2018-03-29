@@ -2,7 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPets.getTypicalAddressBookPet;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.client.Client;
 import seedu.address.model.pet.Pet;
 import seedu.address.testutil.PetBuilder;
 
@@ -24,17 +26,19 @@ public class AddPetCommandIntegrationTest {
 
     @Before
     public void setup() {
-        model = new ModelManager(getTypicalAddressBookPet(),
+        model = new ModelManager(getTypicalAddressBook(),
                 new UserPrefs());
     }
 
     @Test
     public void execute_newPet_success() throws Exception {
         Pet validPet = new PetBuilder().build();
+        Client validClient = model.getFilteredClientList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         Model expectedModel = new ModelManager(model.getAddressBook(),
                 new UserPrefs());
         expectedModel.addPet(validPet);
+        expectedModel.addPetToClient(validPet, validClient);
 
         assertCommandSuccess(prepareCommand(validPet, model), model,
                 String.format(AddPetCommand.MESSAGE_SUCCESS, validPet), expectedModel);
@@ -51,7 +55,7 @@ public class AddPetCommandIntegrationTest {
      * adds {@code Pet} into {@code model}
      */
     private AddPetCommand prepareCommand(Pet pet, Model model) {
-        AddPetCommand command = new AddPetCommand(pet);
+        AddPetCommand command = new AddPetCommand(pet, INDEX_FIRST_PERSON);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
