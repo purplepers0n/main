@@ -32,6 +32,12 @@ public class Duration {
         this.duration = duration;
     }
 
+    public Duration(int duration) {
+        String durationString = "" + duration;
+        checkArgument(isValidDuration(durationString), MESSAGE_DURATION_CONSTRAINTS);
+        this.duration = durationString;
+    }
+
     /**
      * Returns the integer value of duration
      */
