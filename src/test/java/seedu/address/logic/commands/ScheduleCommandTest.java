@@ -25,6 +25,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
@@ -252,6 +253,11 @@ public class ScheduleCommandTest {
 
         @Override
         public void addAppointmentToPet(Appointment appointment, Pet pet) throws PetAlreadyHasAppointmentException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void removeAppointmentFromPet(Appointment appointment) throws AppointmentNotFoundException {
             fail("This method should not be called.");
         }
     }

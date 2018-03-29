@@ -20,6 +20,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
 import seedu.address.logic.commands.RemovePetFromClientCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -59,6 +60,7 @@ public class AutoComplete {
         commandTrie.insertWord(AddAppointmentToPetCommand.COMMAND_WORD);
         commandTrie.insertWord(AddPetToClientCommand.COMMAND_WORD);
         commandTrie.insertWord(RemovePetFromClientCommand.COMMAND_WORD);
+        commandTrie.insertWord(RemoveAppointmentFromPetCommand.COMMAND_WORD);
     }
 
     /**

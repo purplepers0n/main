@@ -126,25 +126,21 @@ The user chooses to add Garfield to client of index 1 of age 10 and is a male. G
 * `addp c/1 pn/Scooby Doo pa/5 pg/M t/dog t/great_dane` +
 The user chooses to add another pet called Scooby to client of index 1 Doo of age 5 and is a male. Scooby Doo is a dog and a great dane.
 
-=== Adding an appointment to a pet: `addapptto` `coming v2.0`
+=== Adding an appointment to a pet: `addappttopet`
 
-Command format: `addapptto n/CLIENT_NAME pn/PET_NAME date/DATE (DD.MM.YYYY) time/TIME (HHMM) vettech/VET_TECHNICIAN_NAME cmt/COMMENTS` +
+Command format: `addappttopet appt/APPOINTMENT_INDEX pn/PET_INDEX` +
 
-The `addapptto` command adds an appointment to a pet in the program. A pet should have only one appointment linked to it. +
+The `addapptto` command adds an appointment to a pet in the program. +
 The command expects these parameters when adding an appointment to a pet: +
 
 [horizontal]
-*CLIENT NAME*:: The name of the client of the pet name. +
-*PET NAME*:: The name of an existing pet must be supplied by the user. +
-*DATE*:: The date of the appointment must be supplied by the user in this format: DD/MM/YYYY +
-*TIME*:: The time of the appointment must be supplied by the user in this format: HHMM +
-*VET TECHNICIAN NAME*:: The name of the vet technician that is in-charge of the appointment. +
-*COMMENTS*:: Comments must be supplied by the user to describe the kind of appointment. +
+*APPOINTMENT INDEX*:: The index of the appointment in the list. It must be supplied by the user. +
+*PET INDEX*:: The index of the pet in the list. It must be supplied by the user. +
 
-Here are some valid examples on using the `addapptto` command: +
+Here are some valid examples on using the `addappttopet` command: +
 
-* `addapptto n/Alice Peterson pn/Garfield date/01.02.2018 time/1430 vettech/Bob cmt/Sterilize the cat` +
-The user chooses to add an appointment to Alice Peterson's pet called Garfield on 01.02.2018 at 1430HRS. Bob is the vet tech in-charge of this appointment, which is to sterilize Garfield.
+* `addappttopet appt/1 p/1` +
+This will add the first appointment in the appointment list to the first pet in the pet list. Once this is executed, the pet will now have that appointment.
 
 === Listing all clients: `list client` `Since v1.2`
 
@@ -232,19 +228,20 @@ Suppose there is only one pet in the program called Garfield, Garfield will be e
 
 === Removing an appointment from a pet: `rmapptfrom` `coming v2.0`
 
-Command format: `rmapptfrom n/CLIENT_NAME pn/PET_NAME`
+Command format: `rmapptfrompet appt/APPOINTMENT_INDEX`
 
-The `rmapptfrom` command removes an associated appointment from a pet. The command parameters are the same as `rmpetfrom`, see <<Removing a pet from a client: `rmpetfrom`>>. The command expects these parameters: +
+The `rmapptfrom` command removes an associated appointment from a pet. The command requires the index of the appointment in the appointment list. The command expects these parameters: +
 
 [horizontal]
-*CLIENT NAME*:: The pet's client name to be removed. This must be supplied by the user. +
-*PET NAME*:: The pet name of the specified client's name. This must be supplied by the user. +
+*APPOINTMENT INDEX*:: The appointment to be removed based on the appointment listing. This needs to be supplied by the user. +
 
 Here is an exammple of using the command `rmapptfrom`: +
 
-* `rmpetfrom n/Bradly Cooper pn/Scooby Doo` +
-When this command is executed, Scooby's Doo which is Bradly Cooper's pet's appointment will be removed.
+* `rmpetfrom appt/1` +
+When this command is executed, the appointment will be removed from the pet that is associated to it.
 
+[NOTE]
+The command does not remove the appointment itself, rather, the pet associated with the appointment.
 
 === Editing a client or vet technician's details : `edit` `Since v1.1`
 
@@ -378,7 +375,7 @@ Restores the address book to the state before the previous _undoable_ command wa
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content: +
-`add` `addp` `addapptto` `sortc` `sortp` `delete` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
+`add` `addp` `addappttopet` `sortc` `sortp` `delete` `rmpetfrom` `rmapptfrompet` `edit` `editp` `editappt` `clear`
 ====
 
 === Redoing the previously undone command : `redo`
@@ -390,7 +387,7 @@ Reverses the most recent `undo` command. +
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content: +
-`add` `addp` `addapptto` `sortc` `sortp` `delete` `rmpetfrom` `rmapptfrom` `edit` `editp` `editappt` `clear`
+`add` `addp` `addappttopet` `sortc` `sortp` `delete` `rmpetfrom` `rmapptfrompet` `edit` `editp` `editappt` `clear`
 ====
 
 === Clearing all entries : `clear`
@@ -427,7 +424,7 @@ Exiting the program in the middle of a command will save the state. So there's n
 |help |`help` |Displays the user guide.
 |add |`add r/ROLE n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]…` |Adds a person into the program.
 |addp |`addp n/CLIENT_NAME pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG…​` |Adds a pet to a cient.
-|addapptto |`addapptto n/CLIENT_NAME pn/PET_NAME date/DATE (DD.MM.YYYY) time/TIME (HHMM) vettech/VET_TECHNICIAN_NAME cmt/COMMENTS` |Adds an appointment to a pet.
+|addappttopet |`addapptto appt/APPOINTMENT_INDEX p/PET_INDEX` |Adds an appointment to a pet.
 |list client |`list client` |Lists all clients.
 |list pet |`list pet` |Lists all pets.
 |list vettech |`list vettech` |Lists all vet technicians.
@@ -438,7 +435,7 @@ Exiting the program in the middle of a command will save the state. So there's n
 |delete |`delete INDEX` |Remove a client from the program based on index.
 |deletep |`deletep INDEX` |Removes a pet from the program based on index.
 |rmpetfrom |`rmpetfrom n/CLIENT_NAME pn/PET_NAME` |Removes a pet from a client.
-|rmapptfrom |`rmapptfrom n/CLIENT_NAME pn/PET_NAME` |Removes an appointment from a pet.
+|rmapptfrompet |`rmapptfrom p/PET_INDEX` |Removes an appointment from a pet.
 |edit |`edit INDEX [n/ROLE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` |Edits a person's details.
 |editp |`editp INDEX [pn/PET_NAME] [pa/PET_AGE] [pg/PET_GENDER] [t/PET_TAGS]…​` |Edits a pet's details.
 |editappt |`editappt n/CLIENT_NAME pn/PET_NAME [date/DATE (DD.MM.YYYY)] [time/TIME (HHMM)] [vettech/VET_TECHNICIAN_NAME] [cmt/COMMENTS]` |Edits an appointment's details.

@@ -4,6 +4,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
@@ -169,8 +171,14 @@ public interface Model {
      * Adds an appointment to a pet.
      */
     void addAppointmentToPet(Appointment appointment, Pet pet) throws
-            PetAlreadyHasAppointmentException, ClientPetAssociationNotFoundException;
+            PetAlreadyHasAppointmentException, ClientPetAssociationNotFoundException,
+            AppointmentNotFoundException, DuplicateAppointmentException, AppointmentHasBeenTakenException;
 
+    /**
+     * Removes an appointment from a pet.
+     */
+    void removeAppointmentFromPet(Appointment appointment) throws
+            AppointmentNotFoundException, DuplicateAppointmentException;
     /**
      * Sets the index of the current list that is viewed
      */

@@ -21,6 +21,7 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -156,6 +157,19 @@ public class CommandTestUtil {
         model.updateFilteredPetList(pet -> petToShow.equals(pet));
 
         assertEquals(1, model.getFilteredPetList().size());
+    }
+
+    /**
+     * Upates {@code model}'s filtered list to show only the appointment at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showAppointmentAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAppointmentList().size());
+
+        Appointment apptToShow = model.getFilteredAppointmentList().get(targetIndex.getZeroBased());
+        model.updateFilteredAppointmentList(appointment -> apptToShow.equals(appointment));
+
+        assertEquals(1, model.getFilteredAppointmentList().size());
     }
 
     /**

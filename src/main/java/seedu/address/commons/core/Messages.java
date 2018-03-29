@@ -13,5 +13,5 @@ public class Messages {
     public static final String MESSAGE_PETS_LISTED_OVERVIEW = "%1$d pets listed!";
     public static final String MESSAGE_INVALID_APPOINTMENT_INDEX = "The appointment index provided is invalid";
     public static final String MESSAGE_INVALID_PET_INDEX = "The pet index provided is invalid";
-
+    public static final String MESSAGE_APPOINTMENT_TAKEN = "The appointment has been booked";
 }

@@ -31,6 +31,14 @@ public class Appointment {
 
     }
 
+    public Appointment(Appointment toCopy) {
+        date = toCopy.getDate();
+        time = toCopy.getTime();
+        duration = toCopy.getDuration();
+        description = toCopy.getDescription();
+        clientOwnPet = toCopy.getClientOwnPet();
+    }
+
     public Date getDate() {
         return date;
     }
@@ -53,6 +61,10 @@ public class Appointment {
 
     public void setClientOwnPet(ClientOwnPet clientOwnPet) {
         this.clientOwnPet = clientOwnPet;
+    }
+
+    public void setClientOwnPetToNull() {
+        this.clientOwnPet = null;
     }
 
     @Override

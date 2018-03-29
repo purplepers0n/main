@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PET_INDEX;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENT;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PETS;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +12,10 @@ import java.util.Optional;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.pet.Pet;
@@ -64,6 +68,12 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_PET_HAS_APPOINTMENT);
         } catch (ClientPetAssociationNotFoundException e) {
             throw new CommandException(MESSAGE_PET_DOES_NOT_HAVE_OWNER);
+        } catch (DuplicateAppointmentException e) {
+            throw new CommandException(ScheduleCommand.MESSAGE_DUPLICATE_APPOINTMENT);
+        } catch (AppointmentNotFoundException e) {
+            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
+        } catch (AppointmentHasBeenTakenException e) {
+            throw new CommandException(Messages.MESSAGE_APPOINTMENT_TAKEN);
         }
         return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_TO_PET_SUCCESS, appointment.get(), pet.get()));
     }
@@ -82,8 +92,8 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
 
         appointment = Optional.of(lastShownAppointmentList.get(appointmentIndex.getZeroBased()));
         pet = Optional.of(lastShownPetList.get(petIndex.getZeroBased()));
-        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENT);
-        model.updateFilteredPetList(Model.PREDICATE_SHOW_ALL_PETS);
+        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
+        model.updateFilteredPetList(PREDICATE_SHOW_ALL_PETS);
     }
 
     @Override

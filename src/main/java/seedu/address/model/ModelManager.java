@@ -13,6 +13,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
@@ -162,9 +164,18 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addAppointmentToPet(Appointment appointment, Pet pet)
-            throws PetAlreadyHasAppointmentException, ClientPetAssociationNotFoundException {
+            throws PetAlreadyHasAppointmentException, ClientPetAssociationNotFoundException,
+            AppointmentNotFoundException, DuplicateAppointmentException, AppointmentHasBeenTakenException {
         requireAllNonNull(appointment, pet);
         addressBook.addAppointmentToPet(appointment, pet);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void removeAppointmentFromPet(Appointment appointment)
+        throws AppointmentNotFoundException, DuplicateAppointmentException {
+        requireNonNull(appointment);
+        addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();
     }
 

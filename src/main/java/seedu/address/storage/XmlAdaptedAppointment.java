@@ -10,6 +10,7 @@ import seedu.address.model.appointment.Date;
 import seedu.address.model.appointment.Description;
 import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
+import seedu.address.model.association.ClientOwnPet;
 
 /**
  * JAXB-friendly version of the Appointment.
@@ -26,6 +27,8 @@ public class XmlAdaptedAppointment {
     private String duration;
     @XmlElement(required = true)
     private String description;
+    @XmlElement(required = true)
+    private XmlAdaptedClientOwnPet association;
 
     /**
      * Constructs an XmlAdaptedAppointment.
@@ -53,6 +56,9 @@ public class XmlAdaptedAppointment {
         time = source.getTime().toString();
         duration = source.getDuration().toString();
         description = source.getDescription().toString();
+        if (source.getClientOwnPet() != null) {
+            association = new XmlAdaptedClientOwnPet(source.getClientOwnPet());
+        }
     }
 
     /**
@@ -94,7 +100,13 @@ public class XmlAdaptedAppointment {
         }
         final Description description = new Description(this.description);
 
-        convertedAppointment = new Appointment(date, time, duration, description);
+        if (this.association == null) {
+            convertedAppointment = new Appointment(date, time, duration, description);
+        } else {
+            ClientOwnPet cop = association.toModelType();
+            convertedAppointment = new Appointment(date, time, duration, description);
+            convertedAppointment.setClientOwnPet(cop);
+        }
 
         return convertedAppointment;
     }
