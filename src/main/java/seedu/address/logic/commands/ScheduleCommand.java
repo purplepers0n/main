@@ -37,8 +37,12 @@ public class ScheduleCommand extends UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "New appointment scheduled";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "The date and time are taken ";
-    public static final String MESSAGE_CLOSE_APPOINTMENT_PREVIOUS = "The appointment is too close to previous one";
-    public static final String MESSAGE_CLOSE_APPOINTMENT_NEXT = "The appointment is too close to next one";
+    public static final String MESSAGE_CLOSE_APPOINTMENT_PREVIOUS = "The new appointment is within the duration"
+            + " of the earlier appointment\n";
+    public static  final String MESSAGE_SUGGESTION_TIME = "You may delay the appointment to ";
+    public static final String MESSAGE_CLOSE_APPOINTMENT_NEXT = "The later appointment is within the duration "
+            + "of the new appointment\n";
+    public static  final String MESSAGE_SUGGESTION_DURATION = "This appointment can last at most: ";
     private static final int MINIMUM_INTERVAL = 1440;
     private static final int CORRECT_DURATION = 120;
     private static final int CONVERSION_TIME = 60;
@@ -130,9 +134,9 @@ public class ScheduleCommand extends UndoableCommand {
         } catch (DuplicateAppointmentException e1) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         } catch (AppointmentCloseToPreviousException e2) {
-            throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_PREVIOUS);
+            throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_PREVIOUS + MESSAGE_SUGGESTION_TIME);
         } catch (AppointmentCloseToNextException e3) {
-            throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_NEXT);
+            throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_NEXT + MESSAGE_SUGGESTION_DURATION);
         }
     }
 
