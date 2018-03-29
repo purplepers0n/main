@@ -81,7 +81,7 @@ Upon entering the `help` command, a User Guide manual will pop up displaying the
 image::user_guide.PNG[width="790"]
 
 
-=== Adding a person: `add`
+=== Adding a person: `add` `Since v1.1`
 
 Command format: `add r/ROLE n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 
@@ -105,14 +105,15 @@ The user adds multiple tags.
 * `add r/VetTechnician p/91234567 n/Carley Riady a/Blk 123, Bedok Reservoir St24 t/friend t/part_timer e/carlyriady@email.com` +
 The user chooses to re-order the parameter of the command. +
 
-=== Adding a pet: `addp`
+=== Adding a pet: `addp` `Since v1.2`
 
-Command format: `addp pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG...` +
+Command format: `addp c/CLIENT_INDEX pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG...` +
 
 The `addp` command adds a pet to the program.
 The command expects these parameters when adding a pet to a client: +
 
 [horizontal]
+*CLIENT INDEX*:: The index of the client to add the pet to must be supplied the user. +
 *PET NAME*:: The name of the pet to be added to a client must be supplied by the user. +
 *PET AGE*:: The age of the pet must be supplied by the user. It must contain only numbers. +
 *PET GENDER*:: The gender of the pet must be supplied by the user. It can only be male or female. +
@@ -120,29 +121,10 @@ The command expects these parameters when adding a pet to a client: +
 
 Here are some valid examples on how to use the `addp` command: +
 
-* `addp pn/Garfield pa/10 pg/M t/cat t/tabby` +
-The user chooses to add Garfield of age 10 and is a male. Garfield is a cat and a tabby. +
-* `addp pn/Scooby Doo pa/5 pg/M t/dog t/great_dane` +
-The user chooses to add another pet called Scooby Doo of age 5 and is a male. Scooby Doo is a dog and a great dane.
-
-
-=== Adding a pet to a client: `addpettoclient` `Since v1.2`
-
-Command format: `p/PET_INDEX c/CLIENT_INDEX` +
-
-The `addpettoclient` command adds a pet to the client.
-The command expects these parameters when adding a pet to a client: +
-
-[horizontal]
-*PET INDEX*:: The index of the pet shown on the list +
-*CLIENT INDEX*:: The index of the client shown on the list +
-
-Here are some valid examples on how to use the `addpettoclient` command: +
-
-* `addpettoclient p/1 c/2` +
-The user chooses to add pet of index 1 to client of index 2 +
-* `addpettoclient p/3 c/5` +
-The user chooses to add another of index 3 to client of index 5.
+* `addp c/1 pn/Garfield pa/10 pg/M t/cat t/tabby` +
+The user chooses to add Garfield to client of index 1 of age 10 and is a male. Garfield is a cat and a tabby. +
+* `addp c/1 pn/Scooby Doo pa/5 pg/M t/dog t/great_dane` +
+The user chooses to add another pet called Scooby to client of index 1 Doo of age 5 and is a male. Scooby Doo is a dog and a great dane.
 
 === Adding an appointment to a pet: `addapptto` `coming v2.0`
 
@@ -164,14 +146,14 @@ Here are some valid examples on using the `addapptto` command: +
 * `addapptto n/Alice Peterson pn/Garfield date/01.02.2018 time/1430 vettech/Bob cmt/Sterilize the cat` +
 The user chooses to add an appointment to Alice Peterson's pet called Garfield on 01.02.2018 at 1430HRS. Bob is the vet tech in-charge of this appointment, which is to sterilize Garfield.
 
-=== Listing all clients: `list client`
+=== Listing all clients: `list client` `Since v1.2`
 
 Command format: `list client` +
 
 The `list client` command will display all clients that are stored in the program.
 It automatically switches to the client view tab so you can view all your clients at a glance.
 
-=== Listing all pets: `list pet`
+=== Listing all pets: `list pet` `Since v1.2`
 
 Command format: `list pet` +
 
@@ -219,7 +201,7 @@ Command format: `sortp` +
 
 The `sortp` command will sort all existing pets in the program in alphabetical ordering.
 
-=== Removing a client or vet technician: `delete`
+=== Removing a client or vet technician: `delete` `Since v1.1`
 
 Command format: `delete INDEX` +
 
@@ -234,7 +216,7 @@ Here is an example of using the command `delete`: +
 * `delete 1` +
 Suppose the vet is currently viewing the 'client' list and there is only one client in the program called Alice Peterson and she has Garfield and Scooby Doo as her associated pets. This command will remove Alice, Garfield and Scooby Doo from the program.
 
-=== Removing a pet: `deletep`
+=== Removing a pet: `deletep` `Since v1.2`
 
 Command format: `deletep INDEX` +
 
@@ -247,21 +229,6 @@ Here is an example of using the command `deletep`: +
 
 * `deletep 1` +
 Suppose there is only one pet in the program called Garfield, Garfield will be entirely removed from the program.
-
-=== Removing a pet from a client: `rmpetfrom` `coming v2.0`
-
-Command format: `rmpetfrom n/CLIENT_NAME pn/PET_NAME` +
-
-The `rmpetfrom` command will remove a pet from a client. Once a pet is removed, the appointment (if any) associated to that pet will also be removed. The command expects these parameters when called: +
-
-[horizontal]
-*CLIENT NAME*:: The pet's client name to be removed. This must be supplied by the user. +
-*PET NAME*:: The pet name of the specified client's name. This must be supplied by the user. +
-
-Here is an example of using the command `rmpetfrom`: +
-
-* `rmpetfrom n/Alice Peterson pn/Garfield` +
-When this command is executed, Garfield, which is Alice Peterson's pet will be removed from the program. The appointment associated to Garfield will also be removed.
 
 === Removing an appointment from a pet: `rmapptfrom` `coming v2.0`
 
@@ -279,7 +246,7 @@ Here is an exammple of using the command `rmapptfrom`: +
 When this command is executed, Scooby's Doo which is Bradly Cooper's pet's appointment will be removed.
 
 
-=== Editing a client or vet technician's details : `edit`
+=== Editing a client or vet technician's details : `edit` `Since v1.1`
 
 Command format: `edit INDEX [r/ROLE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
