@@ -342,7 +342,7 @@
     -fx-border-insets: 0;
     -fx-font-family: Helvetica;
     -fx-font-size: 13pt;
-    -fx-text-fill: #141414;
+    -fx-text-fill: #55C9E0;
 }
 
 #filterField, #personListPanel, #personWebpage {
