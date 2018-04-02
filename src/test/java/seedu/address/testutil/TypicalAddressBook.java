@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
@@ -40,6 +42,13 @@ public class TypicalAddressBook {
                 throw new AssertionError("not possible");
             }
         }
+        for (Appointment appt : getTypicalAppointments()) {
+            try {
+                ab.scheduleAppointment(appt);
+            } catch (DuplicateAppointmentException e) {
+                throw new AssertionError("not possible");
+            }
+        }
         for (ClientOwnPet cop : getTypicalAssociations()) {
             try {
                 ab.addPetToClient(cop.getPet(), cop.getClient());
@@ -61,6 +70,10 @@ public class TypicalAddressBook {
 
     public static List<ClientOwnPet> getTypicalAssociations() {
         return new ArrayList<>(TypicalAssociations.getTypicalAssociations());
+    }
+
+    public static List<Appointment> getTypicalAppointments() {
+        return new ArrayList<>(TypicalAppointments.getTypicalAppointments());
     }
 
 }

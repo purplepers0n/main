@@ -414,8 +414,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags";
-        // TODO: refine later
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags "
+                + pets.asObservableList().size() + " pets, "
+                + appointments.asObservableList().size() + " appointments, "
+                + clientPetAssociations.size() + " clientpetassoc ";
     }
 
     @Override

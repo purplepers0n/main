@@ -6,6 +6,12 @@ import java.util.Set;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Description;
+import seedu.address.model.appointment.Duration;
+import seedu.address.model.appointment.Time;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.Address;
@@ -62,6 +68,15 @@ public class SampleDataUtil {
         };
     }
 
+    public static Appointment[] getSampleAppointment() {
+        return new Appointment[] {
+            new Appointment(new Date("2018-01-02"), new Time("14:30"),
+                    new Duration("60"), new Description("Sterilize Garfield now")),
+            new Appointment(new Date("2018-03-04"), new Time("15:30"),
+                    new Duration("60"), new Description("Give Tweety a shower"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         try {
             AddressBook sampleAb = new AddressBook();
@@ -71,6 +86,9 @@ public class SampleDataUtil {
             for (Pet samplePet : getSamplePets()) {
                 sampleAb.addPet(samplePet);
             }
+            for (Appointment sampleAppointment : getSampleAppointment()) {
+                sampleAb.scheduleAppointment(sampleAppointment);
+            }
             sampleAb.setClientPetAssociations(Arrays.asList(getSampleClientOwnpetAssociation()));
 
             return sampleAb;
@@ -78,6 +96,8 @@ public class SampleDataUtil {
             throw new AssertionError("sample data cannot contain duplicate persons", e);
         } catch (DuplicatePetException e) {
             throw new AssertionError("sample data cannot contain duplicate pets", e);
+        } catch (DuplicateAppointmentException e) {
+            throw new AssertionError("sample data cannot contain duplicate appointments", e);
         }
     }
 
