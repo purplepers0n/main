@@ -495,6 +495,7 @@ image::addpettoclientSequence.png[width="800" caption="Figure 4-11. "]
 ** Cons: High coupling.
 // end::addpettoclient[]
 
+// tag::listperson[]
 === List and display clients, pets and vet technicians
 
 ==== Current Implementation
@@ -592,6 +593,18 @@ With this implementation, whether changing list by mouse-click or by command,
 the application always contains the index of the current list being viewed,
 so that the correct list will be displayed, and so that all other commands will
 be executed on the correct list.
+
+==== Design Considerations
+===== Aspect: Implementation of toggling between lists
+* **Alternative 1 (current choice):** Client, Pet and Vet Tech lists are stored in three separate tabs,
+and an event is handled to toggle between the tabs to display the corresponding list
+** Pros: Clickable tabs on the UI for easy toggling with both typing and mouse-click.
+** Cons: `MainWindow` needs to handle the event to switch to the correct tab.
+* **Alternative 2:** Have a single display without tabs, and update it with either Client, Pet or Vet Tech list when the `list`
+command is executed
+** Pros: Need not create a new event and handle it.
+** Cons: Displayed list needs to be updated every time `list` command is executed, reducing efficiency.
+// end::listperson[]
 
 // tag::scheduleappt[]
 === Schedule feature
@@ -893,24 +906,25 @@ required for command words, to increase efficiency in using the application.
 *Choo Wen Xin*
 
 [none]
-* *Major Enhancement*: Support all new list commands and display on UI
+* *Major Enhancement*: Support `listappt` and `listall` commands
++
+[none]
+** The `listappt` command will display all appointments in the main section of the application
+listed in date order, and in time order within each (date) section. This is for the vet to
+easily keep track of his/her appointments in chronological order.
+** The `listall` command will take in a type parameter (either client, pet, vet technician or appointment)
+and an index parameter of that type's list, and will then display all the associated information of
+the particular item in a sidebar of the application. This is to easily see the relevant
+details when wanting to check a particular item.
+** The appropriate display on the UI will also be created for the above.
+
+* *Minor Enhancement*: Update `list`, `edit`, `delete` command and have display tabs for the lists
 +
 [none]
 ** The `list` command now takes in a parameter (either 'client', 'pet' or 'vettech')
-which will toggle the tabs in the sidebar of the application and display the appropriate list
-for easy viewing and keeping track.
-** The `list appt` command will display all appointments in the main section of the application
-listed in date order, and in time order within each (date) section. This is for the vet to
-easily keep track of his/her appointments in chronological order.
-** The `listall` command will take in a client index parameter and display all the
-pets and appointments the particular client has in the main section of the application. This is to easily see the relevant
-details when dealing with a client.
-
-* *Minor Enhancement*: Reorganization of UI display
-+
-[none]
-** The display will now have a header bar, displaying the application logo and name,
-and the command and result bar will be moved into the top of the right splitpane instead.
+and the `MainWindow` will handle the event created by the `list` command and toggle the tabs in the sidebar of the application and display the appropriate list
+for easy viewing and keeping track. The tabs can be toggled by mouse-click as well.
+** The `edit` and `delete` commands will be updated so that it only affect the index of the currently viewed list.
 
 *Zhong Zheng Xin*
 
