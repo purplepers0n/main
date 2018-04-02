@@ -260,6 +260,11 @@ public class ScheduleCommandTest {
         public void removeAppointmentFromPet(Appointment appointment) throws AppointmentNotFoundException {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void sortAppointmentList() {
+            fail("This method should not be called.");
+        }
     }
 
     /**
