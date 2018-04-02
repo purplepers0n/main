@@ -7,10 +7,12 @@ https://coveralls.io/github/CS2103JAN2018-F09-B4/main?branch=master[image:https:
 
 ifdef::env-github[]
 image::docs/images/landing_logo.png[width="1000"]
+image::docs/images/Ui.png[width="1000"]
 endif::[]
 
 ifndef::env-github[]
 image::images/landing_logo.png[width="1000"]
+image::docs/images/Ui.png[width="1000"]
 endif::[]
 
 {nbsp} +
