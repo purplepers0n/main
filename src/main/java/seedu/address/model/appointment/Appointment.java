@@ -107,7 +107,7 @@ public class Appointment {
     }
 
     /**
-     * Compares
+     * Comparator that compares the date and then time of the appointment
      */
     public int compareTo(Appointment other) {
         if (this.getDate().compareToDate(other.getDate()) == 0) {
