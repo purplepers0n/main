@@ -106,4 +106,15 @@ public class Appointment {
         return builder.toString();
     }
 
+    /**
+     * Compares
+     */
+    public int compareTo(Appointment other) {
+        if (this.getDate().compareToDate(other.getDate()) == 0) {
+            return (this.getTime().compareToTime(other.getTime()));
+        } else {
+            return this.getDate().compareToDate(other.getDate());
+        }
+    }
+
 }

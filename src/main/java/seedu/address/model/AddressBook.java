@@ -105,6 +105,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.pets.sort();
     }
 
+    public void sortAppointmentList() {
+        this.appointments.sort();
+    }
+
     public void setClientPetAssociations(List<ClientOwnPet> associations) {
         this.clientPetAssociations.setAll(associations);
     }

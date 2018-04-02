@@ -179,6 +179,12 @@ public interface Model {
      */
     void removeAppointmentFromPet(Appointment appointment) throws
             AppointmentNotFoundException, DuplicateAppointmentException;
+
+    /**
+     * Sorts the appointment by date and then by time
+     */
+    void sortAppointmentList();
+
     /**
      * Sets the index of the current list that is viewed
      */
