@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENT;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,10 +41,10 @@ public class ScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "The date and time are taken ";
     public static final String MESSAGE_CLOSE_APPOINTMENT_PREVIOUS = "The new appointment is within the duration"
             + " of the earlier appointment.\n";
-    public static  final String MESSAGE_SUGGESTION_TIME = "You may delay the appointment for: ";
+    public static final String MESSAGE_SUGGESTION_TIME = "You may delay the appointment for: ";
     public static final String MESSAGE_CLOSE_APPOINTMENT_NEXT = "The later appointment is within the duration "
             + "of the new appointment.\n";
-    public static  final String MESSAGE_SUGGESTION_DURATION = "This appointment can last at most: ";
+    public static final String MESSAGE_SUGGESTION_DURATION = "This appointment can last at most: ";
     private static final String MINUTE_SUFFIX = " minutes";
     private static final int MINIMUM_INTERVAL = 1440;
     private static final int CORRECT_DURATION = 120;
@@ -76,7 +77,7 @@ public class ScheduleCommand extends UndoableCommand {
         int minInterval = MINIMUM_INTERVAL;
         int correctDuration = CORRECT_DURATION;
 
-        for (Appointment earlierAppointment: existingAppointmentList) {
+        for (Appointment earlierAppointment : existingAppointmentList) {
             Date earlierAppointmentDate = earlierAppointment.getDate();
             Time earlierAppointmentTime = earlierAppointment.getTime();
 
@@ -111,7 +112,7 @@ public class ScheduleCommand extends UndoableCommand {
         int interval;
         int minInterval = this.toAdd.getDuration().getDurationValue();
 
-        for (Appointment laterAppointment: existingAppointmentList) {
+        for (Appointment laterAppointment : existingAppointmentList) {
             Date laterAppointmentDate = laterAppointment.getDate();
             Time laterAppointmentTime = laterAppointment.getTime();
 
@@ -144,7 +145,7 @@ public class ScheduleCommand extends UndoableCommand {
 
         Time previous = DEFAULT_TIME;
 
-        for (Appointment earlierAppointment: existingAppointmentList) {
+        for (Appointment earlierAppointment : existingAppointmentList) {
             Date earlierAppointmentDate = earlierAppointment.getDate();
             Time earlierAppointmentTime = earlierAppointment.getTime();
 
@@ -178,7 +179,7 @@ public class ScheduleCommand extends UndoableCommand {
         int interval;
         int minInterval = appointment.getDuration().getDurationValue();
 
-        for (Appointment laterAppointment: existingAppointmentList) {
+        for (Appointment laterAppointment : existingAppointmentList) {
             Date laterAppointmentDate = laterAppointment.getDate();
             Time laterAppointmentTime = laterAppointment.getTime();
 
@@ -195,6 +196,7 @@ public class ScheduleCommand extends UndoableCommand {
         }
         return new Duration(minInterval);
     }
+
     @Override
     protected CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
@@ -202,6 +204,7 @@ public class ScheduleCommand extends UndoableCommand {
             durationCheckPrevious(model.getFilteredAppointmentList());
             durationCheckNext(model.getFilteredAppointmentList());
             model.scheduleAppointment(toAdd);
+            model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateAppointmentException e1) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
