@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,6 +12,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.appointment.Appointment;
 
 /**
@@ -24,7 +28,8 @@ public class ApptListPanel extends UiPart<Region> {
 
     public ApptListPanel(ObservableList<Appointment> apptList) {
         super(FXML);
-
+        setConnections(apptList);
+        registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Appointment> apptList) {
@@ -34,12 +39,12 @@ public class ApptListPanel extends UiPart<Region> {
         int endIndex;
 
         for (Appointment currAppt : apptList) {
-            if (lastAppt != null && currAppt.getDate() != lastAppt.getDate()) {
+            if (lastAppt != null && !currAppt.getDate().equals(lastAppt.getDate())) {
                 endIndex = apptList.indexOf(currAppt);
 
                 ObservableList<Appointment> apptDayList =
                         FXCollections.observableList(apptList.subList(startIndex, endIndex));
-                mappedList.add(new ApptDayPanelCard(apptDayList));
+                mappedList.add(new ApptDayPanelCard(apptDayList, lastAppt.getDate().toString()));
 
                 startIndex = endIndex;
                 lastAppt = currAppt;
@@ -49,11 +54,28 @@ public class ApptListPanel extends UiPart<Region> {
         }
         endIndex = apptList.size();
         ObservableList<Appointment> apptDayList = FXCollections.observableList(apptList.subList(startIndex, endIndex));
-        mappedList.add(new ApptDayPanelCard(apptDayList));
-
+        mappedList.add(new ApptDayPanelCard(apptDayList, apptList.get(endIndex - 1).getDate().toString()));
 
         apptListView.setItems(mappedList);
         apptListView.setCellFactory(listView -> new ApptListViewCell());
+    }
+
+    /**
+     * Scrolls to the {@code ClientCard} at the {@code index} and selects it.
+     */
+    private void scrollTo(int index) {
+        Platform.runLater(() -> {
+            apptListView.scrollTo(index);
+            apptListView.getSelectionModel().clearAndSelect(index);
+        });
+    }
+
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.targetList == 0) {
+            scrollTo(event.targetIndex);
+        }
     }
 
     /**

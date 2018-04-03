@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENT;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.NewApptAvailableEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
@@ -205,6 +207,7 @@ public class ScheduleCommand extends UndoableCommand {
             durationCheckNext(model.getFilteredAppointmentList());
             model.scheduleAppointment(toAdd);
             model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
+            EventsCenter.getInstance().post(new NewApptAvailableEvent(toAdd.toString()));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateAppointmentException e1) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);

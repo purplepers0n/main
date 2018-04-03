@@ -21,6 +21,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ChangeListTabEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.NewApptAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -150,9 +151,6 @@ public class MainWindow extends UiPart<Stage> {
         vetTechnicianListPanel = new VetTechnicianListPanel(logic.getFilteredVetTechnicianList());
         vetTechnicianListPanelPlaceholder.getChildren().add(vetTechnicianListPanel.getRoot());
 
-        apptListPanel = new ApptListPanel(logic.getFilteredAppointmentList());
-        apptListPanelPlaceholder.getChildren().add(apptListPanel.getRoot());
-
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -164,6 +162,13 @@ public class MainWindow extends UiPart<Stage> {
 
         dateTimeCard = new DateTimeCard();
         dateTimePlaceholder.getChildren().add(dateTimeCard.getRoot());
+
+        fillAppt();
+    }
+
+    void fillAppt() {
+        apptListPanel = new ApptListPanel(logic.getFilteredAppointmentList());
+        apptListPanelPlaceholder.getChildren().add(apptListPanel.getRoot());
     }
 
     void hide() {
@@ -227,6 +232,11 @@ public class MainWindow extends UiPart<Stage> {
         return this.vetTechnicianListPanel;
     }
 
+    public ApptListPanel getApptListPanel() {
+        return this.apptListPanel;
+    }
+
+
     /**
      * Changes to the {@code Tab} of the specific {@code list} requested and selects it.
      */
@@ -241,6 +251,12 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         changeTo(event.targetList);
         logic.setCurrentList(event.targetList);
+    }
+
+    @Subscribe
+    private void handleApptAvailableEvent(NewApptAvailableEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> fillAppt());
     }
 
     /**

@@ -39,8 +39,13 @@ public class ApptCard extends UiPart<Region> {
         startTime = appointment.getTime().toString();
         getTimeFrame(startTime, appointment.getDuration().toString());
         time.setText(startTime + " - " + endTime);
-        clientName.setText("Client: " + appointment.getClientOwnPet().getClient().getName().fullName);
-        petName.setText("Pet: " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
+        if (appointment.getClientOwnPet() == null) {
+            clientName.setText("Client: ");
+            petName.setText("Pet: ");
+        } else {
+            clientName.setText("Client: " + appointment.getClientOwnPet().getClient().getName().fullName);
+            petName.setText("Pet: " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
+        }
         vetTechName.setText("Vet Tech: ");
     }
 

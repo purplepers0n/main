@@ -462,3 +462,31 @@
     -fx-text-fill: white;
     -fx-font-size: 16px;
 }
+
+.apptCardPane{
+     -fx-background-color: #046472;
+     -fx-border-width: 0;
+     -fx-padding: 5px;
+     -fx-border-insets: 5px;
+     -fx-background-insets: 5px;
+     -fx-background-radius: 5px;
+}
+
+.apptDayPanel .list-cell {
+     -fx-background-color: #E2E0E0;
+}
+
+.apptList .list-cell {
+    -fx-background-color: #E2E0E0;
+}
+
+.apptDayPanelCard {
+
+}
+
+.cellDate {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+    -fx-background-color: #00BFB2;
+}
