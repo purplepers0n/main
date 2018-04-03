@@ -43,27 +43,6 @@ public class UniquePetList implements Iterable<Pet> {
         internalList.add(toAdd);
     }
 
-    /**
-     * Replaces the pet {@code target} in the list with {@code editedpet}.
-     *
-     * @throws DuplicatePetException if the replacement is equivalent to another existing pet in the list.
-     * @throws PetNotFoundException if {@code target} could not be found in the list.
-     */
-    public void setPet(Pet target, Pet editedPet)
-            throws DuplicatePetException, PetNotFoundException {
-        requireNonNull(editedPet);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new PetNotFoundException();
-        }
-
-        if (!target.equals(editedPet) && internalList.contains(editedPet)) {
-            throw new DuplicatePetException();
-        }
-
-        internalList.set(index, editedPet);
-    }
 
     /**
      * Removes the equivalent pet from the list.
