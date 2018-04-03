@@ -91,8 +91,10 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        commandTextField.setText(listOfAutoComplete.get(0));
-        commandTextField.positionCaret(commandTextField.getText().length());
+        if (listOfAutoComplete.size() == 1) {
+            commandTextField.setText(listOfAutoComplete.get(0));
+            commandTextField.positionCaret(commandTextField.getText().length());
+        }
         logger.info("Auto Complete Suggestions '"
                 + currUserInput + "' : " + listToString(listOfAutoComplete));
 
