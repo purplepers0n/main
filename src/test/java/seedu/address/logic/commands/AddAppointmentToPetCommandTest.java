@@ -11,8 +11,10 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PETS;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PET;
+import static seedu.address.testutil.TypicalIndexes.INDEX_OOB_PET;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_APPT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PET;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_APPT;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -103,6 +105,18 @@ public class AddAppointmentToPetCommandTest {
     public void execute_clientPetAssociationNotFound_throwsCommandException() throws Exception {
         AddAppointmentToPetCommand command = prepareCommand(INDEX_FIRST_APPT, INDEX_SECOND_PET);
         assertCommandFailure(command, model, AddAppointmentToPetCommand.MESSAGE_PET_DOES_NOT_HAVE_OWNER);
+    }
+
+    @Test
+    public void execute_appointmentNotFound_throwsCommandException() throws Exception {
+        AddAppointmentToPetCommand command = prepareCommand(INDEX_THIRD_APPT, INDEX_FIRST_PET);
+        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
+    }
+
+    @Test
+    public void execute_petNotFound_throwsCommandException() throws Exception {
+        AddAppointmentToPetCommand command = prepareCommand(INDEX_FIRST_APPT, INDEX_OOB_PET);
+        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_PET_DISPLAYED_INDEX);
     }
 
     @Test
