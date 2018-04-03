@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBookWit
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
@@ -27,7 +28,8 @@ public class SortAppointmentCommandTest {
     public ExpectedException error = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model modelWithNoAppointments = new ModelManager(getTypicalAddressBookWithNoAppointments(), new UserPrefs());
+    private Model modelWithNoAppointments = new ModelManager(getTypicalAddressBookWithNoAppointments(),
+            new UserPrefs());
 
     @Test
     public void sortEmptyAppointments() throws Exception {
