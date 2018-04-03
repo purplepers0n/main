@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private ClientListPanel clientListPanel;
     private PetListPanel petListPanel;
     private VetTechnicianListPanel vetTechnicianListPanel;
+    private ApptListPanel apptListPanel;
     private DateTimeCard dateTimeCard;
     private Config config;
     private UserPrefs prefs;
@@ -66,6 +67,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private TabPane listPanel;
+
+    @FXML
+    private StackPane apptListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -145,6 +149,9 @@ public class MainWindow extends UiPart<Stage> {
 
         vetTechnicianListPanel = new VetTechnicianListPanel(logic.getFilteredVetTechnicianList());
         vetTechnicianListPanelPlaceholder.getChildren().add(vetTechnicianListPanel.getRoot());
+
+        apptListPanel = new ApptListPanel(logic.getFilteredAppointmentList());
+        apptListPanelPlaceholder.getChildren().add(apptListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
