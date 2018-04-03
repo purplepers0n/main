@@ -46,4 +46,10 @@ public class AutoCompleteTest {
         List<String> listOfWords = autoComplete.autoCompleteCommands(null);
     }
 
+    @Test
+    public void autoCompleteParameter_emptyInput_emptyString() {
+        String result = autoComplete.autoCompleteNextMissingParameter("");
+        assertTrue(result.isEmpty());
+    }
+
 }

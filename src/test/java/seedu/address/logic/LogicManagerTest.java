@@ -80,6 +80,12 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void getAutoCompleteNextParameter_nullKeyWord_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        logic.autoCompleteCommands(null);
+    }
+
+    @Test
     public void getCurrentList() {
         assertEquals(logic.getCurrentList(), 0);
     }

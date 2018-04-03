@@ -22,6 +22,10 @@ public class CommandBoxTest extends GuiUnitTest {
     private static final String ADD_COMMAND_PREFIX = "ad";
     private static final String INVALID_COMMAND_PREFIX = "invalid";
     private static final String ADD_COMMAND = "add";
+    private static final String ADD_COMMAND_WITH_SPACE = "add ";
+    private static final String ADD_COMMAND_FIRST_PARAMETER_PREFIX = "r/";
+
+
 
     private ArrayList<String> defaultStyleOfCommandBox;
     private ArrayList<String> errorStyleOfCommandBox;
@@ -76,14 +80,25 @@ public class CommandBoxTest extends GuiUnitTest {
     public void handleKeyPress_tab() {
         guiRobot.push(KeyCode.TAB);
         guiRobot.push(KeyCode.TAB);
+
+        // autocomplete add command
         commandBoxHandle.setInput(ADD_COMMAND_PREFIX);
         guiRobot.push(KeyCode.TAB);
         assertEquals(ADD_COMMAND, commandBoxHandle.getInput());
         guiRobot.push(KeyCode.TAB);
         guiRobot.pauseForHuman();
         guiRobot.pauseForHuman();
+
+        // autocomplete invalid command
         commandBoxHandle.setInput(INVALID_COMMAND_PREFIX);
         guiRobot.push(KeyCode.TAB);
+        guiRobot.pauseForHuman();
+
+        // autocomplete first add command parameter prefix
+        commandBoxHandle.setInput(ADD_COMMAND_WITH_SPACE);
+        guiRobot.push(KeyCode.TAB);
+        assertEquals(ADD_COMMAND_WITH_SPACE + ADD_COMMAND_FIRST_PARAMETER_PREFIX, commandBoxHandle.getInput());
+
     }
 
     @Test

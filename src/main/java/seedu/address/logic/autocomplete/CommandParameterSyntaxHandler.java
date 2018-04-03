@@ -33,22 +33,22 @@ import seedu.address.logic.parser.Prefix;
  */
 public class CommandParameterSyntaxHandler {
 
-    private static final ArrayList<Prefix> ADD_COMMAND_PREFIXES = getListOfPrefix(PREFIX_PERSON_ROLE,
+    public static final ArrayList<Prefix> ADD_COMMAND_PREFIXES = getListOfPrefix(PREFIX_PERSON_ROLE,
             PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-    private static final ArrayList<Prefix> ADD_PET_COMMAND_PREFIXES = getListOfPrefix(PREFIX_CLIENT_INDEX,
+    public static final ArrayList<Prefix> ADD_PET_COMMAND_PREFIXES = getListOfPrefix(PREFIX_CLIENT_INDEX,
             PREFIX_PET_NAME, PREFIX_PET_AGE, PREFIX_PET_GENDER, PREFIX_TAG);
 
-    private static final ArrayList<Prefix> EDIT_COMMAND_PREFIXES = getListOfPrefix(PREFIX_PERSON_ROLE,
+    public static final ArrayList<Prefix> EDIT_COMMAND_PREFIXES = getListOfPrefix(PREFIX_PERSON_ROLE,
             PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-    private static final ArrayList<Prefix> ADD_APPT_TO_PET_COMMAND_PREFIXES = getListOfPrefix(PREFIX_APPOINTMENT_INDEX,
+    public static final ArrayList<Prefix> ADD_APPT_TO_PET_COMMAND_PREFIXES = getListOfPrefix(PREFIX_APPOINTMENT_INDEX,
             PREFIX_PET_INDEX);
 
-    private static final ArrayList<Prefix>
+    public static final ArrayList<Prefix>
             REMOVE_APPT_FROM_PET_COMMAND_PREFIXES = getListOfPrefix(PREFIX_APPOINTMENT_INDEX);
 
-    private static final ArrayList<Prefix> SCHEDULE_COMMAND_PREFIXES = getListOfPrefix(PREFIX_DATE, PREFIX_TIME,
+    public static final ArrayList<Prefix> SCHEDULE_COMMAND_PREFIXES = getListOfPrefix(PREFIX_DATE, PREFIX_TIME,
             PREFIX_DURATION, PREFIX_DESCRIPTION);
 
 
