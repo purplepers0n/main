@@ -36,6 +36,9 @@ import seedu.address.logic.parser.Prefix;
  */
 public class AutoComplete {
 
+    private static final String LIST_CLIENT_PREFIX = " client";
+    private static final String LIST_VETTECH_PREFIX = " vettech";
+    private static final String LIST_PET_PREFIX = " pet";
     private Trie commandTrie;
     private CommandParameterSyntaxHandler commandParameterSyntaxHandler;
 
@@ -59,7 +62,6 @@ public class AutoComplete {
         commandTrie.insertWord(FindCommand.COMMAND_WORD);
         commandTrie.insertWord(HelpCommand.COMMAND_WORD);
         commandTrie.insertWord(HistoryCommand.COMMAND_WORD);
-        commandTrie.insertWord(ListCommand.COMMAND_WORD);
         commandTrie.insertWord(RedoCommand.COMMAND_WORD);
         commandTrie.insertWord(ScheduleCommand.COMMAND_WORD);
         commandTrie.insertWord(SelectCommand.COMMAND_WORD);
@@ -73,6 +75,12 @@ public class AutoComplete {
         commandTrie.insertWord(SortClientCommand.COMMAND_WORD);
         commandTrie.insertWord(SortAppointmentCommand.COMMAND_WORD);
         commandTrie.insertWord(SortPetCommand.COMMAND_WORD);
+
+        commandTrie.insertWord(ListCommand.COMMAND_WORD);
+        commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_CLIENT_PREFIX);
+        commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_VETTECH_PREFIX);
+        commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_PET_PREFIX);
+
 
     }
 
