@@ -26,6 +26,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.vettechnician.VetTechnician;
 
+//@@author jonathanwj-reused
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
  * and unit tests for AddVetTechToAppointmentCommand.

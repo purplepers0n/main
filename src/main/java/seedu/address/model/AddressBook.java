@@ -323,6 +323,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// Association methods
 
+    //@@author jonathanwj
     /**
      * Associates pet to client
      *
@@ -344,6 +345,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     }
 
+    //@@author
     /**
      * Finds the pet and adds the appointment
      */
@@ -396,6 +398,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    //@@author jonathanwj
     /**
      * Returns true if specified pet has an owner
      */
@@ -408,7 +411,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return false;
     }
 
-
+    //@@author jonathanwj
     /**
      * Removes association from pet and client
      *
@@ -423,6 +426,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    //@@author jonathanwj
     /**
      * Adds vet technician to appointment
      */
@@ -440,6 +444,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments.setAppointment(appointment, appointmentCopy);
     }
 
+    //@@author jonathanwj
     /**
      * Removes a vet technician from the given appointment
      */
@@ -454,7 +459,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
-
+    //@@author
     @Override
     public String toString() {
         return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags "
@@ -498,6 +503,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 && this.pets.equals(((AddressBook) other).pets);
     }
 
+    //@@author jonathanwj
     @Override
     public ObservableList<Client> getClientList() {
         ObservableList<Client> clientList = EasyBind.map(getPersonList(), (person) -> {
@@ -511,6 +517,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return clientList;
     }
 
+    //@@author jonathanwj
     @Override
     public ObservableList<VetTechnician> getVetTechnicianList() {
         ObservableList<VetTechnician> technicianList = EasyBind.map(getPersonList(), (person) -> {
@@ -524,6 +531,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return technicianList;
     }
 
+    //@@author
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

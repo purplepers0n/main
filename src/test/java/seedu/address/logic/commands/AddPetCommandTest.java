@@ -237,7 +237,7 @@ public class AddPetCommandTest {
         }
 
         @Override
-        public void removeVetFromAppointent(Appointment apptToRemoveVetFrom)
+        public void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
                 throws DuplicateAppointmentException, AppointmentNotFoundException {
             fail("This method should not be called.");
         }

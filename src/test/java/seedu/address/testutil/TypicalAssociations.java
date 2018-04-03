@@ -7,7 +7,7 @@ import java.util.List;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
 
-
+//@@author jonathanwj-reused
 /**
  * A utility class containing a list of {@code ClientOwnPet} objects to be used in tests.
  */

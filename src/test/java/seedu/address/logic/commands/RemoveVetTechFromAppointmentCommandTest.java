@@ -17,6 +17,7 @@ import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.TypicalAddressBook;
 
+//@@author jonathanwj-reused
 /**
  * Contains integration tests unit tests for
  * {@code RemoveVetTechFromAppointmentCommand}.
@@ -31,7 +32,7 @@ public class RemoveVetTechFromAppointmentCommandTest {
     @Test
     public void removeVetTech_invalidAppt_throwAppointmentNotFoundException() throws Exception {
         thrown.expect(AppointmentNotFoundException.class);
-        model.removeVetFromAppointent(new AppointmentBuilder().withDate("2019-02-01")
+        model.removeVetTechFromAppointent(new AppointmentBuilder().withDate("2019-02-01")
                 .withTime("14:40")
                 .withDuration("80")
                 .withDescription("Dummy")
@@ -49,7 +50,7 @@ public class RemoveVetTechFromAppointmentCommandTest {
                 .MESSAGE_REMOVE_VET_FROM_APPT_SUCCESS, appointmentToRemoveVetTech);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.removeVetFromAppointent(appointmentToRemoveVetTech);
+        expectedModel.removeVetTechFromAppointent(appointmentToRemoveVetTech);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }

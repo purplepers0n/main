@@ -28,6 +28,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.client.Client;
 import seedu.address.model.pet.Pet;
 
+//@@author jonathanwj-reused
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
  * and unit tests for AddPetToClientCommand.

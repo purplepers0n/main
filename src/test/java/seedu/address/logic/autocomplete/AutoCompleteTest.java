@@ -9,9 +9,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+//@@author jonathanwj
 public class AutoCompleteTest {
 
     public static final String NOT_FOUND_KEYWORD = "NotFoundKeyword";
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

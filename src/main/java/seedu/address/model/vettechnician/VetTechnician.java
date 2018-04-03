@@ -10,6 +10,7 @@ import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+//@@author jonathanwj-reused
 /**
  * Represents a Vet Technician in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.

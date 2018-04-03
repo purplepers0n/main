@@ -85,6 +85,7 @@ public class XmlAdaptedPerson {
         }
     }
 
+    //@@author jonathanwj-reused
     /**
      * Converts this jaxb-friendly adapted person object into the model's Person object.
      *
