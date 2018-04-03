@@ -237,6 +237,12 @@ public class AddPetCommandTest {
         }
 
         @Override
+        public void removeVetFromAppointent(Appointment apptToRemoveVetFrom)
+                throws DuplicateAppointmentException, AppointmentNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void sortClientList() {
             fail("This method should not be called.");
         }

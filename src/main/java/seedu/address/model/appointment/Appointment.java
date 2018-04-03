@@ -79,6 +79,10 @@ public class Appointment {
         this.vetTech = Optional.of(vetTech);
     }
 
+    public void removeVetTech() {
+        vetTech = Optional.empty();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
