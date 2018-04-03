@@ -16,7 +16,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
+import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
@@ -69,7 +71,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         clientPetAssociations = FXCollections.observableArrayList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons and Tags in the {@code toBeCopied}
@@ -103,6 +106,19 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void sortPetList() {
         this.pets.sort();
+    }
+
+    /**
+     * Sorts the appointment internal list.
+     *
+     * @throws AppointmentListIsEmptyException
+     */
+    public void sortAppointmentList() throws AppointmentListIsEmptyException {
+        if (appointments.isEmpty()) {
+            throw new AppointmentListIsEmptyException();
+        } else {
+            appointments.sort();
+        }
     }
 
     public void setClientPetAssociations(List<ClientOwnPet> associations) {
@@ -166,9 +182,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedPerson}.
      *
      * @throws DuplicatePersonException if updating the client's details causes the client to be equivalent to
-     *      another existing client in the list.
-     * @throws PersonNotFoundException if {@code target} could not be found in the list.
-     *
+     *                                  another existing client in the list.
+     * @throws PersonNotFoundException  if {@code target} could not be found in the list.
      * @see #syncWithMasterTagList(Person)
      */
     public void updatePerson(Person target, Person editedPerson)
@@ -183,9 +198,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     *  Updates the master tag list to include tags in {@code person} that are not in the list.
-     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
-     *  list.
+     * Updates the master tag list to include tags in {@code person} that are not in the list.
+     *
+     * @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
+     * list.
      */
     private Person syncWithMasterTagList(Person person) {
         Person syncedPerson;
@@ -235,6 +251,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Schedule an appointment to the address book.
+     *
      * @throws DuplicateAppointmentException if an equivalent person already exists.
      */
     public void scheduleAppointment(Appointment a) throws DuplicateAppointmentException {
@@ -280,9 +297,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     *  Updates the master tag list to include tags in {@code person} that are not in the list.
-     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
-     *  list.
+     * Updates the master tag list to include tags in {@code person} that are not in the list.
+     *
+     * @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
+     * list.
      */
     private Pet syncWithMasterPetTagList(Pet pet) {
         Pet syncedPet;
@@ -405,13 +423,44 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    /**
+     * Adds vet technician to appointment
+     */
+    public void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
+            throws AppointmentNotFoundException, AppointmentAlreadyHasVetTechnicianException,
+            DuplicateAppointmentException {
+        if (!appointments.contains(appointment)) {
+            throw new AppointmentNotFoundException();
+        }
+        if (appointment.getOptionalVetTechnician().isPresent()) {
+            throw new AppointmentAlreadyHasVetTechnicianException();
+        }
+        Appointment appointmentCopy = new Appointment(appointment);
+        appointmentCopy.setVetTech(technician);
+        appointments.setAppointment(appointment, appointmentCopy);
+    }
+
+    /**
+     * Removes a vet technician from the given appointment
+     */
+    public void removeVetFromAppointment(Appointment apptToRemoveVetFrom)
+            throws AppointmentNotFoundException, DuplicateAppointmentException {
+        if (!appointments.contains(apptToRemoveVetFrom)) {
+            throw new AppointmentNotFoundException();
+        }
+        Appointment appointmentCopy = new Appointment(apptToRemoveVetFrom);
+        appointmentCopy.removeVetTech();
+        appointments.setAppointment(apptToRemoveVetFrom, appointmentCopy);
+    }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags";
-        // TODO: refine later
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags "
+                + pets.asObservableList().size() + " pets, "
+                + appointments.asObservableList().size() + " appointments, "
+                + clientPetAssociations.size() + " clientpetassoc ";
     }
 
     @Override
@@ -480,4 +529,5 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags, appointments, pets);
     }
+
 }

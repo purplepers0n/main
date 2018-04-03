@@ -55,4 +55,18 @@ public class Date {
     public int hashCode() {
         return date.hashCode();
     }
+
+    /**
+     * Negative if argument is smaller
+     * Postiive if argument is larger
+     */
+    public int compareToDate(Date other) {
+        if (this.date.equals(other.date)) {
+            return 0;
+        } else if (this.date.compareTo(other.date) < 0) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }

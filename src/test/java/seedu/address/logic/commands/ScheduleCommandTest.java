@@ -25,6 +25,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
@@ -237,6 +238,17 @@ public class ScheduleCommandTest {
         }
 
         @Override
+        public void addVetTechToAppointment(VetTechnician technician, Appointment appointment) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void removeVetFromAppointent(Appointment apptToRemoveVetFrom)
+                throws DuplicateAppointmentException, AppointmentNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void sortClientList() {
             fail("This method should not be called.");
         }
@@ -258,6 +270,11 @@ public class ScheduleCommandTest {
 
         @Override
         public void removeAppointmentFromPet(Appointment appointment) throws AppointmentNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortAppointmentList() throws AppointmentListIsEmptyException {
             fail("This method should not be called.");
         }
     }

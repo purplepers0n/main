@@ -80,4 +80,18 @@ public class Time {
     public int hashCode() {
         return time.hashCode();
     }
+
+    /**
+     * Negative if argument is smaller
+     * Postiive if argument is larger
+     */
+    public int compareToTime(Time other) {
+        if (this.time.equals(other.time)) {
+            return 0;
+        } else if (this.time.compareTo(other.time) < 0) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }

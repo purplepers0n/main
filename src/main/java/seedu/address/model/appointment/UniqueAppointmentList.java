@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
@@ -95,10 +96,22 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
+     * Sorts the internal list
+     */
+    public void sort() {
+        SortedList<Appointment> sortedList = new SortedList<>(internalList, Appointment::compareTo);
+        internalList.setAll(sortedList);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Appointment> asObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
+    }
+
+    public boolean isEmpty() {
+        return internalList.isEmpty();
     }
 
     @Override

@@ -4,7 +4,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
+import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
@@ -179,6 +181,12 @@ public interface Model {
      */
     void removeAppointmentFromPet(Appointment appointment) throws
             AppointmentNotFoundException, DuplicateAppointmentException;
+
+    /**
+     * Sorts the appointment by date and then by time
+     */
+    void sortAppointmentList() throws AppointmentListIsEmptyException;
+
     /**
      * Sets the index of the current list that is viewed
      */
@@ -188,4 +196,17 @@ public interface Model {
      * Get the index of the current list that is viewed
      */
     int getCurrentList();
+
+    /**
+     * Adds the given Vet Technician to the given appointment
+     */
+    void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
+            throws AppointmentAlreadyHasVetTechnicianException,
+            DuplicateAppointmentException, AppointmentNotFoundException;
+
+    /**
+     * Removes the vet from the given appointment
+     */
+    void removeVetFromAppointent(Appointment apptToRemoveVetFrom)
+            throws DuplicateAppointmentException, AppointmentNotFoundException;
 }

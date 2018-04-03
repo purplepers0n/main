@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddAppointmentToPetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPetCommand;
 import seedu.address.logic.commands.AddPetToClientCommand;
+import seedu.address.logic.commands.AddVetTechToAppointmentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -23,8 +24,10 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
 import seedu.address.logic.commands.RemovePetFromClientCommand;
+import seedu.address.logic.commands.RemoveVetTechFromAppointmentCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SortAppointmentCommand;
 import seedu.address.logic.commands.SortClientCommand;
 import seedu.address.logic.commands.SortPetCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -122,11 +125,20 @@ public class AddressBookParser {
         case SortPetCommand.COMMAND_WORD:
             return new SortPetCommand();
 
+        case SortAppointmentCommand.COMMAND_WORD:
+            return new SortAppointmentCommand();
+
         case AddAppointmentToPetCommand.COMMAND_WORD:
             return new AddAppointmentToPetCommandParser().parse(arguments);
 
         case RemoveAppointmentFromPetCommand.COMMAND_WORD:
             return new RemoveAppointmentFromPetParser().parse(arguments);
+
+        case AddVetTechToAppointmentCommand.COMMAND_WORD:
+            return new AddVetTechToAppointmentCommandParser().parse(arguments);
+
+        case RemoveVetTechFromAppointmentCommand.COMMAND_WORD:
+            return new RemoveVetTechFromAppointmentCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

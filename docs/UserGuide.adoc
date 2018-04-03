@@ -158,7 +158,7 @@ Reverses the most recent `undo` command. +
 ====
 Redoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
-`schedule`
+`schedule` `sortappt`
 ====
 
 ==== Undoing previous command : `undo`
@@ -170,7 +170,7 @@ Restores the address book to the state before the previous _undoable_ command wa
 ====
 Undoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
-`schedule`
+`schedule` `sortappt`
 ====
 
 
@@ -491,12 +491,6 @@ Here is an example of using the `editp` command: +
 Here you choose to edit the pet of the first index and changed the existing name, age and gender to Jerry, 2 and male.
 
 
-==== Listing all appointments: `list appt` `coming v2.0`
-Command format: `list appt` +
-
-The `list appt` command will display all appointments that are pending for you.
-The list sorts upcoming appointments by date and then by time.
-
 ==== Listing all pets: `list pet` `Since v1.2`
 Command format: `list pet` +
 
@@ -565,6 +559,12 @@ you if there are any conflicts in your scheduling.
 [NOTE]
 You can execute the `addappttopet` command after creating an appointment.
 
+=== Sorting appointments in chronological order: `sortappt`
+Command format: `sortappt` +
+
+The `sortappt` command will sort all the appointments in the program chronologically.
+It sorts the appointment list by date and then by time.
+
 ==== Sorting pets in alphabetical order: `sortp`
 Command format: `sortp` +
 
@@ -626,11 +626,11 @@ about them.
 |deletep |`deletep INDEX` |Removes a pet from the program based on index.
 |editappt |`editappt n/CLIENT_NAME pn/PET_NAME [date/DATE (DD.MM.YYYY)] [time/TIME (HHMM)] [vettech/VET_TECHNICIAN_NAME] [cmt/COMMENTS]` |Edits an appointment's details.
 |editp |`editp INDEX [pn/PET_NAME] [pa/PET_AGE] [pg/PET_GENDER] [t/PET_TAGS]…​` |Edits a pet's details.
-|list appt |`list appt` |Lists all appointments.
 |list pet |`list pet` |Lists all pets.
 |rmapptfrompet |`rmapptfrom p/PET_INDEX` |Removes an appointment from a pet.
 |schedule | `schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION` |Schedule an appointment given date (YYYY-MM-DD), time (HH:MM), duration (minutes) and description.
 |select |`select INDEX` |Selects an index.
+|sortappt | `sortappt` |Sorts the appointment by date and time.
 |sortp |`sortp` |Sorts the pet list alphabetically.
 |=======
 
