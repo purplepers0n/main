@@ -2,6 +2,7 @@ package seedu.address.logic.autocomplete;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +10,6 @@ import java.util.stream.Collectors;
 import seedu.address.logic.commands.AddAppointmentToPetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPetCommand;
-import seedu.address.logic.commands.AddPetToClientCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeletePetCommand;
@@ -21,10 +21,10 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
-import seedu.address.logic.commands.RemovePetFromClientCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.parser.Prefix;
 
 /**
  * the main AutoCompleteManager of the application
@@ -32,9 +32,11 @@ import seedu.address.logic.commands.UndoCommand;
 public class AutoComplete {
 
     private Trie commandTrie;
+    private CommandParameterSyntaxHandler commandParameterSyntaxHandler;
 
     public AutoComplete() {
         commandTrie = new Trie();
+        commandParameterSyntaxHandler = new CommandParameterSyntaxHandler();
         initCommandKeyWords();
     }
 
@@ -58,8 +60,6 @@ public class AutoComplete {
         commandTrie.insertWord(SelectCommand.COMMAND_WORD);
         commandTrie.insertWord(UndoCommand.COMMAND_WORD);
         commandTrie.insertWord(AddAppointmentToPetCommand.COMMAND_WORD);
-        commandTrie.insertWord(AddPetToClientCommand.COMMAND_WORD);
-        commandTrie.insertWord(RemovePetFromClientCommand.COMMAND_WORD);
         commandTrie.insertWord(RemoveAppointmentFromPetCommand.COMMAND_WORD);
     }
 
@@ -72,5 +72,25 @@ public class AutoComplete {
         return commandTrie.autoComplete(keyWord).stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns the concatenation String of the next missing prefix parameter with the input string.
+     */
+    public String autoCompleteNextMissingParameter(String input) {
+        requireNonNull(input);
+        if (input.isEmpty()) {
+            return input;
+        }
+        String command = input.split(" ")[0];
+
+        ArrayList<Prefix> missingPrefixes = commandParameterSyntaxHandler.getMissingPrefixes(command, input);
+        String completedText = input;
+
+        if (!missingPrefixes.isEmpty()) {
+            completedText = completedText + missingPrefixes.get(0);
+        }
+
+        return completedText;
     }
 }
