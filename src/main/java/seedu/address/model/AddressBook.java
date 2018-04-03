@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
+import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
@@ -105,8 +106,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.pets.sort();
     }
 
-    public void sortAppointmentList() {
-        this.appointments.sort();
+    /**
+     * Sorts the appointment internal list.
+     * @throws AppointmentListIsEmptyException
+     */
+    public void sortAppointmentList() throws AppointmentListIsEmptyException {
+        if (appointments.isEmpty()) {
+            throw new AppointmentListIsEmptyException();
+        } else {
+            appointments.sort();
+        }
     }
 
     public void setClientPetAssociations(List<ClientOwnPet> associations) {

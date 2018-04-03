@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 
 /**
  * Sorts the appointment list.
@@ -12,7 +14,11 @@ public class SortAppointmentCommand extends  UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
-        model.sortAppointmentList();
+        try {
+            model.sortAppointmentList();
+        } catch (AppointmentListIsEmptyException e) {
+            throw new CommandException(Messages.MESSAGE_APPOINTMENT_LIST_EMPTY);
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

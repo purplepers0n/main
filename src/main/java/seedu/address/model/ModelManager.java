@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
+import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
@@ -275,7 +276,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void sortAppointmentList() {
+    public void sortAppointmentList() throws AppointmentListIsEmptyException {
         addressBook.sortAppointmentList();
         indicateAddressBookChanged();
     }

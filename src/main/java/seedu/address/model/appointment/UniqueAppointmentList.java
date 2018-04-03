@@ -110,6 +110,10 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
+    public boolean isEmpty() {
+        return internalList.isEmpty();
+    }
+
     @Override
     public Iterator<Appointment> iterator() {
         return internalList.iterator();

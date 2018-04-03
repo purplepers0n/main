@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
+import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
@@ -183,7 +184,7 @@ public interface Model {
     /**
      * Sorts the appointment by date and then by time
      */
-    void sortAppointmentList();
+    void sortAppointmentList() throws AppointmentListIsEmptyException;
 
     /**
      * Sets the index of the current list that is viewed
