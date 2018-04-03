@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
@@ -22,9 +24,43 @@ public class TypicalAddressBook {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical persons, pets and appointments.
      */
     public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Person person : getTypicalPersons()) {
+            try {
+                ab.addPerson(person);
+            } catch (DuplicatePersonException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        for (Pet pet : getTypicalPets()) {
+            try {
+                ab.addPet(pet);
+            } catch (DuplicatePetException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        for (Appointment appt : getTypicalAppointments()) {
+            try {
+                ab.scheduleAppointment(appt);
+            } catch (DuplicateAppointmentException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        for (ClientOwnPet cop : getTypicalAssociations()) {
+            try {
+                ab.addPetToClient(cop.getPet(), cop.getClient());
+            } catch (ClientAlreadyOwnsPetException | PetAlreadyHasOwnerException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+
+        return ab;
+    }
+
+    public static AddressBook getTypicalAddressBookWithNoAppointments() {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
             try {
@@ -47,7 +83,6 @@ public class TypicalAddressBook {
                 throw new AssertionError("not possible");
             }
         }
-
         return ab;
     }
 
@@ -61,6 +96,10 @@ public class TypicalAddressBook {
 
     public static List<ClientOwnPet> getTypicalAssociations() {
         return new ArrayList<>(TypicalAssociations.getTypicalAssociations());
+    }
+
+    public static List<Appointment> getTypicalAppointments() {
+        return new ArrayList<>(TypicalAppointments.getTypicalAppointments());
     }
 
 }

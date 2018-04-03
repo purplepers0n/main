@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.pet.Pet;
-import seedu.address.model.pet.exceptions.DuplicatePetException;
 
 /**
  * A utility class containing a list of {@code Pet} objects to be used in tests.
@@ -41,20 +39,6 @@ public class TypicalPets {
 
     private TypicalPets() {} // prevents instantiation
 
-    /**
-     * Returns an {@code AddressBook} with all the typical pets.
-     */
-    public static AddressBook getTypicalAddressBookPet() {
-        AddressBook ab = new AddressBook();
-        for (Pet pet : getTypicalPets()) {
-            try {
-                ab.addPet(pet);
-            } catch (DuplicatePetException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        return ab;
-    }
 
     public static List<Pet> getTypicalPets() {
         return new ArrayList<>(Arrays.asList(GARFIELD, SCOOBY, PICKLES, LOTSO));

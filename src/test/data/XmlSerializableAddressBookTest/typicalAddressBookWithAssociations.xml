@@ -95,6 +95,18 @@
         <tagged>purple</tagged>
         <tagged>bear</tagged>
     </pets>
+    <appointments>
+        <date>2018-02-01</date>
+        <time>14:30</time>
+        <duration>60</duration>
+        <description>Sterilize Garfield</description>
+    </appointments>
+    <appointments>
+        <date>2018-03-02</date>
+        <time>16:30</time>
+        <duration>45</duration>
+        <description>Give Tweety Bird the showering service</description>
+    </appointments>
     <clientPetAssociations>
         <pet>
             <petName>Lotso Fatso</petName>

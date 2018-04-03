@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
+import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
@@ -103,6 +104,18 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void sortPetList() {
         this.pets.sort();
+    }
+
+    /**
+     * Sorts the appointment internal list.
+     * @throws AppointmentListIsEmptyException
+     */
+    public void sortAppointmentList() throws AppointmentListIsEmptyException {
+        if (appointments.isEmpty()) {
+            throw new AppointmentListIsEmptyException();
+        } else {
+            appointments.sort();
+        }
     }
 
     public void setClientPetAssociations(List<ClientOwnPet> associations) {
@@ -410,8 +423,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags";
-        // TODO: refine later
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags "
+                + pets.asObservableList().size() + " pets, "
+                + appointments.asObservableList().size() + " appointments, "
+                + clientPetAssociations.size() + " clientpetassoc ";
     }
 
     @Override
