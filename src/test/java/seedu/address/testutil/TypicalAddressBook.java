@@ -60,6 +60,9 @@ public class TypicalAddressBook {
         return ab;
     }
 
+    /**
+     * Returns an {@code AddressBook} without appointments embedded
+     */
     public static AddressBook getTypicalAddressBookWithNoAppointments() {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
@@ -80,6 +83,35 @@ public class TypicalAddressBook {
             try {
                 ab.addPetToClient(cop.getPet(), cop.getClient());
             } catch (ClientAlreadyOwnsPetException | PetAlreadyHasOwnerException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        return ab;
+    }
+
+    /**
+     * Returns an {@code AddressBook} without the client pet list association
+     */
+    public static AddressBook getTypicalAddressBookWithNoClientPetList() {
+        AddressBook ab = new AddressBook();
+        for (Person person : getTypicalPersons()) {
+            try {
+                ab.addPerson(person);
+            } catch (DuplicatePersonException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        for (Pet pet : getTypicalPets()) {
+            try {
+                ab.addPet(pet);
+            } catch (DuplicatePetException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        for (Appointment appt : getTypicalAppointments()) {
+            try {
+                ab.scheduleAppointment(appt);
+            } catch (DuplicateAppointmentException e) {
                 throw new AssertionError("not possible");
             }
         }
