@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
@@ -195,4 +196,11 @@ public interface Model {
      * Get the index of the current list that is viewed
      */
     int getCurrentList();
+
+    /**
+     * Adds the given Vet Technician to the given appointment
+     */
+    void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
+            throws DuplicateAppointmentException, AppointmentNotFoundException,
+            AppointmentAlreadyHasVetTechnicianException;
 }

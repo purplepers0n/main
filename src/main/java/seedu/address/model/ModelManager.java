@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
@@ -180,6 +181,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
+            throws DuplicateAppointmentException, AppointmentNotFoundException,
+            AppointmentAlreadyHasVetTechnicianException {
+        requireAllNonNull(technician, appointment);
+        addressBook.addVetTechToAppointment(technician, appointment);
+        indicateAddressBookChanged();
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 

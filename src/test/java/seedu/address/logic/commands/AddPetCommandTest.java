@@ -232,6 +232,11 @@ public class AddPetCommandTest {
         }
 
         @Override
+        public void addVetTechToAppointment(VetTechnician technician, Appointment appointment) {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void sortClientList() {
             fail("This method should not be called.");
         }
