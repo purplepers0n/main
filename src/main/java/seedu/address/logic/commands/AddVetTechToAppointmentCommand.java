@@ -1,11 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLIENT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VETTECH_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PETS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TECHNICIAN;
 
 import java.util.List;
@@ -15,8 +14,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.client.Client;
-import seedu.address.model.pet.Pet;
+import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.vettechnician.VetTechnician;
 
 /**
@@ -24,17 +24,21 @@ import seedu.address.model.vettechnician.VetTechnician;
  */
 public class AddVetTechToAppointmentCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "addtechtoappointment";
+    public static final String COMMAND_WORD = "addvettechtoappointment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a vet technician to a appointment "
             + "by the index number used in the last vet technician and appointment listing.\n"
             + "Parameters: "
             + PREFIX_VETTECH_INDEX + "VETTECH_INDEX "
             + PREFIX_CLIENT_INDEX + "APPOINTMENT_INDEX\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_VETTECH_INDEX + "1 " + PREFIX_CLIENT_INDEX + "2";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_VETTECH_INDEX + "1 " + PREFIX_APPOINTMENT_INDEX + "2";
 
-    public static final String MESSAGE_ADD_TECH_TO_APPOINTMENT_SUCCESS = "Added vet technician To" +
-            " appointment:\n%1$s\n>> %2$s";
+    public static final String MESSAGE_ADD_TECH_TO_APPOINTMENT_SUCCESS = "Added vet technician To"
+            + " appointment:\n%1$s\n>> %2$s";
+
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Duplicate appointments";
+    public static final String MESSAGE_APPOINTMENT_NOT_FOUND = "Appointment not found";
+    public static final String MESSAGE_APPOINTMENT_HAS_TECH = "Appointment already has vet technician";
 
     private final Index vetTechIndex;
     private final Index appointmentIndex;
@@ -43,7 +47,7 @@ public class AddVetTechToAppointmentCommand extends UndoableCommand {
     private Optional<Appointment> appointment;
 
     /**
-     * @param vetTechIndex of the vet tech in the filtered list to add
+     * @param vetTechIndex     of the vet tech in the filtered list to add
      * @param appointmentIndex of the appointment in the filtered list to add vet tech to
      */
     public AddVetTechToAppointmentCommand(Index vetTechIndex, Index appointmentIndex) {
@@ -64,7 +68,14 @@ public class AddVetTechToAppointmentCommand extends UndoableCommand {
         requireNonNull(appointment.get());
         try {
             model.addVetTechToAppointment(vetTech.get(), appointment.get());
+        } catch (DuplicateAppointmentException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        } catch (AppointmentNotFoundException e) {
+            throw new CommandException(MESSAGE_APPOINTMENT_NOT_FOUND);
+        } catch (AppointmentAlreadyHasVetTechnicianException e) {
+            throw new CommandException(MESSAGE_APPOINTMENT_HAS_TECH);
         }
+
         return new CommandResult(String.format(MESSAGE_ADD_TECH_TO_APPOINTMENT_SUCCESS,
                 vetTech.get(), appointment.get()));
 

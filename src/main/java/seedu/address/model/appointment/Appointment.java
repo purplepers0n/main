@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * Represents an Appointment in the application.
@@ -17,6 +18,7 @@ public class Appointment {
     private final Duration duration;
     private final Description description;
     private ClientOwnPet clientOwnPet;
+    private VetTechnician vetTech;
 
     /**
      * Every field must be present and not null.
@@ -27,8 +29,8 @@ public class Appointment {
         this.time = time;
         this.duration = duration;
         this.description = description;
-        this.clientOwnPet = null;
-
+        clientOwnPet = null;
+        vetTech = null;
     }
 
     public Appointment(Appointment toCopy) {
@@ -37,6 +39,7 @@ public class Appointment {
         duration = toCopy.getDuration();
         description = toCopy.getDescription();
         clientOwnPet = toCopy.getClientOwnPet();
+        vetTech = toCopy.getVetTechnician();
     }
 
     public Date getDate() {
@@ -59,12 +62,24 @@ public class Appointment {
         return clientOwnPet;
     }
 
+    public VetTechnician getVetTechnician() {
+        return vetTech;
+    }
+
     public void setClientOwnPet(ClientOwnPet clientOwnPet) {
         this.clientOwnPet = clientOwnPet;
     }
 
     public void setClientOwnPetToNull() {
-        this.clientOwnPet = null;
+        clientOwnPet = null;
+    }
+
+    public void setVetTech(VetTechnician vetTech) {
+        this.vetTech = vetTech;
+    }
+
+    public void setVetTechToNull() {
+        vetTech = null;
     }
 
     @Override
