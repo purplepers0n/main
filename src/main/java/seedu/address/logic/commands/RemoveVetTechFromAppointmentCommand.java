@@ -17,7 +17,7 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
  */
 public class RemoveVetTechFromAppointmentCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "removevetfromappt";
+    public static final String COMMAND_WORD = "removevettechfromappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": removes the vet from appointment identified by the index number"
