@@ -3,6 +3,7 @@ package seedu.address.model.appointment;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.vettechnician.VetTechnician;
@@ -18,7 +19,7 @@ public class Appointment {
     private final Duration duration;
     private final Description description;
     private ClientOwnPet clientOwnPet;
-    private VetTechnician vetTech;
+    private Optional<VetTechnician> vetTech;
 
     /**
      * Every field must be present and not null.
@@ -30,7 +31,7 @@ public class Appointment {
         this.duration = duration;
         this.description = description;
         clientOwnPet = null;
-        vetTech = null;
+        vetTech = Optional.empty();
     }
 
     public Appointment(Appointment toCopy) {
@@ -39,7 +40,7 @@ public class Appointment {
         duration = toCopy.getDuration();
         description = toCopy.getDescription();
         clientOwnPet = toCopy.getClientOwnPet();
-        vetTech = toCopy.getVetTechnician();
+        vetTech = toCopy.getOptionalVetTechnician();
     }
 
     public Date getDate() {
@@ -62,7 +63,7 @@ public class Appointment {
         return clientOwnPet;
     }
 
-    public VetTechnician getVetTechnician() {
+    public Optional<VetTechnician> getOptionalVetTechnician() {
         return vetTech;
     }
 
@@ -75,11 +76,7 @@ public class Appointment {
     }
 
     public void setVetTech(VetTechnician vetTech) {
-        this.vetTech = vetTech;
-    }
-
-    public void setVetTechToNull() {
-        vetTech = null;
+        this.vetTech = Optional.of(vetTech);
     }
 
     @Override
@@ -94,7 +91,8 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getDate().equals(this.getDate())
-                && otherAppointment.getTime().equals(this.getTime());
+                && otherAppointment.getTime().equals(this.getTime())
+                && otherAppointment.getOptionalVetTechnician().equals(this.getOptionalVetTechnician());
 
     }
 

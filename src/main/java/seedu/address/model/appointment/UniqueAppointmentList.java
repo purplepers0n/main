@@ -63,7 +63,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
             throw new AppointmentNotFoundException();
         }
         if (!target.equals(editedAppointment) && internalList.contains(editedAppointment)) {
-            throw new DuplicateAppointmentException();
+            throw new AppointmentNotFoundException();
         }
         internalList.set(index, editedAppointment);
     }

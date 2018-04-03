@@ -201,6 +201,6 @@ public interface Model {
      * Adds the given Vet Technician to the given appointment
      */
     void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
-            throws DuplicateAppointmentException, AppointmentNotFoundException,
-            AppointmentAlreadyHasVetTechnicianException;
+            throws AppointmentAlreadyHasVetTechnicianException,
+            DuplicateAppointmentException, AppointmentNotFoundException;
 }

@@ -5,6 +5,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VETTECH_INDEX;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -16,6 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddVetTechToAppointmentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -94,6 +98,15 @@ public class AddressBookParserTest {
                 + INDEX_FIRST_PERSON.getOneBased() + " "
                 + PersonUtil.getPersonDetails(person));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_addVetTechToAppointment() throws Exception {
+        AddVetTechToAppointmentCommand command = (AddVetTechToAppointmentCommand) parser
+                .parseCommand(AddVetTechToAppointmentCommand.COMMAND_WORD + " " + PREFIX_VETTECH_INDEX
+                + INDEX_FIRST.getOneBased() + " " + PREFIX_APPOINTMENT_INDEX
+                + INDEX_FIRST.getOneBased());
+        assertEquals(new AddVetTechToAppointmentCommand(INDEX_FIRST, INDEX_FIRST), command);
     }
 
     @Test

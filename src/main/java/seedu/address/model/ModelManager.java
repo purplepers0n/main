@@ -183,8 +183,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
-            throws DuplicateAppointmentException, AppointmentNotFoundException,
-            AppointmentAlreadyHasVetTechnicianException {
+            throws AppointmentAlreadyHasVetTechnicianException,
+            DuplicateAppointmentException, AppointmentNotFoundException {
         requireAllNonNull(technician, appointment);
         addressBook.addVetTechToAppointment(technician, appointment);
         indicateAddressBookChanged();

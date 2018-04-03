@@ -27,6 +27,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
+import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -170,6 +171,19 @@ public class CommandTestUtil {
         model.updateFilteredAppointmentList(appointment -> apptToShow.equals(appointment));
 
         assertEquals(1, model.getFilteredAppointmentList().size());
+    }
+
+    /**
+     * Upates {@code model}'s filtered list to show only the VetTechnician at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showVetTechnicianAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredVetTechnicianList().size());
+
+        VetTechnician techToShow = model.getFilteredVetTechnicianList().get(targetIndex.getZeroBased());
+        model.updateFilteredVetTechnicianList(tech -> techToShow.equals(tech));
+
+        assertEquals(1, model.getFilteredVetTechnicianList().size());
     }
 
     /**
