@@ -254,6 +254,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments.add(a);
     }
 
+    /**
+     * Replaces the given appointment {@code target} in the list with {@code rescheduleAppointment}.
+     *
+     * @throws DuplicateAppointmentException if updating the appointment's details causes this appointment to clash with
+     *      another existing appointment in the list.
+     * @throws AppointmentNotFoundException if {@code target} could not be found in the list.
+     *
+     */
+    public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
+            throws DuplicateAppointmentException, AppointmentNotFoundException {
+        requireNonNull(rescheduleAppointment);
+
+        appointments.setAppointment(target, rescheduleAppointment);
+    }
+
     //// pet-level operations
 
     /**
