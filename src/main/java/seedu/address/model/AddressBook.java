@@ -23,6 +23,7 @@ import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationListEmptyException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
@@ -104,8 +105,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.pets.setPets(pets);
     }
 
-    public void sortPetList() {
-        this.pets.sort();
+    /**
+     * Sorts the pet list.
+     */
+    public void sortPetList() throws ClientPetAssociationListEmptyException {
+        if (clientPetAssociations.isEmpty()) {
+            throw new ClientPetAssociationListEmptyException();
+        } else {
+            this.clientPetAssociations.sort((ClientOwnPet a, ClientOwnPet b) ->
+                    a.getPet().getPetName().toString().compareTo(b.getPet().getPetName().toString()));
+        }
     }
 
     /**
@@ -256,6 +265,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void scheduleAppointment(Appointment a) throws DuplicateAppointmentException {
         appointments.add(a);
+        appointments.sort();
     }
 
     //// pet-level operations

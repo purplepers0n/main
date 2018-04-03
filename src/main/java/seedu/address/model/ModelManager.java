@@ -20,6 +20,7 @@ import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationListEmptyException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
@@ -162,7 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author
     @Override
-    public void sortPetList() {
+    public void sortPetList() throws ClientPetAssociationListEmptyException {
         addressBook.sortPetList();
         indicateAddressBookChanged();
     }

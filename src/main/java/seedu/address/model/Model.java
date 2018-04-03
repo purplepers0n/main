@@ -11,6 +11,7 @@ import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationListEmptyException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
@@ -148,7 +149,7 @@ public interface Model {
     /**
      * Sorts the pet list.
      */
-    void sortPetList();
+    void sortPetList() throws ClientPetAssociationListEmptyException;
 
     /** Returns an unmodifiable view of the filtered client pet association list */
     ObservableList<ClientOwnPet> getClientPetAssociationList();

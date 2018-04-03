@@ -16,4 +16,5 @@ public class Messages {
     public static final String MESSAGE_APPOINTMENT_TAKEN = "The appointment has been booked";
     public static final String MESSAGE_APPOINTMENT_LIST_EMPTY = "The appointment list is empty right now."
             + " There's nothing to sort.";
+    public static final String MESSAGE_CLIENTPETLIST_EMPTY = "The pet list is empty right now.";
 }

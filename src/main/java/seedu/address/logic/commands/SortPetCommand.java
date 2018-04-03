@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.association.exceptions.ClientPetAssociationListEmptyException;
 
 /**
  * Sorts the pet list.
@@ -12,7 +14,11 @@ public class SortPetCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
-        model.sortPetList();
+        try {
+            model.sortPetList();
+        } catch (ClientPetAssociationListEmptyException e) {
+            throw new CommandException(Messages.MESSAGE_CLIENTPETLIST_EMPTY);
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
