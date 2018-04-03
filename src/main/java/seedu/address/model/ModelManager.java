@@ -112,6 +112,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
+            throws DuplicateAppointmentException, AppointmentNotFoundException {
+        requireAllNonNull(target, rescheduleAppointment);
+        addressBook.updateAppointment(target, rescheduleAppointment);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson);
