@@ -26,6 +26,8 @@ public class CommandBox extends UiPart<Region> {
     private static final int DOUBLE_PRESS_DELAY = 300;
     private static final String EMPTY_STRING = "";
     private static final String MESSAGE_AVAILABLE_AUTOCOMPLETE = "Command suggestions: ";
+    private static final String MESSAGE_NO_MORE_AVAILABLE_COMMANDS = "No more available commands suggestions";
+
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
@@ -63,7 +65,7 @@ public class CommandBox extends UiPart<Region> {
             break;
         case TAB:
             keyEvent.consume();
-            showAutoComplete();
+            autoCompleteInput();
             break;
         default:
             // let JavaFx handle the keypress
@@ -71,29 +73,43 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Shows auto completed words on the UI
+     * Shows auto completed text on the UI
      */
-    private void showAutoComplete() {
+    private void autoCompleteInput() {
         if (commandTextField.getText().isEmpty()) {
             return;
         }
 
-        List<String> listOfAutoComplete = logic.autoCompleteCommands(commandTextField.getText());
+        String currUserInput = commandTextField.getText();
+        if (currUserInput.endsWith(" ")) {
+            autoCompleteCommandParameters();
+            return;
+        }
 
+        List<String> listOfAutoComplete = logic.autoCompleteCommands(currUserInput);
         if (listOfAutoComplete.isEmpty()) {
             return;
         }
-        logger.info("Auto Complete Suggestions '"
-                + commandTextField.getText() + "' : " + listToString(listOfAutoComplete));
 
-        if (listOfAutoComplete.size() > 1 && isTabDoubleTap()) {
-            raise(new NewResultAvailableEvent(MESSAGE_AVAILABLE_AUTOCOMPLETE + listToString(listOfAutoComplete)));
-        } else {
-            commandTextField.setText(listOfAutoComplete.get(0));
-            commandTextField.positionCaret(commandTextField.getText().length());
-            raise(new NewResultAvailableEvent(EMPTY_STRING));
+        commandTextField.setText(listOfAutoComplete.get(0));
+        commandTextField.positionCaret(commandTextField.getText().length());
+        logger.info("Auto Complete Suggestions '"
+                + currUserInput + "' : " + listToString(listOfAutoComplete));
+
+        if (isTabDoubleTap()) {
+            if (listOfAutoComplete.size() == 1) {
+                raise(new NewResultAvailableEvent(MESSAGE_NO_MORE_AVAILABLE_COMMANDS));
+            } else {
+                raise(new NewResultAvailableEvent(MESSAGE_AVAILABLE_AUTOCOMPLETE + listToString(listOfAutoComplete)));
+            }
         }
 
+    }
+
+    private void autoCompleteCommandParameters() {
+        String autoCompletedText = logic.autoCompleteNextParameter(commandTextField.getText());
+        commandTextField.setText(autoCompletedText);
+        commandTextField.positionCaret(commandTextField.getText().length());
     }
 
     /**
