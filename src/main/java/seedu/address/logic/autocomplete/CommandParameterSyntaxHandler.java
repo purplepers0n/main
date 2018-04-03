@@ -16,12 +16,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PET_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VETTECH_INDEX;
 
 import java.util.ArrayList;
 
 import seedu.address.logic.commands.AddAppointmentToPetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPetCommand;
+import seedu.address.logic.commands.AddVetTechToAppointmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
 import seedu.address.logic.commands.ScheduleCommand;
@@ -50,6 +52,9 @@ public class CommandParameterSyntaxHandler {
 
     public static final ArrayList<Prefix> SCHEDULE_COMMAND_PREFIXES = getListOfPrefix(PREFIX_DATE, PREFIX_TIME,
             PREFIX_DURATION, PREFIX_DESCRIPTION);
+
+    public static final ArrayList<Prefix> ADD_VET_TECH_TO_APPT_COMMAND_PREFIXES = getListOfPrefix(PREFIX_VETTECH_INDEX,
+            PREFIX_APPOINTMENT_INDEX);
 
 
     /**
@@ -114,6 +119,14 @@ public class CommandParameterSyntaxHandler {
 
         case RemoveAppointmentFromPetCommand.COMMAND_WORD:
             REMOVE_APPT_FROM_PET_COMMAND_PREFIXES.forEach(prefix -> {
+                if (!input.contains(prefix.getPrefix())) {
+                    missingPrefixes.add(prefix);
+                }
+            });
+            break;
+
+        case AddVetTechToAppointmentCommand.COMMAND_WORD:
+            ADD_VET_TECH_TO_APPT_COMMAND_PREFIXES.forEach(prefix -> {
                 if (!input.contains(prefix.getPrefix())) {
                     missingPrefixes.add(prefix);
                 }
