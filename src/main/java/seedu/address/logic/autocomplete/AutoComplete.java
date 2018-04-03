@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import seedu.address.logic.commands.AddAppointmentToPetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPetCommand;
+import seedu.address.logic.commands.AddVetTechToAppointmentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeletePetCommand;
@@ -21,8 +22,12 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
+import seedu.address.logic.commands.RemoveVetTechFromAppointmentCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SortAppointmentCommand;
+import seedu.address.logic.commands.SortClientCommand;
+import seedu.address.logic.commands.SortPetCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.Prefix;
 
@@ -59,8 +64,16 @@ public class AutoComplete {
         commandTrie.insertWord(ScheduleCommand.COMMAND_WORD);
         commandTrie.insertWord(SelectCommand.COMMAND_WORD);
         commandTrie.insertWord(UndoCommand.COMMAND_WORD);
+
         commandTrie.insertWord(AddAppointmentToPetCommand.COMMAND_WORD);
         commandTrie.insertWord(RemoveAppointmentFromPetCommand.COMMAND_WORD);
+        commandTrie.insertWord(AddVetTechToAppointmentCommand.COMMAND_WORD);
+        commandTrie.insertWord(RemoveVetTechFromAppointmentCommand.COMMAND_WORD);
+
+        commandTrie.insertWord(SortClientCommand.COMMAND_WORD);
+        commandTrie.insertWord(SortAppointmentCommand.COMMAND_WORD);
+        commandTrie.insertWord(SortPetCommand.COMMAND_WORD);
+
     }
 
     /**

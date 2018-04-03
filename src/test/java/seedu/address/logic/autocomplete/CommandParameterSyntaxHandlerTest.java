@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddAppointmentToPetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPetCommand;
+import seedu.address.logic.commands.AddVetTechToAppointmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
 import seedu.address.logic.commands.ScheduleCommand;
@@ -68,6 +69,13 @@ public class CommandParameterSyntaxHandlerTest {
         ArrayList<Prefix> result = handler.getMissingPrefixes(RemoveAppointmentFromPetCommand.COMMAND_WORD,
                 RemoveAppointmentFromPetCommand.COMMAND_WORD);
         assertEquals(result, handler.REMOVE_APPT_FROM_PET_COMMAND_PREFIXES);
+    }
+
+    @Test
+    public void getMissingPrefix_addVetTechToAppointmentCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(AddVetTechToAppointmentCommand.COMMAND_WORD,
+                AddVetTechToAppointmentCommand.COMMAND_WORD);
+        assertEquals(result, handler.ADD_VET_TECH_TO_APPT_COMMAND_PREFIXES);
     }
 
 }
