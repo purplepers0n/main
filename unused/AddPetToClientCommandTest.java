@@ -28,7 +28,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.client.Client;
 import seedu.address.model.pet.Pet;
 
-//@@author jonathanwj-reused
+//@@author jonathanwj-unused
+// Entire command was merged into AddPetCommand that
+// currently creates a pet and adds that pet to the client in one command.
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
  * and unit tests for AddPetToClientCommand.

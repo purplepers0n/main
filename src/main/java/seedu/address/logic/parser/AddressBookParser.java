@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddAppointmentToPetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPetCommand;
-import seedu.address.logic.commands.AddPetToClientCommand;
 import seedu.address.logic.commands.AddVetTechToAppointmentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -23,7 +22,6 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
-import seedu.address.logic.commands.RemovePetFromClientCommand;
 import seedu.address.logic.commands.RemoveVetTechFromAppointmentCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -112,12 +110,6 @@ public class AddressBookParser {
         case DeletePetCommand.COMMAND_WORD:
         case DeletePetCommand.COMMAND_ALIAS:
             return new DeletePetCommandParser().parse(arguments);
-
-        case AddPetToClientCommand.COMMAND_WORD:
-            return new AddPetToClientCommandParser().parse(arguments);
-
-        case RemovePetFromClientCommand.COMMAND_WORD:
-            return new RemovePetFromClientCommandParser().parse(arguments);
 
         case SortClientCommand.COMMAND_WORD:
             return new SortClientCommand();
