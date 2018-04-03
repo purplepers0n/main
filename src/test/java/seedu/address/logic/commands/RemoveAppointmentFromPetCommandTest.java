@@ -38,7 +38,7 @@ import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentExcept
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 
 /**
- * Contains integrtion test and unit tests for RemoveAppointmentFromPetCommand
+ * Contains integration test and unit tests for RemoveAppointmentFromPetCommand
  */
 public class RemoveAppointmentFromPetCommandTest {
 
