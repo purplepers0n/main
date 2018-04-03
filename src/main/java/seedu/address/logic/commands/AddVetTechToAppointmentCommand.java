@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLIENT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VETTECH_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TECHNICIAN;
@@ -30,15 +29,13 @@ public class AddVetTechToAppointmentCommand extends UndoableCommand {
             + "by the index number used in the last vet technician and appointment listing.\n"
             + "Parameters: "
             + PREFIX_VETTECH_INDEX + "VETTECH_INDEX "
-            + PREFIX_CLIENT_INDEX + "APPOINTMENT_INDEX\n"
+            + PREFIX_APPOINTMENT_INDEX + "APPOINTMENT_INDEX\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_VETTECH_INDEX + "1 " + PREFIX_APPOINTMENT_INDEX + "2";
 
     public static final String MESSAGE_ADD_TECH_TO_APPOINTMENT_SUCCESS = "Added vet technician To"
             + " appointment:\n%1$s\n>> %2$s";
 
-    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Duplicate appointments";
-    public static final String MESSAGE_APPOINTMENT_NOT_FOUND = "Appointment not found";
-    public static final String MESSAGE_APPOINTMENT_HAS_TECH = "Appointment already has vet technician";
+    public static final String MESSAGE_APPOINTMENT_HAS_TECH = "Appointment already has a vet technician";
 
     private final Index vetTechIndex;
     private final Index appointmentIndex;
@@ -69,9 +66,9 @@ public class AddVetTechToAppointmentCommand extends UndoableCommand {
         try {
             model.addVetTechToAppointment(vetTech.get(), appointment.get());
         } catch (DuplicateAppointmentException e) {
-            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+            throw new AssertionError("The target appointment cannot be a duplicate");
         } catch (AppointmentNotFoundException e) {
-            throw new CommandException(MESSAGE_APPOINTMENT_NOT_FOUND);
+            throw new AssertionError("The target appointment cannot be missing");
         } catch (AppointmentAlreadyHasVetTechnicianException e) {
             throw new CommandException(MESSAGE_APPOINTMENT_HAS_TECH);
         }

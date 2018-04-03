@@ -432,7 +432,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (!appointments.contains(appointment)) {
             throw new AppointmentNotFoundException();
         }
-        if (appointment.getVetTechnician() != null) {
+        if (appointment.getOptionalVetTechnician().isPresent()) {
             throw new AppointmentAlreadyHasVetTechnicianException();
         }
         Appointment appointmentCopy = new Appointment(appointment);
