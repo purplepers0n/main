@@ -41,6 +41,7 @@ import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 
 /**
@@ -492,9 +493,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes a vet technician from the given appointment
      */
     public void removeVetFromAppointment(Appointment apptToRemoveVetFrom)
-            throws AppointmentNotFoundException, DuplicateAppointmentException {
+            throws AppointmentNotFoundException, DuplicateAppointmentException, VetTechnicianNotFoundException {
         if (!appointments.contains(apptToRemoveVetFrom)) {
             throw new AppointmentNotFoundException();
+        }
+        if (!apptToRemoveVetFrom.getOptionalVetTechnician().isPresent()) {
+            throw new VetTechnicianNotFoundException();
         }
         Appointment appointmentCopy = new Appointment(apptToRemoveVetFrom);
         appointmentCopy.removeVetTech();

@@ -33,6 +33,7 @@ import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -203,7 +204,8 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jonathanwj
     @Override
     public void removeVetTechFromAppointent(Appointment apptToRemoveVetTechFrom)
-            throws DuplicateAppointmentException, AppointmentNotFoundException {
+            throws DuplicateAppointmentException, AppointmentNotFoundException,
+            VetTechnicianNotFoundException {
         requireNonNull(apptToRemoveVetTechFrom);
         addressBook.removeVetFromAppointment(apptToRemoveVetTechFrom);
         indicateAddressBookChanged();

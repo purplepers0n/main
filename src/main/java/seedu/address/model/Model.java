@@ -24,6 +24,7 @@ import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 
 /**
@@ -210,5 +211,5 @@ public interface Model {
      * Removes the vet from the given appointment
      */
     void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
-            throws DuplicateAppointmentException, AppointmentNotFoundException;
+            throws DuplicateAppointmentException, AppointmentNotFoundException, VetTechnicianNotFoundException;
 }

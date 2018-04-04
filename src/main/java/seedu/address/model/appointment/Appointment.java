@@ -66,6 +66,10 @@ public class Appointment {
     public Optional<VetTechnician> getOptionalVetTechnician() {
         return vetTech;
     }
+    public VetTechnician getVetTechnician() {
+        return vetTech.orElse(null);
+    }
+
 
     public void setClientOwnPet(ClientOwnPet clientOwnPet) {
         this.clientOwnPet = clientOwnPet;

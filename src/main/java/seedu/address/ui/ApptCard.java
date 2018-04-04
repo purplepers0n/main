@@ -49,7 +49,11 @@ public class ApptCard extends UiPart<Region> {
             clientName.setText("Client: " + appointment.getClientOwnPet().getClient().getName().fullName);
             petName.setText("Pet: " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
         }
-        vetTechName.setText("V.Tech: ");
+        if (appointment.getVetTechnician() == null) {
+            vetTechName.setText("V.Tech: ");
+        } else {
+            vetTechName.setText("V.Tech: " + appointment.getVetTechnician().getName().fullName);
+        }
     }
 
     private void getTimeFrame(String time, String duration) {
