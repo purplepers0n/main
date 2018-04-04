@@ -275,6 +275,8 @@ public class AddressBook implements ReadOnlyAddressBook {
                     throw new AssertionError("Appointment should be found");
                 } catch (DuplicateAppointmentException e) {
                     throw new AssertionError("Program should not have duplicate appointments");
+                } catch (VetTechnicianNotFoundException e) {
+                    throw new AssertionError("VetTechnician should be found");
                 }
             });
         }
@@ -493,7 +495,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes a vet technician from the given appointment
      */
     public void removeVetFromAppointment(Appointment apptToRemoveVetFrom)
-            throws AppointmentNotFoundException, DuplicateAppointmentException, VetTechnicianNotFoundException {
+            throws AppointmentNotFoundException, DuplicateAppointmentException,
+            VetTechnicianNotFoundException {
         if (!appointments.contains(apptToRemoveVetFrom)) {
             throw new AppointmentNotFoundException();
         }
