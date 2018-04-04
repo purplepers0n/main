@@ -23,7 +23,7 @@ import seedu.address.model.appointment.Time;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
-//@@author GodXin-functional
+//@@author Godxin-functional
 /**
  * Edits or reschedules the details of an existing appointment in the address book.
  */
