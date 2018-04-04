@@ -28,15 +28,15 @@ public class ApptDayPanelCard extends UiPart<Region> {
     private String month;
     private String day;
 
-    public ApptDayPanelCard(ObservableList<Appointment> apptDay, String date) {
+    public ApptDayPanelCard(ObservableList<Appointment> apptDay, String date, int startIndex) {
         super(FXML);
-        setConnections(apptDay, date);
+        setConnections(apptDay, date, startIndex);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Appointment> apptDayList, String date) {
+    private void setConnections(ObservableList<Appointment> apptDayList, String date, int startIndex) {
         ObservableList<ApptCard> mappedList = EasyBind.map(
-                apptDayList, (appt) -> new ApptCard(appt));
+                apptDayList, (appt) -> new ApptCard(appt, startIndex + apptDayList.indexOf(appt) + 1));
         apptDayListView.setItems(mappedList);
         apptDayListView.setCellFactory(listView -> new ApptListViewCell());
 

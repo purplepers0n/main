@@ -18,7 +18,14 @@
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
-            <Label fx:id="time" text="\$time" styleClass="cell_big_label" />
+            <HBox alignment="CENTER_LEFT">
+                <Label fx:id="id" styleClass="cell_big_label">
+                    <minWidth>
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="time" text="\$time" styleClass="cell_big_label" />
+            </HBox>
             <Label fx:id="clientName" styleClass="cell_small_label" text="\$clientName" />
             <Label fx:id="petName" styleClass="cell_small_label" text="\$petName" />
             <Label fx:id="vetTechName" styleClass="cell_small_label" text="\$vetTechName" />

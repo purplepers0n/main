@@ -24,6 +24,8 @@ public class ApptCard extends UiPart<Region> {
     @FXML
     private HBox apptCardPane;
     @FXML
+    private Label id;
+    @FXML
     private Label time;
     @FXML
     private Label clientName;
@@ -32,10 +34,11 @@ public class ApptCard extends UiPart<Region> {
     @FXML
     private Label vetTechName;
 
-    public ApptCard(Appointment appointment) {
+    public ApptCard(Appointment appointment, int startIndex) {
         super(FXML);
 
         this.appointment = appointment;
+        id.setText(startIndex + ". ");
         startTime = appointment.getTime().toString();
         getTimeFrame(startTime, appointment.getDuration().toString());
         time.setText(startTime + " - " + endTime);
@@ -43,10 +46,10 @@ public class ApptCard extends UiPart<Region> {
             clientName.setText("Client: ");
             petName.setText("Pet: ");
         } else {
-            clientName.setText("Client: " + appointment.getClientOwnPet().getClient().getName().fullName);
-            petName.setText("Pet: " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
+            clientName.setText("Client:  " + appointment.getClientOwnPet().getClient().getName().fullName);
+            petName.setText("Pet:      " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
         }
-        vetTechName.setText("Vet Tech: ");
+        vetTechName.setText("V.Tech: ");
     }
 
     private void getTimeFrame(String time, String duration) {

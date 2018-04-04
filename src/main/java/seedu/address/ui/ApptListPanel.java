@@ -44,7 +44,7 @@ public class ApptListPanel extends UiPart<Region> {
 
                 ObservableList<Appointment> apptDayList =
                         FXCollections.observableList(apptList.subList(startIndex, endIndex));
-                mappedList.add(new ApptDayPanelCard(apptDayList, lastAppt.getDate().toString()));
+                mappedList.add(new ApptDayPanelCard(apptDayList, lastAppt.getDate().toString(), startIndex));
 
                 startIndex = endIndex;
                 lastAppt = currAppt;
@@ -54,7 +54,7 @@ public class ApptListPanel extends UiPart<Region> {
         }
         endIndex = apptList.size();
         ObservableList<Appointment> apptDayList = FXCollections.observableList(apptList.subList(startIndex, endIndex));
-        mappedList.add(new ApptDayPanelCard(apptDayList, apptList.get(endIndex - 1).getDate().toString()));
+        mappedList.add(new ApptDayPanelCard(apptDayList, apptList.get(endIndex - 1).getDate().toString(), startIndex));
 
         apptListView.setItems(mappedList);
         apptListView.setCellFactory(listView -> new ApptListViewCell());
