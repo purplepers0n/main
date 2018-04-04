@@ -4,6 +4,7 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
+
 import seedu.address.testutil.TypicalPets;
 
 //@@author md-azsa
