@@ -28,6 +28,17 @@ public class AppointmentBuilder {
     }
 
     /**
+     * Initializes the AppointmentBuilder with the data of {@code appointmentToCopy}.
+     */
+    public AppointmentBuilder(Appointment appointmentToCopy) {
+        date = appointmentToCopy.getDate();
+        time = appointmentToCopy.getTime();
+        duration = appointmentToCopy.getDuration();
+        description = appointmentToCopy.getDescription();
+
+    }
+
+    /**
      * Sets the {@code Date} of the {@code Appointment} that we are building.
      */
     public AppointmentBuilder withDate(String date) {
