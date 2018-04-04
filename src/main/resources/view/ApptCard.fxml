@@ -16,19 +16,19 @@
         </columnConstraints>
         <VBox alignment="CENTER_LEFT" minHeight="90" GridPane.columnIndex="0">
             <padding>
-                <Insets top="5" right="5" bottom="5" left="15" />
+                <Insets top="5" right="5" bottom="5" left="10" />
             </padding>
             <HBox alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
+                <Label fx:id="id" id="cell_big_label_dark">
                     <minWidth>
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="time" text="\$time" styleClass="cell_big_label" />
+                <Label fx:id="time" text="\$time" id="cell_big_label_dark" />
             </HBox>
-            <Label fx:id="clientName" styleClass="cell_small_label" text="\$clientName" />
-            <Label fx:id="petName" styleClass="cell_small_label" text="\$petName" />
-            <Label fx:id="vetTechName" styleClass="cell_small_label" text="\$vetTechName" />
+            <Label fx:id="clientName" id="cell_small_label_dark" text="\$clientName" />
+            <Label fx:id="petName" id="cell_small_label_dark" text="\$petName" />
+            <Label fx:id="vetTechName" id="cell_small_label_dark" text="\$vetTechName" />
         </VBox>
     </GridPane>
 </HBox>

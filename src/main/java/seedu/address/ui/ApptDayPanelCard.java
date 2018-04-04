@@ -18,11 +18,14 @@ import seedu.address.model.appointment.Appointment;
 public class ApptDayPanelCard extends UiPart<Region> {
 
     public static final String FXML = "ApptDayPanelCard.fxml";
+    private static final String[] COLORS = {"red", "yellow", "blue", "orange", "green",
+        "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
+        "green2", "wine", "fuchsia", "sea"};
 
     @FXML
     private ListView<ApptCard> apptDayListView;
     @FXML
-    private Label date;
+    private Label dateDisplay;
 
     private String year;
     private String month;
@@ -47,7 +50,17 @@ public class ApptDayPanelCard extends UiPart<Region> {
 
         month = new DateFormatSymbols().getMonths()[mon - 1];
 
-        this.date.setText("  " + day + " " + month + " " + year);
+        dateDisplay.setText("  " + day + " " + month + " " + year);
+        setColorFor(date);
+    }
+
+    /**
+     * set the color for {@code date}'s label
+     */
+    private void setColorFor(String date) {
+
+        String color = COLORS[Math.abs(date.hashCode()) % COLORS.length];
+        dateDisplay.setId(color);
     }
 
     /**

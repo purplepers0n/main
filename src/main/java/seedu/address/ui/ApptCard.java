@@ -46,8 +46,8 @@ public class ApptCard extends UiPart<Region> {
             clientName.setText("Client: ");
             petName.setText("Pet: ");
         } else {
-            clientName.setText("Client:  " + appointment.getClientOwnPet().getClient().getName().fullName);
-            petName.setText("Pet:      " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
+            clientName.setText("Client: " + appointment.getClientOwnPet().getClient().getName().fullName);
+            petName.setText("Pet: " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
         }
         vetTechName.setText("V.Tech: ");
     }
