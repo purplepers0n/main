@@ -206,7 +206,6 @@ public class ScheduleCommand extends UndoableCommand {
             durationCheckPrevious(model.getFilteredAppointmentList());
             durationCheckNext(model.getFilteredAppointmentList());
             model.scheduleAppointment(toAdd);
-            model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
             EventsCenter.getInstance().post(new NewApptAvailableEvent(toAdd.toString()));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateAppointmentException e1) {
