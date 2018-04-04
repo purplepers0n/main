@@ -21,43 +21,43 @@ import seedu.address.model.UserPrefs;
 
 //@@author md-azsa
 /**
- * Contains integration tests for sorting the client association list.
+ * Adds integrations test methods for {@code SortClientCommand}
  */
-public class SortPetCommandTest {
+public class SortClientCommandTest {
 
     @Rule
     public ExpectedException error = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model modelWithNoClientPetAssociationList =
+    private Model modelWithNoPersonsList =
             new ModelManager(getTypicalAddressBookEmpty(), new UserPrefs());
 
     @Test
     public void sortEmptyList() throws Exception {
         error.expect(CommandException.class);
-        prepareCommand(modelWithNoClientPetAssociationList).execute();
+        prepareCommand(modelWithNoPersonsList).execute();
     }
 
     @Test
-    public void sortClientPetList_success() throws Exception {
+    public void sortPersonsList_success() throws Exception {
         Model modelSorted = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        modelSorted.sortPetList();
+        modelSorted.sortClientList();
 
-        SortPetCommand command = prepareCommand(model);
-        String expectedMessage = SortPetCommand.MESSAGE_SUCCESS;
+        SortClientCommand command = prepareCommand(model);
+        String expectedMessage = SortClientCommand.MESSAGE_SUCCESS;
 
         assertCommandSuccess(command, model, expectedMessage, modelSorted);
     }
 
     @Test
     public void sortEmptyList_fail() throws Exception {
-        SortPetCommand command = prepareCommand(modelWithNoClientPetAssociationList);
-        assertCommandFailure(command, modelWithNoClientPetAssociationList, Messages.MESSAGE_CLIENTPETLIST_EMPTY);
+        SortClientCommand command = prepareCommand(modelWithNoPersonsList);
+        assertCommandFailure(command, modelWithNoPersonsList, Messages.MESSAGE_PERSONSLIST_EMPTY);
     }
 
     @Test
     public void equal() throws Exception {
-        SortPetCommand command = prepareCommand(model);
+        SortClientCommand command = prepareCommand(model);
         command.execute();
 
         // Same objects -> return true
@@ -67,14 +67,13 @@ public class SortPetCommandTest {
         assertFalse(command.equals(new ClearCommand()));
 
         // Different references -> return false
-        SortPetCommand commandDiff = prepareCommand(model);
+        SortClientCommand commandDiff = prepareCommand(model);
         commandDiff.execute();
         assertFalse(command.equals(commandDiff));
-
     }
 
-    private SortPetCommand prepareCommand(Model model) {
-        SortPetCommand command = new SortPetCommand();
+    private SortClientCommand prepareCommand(Model model) {
+        SortClientCommand command = new SortClientCommand();
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }

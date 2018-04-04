@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBookWithNoAppointments;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBookEmpty;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class SortAppointmentCommandTest {
     public ExpectedException error = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model modelWithNoAppointments = new ModelManager(getTypicalAddressBookWithNoAppointments(),
+    private Model modelWithNoAppointments = new ModelManager(getTypicalAddressBookEmpty(),
             new UserPrefs());
 
     @Test
