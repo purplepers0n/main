@@ -1,32 +1,109 @@
-package seedu.address.logic.commands;
+# jonathanwj-reused
+###### \java\seedu\address\logic\autocomplete\CommandParameterSyntaxHandlerTest.java
+``` java
+public class CommandParameterSyntaxHandlerTest {
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
-import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
-import static seedu.address.logic.commands.CommandTestUtil.showAppointmentAtIndex;
-import static seedu.address.logic.commands.CommandTestUtil.showVetTechnicianAtIndex;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-import org.junit.Test;
+    private CommandParameterSyntaxHandler handler;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.vettechnician.VetTechnician;
+    @Before
+    public void setup() {
+        handler = new CommandParameterSyntaxHandler();
+    }
 
-//@@author jonathanwj-reused
+    @Test
+    public void getMissingPrefix_addCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(AddCommand.COMMAND_WORD, AddCommand.COMMAND_WORD);
+        assertEquals(result, handler.ADD_COMMAND_PREFIXES);
+    }
+
+    @Test
+    public void getMissingPrefix_editCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(EditCommand.COMMAND_WORD,
+                EditCommand.COMMAND_WORD);
+        assertEquals(result, handler.EDIT_COMMAND_PREFIXES);
+    }
+
+    @Test
+    public void getMissingPrefix_scheduleCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(ScheduleCommand.COMMAND_WORD,
+                ScheduleCommand.COMMAND_WORD);
+        assertEquals(result, handler.SCHEDULE_COMMAND_PREFIXES);
+    }
+
+    @Test
+    public void getMissingPrefix_addPetCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(AddPetCommand.COMMAND_WORD,
+                AddPetCommand.COMMAND_WORD);
+        assertEquals(result, handler.ADD_PET_COMMAND_PREFIXES);
+    }
+
+    @Test
+    public void getMissingPrefix_addApptToPetCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(AddAppointmentToPetCommand.COMMAND_WORD,
+                AddAppointmentToPetCommand.COMMAND_WORD);
+        assertEquals(result, handler.ADD_APPT_TO_PET_COMMAND_PREFIXES);
+    }
+
+    @Test
+    public void getMissingPrefix_removeApptFromPetCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(RemoveAppointmentFromPetCommand.COMMAND_WORD,
+                RemoveAppointmentFromPetCommand.COMMAND_WORD);
+        assertEquals(result, handler.REMOVE_APPT_FROM_PET_COMMAND_PREFIXES);
+    }
+
+    @Test
+    public void getMissingPrefix_addVetTechToAppointmentCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(AddVetTechToAppointmentCommand.COMMAND_WORD,
+                AddVetTechToAppointmentCommand.COMMAND_WORD);
+        assertEquals(result, handler.ADD_VET_TECH_TO_APPT_COMMAND_PREFIXES);
+    }
+
+}
+```
+###### \java\seedu\address\logic\commands\AddCommandTest.java
+``` java
+    @Test
+    public void execute_vetTechnicianAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validTechnician = new PersonBuilder().buildWithRoleVetTechnician();
+
+        CommandResult commandResult = getAddCommandForPerson(validTechnician, modelStub).execute();
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTechnician), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validTechnician), modelStub.personsAdded);
+    }
+
+    @Test
+    public void execute_duplicatePersonOrClient_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
+        Person validPerson = new PersonBuilder().buildWithRoleClient();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+
+        getAddCommandForPerson(validPerson, modelStub).execute();
+    }
+
+```
+###### \java\seedu\address\logic\commands\AddCommandTest.java
+``` java
+    @Test
+    public void execute_duplicateVetTechnician_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
+        Person validVetTechnician = new PersonBuilder().buildWithRoleVetTechnician();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+
+        getAddCommandForPerson(validVetTechnician, modelStub).execute();
+    }
+
+```
+###### \java\seedu\address\logic\commands\AddVetTechToAppointmentCommandTest.java
+``` java
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
  * and unit tests for AddVetTechToAppointmentCommand.
@@ -239,3 +316,136 @@ public class AddVetTechToAppointmentCommandTest {
         return avttcCommand;
     }
 }
+```
+###### \java\seedu\address\logic\commands\EditCommandTest.java
+``` java
+    @Test
+    public void execute_filteredList_success() throws Exception {
+
+        Person clientInFilteredList = model.getFilteredClientList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedClient = new PersonBuilder(clientInFilteredList).withName(VALID_NAME_BOB).buildWithRoleClient();
+
+        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedClient);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updatePerson(model.getFilteredClientList().get(0), editedClient);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+
+        // edit client to vet technician
+        clientInFilteredList = model.getFilteredClientList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(clientInFilteredList)
+                .withName(VALID_NAME_BOB).buildWithRoleVetTechnician();
+        editCommand = prepareCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withRole(VALID_ROLE_TECHNICIAN).build());
+
+        expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updatePerson(model.getFilteredClientList().get(0), editedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+
+        // edit vet technician to client
+        model.setCurrentList(2);
+        Person technicianInFilteredList = model.getFilteredVetTechnicianList().get(INDEX_FIRST_PERSON.getZeroBased());
+        editedPerson = new PersonBuilder(technicianInFilteredList)
+                .withName(VALID_NAME_BOB).buildWithRoleClient();
+        editCommand = prepareCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withRole(VALID_ROLE_CLIENT).build());
+        editCommand.setCurrentList();
+
+        expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updatePerson(model.getFilteredVetTechnicianList().get(0), editedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+```
+###### \java\seedu\address\logic\commands\RemoveVetTechFromAppointmentCommandTest.java
+``` java
+/**
+ * Contains integration tests unit tests for
+ * {@code RemoveVetTechFromAppointmentCommand}.
+ */
+public class RemoveVetTechFromAppointmentCommandTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private Model model = new ModelManager(TypicalAddressBook.getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void removeVetTech_invalidAppt_throwAppointmentNotFoundException() throws Exception {
+        thrown.expect(AppointmentNotFoundException.class);
+        model.removeVetTechFromAppointent(new AppointmentBuilder().withDate("2019-02-01")
+                .withTime("14:40")
+                .withDuration("80")
+                .withDescription("Dummy")
+                .build());
+    }
+
+    @Test
+    public void execute_validIndexUnfilteredList_success() throws Exception {
+        Appointment appointmentToRemoveVetTech = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
+
+        RemoveVetTechFromAppointmentCommand command = new RemoveVetTechFromAppointmentCommand(INDEX_FIRST);
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+
+        String expectedMessage = String.format(RemoveVetTechFromAppointmentCommand
+                .MESSAGE_REMOVE_VET_FROM_APPT_SUCCESS, appointmentToRemoveVetTech);
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.removeVetTechFromAppointent(appointmentToRemoveVetTech);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+}
+```
+###### \java\seedu\address\storage\XmlAdaptedPersonTest.java
+``` java
+    @Test
+    public void toModelType_invalidRole_throwsIllegalValueException() {
+        XmlAdaptedPerson person =
+                new XmlAdaptedPerson(VALID_NAME, INVALID_ROLE, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        String expectedMessage = PersonRole.MESSAGE_ROLE_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullRole_throwsIllegalValueException() {
+        XmlAdaptedPerson person =
+                new XmlAdaptedPerson(VALID_NAME, null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, PersonRole.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+}
+```
+###### \java\seedu\address\testutil\TypicalAssociations.java
+``` java
+/**
+ * A utility class containing a list of {@code ClientOwnPet} objects to be used in tests.
+ */
+public class TypicalAssociations {
+
+    public static final ClientOwnPet FIONA_LOTSO = new ClientOwnPet((Client) TypicalPersons.FIONA,
+            TypicalPets.LOTSO);
+    public static final ClientOwnPet ELLE_PICKLES = new ClientOwnPet((Client) TypicalPersons.ELLE,
+            TypicalPets.PICKLES);
+
+
+    private TypicalAssociations() {} // prevents instantiation
+
+
+    public static List<ClientOwnPet> getTypicalAssociations() {
+        return new ArrayList<>(Arrays.asList(FIONA_LOTSO, ELLE_PICKLES));
+    }
+}
+```

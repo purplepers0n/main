@@ -207,6 +207,6 @@ public interface Model {
     /**
      * Removes the vet from the given appointment
      */
-    void removeVetFromAppointent(Appointment apptToRemoveVetFrom)
+    void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
             throws DuplicateAppointmentException, AppointmentNotFoundException;
 }

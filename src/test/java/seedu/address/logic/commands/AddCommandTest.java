@@ -62,6 +62,7 @@ public class AddCommandTest {
 
     }
 
+    //@@author jonathanwj-reused
     @Test
     public void execute_vetTechnicianAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
@@ -84,6 +85,7 @@ public class AddCommandTest {
         getAddCommandForPerson(validPerson, modelStub).execute();
     }
 
+    //@@author jonathanwj-reused
     @Test
     public void execute_duplicateVetTechnician_throwsCommandException() throws Exception {
         ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
@@ -95,6 +97,7 @@ public class AddCommandTest {
         getAddCommandForPerson(validVetTechnician, modelStub).execute();
     }
 
+    //@@author
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").buildWithRoleClient();
@@ -255,7 +258,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void removeVetFromAppointent(Appointment apptToRemoveVetFrom)
+        public void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
                 throws DuplicateAppointmentException, AppointmentNotFoundException {
             fail("This method should not be called.");
         }

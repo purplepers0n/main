@@ -7,6 +7,7 @@ import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
 import seedu.address.model.pet.Pet;
 
+//@@author jonathanwj-reused
 /**
  * JAXV-friendly version of the ClientOwnPet.
  */

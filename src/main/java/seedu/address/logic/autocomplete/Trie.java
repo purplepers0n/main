@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//@@author jonathanwj
 /**
  * Trie data structure for word auto-complete
  */

@@ -72,6 +72,7 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    //@@author jonathanwj
     /**
      * Shows auto completed text on the UI
      */
@@ -108,12 +109,17 @@ public class CommandBox extends UiPart<Region> {
 
     }
 
+    //@@author jonathanwj
+    /**
+     * Shows auto completed text with next prefix parameter on UI
+     */
     private void autoCompleteCommandParameters() {
         String autoCompletedText = logic.autoCompleteNextParameter(commandTextField.getText());
         commandTextField.setText(autoCompletedText);
         commandTextField.positionCaret(commandTextField.getText().length());
     }
 
+    //@@author jonathanwj
     /**
      * Returns the {@code String} representative of given the list of Strings.
      */
@@ -123,6 +129,7 @@ public class CommandBox extends UiPart<Region> {
         return toString;
     }
 
+    //@@author jonathanwj
     /**
      * Returns true if TAB is pressed in quick succession
      */
@@ -135,6 +142,7 @@ public class CommandBox extends UiPart<Region> {
         return false;
     }
 
+    //@@author
     /**
      * Updates the text field with the previous input in {@code historySnapshot},
      * if there exists a previous input in {@code historySnapshot}

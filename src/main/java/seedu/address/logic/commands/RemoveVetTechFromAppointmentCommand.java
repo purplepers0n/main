@@ -12,6 +12,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
+//@@author jonathanwj-reused
 /**
  * removes the vet from appointment identified using it's last displayed index from the program
  */
@@ -39,7 +40,7 @@ public class RemoveVetTechFromAppointmentCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() {
         requireNonNull(apptToRemoveVetFrom);
         try {
-            model.removeVetFromAppointent(apptToRemoveVetFrom);
+            model.removeVetTechFromAppointent(apptToRemoveVetFrom);
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("The target appointment cannot be a duplicate");
         } catch (AppointmentNotFoundException e) {

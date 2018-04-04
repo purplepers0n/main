@@ -143,6 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     // Association
 
+    //@@author jonathanwj
     @Override
     public void addPetToClient(Pet pet, Client client)
             throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
@@ -151,6 +152,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author jonathanwj
     @Override
     public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
         requireAllNonNull(pet, client);
@@ -158,6 +160,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author
     @Override
     public void sortPetList() {
         addressBook.sortPetList();
@@ -181,6 +184,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author jonathanwj
     @Override
     public void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
             throws AppointmentAlreadyHasVetTechnicianException,
@@ -190,16 +194,17 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author jonathanwj
     @Override
-    public void removeVetFromAppointent(Appointment apptToRemoveVetFrom)
+    public void removeVetTechFromAppointent(Appointment apptToRemoveVetTechFrom)
             throws DuplicateAppointmentException, AppointmentNotFoundException {
-        requireNonNull(apptToRemoveVetFrom);
-        addressBook.removeVetFromAppointment(apptToRemoveVetFrom);
+        requireNonNull(apptToRemoveVetTechFrom);
+        addressBook.removeVetFromAppointment(apptToRemoveVetTechFrom);
         indicateAddressBookChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
-
+    //@@author
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code addressBook}
