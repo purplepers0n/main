@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 
+//@@author md-azsa
 /**
  * A list of pets that enforces uniqueness between its elements and does not allow nulls.
  *
@@ -71,13 +72,6 @@ public class UniquePetList implements Iterable<Pet> {
         setPets(replacement);
     }
 
-    /**
-     * Sorts the internal list.
-     */
-    public void sort() {
-        internalList.sort((Pet one, Pet two) -> one.getPetName().toString()
-                .compareTo(two.getPetName().toString()));
-    }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

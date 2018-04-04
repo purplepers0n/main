@@ -116,6 +116,7 @@ public class XmlAdaptedPersonTest {
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
+    //@@author jonathanwj-reused
     @Test
     public void toModelType_invalidRole_throwsIllegalValueException() {
         XmlAdaptedPerson person =

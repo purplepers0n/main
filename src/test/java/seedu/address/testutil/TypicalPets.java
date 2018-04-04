@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.model.pet.Pet;
 
+//@@author md-azsa
 /**
  * A utility class containing a list of {@code Pet} objects to be used in tests.
  */
@@ -30,11 +31,6 @@ public class TypicalPets {
             .withPetAge("4")
             .withPetGender("M")
             .withTags("bear", "purple")
-            .build();
-    public static final Pet NOFONO = new PetBuilder().withPetName("Nofono Not")
-            .withPetAge("5")
-            .withPetGender("M")
-            .withTags("tiger", "green")
             .build();
 
     private TypicalPets() {} // prevents instantiation

@@ -3,6 +3,7 @@ package seedu.address.model.pet;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author md-azsa
 /**
  * Represents a Pet's gender in the program.
  * Guarantees: immutable; is valid as declared in {@link #isValidGender(String)}

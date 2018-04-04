@@ -13,12 +13,14 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationListEmptyException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
@@ -26,6 +28,7 @@ import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.PersonsListIsEmptyException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
@@ -119,8 +122,9 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author md-azsa
     @Override
-    public void sortClientList() {
+    public void sortClientList() throws PersonsListIsEmptyException {
         addressBook.sortClientList();
         indicateAddressBookChanged();
     }
@@ -139,9 +143,11 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removePet(target);
         indicateAddressBookChanged();
     }
+    //@@author
 
     // Association
 
+    //@@author jonathanwj
     @Override
     public void addPetToClient(Pet pet, Client client)
             throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
@@ -150,6 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author jonathanwj
     @Override
     public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
         requireAllNonNull(pet, client);
@@ -157,8 +164,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author
+    //@@author md-azsa
     @Override
-    public void sortPetList() {
+    public void sortPetList() throws ClientPetAssociationListEmptyException {
         addressBook.sortPetList();
         indicateAddressBookChanged();
     }
@@ -179,10 +188,29 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();
     }
+    //@@author
 
+    //@@author jonathanwj
+    @Override
+    public void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
+            throws AppointmentAlreadyHasVetTechnicianException,
+            DuplicateAppointmentException, AppointmentNotFoundException {
+        requireAllNonNull(technician, appointment);
+        addressBook.addVetTechToAppointment(technician, appointment);
+        indicateAddressBookChanged();
+    }
+
+    //@@author jonathanwj
+    @Override
+    public void removeVetTechFromAppointent(Appointment apptToRemoveVetTechFrom)
+            throws DuplicateAppointmentException, AppointmentNotFoundException {
+        requireNonNull(apptToRemoveVetTechFrom);
+        addressBook.removeVetFromAppointment(apptToRemoveVetTechFrom);
+        indicateAddressBookChanged();
+    }
 
     //=========== Filtered Person List Accessors =============================================================
-
+    //@@author
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code addressBook}
@@ -275,11 +303,13 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredAppointment);
     }
 
+    //@@author md-azsa
     @Override
     public void sortAppointmentList() throws AppointmentListIsEmptyException {
         addressBook.sortAppointmentList();
         indicateAddressBookChanged();
     }
+    //@@author
 
     @Override
     public boolean equals(Object obj) {

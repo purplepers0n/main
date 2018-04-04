@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.vettechnician.exceptions.DuplicateVetTechnicianException;
 import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
+//@@author jonathanwj-reused
 /**
  * A list of vetTechnicians that enforces uniqueness between its elements and does not allow nulls.
  *

@@ -20,6 +20,7 @@ import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundEx
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.pet.Pet;
 
+//@@author md-azsa
 /**
  * Adds an appointment to the pet object.
  */

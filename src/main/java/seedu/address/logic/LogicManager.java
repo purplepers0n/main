@@ -95,6 +95,11 @@ public class LogicManager extends ComponentManager implements Logic {
         return autoComplete.autoCompleteCommands(keyWord);
     }
 
+    @Override
+    public String autoCompleteNextParameter(String input) {
+        return autoComplete.autoCompleteNextMissingParameter(input);
+    }
+
     public void setCurrentList(int currList) {
         this.currList = currList;
         model.setCurrentList(currList);

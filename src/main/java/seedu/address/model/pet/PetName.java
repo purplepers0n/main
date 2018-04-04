@@ -3,6 +3,7 @@ package seedu.address.model.pet;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author md-azsa
 /**
  * Represents a pet's name in the address book.
  * Guarantees: imumutable; is valid as declared in {@link #isValidPetName(String)}

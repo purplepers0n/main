@@ -44,6 +44,7 @@ import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.testutil.PetBuilder;
 
+//@@author md-azsa
 public class AddPetCommandTest {
 
     @Rule
@@ -229,6 +230,17 @@ public class AddPetCommandTest {
         public int getCurrentList() {
             fail("This method should not be called.");
             return -1;
+        }
+
+        @Override
+        public void addVetTechToAppointment(VetTechnician technician, Appointment appointment) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
+                throws DuplicateAppointmentException, AppointmentNotFoundException {
+            fail("This method should not be called.");
         }
 
         @Override

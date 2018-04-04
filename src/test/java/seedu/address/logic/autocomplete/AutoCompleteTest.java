@@ -9,9 +9,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+//@@author jonathanwj
 public class AutoCompleteTest {
 
     public static final String NOT_FOUND_KEYWORD = "NotFoundKeyword";
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -44,6 +46,12 @@ public class AutoCompleteTest {
     public void autoCompleteCommands_nullKeyWord_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         List<String> listOfWords = autoComplete.autoCompleteCommands(null);
+    }
+
+    @Test
+    public void autoCompleteParameter_emptyInput_emptyString() {
+        String result = autoComplete.autoCompleteNextMissingParameter("");
+        assertTrue(result.isEmpty());
     }
 
 }

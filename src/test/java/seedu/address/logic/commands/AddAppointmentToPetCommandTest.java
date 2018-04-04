@@ -31,9 +31,9 @@ import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.pet.Pet;
 
+//@@author md-azsa
 /**
  * Contains tests for AddAppointmentToPetCommand
- * TODO: Add clientpetasccoiatioes
  */
 public class AddAppointmentToPetCommandTest {
 

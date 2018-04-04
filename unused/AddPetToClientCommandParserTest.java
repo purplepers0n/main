@@ -11,6 +11,9 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddPetToClientCommand;
 
+//@@author jonathanwj-unused
+// Entire command was merged into AddPetCommand that
+// currently creates a pet and adds that pet to the client in one command.
 public class AddPetToClientCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
