@@ -33,6 +33,7 @@ import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.PersonsListIsEmptyException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.UniquePetList;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
@@ -89,9 +90,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-    public void sortClientList() {
-        this.persons.sort();
+    //@@author md-azsa
+    /**
+     * Sorts the persons list lexicographically.
+     * @throws PersonsListIsEmptyException
+     */
+    public void sortClientList() throws PersonsListIsEmptyException {
+        if (persons.isEmpty()) {
+            throw new PersonsListIsEmptyException();
+        } else {
+            this.persons.sort();
+        }
     }
+    //@@author
 
     public void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);

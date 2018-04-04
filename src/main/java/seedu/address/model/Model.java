@@ -19,6 +19,7 @@ import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.PersonsListIsEmptyException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
@@ -66,7 +67,7 @@ public interface Model {
     /**
      * Sorts the given client list.
      */
-    void sortClientList();
+    void sortClientList() throws PersonsListIsEmptyException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

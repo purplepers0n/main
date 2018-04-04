@@ -28,6 +28,7 @@ import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.PersonsListIsEmptyException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
@@ -123,7 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author md-azsa
     @Override
-    public void sortClientList() {
+    public void sortClientList() throws PersonsListIsEmptyException {
         addressBook.sortClientList();
         indicateAddressBookChanged();
     }
