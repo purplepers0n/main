@@ -121,6 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author md-azsa
     @Override
     public void sortClientList() {
         addressBook.sortClientList();
@@ -141,6 +142,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removePet(target);
         indicateAddressBookChanged();
     }
+    //@@author
 
     // Association
 
@@ -162,6 +164,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@@author
+    //@@author md-azsa
     @Override
     public void sortPetList() throws ClientPetAssociationListEmptyException {
         addressBook.sortPetList();
@@ -184,6 +187,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();
     }
+    //@@author
 
     //@@author jonathanwj
     @Override
@@ -298,11 +302,13 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredAppointment);
     }
 
+    //@@author md-azsa
     @Override
     public void sortAppointmentList() throws AppointmentListIsEmptyException {
         addressBook.sortAppointmentList();
         indicateAddressBookChanged();
     }
+    //@@author
 
     @Override
     public boolean equals(Object obj) {

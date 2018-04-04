@@ -19,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
+//@@author md-azsa
 /**
  * Contains integration tests for sorting the appointment list.
  */

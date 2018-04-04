@@ -60,6 +60,7 @@ public class TypicalAddressBook {
         return ab;
     }
 
+    //@@author md-azsa
     /**
      * Returns an {@code AddressBook} without appointments embedded
      */
@@ -117,6 +118,7 @@ public class TypicalAddressBook {
         }
         return ab;
     }
+    //@@author
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(TypicalPersons.getTypicalPersons());

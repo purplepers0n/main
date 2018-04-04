@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalAppointments.APPOINTMENT_2;
 
 import org.junit.Test;
 
+//@@author md-azsa
 public class XmlAdaptedAppointmentTest {
 
     @Test

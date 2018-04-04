@@ -101,6 +101,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.appointments.setAppointments(appointments);
     }
 
+    //@@author md-azsa
+    /**
+     * Sets the list of pets to contain data
+     */
     public void setPets(List<Pet> pets) throws DuplicatePetException {
         this.pets.setPets(pets);
     }
@@ -129,6 +133,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             appointments.sort();
         }
     }
+    //@@author
 
     public void setClientPetAssociations(List<ClientOwnPet> associations) {
         this.clientPetAssociations.setAll(associations);
@@ -270,6 +275,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// pet-level operations
 
+    //@@author md-azsa
     /**
      * Adds a pet to the program.
      * Also checks the new pet's tags and updates {@link #tags} with any new tags found,
@@ -330,6 +336,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncedPet = new Pet(pet.getPetName(), pet.getPetAge(), pet.getPetGender(), correctTagReferences);
         return syncedPet;
     }
+    //@@author
 
     //// Association methods
 
@@ -356,6 +363,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //@@author
+    //@@author md-azsa
     /**
      * Finds the pet and adds the appointment
      */
@@ -391,7 +399,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (isPresent && !isAdded) {
             throw new PetAlreadyHasAppointmentException();
         }
-
     }
 
     /**
@@ -407,6 +414,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             appointments.setAppointment(appointment, appointmentCopy);
         }
     }
+    //@@author
 
     //@@author jonathanwj
     /**

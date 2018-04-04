@@ -81,6 +81,7 @@ public class Time {
         return time.hashCode();
     }
 
+    //@@author md-azsa
     /**
      * Negative if argument is smaller
      * Postiive if argument is larger
