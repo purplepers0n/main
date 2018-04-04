@@ -342,7 +342,7 @@
     -fx-border-insets: 0;
     -fx-font-family: Helvetica;
     -fx-font-size: 13pt;
-    -fx-text-fill: #55C9E0;
+    -fx-text-fill: #C2DDF9;
 }
 
 #filterField, #personListPanel, #personWebpage {
@@ -464,12 +464,31 @@
 }
 
 .apptCardPane {
-     -fx-background-color: #D6D6D6;
+     -fx-background-color: #F1F2EB;
      -fx-border-width: 0;
      -fx-padding: 5px;
      -fx-border-insets: 5px;
      -fx-background-insets: 5px;
      -fx-background-radius: 5px;
+     -fx-effect: dropshadow( gaussian , #A4A5A0 , 0,0,0,3 );
+}
+
+#cell_big_label_index {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 16px;
+    -fx-text-fill: #B72C2C;
+}
+
+#cell_big_label_dark {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 16px;
+    -fx-text-fill: #282020;
+}
+
+#cell_small_label_dark {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 13px;
+    -fx-text-fill: #282020;
 }
 
 .apptList .list-cell {
@@ -488,7 +507,7 @@
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #4F0810;
-    -fx-background-color: #FF2841;
+    -fx-background-color: #FF4C61;
 }
 
 #yellow {
@@ -543,7 +562,7 @@
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #70112C;
-    -fx-background-color: #F7628C;
+    -fx-background-color: #F7749F;
 }
 
 #navy {
@@ -654,16 +673,4 @@
     -fx-background-radius: 5px;
     -fx-text-fill: #CDF2F4;
     -fx-background-color: #105A5E;
-}
-
-#cell_big_label_dark {
-    -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
-    -fx-text-fill: #421010;
-}
-
-#cell_small_label_dark {
-    -fx-font-family: Helvetica;
-    -fx-font-size: 13px;
-    -fx-text-fill: #281B1B;
 }
