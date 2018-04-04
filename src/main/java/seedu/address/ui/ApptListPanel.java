@@ -33,6 +33,11 @@ public class ApptListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Appointment> apptList) {
+
+        if (apptList.size() == 0) {
+            return;
+        }
+
         ObservableList<ApptDayPanelCard> mappedList = FXCollections.observableArrayList();
         Appointment lastAppt = null;
         int startIndex = 0;
