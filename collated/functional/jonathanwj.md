@@ -439,6 +439,27 @@ public class Trie {
 ###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
+    public void addPetToClient(Pet pet, Client client)
+            throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
+        requireAllNonNull(pet, client);
+        addressBook.addPetToClient(pet, client);
+        indicateAddressBookChanged();
+    }
+
+```
+###### \java\seedu\address\model\ModelManager.java
+``` java
+    @Override
+    public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
+        requireAllNonNull(pet, client);
+        addressBook.removePetFromClient(pet, client);
+        indicateAddressBookChanged();
+    }
+
+```
+###### \java\seedu\address\model\ModelManager.java
+``` java
+    @Override
     public void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
             throws AppointmentAlreadyHasVetTechnicianException,
             DuplicateAppointmentException, AppointmentNotFoundException {
