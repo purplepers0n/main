@@ -203,4 +203,10 @@ public interface Model {
     void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
             throws AppointmentAlreadyHasVetTechnicianException,
             DuplicateAppointmentException, AppointmentNotFoundException;
+
+    /**
+     * Removes the vet from the given appointment
+     */
+    void removeVetFromAppointent(Appointment apptToRemoveVetFrom)
+            throws DuplicateAppointmentException, AppointmentNotFoundException;
 }

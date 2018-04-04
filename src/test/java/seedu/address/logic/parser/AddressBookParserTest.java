@@ -30,6 +30,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RemoveVetTechFromAppointmentCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -107,6 +108,13 @@ public class AddressBookParserTest {
                 + INDEX_FIRST.getOneBased() + " " + PREFIX_APPOINTMENT_INDEX
                 + INDEX_FIRST.getOneBased());
         assertEquals(new AddVetTechToAppointmentCommand(INDEX_FIRST, INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_removeVetTechFromAppointment() throws Exception {
+        RemoveVetTechFromAppointmentCommand command = (RemoveVetTechFromAppointmentCommand) parser.parseCommand(
+                RemoveVetTechFromAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new RemoveVetTechFromAppointmentCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

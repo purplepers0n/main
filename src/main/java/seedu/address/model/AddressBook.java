@@ -440,6 +440,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments.setAppointment(appointment, appointmentCopy);
     }
 
+    /**
+     * Removes a vet technician from the given appointment
+     */
+    public void removeVetFromAppointment(Appointment apptToRemoveVetFrom)
+            throws AppointmentNotFoundException, DuplicateAppointmentException {
+        if (!appointments.contains(apptToRemoveVetFrom)) {
+            throw new AppointmentNotFoundException();
+        }
+        Appointment appointmentCopy = new Appointment(apptToRemoveVetFrom);
+        appointmentCopy.removeVetTech();
+        appointments.setAppointment(apptToRemoveVetFrom, appointmentCopy);
+    }
+
     //// util methods
 
     @Override

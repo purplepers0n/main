@@ -190,6 +190,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void removeVetFromAppointent(Appointment apptToRemoveVetFrom)
+            throws DuplicateAppointmentException, AppointmentNotFoundException {
+        requireNonNull(apptToRemoveVetFrom);
+        addressBook.removeVetFromAppointment(apptToRemoveVetFrom);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
