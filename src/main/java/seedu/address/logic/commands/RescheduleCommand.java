@@ -23,7 +23,7 @@ import seedu.address.model.appointment.Time;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
-
+//@@author GodXin-functional
 /**
  * Edits or reschedules the details of an existing appointment in the address book.
  */
@@ -44,13 +44,13 @@ public class RescheduleCommand extends UndoableCommand {
             + PREFIX_DATE + "2018-04-01 "
             + PREFIX_TIME + "16:00";
 
-    public static final String MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS = "Reschedules Appointment: %1$s";
+    public static final String MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS = "Successful !!!\n"
+        + "  Appointment reschedules to : \n %1$s";
     public static final String MESSAGE_NOT_RESCHEDULED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book.";
 
     private final Index index;
     private final RescheduleAppointmentDescriptor rescheduleAppointmentDescriptor;
-    private int currList = 0; //default is on client list upon opening app
 
     private Appointment appointmentToReschedule;
     private Appointment rescheduledAppointment;
@@ -65,10 +65,6 @@ public class RescheduleCommand extends UndoableCommand {
 
         this.index = index;
         this.rescheduleAppointmentDescriptor = new RescheduleAppointmentDescriptor(rescheduleAppointmentDescriptor);
-    }
-
-    public void setCurrentList() {
-        this.currList = model.getCurrentList();
     }
 
     @Override
@@ -87,21 +83,13 @@ public class RescheduleCommand extends UndoableCommand {
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
-        List<? extends Appointment> lastShownList;
 
-        setCurrentList();
-
-        if (currList == 0) {
-            lastShownList = model.getFilteredAppointmentList();
-        } else {
-            throw new CommandException("Not currently on a list that 'reschedule' command can change");
+        List< Appointment > appointmentList = model.getFilteredAppointmentList();
+        if (index.getZeroBased() >= appointmentList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
         }
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        appointmentToReschedule = lastShownList.get(index.getZeroBased());
+        appointmentToReschedule = appointmentList.get(index.getZeroBased());
         rescheduledAppointment = createRescheduledAppointment(appointmentToReschedule, rescheduleAppointmentDescriptor);
     }
 
