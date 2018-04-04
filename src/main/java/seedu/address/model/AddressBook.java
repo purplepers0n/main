@@ -259,11 +259,25 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
     public boolean removePerson(Person key) throws PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
+        if (!persons.remove(key)) {
             throw new PersonNotFoundException();
         }
+
+        // Removes vet from any existing appointment
+        for (Appointment appointment : appointments) {
+            appointment.getOptionalVetTechnician().ifPresent(technician -> {
+                try {
+                    if (technician.equals(key)) {
+                        removeVetFromAppointment(appointment);
+                    }
+                } catch (AppointmentNotFoundException e) {
+                    throw new AssertionError("Appointment should be found");
+                } catch (DuplicateAppointmentException e) {
+                    throw new AssertionError("Program should not have duplicate appointments");
+                }
+            });
+        }
+        return true;
     }
 
     //// tag-level operations
