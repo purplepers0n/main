@@ -143,6 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     // Association
 
+    //@@author jonathanwj
     @Override
     public void addPetToClient(Pet pet, Client client)
             throws ClientAlreadyOwnsPetException, PetAlreadyHasOwnerException {
@@ -151,6 +152,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author jonathanwj
     @Override
     public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
         requireAllNonNull(pet, client);
@@ -158,6 +160,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author
     @Override
     public void sortPetList() {
         addressBook.sortPetList();
