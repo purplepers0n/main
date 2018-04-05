@@ -14,7 +14,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
-
+//@@author Godxin-functional
 /**
  * A list of appointments that enforces uniqueness between its elements and does not allow nulls.
  *

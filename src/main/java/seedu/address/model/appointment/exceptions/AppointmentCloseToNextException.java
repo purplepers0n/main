@@ -1,5 +1,6 @@
 package seedu.address.model.appointment.exceptions;
 
+//@@author Godxin-functional
 /**
  *Signals that the operation will result the newly scheduled appointment falls
  * within the duration of the next appointment

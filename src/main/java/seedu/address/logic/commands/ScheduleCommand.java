@@ -18,6 +18,7 @@ import seedu.address.model.appointment.exceptions.AppointmentCloseToNextExceptio
 import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
+//@@author Godxin-functional
 /**
  * Schedule the date and time for an appointment as well as the duration of this appointment
  */

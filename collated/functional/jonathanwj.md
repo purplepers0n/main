@@ -1,5 +1,5 @@
 # jonathanwj
-###### \java\seedu\address\logic\autocomplete\AutoComplete.java
+###### \seedu\address\logic\autocomplete\AutoComplete.java
 ``` java
 /**
  * the main AutoCompleteManager of the application
@@ -86,7 +86,7 @@ public class AutoComplete {
     }
 }
 ```
-###### \java\seedu\address\logic\autocomplete\CommandParameterSyntaxHandler.java
+###### \seedu\address\logic\autocomplete\CommandParameterSyntaxHandler.java
 ``` java
 /**
  * Contains Command syntax definitions for multiple commands
@@ -199,7 +199,7 @@ public class CommandParameterSyntaxHandler {
     }
 }
 ```
-###### \java\seedu\address\logic\autocomplete\Trie.java
+###### \seedu\address\logic\autocomplete\Trie.java
 ``` java
 /**
  * Trie data structure for word auto-complete
@@ -311,7 +311,7 @@ public class Trie {
 }
 
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
 ``` java
     /**
      * Associates pet to client
@@ -335,7 +335,7 @@ public class Trie {
     }
 
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
 ``` java
     /**
      * Returns true if specified pet has an owner
@@ -350,7 +350,7 @@ public class Trie {
     }
 
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
 ``` java
     /**
      * Removes association from pet and client
@@ -367,7 +367,7 @@ public class Trie {
     }
 
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
 ``` java
     /**
      * Adds vet technician to appointment
@@ -387,7 +387,7 @@ public class Trie {
     }
 
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
 ``` java
     /**
      * Removes a vet technician from the given appointment
@@ -408,7 +408,7 @@ public class Trie {
 
     //// util methods
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
 ``` java
     @Override
     public ObservableList<Client> getClientList() {
@@ -424,7 +424,7 @@ public class Trie {
     }
 
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
 ``` java
     @Override
     public ObservableList<VetTechnician> getVetTechnicianList() {
@@ -440,7 +440,7 @@ public class Trie {
     }
 
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### \seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void addPetToClient(Pet pet, Client client)
@@ -451,7 +451,7 @@ public class Trie {
     }
 
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### \seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
@@ -461,7 +461,7 @@ public class Trie {
     }
 
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### \seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
@@ -473,7 +473,7 @@ public class Trie {
     }
 
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### \seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void removeVetTechFromAppointent(Appointment apptToRemoveVetTechFrom)
@@ -486,7 +486,7 @@ public class Trie {
 
     //=========== Filtered Person List Accessors =============================================================
 ```
-###### \java\seedu\address\model\person\PersonRole.java
+###### \seedu\address\model\person\PersonRole.java
 ``` java
 /**
  * Represents a Person's role in the address book.
@@ -588,7 +588,7 @@ public class PersonRole {
     }
 }
 ```
-###### \java\seedu\address\ui\CommandBox.java
+###### \seedu\address\ui\CommandBox.java
 ``` java
     /**
      * Shows auto completed text on the UI
@@ -627,7 +627,7 @@ public class PersonRole {
     }
 
 ```
-###### \java\seedu\address\ui\CommandBox.java
+###### \seedu\address\ui\CommandBox.java
 ``` java
     /**
      * Shows auto completed text with next prefix parameter on UI
@@ -639,7 +639,7 @@ public class PersonRole {
     }
 
 ```
-###### \java\seedu\address\ui\CommandBox.java
+###### \seedu\address\ui\CommandBox.java
 ``` java
     /**
      * Returns the {@code String} representative of given the list of Strings.
@@ -651,7 +651,7 @@ public class PersonRole {
     }
 
 ```
-###### \java\seedu\address\ui\CommandBox.java
+###### \seedu\address\ui\CommandBox.java
 ``` java
     /**
      * Returns true if TAB is pressed in quick succession

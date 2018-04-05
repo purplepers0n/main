@@ -1,5 +1,5 @@
 # md-azsa
-###### \java\seedu\address\logic\commands\AddAppointmentToPetCommand.java
+###### \seedu\address\logic\commands\AddAppointmentToPetCommand.java
 ``` java
 /**
  * Adds an appointment to the pet object.
@@ -95,7 +95,7 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\AddPetCommand.java
+###### \seedu\address\logic\commands\AddPetCommand.java
 ``` java
 /**
  * Adds support for adding a pet into the program.
@@ -175,7 +175,7 @@ public class AddPetCommand extends UndoableCommand {
 
 }
 ```
-###### \java\seedu\address\logic\commands\DeletePetCommand.java
+###### \seedu\address\logic\commands\DeletePetCommand.java
 ``` java
 /**
  * Deletes a pet identified using it's last displayed index from the program
@@ -233,7 +233,7 @@ public class DeletePetCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\RemoveAppointmentFromPetCommand.java
+###### \seedu\address\logic\commands\RemoveAppointmentFromPetCommand.java
 ``` java
 /**
  * Removes the appointment from a pet
@@ -308,7 +308,7 @@ public class RemoveAppointmentFromPetCommand extends UndoableCommand {
 
 }
 ```
-###### \java\seedu\address\logic\commands\SortAppointmentCommand.java
+###### \seedu\address\logic\commands\SortAppointmentCommand.java
 ``` java
 /**
  * Sorts the appointment list.
@@ -329,7 +329,7 @@ public class SortAppointmentCommand extends  UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\SortClientCommand.java
+###### \seedu\address\logic\commands\SortClientCommand.java
 ``` java
 /**
  * Sorts the client list
@@ -352,7 +352,7 @@ public class SortClientCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\SortPetCommand.java
+###### \seedu\address\logic\commands\SortPetCommand.java
 ``` java
 /**
  * Sorts the pet list.
@@ -373,7 +373,7 @@ public class SortPetCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\AddAppointmentToPetCommandParser.java
+###### \seedu\address\logic\parser\AddAppointmentToPetCommandParser.java
 ``` java
 /**
  * Parses the input arguments and creates a new AddAppointmentToPet object.
@@ -416,7 +416,7 @@ public class AddAppointmentToPetCommandParser implements Parser<AddAppointmentTo
     }
 }
 ```
-###### \java\seedu\address\logic\parser\AddPetCommandParser.java
+###### \seedu\address\logic\parser\AddPetCommandParser.java
 ``` java
 /**
  * Parses the input arguments and create a new AddPetCommand object.
@@ -465,7 +465,7 @@ public class AddPetCommandParser implements Parser<AddPetCommand> {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\DeletePetCommandParser.java
+###### \seedu\address\logic\parser\DeletePetCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new DeletePetCommand object
@@ -489,7 +489,7 @@ public class DeletePetCommandParser implements Parser<DeletePetCommand> {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\RemoveAppointmentFromPetParser.java
+###### \seedu\address\logic\parser\RemoveAppointmentFromPetParser.java
 ``` java
 /**
  * Parses input arguments and creates a new RemoveAppointmentFromPet object
@@ -527,7 +527,21 @@ public class RemoveAppointmentFromPetParser implements
     }
 }
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
+``` java
+    /**
+     * Sorts the persons list lexicographically.
+     * @throws PersonsListIsEmptyException
+     */
+    public void sortClientList() throws PersonsListIsEmptyException {
+        if (persons.isEmpty()) {
+            throw new PersonsListIsEmptyException();
+        } else {
+            this.persons.sort();
+        }
+    }
+```
+###### \seedu\address\model\AddressBook.java
 ``` java
     /**
      * Sorts the persons list lexicographically.
@@ -575,7 +589,7 @@ public class RemoveAppointmentFromPetParser implements
         }
     }
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
 ``` java
     /**
      * Adds a pet to the program.
@@ -638,7 +652,7 @@ public class RemoveAppointmentFromPetParser implements
         return syncedPet;
     }
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### \seedu\address\model\AddressBook.java
 ``` java
     /**
      * Finds the pet and adds the appointment
@@ -691,7 +705,7 @@ public class RemoveAppointmentFromPetParser implements
         }
     }
 ```
-###### \java\seedu\address\model\appointment\Date.java
+###### \seedu\address\model\appointment\Date.java
 ``` java
     /**
      * Negative if argument is smaller
@@ -708,7 +722,7 @@ public class RemoveAppointmentFromPetParser implements
     }
 }
 ```
-###### \java\seedu\address\model\appointment\Description.java
+###### \seedu\address\model\appointment\Description.java
 ``` java
 /**
  * Represents the description of an Appointment
@@ -754,7 +768,7 @@ public class Description {
     }
 }
 ```
-###### \java\seedu\address\model\appointment\Time.java
+###### \seedu\address\model\appointment\Time.java
 ``` java
     /**
      * Negative if argument is smaller
@@ -771,7 +785,7 @@ public class Description {
     }
 }
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### \seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void sortClientList() throws PersonsListIsEmptyException {
@@ -794,7 +808,7 @@ public class Description {
         indicateAddressBookChanged();
     }
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### \seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void sortPetList() throws ClientPetAssociationListEmptyException {
@@ -819,7 +833,7 @@ public class Description {
         indicateAddressBookChanged();
     }
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### \seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void sortAppointmentList() throws AppointmentListIsEmptyException {
@@ -827,7 +841,7 @@ public class Description {
         indicateAddressBookChanged();
     }
 ```
-###### \java\seedu\address\model\person\UniquePersonList.java
+###### \seedu\address\model\person\UniquePersonList.java
 ``` java
     /**
      * Sorts the internal list
@@ -836,7 +850,8 @@ public class Description {
         internalList.sort((Person one, Person two) -> one.getName().toString().compareTo(two.getName().toString()));
     }
 ```
-###### \java\seedu\address\model\pet\Pet.java
+
+###### \seedu\address\model\pet\Pet.java
 ``` java
 /**
  * Represents a Pet in the applications.
@@ -925,7 +940,7 @@ public class Pet {
 
 }
 ```
-###### \java\seedu\address\model\pet\PetAge.java
+###### \seedu\address\model\pet\PetAge.java
 ``` java
 /**
  * Represents a Pet's age in the application.
@@ -974,7 +989,7 @@ public class PetAge {
     }
 }
 ```
-###### \java\seedu\address\model\pet\PetGender.java
+###### \seedu\address\model\pet\PetGender.java
 ``` java
 /**
  * Represents a Pet's gender in the program.
@@ -1028,7 +1043,7 @@ public class PetGender {
     }
 }
 ```
-###### \java\seedu\address\model\pet\PetName.java
+###### \seedu\address\model\pet\PetName.java
 ``` java
 /**
  * Represents a pet's name in the address book.
@@ -1083,7 +1098,7 @@ public class PetName {
     }
 }
 ```
-###### \java\seedu\address\model\pet\UniquePetList.java
+###### \seedu\address\model\pet\UniquePetList.java
 ``` java
 /**
  * A list of pets that enforces uniqueness between its elements and does not allow nulls.
@@ -1175,7 +1190,7 @@ public class UniquePetList implements Iterable<Pet> {
     }
 }
 ```
-###### \java\seedu\address\model\util\SampleDataUtilPet.java
+###### \seedu\address\model\util\SampleDataUtilPet.java
 ``` java
 /**
  * Contains util for populating {@code AddressBook} with sampledata.
@@ -1204,7 +1219,7 @@ public class SampleDataUtilPet {
     }
 }
 ```
-###### \java\seedu\address\storage\XmlAdaptedPet.java
+###### \seedu\address\storage\XmlAdaptedPet.java
 ``` java
 /**
  * JAXV-friendly version of the Person.

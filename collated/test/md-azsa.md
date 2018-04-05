@@ -1,5 +1,5 @@
 # md-azsa
-###### \java\seedu\address\logic\commands\AddAppointmentToPetCommandTest.java
+###### \seedu\address\logic\commands\AddAppointmentToPetCommandTest.java
 ``` java
 /**
  * Contains tests for AddAppointmentToPetCommand
@@ -67,7 +67,12 @@ public class AddAppointmentToPetCommandTest {
         command.execute();
         command = prepareCommand(INDEX_FIRST_APPT, INDEX_SECOND_PET);
 
+
+
+
+
         assertCommandFailure(command, model, Messages.MESSAGE_APPOINTMENT_TAKEN);
+
     }
 
     @Test
@@ -114,7 +119,7 @@ public class AddAppointmentToPetCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\AddPetCommandIntegrationTest.java
+###### \seedu\address\logic\commands\AddPetCommandIntegrationTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) for {@code AddPetCommand}
@@ -160,7 +165,7 @@ public class AddPetCommandIntegrationTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\AddPetCommandTest.java
+###### \seedu\address\logic\commands\AddPetCommandTest.java
 ``` java
 public class AddPetCommandTest {
 
@@ -323,6 +328,12 @@ public class AddPetCommandTest {
         }
 
         @Override
+        public void updateAppointment(Appointment target, Appointment rescheduledAppointment)
+                throws DuplicateAppointmentException {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Appointment> getFilteredAppointmentList() {
             fail("This method should not be called.");
             return null;
@@ -458,7 +469,7 @@ public class AddPetCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\DeletePetCommandTest.java
+###### \seedu\address\logic\commands\DeletePetCommandTest.java
 ``` java
 /**
  * Contains integration tests unit tests for
@@ -479,7 +490,7 @@ public class DeletePetCommandTest {
 
 }
 ```
-###### \java\seedu\address\logic\commands\RemoveAppointmentFromPetCommandTest.java
+###### \seedu\address\logic\commands\RemoveAppointmentFromPetCommandTest.java
 ``` java
 /**
  * Contains integration test and unit tests for RemoveAppointmentFromPetCommand
@@ -576,7 +587,7 @@ public class RemoveAppointmentFromPetCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\SortAppointmentCommandTest.java
+###### \seedu\address\logic\commands\SortAppointmentCommandTest.java
 ``` java
 /**
  * Contains integration tests for sorting the appointment list.
@@ -630,7 +641,7 @@ public class SortAppointmentCommandTest {
 
 }
 ```
-###### \java\seedu\address\logic\commands\SortClientCommandTest.java
+###### \seedu\address\logic\commands\SortClientCommandTest.java
 ``` java
 /**
  * Adds integrations test methods for {@code SortClientCommand}
@@ -691,7 +702,7 @@ public class SortClientCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\SortPetCommandTest.java
+###### \seedu\address\logic\commands\SortPetCommandTest.java
 ``` java
 /**
  * Contains integration tests for sorting the client association list.
@@ -753,7 +764,7 @@ public class SortPetCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\AddAppointmentToPetCommandParserTest.java
+###### \seedu\address\logic\parser\AddAppointmentToPetCommandParserTest.java
 ``` java
 public class AddAppointmentToPetCommandParserTest {
 
@@ -807,7 +818,7 @@ public class AddAppointmentToPetCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\model\pet\PetAgeTest.java
+###### \seedu\address\model\pet\PetAgeTest.java
 ``` java
 public class PetAgeTest {
 
@@ -841,7 +852,7 @@ public class PetAgeTest {
     }
 }
 ```
-###### \java\seedu\address\model\pet\PetGenderTest.java
+###### \seedu\address\model\pet\PetGenderTest.java
 ``` java
 public class PetGenderTest {
 
@@ -878,7 +889,7 @@ public class PetGenderTest {
     }
 }
 ```
-###### \java\seedu\address\model\pet\PetNameTest.java
+###### \seedu\address\model\pet\PetNameTest.java
 ``` java
 public class PetNameTest {
 
@@ -915,7 +926,7 @@ public class PetNameTest {
     }
 }
 ```
-###### \java\seedu\address\storage\XmlAdaptedAppointmentTest.java
+###### \seedu\address\storage\XmlAdaptedAppointmentTest.java
 ``` java
 public class XmlAdaptedAppointmentTest {
 
@@ -945,7 +956,7 @@ public class XmlAdaptedAppointmentTest {
     }
 }
 ```
-###### \java\seedu\address\storage\XmlAdaptedPetTest.java
+###### \seedu\address\storage\XmlAdaptedPetTest.java
 ``` java
 public class XmlAdaptedPetTest {
 
@@ -975,7 +986,7 @@ public class XmlAdaptedPetTest {
     }
 }
 ```
-###### \java\seedu\address\testutil\PetBuilder.java
+###### \seedu\address\testutil\PetBuilder.java
 ``` java
 /**
  * Util class to help with building Pet objects.
@@ -1039,7 +1050,7 @@ public class PetBuilder {
     }
 }
 ```
-###### \java\seedu\address\testutil\PetUtil.java
+###### \seedu\address\testutil\PetUtil.java
 ``` java
 /**
  * Util class for pet.
@@ -1068,7 +1079,7 @@ public class PetUtil {
     }
 }
 ```
-###### \java\seedu\address\testutil\TypicalAppointments.java
+###### \seedu\address\testutil\TypicalAppointments.java
 ``` java
 /**
  * A utility class containing a list of {@code Appointment} objects
@@ -1089,14 +1100,8 @@ public class TypicalAppointments {
 
     private TypicalAppointments() {}
 
-
-
-    public static List<Appointment> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(APPOINTMENT_1, APPOINTMENT_2));
-    }
-}
 ```
-###### \java\seedu\address\testutil\TypicalPets.java
+###### \seedu\address\testutil\TypicalPets.java
 ``` java
 /**
  * A utility class containing a list of {@code Pet} objects to be used in tests.

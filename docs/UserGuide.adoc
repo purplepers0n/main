@@ -559,6 +559,42 @@ you if there are any conflicts in your scheduling.
 [NOTE]
 You can execute the `addappttopet` command after creating an appointment.
 
+
+==== Rescheduling an appointment : `reschedule`
+Command format: `reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [DESC/DESCRIPTION] +
+
+The `reschedule` command reschedules the existing appointment to another date or time. This command is also
+able to vary the duration or amend the description of existing appointments.
+The details of the specified appointments's index will be replaced with the supplied parameters from the user.
+The existing details will be overriden. The command expects these parameters: +
+
+[horizontal]
+*INDEX*::
+The index of the appointment that the user wants to reschedule. It must be supplied by the user.
+*DATE*::
+The new date of the appointment that the user wants. It need not be supplied by the user.
+*TIME*::
+The new time of the appointment that the user wants. It need not be supplied by the user.
+*DURATION*::
+The new duration of the appointment that the user wants. It need not be supplied by the user.
+*DESCRIPTION*::
+The new description of the appointment that the user wants. It need not be supplied by the user.
+
+
+The `reschedule` command is very similar to the `schedule` command.
+Here are some examples on using the command: +
+
+* `reschedule 1 tm/15:30` +
+You choose to only reschedule the time of appointment specified by index 1 [da/2018-10-10 tm/15:00 du/40 desc/Sterilize Garfield when he's feeling better.]
+ from 15:00 to 15:30 and other details remain unchanged.
+* `edit 1 da/2018-10-11 du/60` +
+You choose to reschedule the date and duration of the appointment specified at index 1 [da/2018-10-10 tm/15:00 du/40 desc/Sterilize Garfield when he's feeling better.]
+to the next day and lasts 20 minutes longer.
+
+[NOTE]
+You need to provide at least one change to any filed of an existing appointment.
+
+
 === Sorting appointments in chronological order: `sortappt`
 Command format: `sortappt` +
 
