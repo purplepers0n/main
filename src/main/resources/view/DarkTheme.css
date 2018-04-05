@@ -1,3 +1,8 @@
+@font-face {
+    src: url('/fonts/coolvetica-rg.ttf');
+}
+
+
 .background {
     -fx-background-color: derive(#141414, 20%);
     background-color: #383838; /* Used in the default.html file */
@@ -452,9 +457,9 @@
 }
 
 #header-text {
-    -fx-font-family: Helvetica;
+    -fx-font-family: "coolvetica rg";
     -fx-fill: white;
-    -fx-font-size: 28px;
+    -fx-font-size: 35px;
 }
 
 .date-time-label {
