@@ -38,6 +38,7 @@ import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.testutil.PersonBuilder;
+import sun.security.krb5.internal.APOptions;
 
 public class AddCommandTest {
 
@@ -219,6 +220,12 @@ public class AddCommandTest {
 
         @Override
         public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateAppointment(Appointment target, Appointment rescheduledAppointment)
+                throws DuplicateAppointmentException {
             fail("This method should not be called.");
         }
 
