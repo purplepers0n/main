@@ -1,5 +1,5 @@
 # jonathanwj
-###### \java\seedu\address\logic\autocomplete\AutoCompleteTest.java
+###### \seedu\address\logic\autocomplete\AutoCompleteTest.java
 ``` java
 public class AutoCompleteTest {
 
@@ -47,7 +47,7 @@ public class AutoCompleteTest {
 
 }
 ```
-###### \java\seedu\address\logic\autocomplete\TrieTest.java
+###### \seedu\address\logic\autocomplete\TrieTest.java
 ``` java
 public class TrieTest {
 
@@ -72,7 +72,7 @@ public class TrieTest {
     }
 }
 ```
-###### \java\seedu\address\model\association\AssociatePetToClientTest.java
+###### \seedu\address\model\association\AssociatePetToClientTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
