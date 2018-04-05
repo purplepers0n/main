@@ -368,12 +368,12 @@
 
 #tags .red {
     -fx-text-fill: #4F0810;
-    -fx-background-color: #FF2841;
+    -fx-background-color: #E57373;
 }
 
 #tags .yellow {
      -fx-text-fill: #542702;
-     -fx-background-color: #FFD507;
+     -fx-background-color: #FFF176;
 }
 
 #tags .blue {
@@ -496,181 +496,199 @@
 }
 
 .apptDayPanel .list-cell {
-     -fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
+
+/* Colors */
 
 #red {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #4F0810;
-    -fx-background-color: #FF4C61;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #EF5350;
+    -fx-font-weight: bold;
 }
 
 #yellow {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #542702;
-    -fx-background-color: #FFD507;
+    -fx-text-fill: #212121;
+    -fx-background-color: #FFF176;
+    -fx-font-weight: bold;
 }
 
 #blue {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #0E304C;
+    -fx-text-fill: #FFF8F0;
     -fx-background-color: #4D9DE0;
+    -fx-font-weight: bold;
 }
 
 #orange {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #381502;
-    -fx-background-color: #F26419;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #FFA726;
+    -fx-font-weight: bold;
 }
 
 #green {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #0F1E00;
-    -fx-background-color: #97CC04;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #81C784;
+    -fx-font-weight: bold;
 }
 
 #pink {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #70112C;
-    -fx-background-color: #F7749F;
+    -fx-text-fill: #212121;
+    -fx-background-color: #F48FB1;
+    -fx-font-weight: bold;
 }
 
 #navy {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
-    -fx-background-color: #003366;
+    -fx-background-color: #42A5F5;
+    -fx-font-weight: bold;
 }
 
 #teal {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
-    -fx-background-radius: 5px;
-    -fx-text-fill: #082B2B;
-    -fx-background-color: #3DBFBF;
-}
-
-#purple {
-    -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
-    -fx-background-color: #8C3678;
+    -fx-background-color: #80CBC4;
+    -fx-font-weight: bold;
+}
+
+#purple {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 5px 0px 0px 0px;
+    -fx-border-insets: 5px 0px 0px 0px;
+    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #CE93D8;
+    -fx-font-weight: bold;
 }
 
 #peach {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #3D2B21;
     -fx-background-color: #FFCF9C;
+    -fx-font-weight: bold;
 }
 
 #lightblue {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #10334C;
+    -fx-text-fill: #FFF8F0;
     -fx-background-color: #8EC8F2;
+    -fx-font-weight: bold;
 }
 
 #darkpurple {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #E2D3DD;
-    -fx-background-color: #2B061E;
+    -fx-background-color: #AB47BC;
+    -fx-font-weight: bold;
 }
 
 #green2 {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #DEF7E8;
-    -fx-background-color: #23CE6B;
+    -fx-background-color: #69F0AE;
+    -fx-font-weight: bold;
 }
 
 #wine {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #DDBABB;
-    -fx-background-color: #400406;
+    -fx-background-color: #D32F2F;
+    -fx-font-weight: bold;
 }
 
 #fuchsia {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #440E3B;
+    -fx-text-fill: #FFF8F0;
     -fx-background-color: #C45AB3;
+    -fx-font-weight: bold;
 }
 
 #sea {
     -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px 0px 0px 0px;
     -fx-border-insets: 5px 0px 0px 0px;
     -fx-background-insets: 5px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #CDF2F4;
     -fx-background-color: #105A5E;
+    -fx-font-weight: bold;
 }
