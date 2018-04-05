@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.AddressBook;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
 //@@author md-azsa
 /**
@@ -25,6 +27,21 @@ public class TypicalAppointments {
             .build();
 
     private TypicalAppointments() {}
+
+    /**
+     * Returns an {@code AddressBook} with all the typical appointments.
+     */
+    public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Appointment appointment : getTypicalAppointments()) {
+            try {
+                ab.scheduleAppointment(appointment);
+            } catch (DuplicateAppointmentException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        return ab;
+    }
 
 
 

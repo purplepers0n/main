@@ -122,6 +122,16 @@ public interface Model {
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
 
     /**
+     * Reschedules the given appointment {@code target} with {@code rescheduledPerson}.
+     *
+     * @throws DuplicateAppointmentException if updating the appointment's details causes the appointment
+     *                                  to be clashed with another existing appointment in the list.
+     * @throws AppointmentNotFoundException  if {@code target} could not be found in the list.
+     */
+    void updateAppointment(Appointment target, Appointment rescheduledAppointment)
+            throws DuplicateAppointmentException, AppointmentNotFoundException;
+
+    /**
      * Returns an unmodifiable view of the filtered appointment list
      **/
     ObservableList<Appointment> getFilteredAppointmentList();

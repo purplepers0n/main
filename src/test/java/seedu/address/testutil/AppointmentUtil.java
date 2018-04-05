@@ -8,15 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.model.appointment.Appointment;
 
+//@@author Godxin-test
 /**
  * A utility class for Appointment.
  */
 public class AppointmentUtil {
-
-
-
-
-
 
     /**
      * Returns an schedule command string for scheduling the {@code appointment}.

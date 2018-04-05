@@ -6,6 +6,7 @@ import seedu.address.model.appointment.Description;
 import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 
+//@@author Godxin-test
 /**
  * A utility class to help with building Appointment objects.
  */
@@ -25,6 +26,17 @@ public class AppointmentBuilder {
         time = new Time(DEFAULT_TIME);
         duration = new Duration(DEFAULT_DURATION);
         description = new Description(DEFAULT_DESCRIPTION);
+    }
+
+    /**
+     * Initializes the AppointmentBuilder with the data of {@code appointmentToCopy}.
+     */
+    public AppointmentBuilder(Appointment appointmentToCopy) {
+        date = appointmentToCopy.getDate();
+        time = appointmentToCopy.getTime();
+        duration = appointmentToCopy.getDuration();
+        description = appointmentToCopy.getDescription();
+
     }
 
     /**

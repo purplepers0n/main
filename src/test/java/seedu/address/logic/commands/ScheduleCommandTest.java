@@ -42,6 +42,7 @@ import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.testutil.AppointmentBuilder;
 
+//@@author Godxin-test
 public class ScheduleCommandTest {
 
     @Rule
@@ -208,6 +209,12 @@ public class ScheduleCommandTest {
 
         @Override
         public void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateAppointment(Appointment target, Appointment rescheduledAppointment)
+                throws DuplicateAppointmentException {
             fail("This method should not be called.");
         }
 

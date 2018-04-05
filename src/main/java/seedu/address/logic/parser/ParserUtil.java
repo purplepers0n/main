@@ -264,12 +264,31 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String description} into a {@code Descripton}
+     * Parses a {@code Optional<String> duration} into an {@code Optional<Duration>} if {@code duration} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Duration> parseDuration(Optional<String> duration) throws IllegalValueException {
+        requireNonNull(duration);
+        return duration.isPresent() ? Optional.of(parseDuration(duration.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}
      * leading and trailing whitespaces will be trimmed.
      */
     public static Description parseDescription(String description) throws IllegalValueException {
         requireNonNull(description);
         return new Description(description.trim());
+    }
+
+    /**
+     * Parses a {@code Optional<String> description} into an {@code Optional<Description>}
+     * if {@code description} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Description> parseDescription(Optional<String> description) throws IllegalValueException {
+        requireNonNull(description);
+        return description.isPresent() ? Optional.of(parseDescription(description.get())) : Optional.empty();
     }
 
     /**
