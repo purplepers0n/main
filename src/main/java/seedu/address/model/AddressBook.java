@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -260,6 +261,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
     public boolean removePerson(Person key) throws PersonNotFoundException {
+        ArrayList<ClientOwnPet> toRemoveClientPetAssociationList = new ArrayList<>();
+        ArrayList<Pet> toRemovePetList = new ArrayList<>();
+
+        for (ClientOwnPet cop : clientPetAssociations) {
+            if (cop.getClient().equals(key)) {
+                toRemoveClientPetAssociationList.add(cop);
+                toRemovePetList.add(cop.getPet());
+            }
+        }
+
+        clientPetAssociations.removeAll(toRemoveClientPetAssociationList);
+        pets.getInternalList().removeAll(toRemovePetList);
         if (!persons.remove(key)) {
             throw new PersonNotFoundException();
         }
@@ -587,5 +600,5 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags, appointments, pets);
     }
-
 }
+
