@@ -16,7 +16,7 @@ import seedu.address.model.pet.exceptions.DuplicatePetException;
 
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of objects to be used in tests.
  */
 public class TypicalAddressBook {
 
@@ -60,31 +60,14 @@ public class TypicalAddressBook {
         return ab;
     }
 
-    public static AddressBook getTypicalAddressBookWithNoAppointments() {
+    /**
+     * Returns an {@code AddressBook} without the persons list
+     */
+    public static AddressBook getTypicalAddressBookEmpty() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            try {
-                ab.addPerson(person);
-            } catch (DuplicatePersonException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        for (Pet pet : getTypicalPets()) {
-            try {
-                ab.addPet(pet);
-            } catch (DuplicatePetException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        for (ClientOwnPet cop : getTypicalAssociations()) {
-            try {
-                ab.addPetToClient(cop.getPet(), cop.getClient());
-            } catch (ClientAlreadyOwnsPetException | PetAlreadyHasOwnerException e) {
-                throw new AssertionError("not possible");
-            }
-        }
         return ab;
     }
+
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(TypicalPersons.getTypicalPersons());

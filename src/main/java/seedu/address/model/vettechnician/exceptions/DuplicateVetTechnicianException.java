@@ -2,6 +2,7 @@ package seedu.address.model.vettechnician.exceptions;
 
 import seedu.address.commons.exceptions.DuplicateDataException;
 
+//@@author jonathanwj-reused
 /**
  * Signals that the operation will result in duplicate VetTechnician objects
  */

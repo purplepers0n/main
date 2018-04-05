@@ -3,8 +3,10 @@ package seedu.address.model.appointment;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * Represents an Appointment in the application.
@@ -17,6 +19,7 @@ public class Appointment {
     private final Duration duration;
     private final Description description;
     private ClientOwnPet clientOwnPet;
+    private Optional<VetTechnician> vetTech;
 
     /**
      * Every field must be present and not null.
@@ -27,8 +30,8 @@ public class Appointment {
         this.time = time;
         this.duration = duration;
         this.description = description;
-        this.clientOwnPet = null;
-
+        clientOwnPet = null;
+        vetTech = Optional.empty();
     }
 
     public Appointment(Appointment toCopy) {
@@ -37,6 +40,7 @@ public class Appointment {
         duration = toCopy.getDuration();
         description = toCopy.getDescription();
         clientOwnPet = toCopy.getClientOwnPet();
+        vetTech = toCopy.getOptionalVetTechnician();
     }
 
     public Date getDate() {
@@ -59,12 +63,28 @@ public class Appointment {
         return clientOwnPet;
     }
 
+    public Optional<VetTechnician> getOptionalVetTechnician() {
+        return vetTech;
+    }
+    public VetTechnician getVetTechnician() {
+        return vetTech.orElse(null);
+    }
+
+
     public void setClientOwnPet(ClientOwnPet clientOwnPet) {
         this.clientOwnPet = clientOwnPet;
     }
 
     public void setClientOwnPetToNull() {
-        this.clientOwnPet = null;
+        clientOwnPet = null;
+    }
+
+    public void setVetTech(VetTechnician vetTech) {
+        this.vetTech = Optional.of(vetTech);
+    }
+
+    public void removeVetTech() {
+        vetTech = Optional.empty();
     }
 
     @Override
@@ -79,7 +99,8 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getDate().equals(this.getDate())
-                && otherAppointment.getTime().equals(this.getTime());
+                && otherAppointment.getTime().equals(this.getTime())
+                && otherAppointment.getOptionalVetTechnician().equals(this.getOptionalVetTechnician());
 
     }
 

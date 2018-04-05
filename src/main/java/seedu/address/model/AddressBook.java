@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,12 +17,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationListEmptyException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
@@ -31,6 +34,7 @@ import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.PersonsListIsEmptyException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.UniquePetList;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
@@ -38,6 +42,7 @@ import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 
 /**
@@ -70,7 +75,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         clientPetAssociations = FXCollections.observableArrayList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons and Tags in the {@code toBeCopied}
@@ -86,9 +92,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-    public void sortClientList() {
-        this.persons.sort();
+    //@@author md-azsa
+    /**
+     * Sorts the persons list lexicographically.
+     * @throws PersonsListIsEmptyException
+     */
+    public void sortClientList() throws PersonsListIsEmptyException {
+        if (persons.isEmpty()) {
+            throw new PersonsListIsEmptyException();
+        } else {
+            this.persons.sort();
+        }
     }
+    //@@author
 
     public void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);
@@ -98,16 +114,29 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.appointments.setAppointments(appointments);
     }
 
+    //@@author md-azsa
+    /**
+     * Sets the list of pets to contain data
+     */
     public void setPets(List<Pet> pets) throws DuplicatePetException {
         this.pets.setPets(pets);
     }
 
-    public void sortPetList() {
-        this.pets.sort();
+    /**
+     * Sorts the pet list lexicographically.
+     */
+    public void sortPetList() throws ClientPetAssociationListEmptyException {
+        if (clientPetAssociations.isEmpty()) {
+            throw new ClientPetAssociationListEmptyException();
+        } else {
+            this.clientPetAssociations.sort((ClientOwnPet a, ClientOwnPet b) ->
+                    a.getPet().getPetName().toString().compareTo(b.getPet().getPetName().toString()));
+        }
     }
 
     /**
      * Sorts the appointment internal list.
+     *
      * @throws AppointmentListIsEmptyException
      */
     public void sortAppointmentList() throws AppointmentListIsEmptyException {
@@ -117,6 +146,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             appointments.sort();
         }
     }
+    //@@author
 
     public void setClientPetAssociations(List<ClientOwnPet> associations) {
         this.clientPetAssociations.setAll(associations);
@@ -179,9 +209,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedPerson}.
      *
      * @throws DuplicatePersonException if updating the client's details causes the client to be equivalent to
-     *      another existing client in the list.
-     * @throws PersonNotFoundException if {@code target} could not be found in the list.
-     *
+     *                                  another existing client in the list.
+     * @throws PersonNotFoundException  if {@code target} could not be found in the list.
      * @see #syncWithMasterTagList(Person)
      */
     public void updatePerson(Person target, Person editedPerson)
@@ -196,9 +225,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     *  Updates the master tag list to include tags in {@code person} that are not in the list.
-     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
-     *  list.
+     * Updates the master tag list to include tags in {@code person} that are not in the list.
+     *
+     * @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
+     * list.
      */
     private Person syncWithMasterTagList(Person person) {
         Person syncedPerson;
@@ -231,11 +261,39 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
     public boolean removePerson(Person key) throws PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
+        ArrayList<ClientOwnPet> toRemoveClientPetAssociationList = new ArrayList<>();
+        ArrayList<Pet> toRemovePetList = new ArrayList<>();
+
+        for (ClientOwnPet cop : clientPetAssociations) {
+            if (cop.getClient().equals(key)) {
+                toRemoveClientPetAssociationList.add(cop);
+                toRemovePetList.add(cop.getPet());
+            }
+        }
+
+        clientPetAssociations.removeAll(toRemoveClientPetAssociationList);
+        pets.getInternalList().removeAll(toRemovePetList);
+        if (!persons.remove(key)) {
             throw new PersonNotFoundException();
         }
+
+        // Removes vet from any existing appointment
+        for (Appointment appointment : appointments) {
+            appointment.getOptionalVetTechnician().ifPresent(technician -> {
+                try {
+                    if (technician.equals(key)) {
+                        removeVetFromAppointment(appointment);
+                    }
+                } catch (AppointmentNotFoundException e) {
+                    throw new AssertionError("Appointment should be found");
+                } catch (DuplicateAppointmentException e) {
+                    throw new AssertionError("Program should not have duplicate appointments");
+                } catch (VetTechnicianNotFoundException e) {
+                    throw new AssertionError("VetTechnician should be found");
+                }
+            });
+        }
+        return true;
     }
 
     //// tag-level operations
@@ -248,10 +306,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Schedule an appointment to the address book.
+     *
      * @throws DuplicateAppointmentException if an equivalent person already exists.
      */
     public void scheduleAppointment(Appointment a) throws DuplicateAppointmentException {
         appointments.add(a);
+        appointments.sort();
     }
 
     /**
@@ -271,6 +331,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// pet-level operations
 
+    //@@author md-azsa
     /**
      * Adds a pet to the program.
      * Also checks the new pet's tags and updates {@link #tags} with any new tags found,
@@ -308,9 +369,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     *  Updates the master tag list to include tags in {@code person} that are not in the list.
-     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
-     *  list.
+     * Updates the master tag list to include tags in {@code person} that are not in the list.
+     *
+     * @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
+     * list.
      */
     private Pet syncWithMasterPetTagList(Pet pet) {
         Pet syncedPet;
@@ -330,9 +392,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncedPet = new Pet(pet.getPetName(), pet.getPetAge(), pet.getPetGender(), correctTagReferences);
         return syncedPet;
     }
+    //@@author
 
     //// Association methods
 
+    //@@author jonathanwj
     /**
      * Associates pet to client
      *
@@ -354,6 +418,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     }
 
+    //@@author
+    //@@author md-azsa
     /**
      * Finds the pet and adds the appointment
      */
@@ -389,7 +455,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (isPresent && !isAdded) {
             throw new PetAlreadyHasAppointmentException();
         }
-
     }
 
     /**
@@ -405,7 +470,9 @@ public class AddressBook implements ReadOnlyAddressBook {
             appointments.setAppointment(appointment, appointmentCopy);
         }
     }
+    //@@author
 
+    //@@author jonathanwj
     /**
      * Returns true if specified pet has an owner
      */
@@ -418,7 +485,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return false;
     }
 
-
+    //@@author jonathanwj
     /**
      * Removes association from pet and client
      *
@@ -433,9 +500,44 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    //@@author jonathanwj
+    /**
+     * Adds vet technician to appointment
+     */
+    public void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
+            throws AppointmentNotFoundException, AppointmentAlreadyHasVetTechnicianException,
+            DuplicateAppointmentException {
+        if (!appointments.contains(appointment)) {
+            throw new AppointmentNotFoundException();
+        }
+        if (appointment.getOptionalVetTechnician().isPresent()) {
+            throw new AppointmentAlreadyHasVetTechnicianException();
+        }
+        Appointment appointmentCopy = new Appointment(appointment);
+        appointmentCopy.setVetTech(technician);
+        appointments.setAppointment(appointment, appointmentCopy);
+    }
+
+    //@@author jonathanwj
+    /**
+     * Removes a vet technician from the given appointment
+     */
+    public void removeVetFromAppointment(Appointment apptToRemoveVetFrom)
+            throws AppointmentNotFoundException, DuplicateAppointmentException,
+            VetTechnicianNotFoundException {
+        if (!appointments.contains(apptToRemoveVetFrom)) {
+            throw new AppointmentNotFoundException();
+        }
+        if (!apptToRemoveVetFrom.getOptionalVetTechnician().isPresent()) {
+            throw new VetTechnicianNotFoundException();
+        }
+        Appointment appointmentCopy = new Appointment(apptToRemoveVetFrom);
+        appointmentCopy.removeVetTech();
+        appointments.setAppointment(apptToRemoveVetFrom, appointmentCopy);
+    }
 
     //// util methods
-
+    //@@author
     @Override
     public String toString() {
         return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags "
@@ -479,6 +581,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 && this.pets.equals(((AddressBook) other).pets);
     }
 
+    //@@author jonathanwj
     @Override
     public ObservableList<Client> getClientList() {
         ObservableList<Client> clientList = EasyBind.map(getPersonList(), (person) -> {
@@ -492,6 +595,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return clientList;
     }
 
+    //@@author jonathanwj
     @Override
     public ObservableList<VetTechnician> getVetTechnicianList() {
         ObservableList<VetTechnician> technicianList = EasyBind.map(getPersonList(), (person) -> {
@@ -505,9 +609,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return technicianList;
     }
 
+    //@@author
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags, appointments, pets);
     }
 }
+

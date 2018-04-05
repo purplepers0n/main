@@ -245,6 +245,17 @@ public class ScheduleCommandTest {
         }
 
         @Override
+        public void addVetTechToAppointment(VetTechnician technician, Appointment appointment) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
+                throws DuplicateAppointmentException, AppointmentNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void sortClientList() {
             fail("This method should not be called.");
         }

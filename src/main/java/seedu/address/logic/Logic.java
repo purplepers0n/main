@@ -53,6 +53,11 @@ public interface Logic {
     List<String> autoCompleteCommands(String keyWord);
 
     /**
+     * Returns the String concatenation of the next missing prefix parameter with the input string.
+     */
+    String autoCompleteNextParameter(String input);
+
+    /**
      * Sets the index of the current list that is viewed
      */
     void setCurrentList(int currList);

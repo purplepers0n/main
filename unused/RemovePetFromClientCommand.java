@@ -16,6 +16,9 @@ import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundEx
 import seedu.address.model.client.Client;
 import seedu.address.model.pet.Pet;
 
+//@@author jonathanwj-unused
+// Entire command was merged into AddPetCommand that
+// currently creates a pet and adds that pet to the client in one command.
 /**
  * Edits the details of an existing person in the address book.
  */

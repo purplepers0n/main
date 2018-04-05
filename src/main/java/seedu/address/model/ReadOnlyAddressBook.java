@@ -52,4 +52,5 @@ public interface ReadOnlyAddressBook {
      * Returns an unmodifiable view of the vet technician list.
      */
     ObservableList<VetTechnician> getVetTechnicianList();
+
 }

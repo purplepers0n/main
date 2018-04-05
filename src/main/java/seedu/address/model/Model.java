@@ -4,12 +4,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
+import seedu.address.model.association.exceptions.ClientPetAssociationListEmptyException;
 import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundException;
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
@@ -17,10 +19,12 @@ import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.PersonsListIsEmptyException;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 
 /**
@@ -64,7 +68,7 @@ public interface Model {
     /**
      * Sorts the given client list.
      */
-    void sortClientList();
+    void sortClientList() throws PersonsListIsEmptyException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -157,7 +161,7 @@ public interface Model {
     /**
      * Sorts the pet list.
      */
-    void sortPetList();
+    void sortPetList() throws ClientPetAssociationListEmptyException;
 
     /** Returns an unmodifiable view of the filtered client pet association list */
     ObservableList<ClientOwnPet> getClientPetAssociationList();
@@ -205,4 +209,17 @@ public interface Model {
      * Get the index of the current list that is viewed
      */
     int getCurrentList();
+
+    /**
+     * Adds the given Vet Technician to the given appointment
+     */
+    void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
+            throws AppointmentAlreadyHasVetTechnicianException,
+            DuplicateAppointmentException, AppointmentNotFoundException;
+
+    /**
+     * Removes the vet from the given appointment
+     */
+    void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
+            throws DuplicateAppointmentException, AppointmentNotFoundException, VetTechnicianNotFoundException;
 }

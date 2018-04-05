@@ -57,6 +57,22 @@
         <role>TECHNICIAN</role>
         <tagged>friends</tagged>
     </persons>
+    <persons>
+        <name>Boon me</name>
+        <phone>9484442</phone>
+        <email>abra@example.com</email>
+        <address>5th street</address>
+        <role>TECHNICIAN</role>
+        <tagged>friends</tagged>
+    </persons>
+    <persons>
+        <name>Swee do</name>
+        <phone>9482142</phone>
+        <email>ane@example.com</email>
+        <address>6th street</address>
+        <role>TECHNICIAN</role>
+        <tagged>friends</tagged>
+    </persons>
     <tags>friends</tags>
     <tags>owesMoney</tags>
     <tags>cat</tags>

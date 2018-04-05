@@ -11,6 +11,7 @@ import seedu.address.model.appointment.Description;
 import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 import seedu.address.model.association.ClientOwnPet;
+import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * JAXB-friendly version of the Appointment.
@@ -29,6 +30,8 @@ public class XmlAdaptedAppointment {
     private String description;
     @XmlElement(required = true)
     private XmlAdaptedClientOwnPet association;
+    @XmlElement(required = true)
+    private XmlAdaptedPerson vetTech;
 
     /**
      * Constructs an XmlAdaptedAppointment.
@@ -58,6 +61,9 @@ public class XmlAdaptedAppointment {
         description = source.getDescription().toString();
         if (source.getClientOwnPet() != null) {
             association = new XmlAdaptedClientOwnPet(source.getClientOwnPet());
+        }
+        if (source.getVetTechnician() != null) {
+            vetTech = new XmlAdaptedPerson(source.getVetTechnician());
         }
     }
 
@@ -104,12 +110,16 @@ public class XmlAdaptedAppointment {
         }
         final Description description = new Description(this.description);
 
-        if (this.association == null) {
-            convertedAppointment = new Appointment(date, time, duration, description);
-        } else {
+        convertedAppointment = new Appointment(date, time, duration, description);
+
+        if (this.association != null) {
             ClientOwnPet cop = association.toModelType();
-            convertedAppointment = new Appointment(date, time, duration, description);
             convertedAppointment.setClientOwnPet(cop);
+        }
+
+        if (this.vetTech != null) {
+            VetTechnician vetTech = (VetTechnician) this.vetTech.toModelType();
+            convertedAppointment.setVetTech(vetTech);
         }
 
         return convertedAppointment;

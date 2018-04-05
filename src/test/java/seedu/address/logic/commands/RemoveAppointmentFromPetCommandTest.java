@@ -37,6 +37,7 @@ import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundEx
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 
+//@@author md-azsa
 /**
  * Contains integration test and unit tests for RemoveAppointmentFromPetCommand
  */

@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Person values as in
-{@code TypicalPersons#getTypicalAddressBook()}-->
 <addressbook>
     <persons>
         <name>Alice Pauline</name>
@@ -25,6 +23,7 @@
         <email>heinz@example.com</email>
         <address>wall street</address>
         <role>CLIENT</role>
+        <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Daniel Meier</name>
@@ -32,6 +31,7 @@
         <email>cornelia@example.com</email>
         <address>10th street</address>
         <role>CLIENT</role>
+        <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Elle Meyer</name>
@@ -39,6 +39,7 @@
         <email>werner@example.com</email>
         <address>michegan ave</address>
         <role>CLIENT</role>
+        <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
@@ -46,6 +47,7 @@
         <email>lydia@example.com</email>
         <address>little tokyo</address>
         <role>CLIENT</role>
+        <tagged>friends</tagged>
     </persons>
     <persons>
         <name>George Best</name>
@@ -53,6 +55,23 @@
         <email>anna@example.com</email>
         <address>4th street</address>
         <role>TECHNICIAN</role>
+        <tagged>friends</tagged>
+    </persons>
+    <persons>
+        <name>Boon me</name>
+        <phone>9484442</phone>
+        <email>abra@example.com</email>
+        <address>5th street</address>
+        <role>TECHNICIAN</role>
+        <tagged>friends</tagged>
+    </persons>
+    <persons>
+        <name>Swee do</name>
+        <phone>9482142</phone>
+        <email>ane@example.com</email>
+        <address>6th street</address>
+        <role>TECHNICIAN</role>
+        <tagged>friends</tagged>
     </persons>
     <tags>friends</tags>
     <tags>owesMoney</tags>
