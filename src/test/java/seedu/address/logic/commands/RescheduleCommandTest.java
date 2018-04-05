@@ -3,24 +3,18 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_APPT1;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_APPT2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATE1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DURATION1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_TIME1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_CLIENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_TECHNICIAN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showAppointmentAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_APPT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -35,10 +29,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.AppointmentBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.RescheduleAppointmentDescriptorBuilder;
 
 //@@author Godxin-test
@@ -52,10 +43,12 @@ public class RescheduleCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
         Appointment rescheduledAppointment = new AppointmentBuilder().build();
-        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder(rescheduledAppointment).build();
+        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder(rescheduledAppointment)
+                .build();
         RescheduleCommand rescheduleCommand = prepareCommand(INDEX_FIRST_APPT, descriptor);
 
-        String expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS, rescheduledAppointment);
+        String expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS,
+                rescheduledAppointment);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateAppointment(model.getFilteredAppointmentList().get(0), rescheduledAppointment);
@@ -69,14 +62,16 @@ public class RescheduleCommandTest {
         Appointment lastAppointment = model.getFilteredAppointmentList().get(indexLastAppointment.getZeroBased());
 
         AppointmentBuilder appointmentInList = new AppointmentBuilder(lastAppointment);
-        Appointment rescheduledAppointment = appointmentInList.withDate(VALID_APPOINTMENT_DATE1).withTime(VALID_APPOINTMENT_TIME1)
-                .withDuration(VALID_APPOINTMENT_DURATION1).build();
-
-        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder().withDate(VALID_APPOINTMENT_DATE1)
+        Appointment rescheduledAppointment = appointmentInList.withDate(VALID_APPOINTMENT_DATE1)
                 .withTime(VALID_APPOINTMENT_TIME1).withDuration(VALID_APPOINTMENT_DURATION1).build();
+
+        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder()
+                .withDate(VALID_APPOINTMENT_DATE1).withTime(VALID_APPOINTMENT_TIME1)
+                .withDuration(VALID_APPOINTMENT_DURATION1).build();
         RescheduleCommand rescheduleCommand = prepareCommand(indexLastAppointment, descriptor);
 
-        String expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS, rescheduledAppointment);
+        String expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS,
+                rescheduledAppointment);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateAppointment(lastAppointment, rescheduledAppointment);
@@ -89,7 +84,8 @@ public class RescheduleCommandTest {
         RescheduleCommand rescheduleCommand = prepareCommand(INDEX_FIRST_APPT, new RescheduleAppointmentDescriptor());
         Appointment rescheduledAppointment = model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased());
 
-        String expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS, rescheduledAppointment);
+        String expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS,
+                rescheduledAppointment);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
@@ -100,12 +96,14 @@ public class RescheduleCommandTest {
     public void execute_filteredList_success() throws Exception {
 
         Appointment appointmentInFilteredList = model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased());
-        Appointment rescheduledAppointment = new AppointmentBuilder(appointmentInFilteredList).withDate(VALID_APPOINTMENT_DATE1).build();
+        Appointment rescheduledAppointment = new AppointmentBuilder(appointmentInFilteredList)
+                .withDate(VALID_APPOINTMENT_DATE1).build();
 
         RescheduleCommand rescheduleCommand = prepareCommand(INDEX_FIRST_APPT,
                 new RescheduleAppointmentDescriptorBuilder().withDate(VALID_APPOINTMENT_DATE1).build());
 
-        String expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS, rescheduledAppointment);
+        String expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS,
+                rescheduledAppointment);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateAppointment(model.getFilteredAppointmentList().get(0), rescheduledAppointment);
@@ -116,61 +114,49 @@ public class RescheduleCommandTest {
         appointmentInFilteredList = model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased());
         Appointment rescheduledAnotherAppointment = new AppointmentBuilder(appointmentInFilteredList)
                 .withDate(VALID_APPOINTMENT_DATE1).build();
-        rescheduleCommand = prepareCommand(INDEX_FIRST_PERSON,
+        rescheduleCommand = prepareCommand(INDEX_FIRST_APPT,
                 new RescheduleAppointmentDescriptorBuilder().withDate(VALID_APPOINTMENT_DATE1).build());
 
-        expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS, rescheduledAnotherAppointment);
+        expectedMessage = String.format(RescheduleCommand.MESSAGE_RESCHEDULE_APPOINTMENT_SUCCESS,
+                rescheduledAnotherAppointment);
 
         expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateAppointment(model.getFilteredAppointmentList().get(0), rescheduledAnotherAppointment);
 
         assertCommandSuccess(rescheduleCommand, model, expectedMessage, expectedModel);
-
-        // edit vet technician to client
-        model.setCurrentList(2);
-        Person technicianInFilteredList = model.getFilteredVetTechnicianList().get(INDEX_FIRST_PERSON.getZeroBased());
-        editedPerson = new PersonBuilder(technicianInFilteredList)
-                .withName(VALID_NAME_BOB).buildWithRoleClient();
-        editCommand = prepareCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withRole(VALID_ROLE_CLIENT).build());
-        editCommand.setCurrentList();
-
-        expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(model.getFilteredVetTechnicianList().get(0), editedPerson);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
-        EditCommand editCommand = prepareCommand(INDEX_SECOND_PERSON, descriptor);
+    public void execute_duplicateAppointmentUnfilteredList_failure() {
+        Appointment firstAppointment = model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased());
+        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder(firstAppointment)
+                .build();
+        RescheduleCommand rescheduleCommand = prepareCommand(INDEX_SECOND_APPT, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(rescheduleCommand, model, RescheduleCommand.MESSAGE_DUPLICATE_APPOINTMENT);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_duplicateAppointmentFilteredList_failure() {
+        showAppointmentAtIndex(model, INDEX_FIRST_APPT);
 
-        // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(personInList).build());
+        // reschedule the appointment in filtered list into a duplicate in address book
+        Appointment appointmentInList = model.getAddressBook().getAppointmentList()
+                .get(INDEX_SECOND_APPT.getZeroBased());
+        RescheduleCommand rescheduleCommand = prepareCommand(INDEX_FIRST_APPT,
+                new RescheduleAppointmentDescriptorBuilder(appointmentInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(rescheduleCommand, model, RescheduleCommand.MESSAGE_DUPLICATE_APPOINTMENT);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
+    public void execute_invalidAppointmentIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
+        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder()
+                .withDate(VALID_APPOINTMENT_DATE1).build();
+        RescheduleCommand rescheduleCommand = prepareCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(rescheduleCommand, model, Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
     }
 
     /**
@@ -179,15 +165,15 @@ public class RescheduleCommandTest {
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        showAppointmentAtIndex(model, INDEX_FIRST_APPT);
+        Index outOfBoundIndex = INDEX_SECOND_APPT;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getAppointmentList().size());
 
-        EditCommand editCommand = prepareCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+        RescheduleCommand rescheduleCommand = prepareCommand(outOfBoundIndex,
+                new RescheduleAppointmentDescriptorBuilder().withDate(VALID_APPOINTMENT_DATE1).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(rescheduleCommand, model, Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
     }
 
     @Test
@@ -195,21 +181,22 @@ public class RescheduleCommandTest {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
-        Person editedPerson = new PersonBuilder().buildWithRoleClient();
-        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
+        Appointment rescheduledAppointment = new AppointmentBuilder().build();
+        Appointment appointmentToReschedule = model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased());
+        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder(rescheduledAppointment)
+                .build();
+        RescheduleCommand rescheduleCommand = prepareCommand(INDEX_FIRST_APPT, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
-        // edit -> first person edited
-        editCommand.execute();
-        undoRedoStack.push(editCommand);
+        // edit -> first appointment rescheduled
+        rescheduleCommand.execute();
+        undoRedoStack.push(rescheduleCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered appointment list to show all appointments
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first person edited again
-        expectedModel.updatePerson(personToEdit, editedPerson);
+        // redo -> same first appointment rescheduled again
+        expectedModel.updateAppointment(appointmentToReschedule, rescheduledAppointment);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -218,12 +205,13 @@ public class RescheduleCommandTest {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
+        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder()
+                .withDate(VALID_APPOINTMENT_DATE1).build();
+        RescheduleCommand rescheduleCommand = prepareCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> editCommand not pushed into undoRedoStack
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        // execution failed -> rescheduleCommand not pushed into undoRedoStack
+        assertCommandFailure(rescheduleCommand, model, Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
 
         // no commands in undoRedoStack -> undoCommand and redoCommand fail
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
@@ -231,44 +219,48 @@ public class RescheduleCommandTest {
     }
 
     /**
-     * 1. Edits a {@code Person} from a filtered list.
-     * 2. Undo the edit.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously edited person in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the edit. This ensures {@code RedoCommand} edits the person object regardless of indexing.
+     * 1. Reschedules an {@code Appointment} from a filtered list.
+     * 2. Undo the reschedule.
+     * 3. The unfiltered list should be shown now. Verify that the index of the previously rescheduled appointment
+     * in the unfiltered list is different from the index at the filtered list.
+     * 4. Redo the reschedule. This ensures {@code RedoCommand} reschedules the appointment object
+     * regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
+    public void executeUndoRedo_validIndexFilteredList_sameAppointmentEdited() throws Exception {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
-        Person editedPerson = new PersonBuilder().buildWithRoleClient();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
+        Appointment rescheduledAppointment = new AppointmentBuilder().build();
+        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder(rescheduledAppointment)
+                .build();
+        RescheduleCommand rescheduleCommand = prepareCommand(INDEX_FIRST_APPT, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        // edit -> edits second person in unfiltered person list / first person in filtered person list
-        editCommand.execute();
-        undoRedoStack.push(editCommand);
+        showAppointmentAtIndex(model, INDEX_SECOND_APPT);
+        Appointment appointmentToReschedule = model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased());
+        // reschedule -> reschedules the second appointment in unfiltered appointment list /
+        // first appointment in filtered appointment list
+        rescheduleCommand.execute();
+        undoRedoStack.push(rescheduleCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered appointment list to show all appointments
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        expectedModel.updatePerson(personToEdit, editedPerson);
-        assertNotEquals(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), personToEdit);
-        // redo -> edits same second person in unfiltered person list
+        expectedModel.updateAppointment(appointmentToReschedule, rescheduledAppointment);
+        assertNotEquals(model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased()),
+                appointmentToReschedule);
+        // redo -> reschedules the same second appointment in unfiltered appointment list
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void equals() throws Exception {
-        final EditCommand standardCommand = prepareCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final RescheduleCommand standardCommand = prepareCommand(INDEX_FIRST_APPT, DESC_APPT1);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = prepareCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        RescheduleAppointmentDescriptor copyDescriptor = new RescheduleAppointmentDescriptor(DESC_APPT1);
+        RescheduleCommand commandWithSameValues = prepareCommand(INDEX_FIRST_APPT, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -285,14 +277,14 @@ public class RescheduleCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new RescheduleCommand(INDEX_SECOND_APPT, DESC_APPT1)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new RescheduleCommand(INDEX_FIRST_APPT, DESC_APPT2)));
     }
 
     /**
-     * Returns an {@code EditCommand} with parameters {@code index} and {@code descriptor}
+     * Returns an {@code RescheduleCommand} with parameters {@code index} and {@code descriptor}
      */
     private RescheduleCommand prepareCommand(Index index, RescheduleAppointmentDescriptor descriptor) {
         RescheduleCommand rescheduleCommand = new RescheduleCommand(index, descriptor);
