@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -26,6 +27,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RescheduleCommand;
+import seedu.address.logic.commands.RescheduleCommand.RescheduleAppointmentDescriptor;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -38,6 +41,7 @@ import seedu.address.testutil.AppointmentUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.RescheduleAppointmentDescriptorBuilder;
 
 public class AddressBookParserTest {
     @Rule
@@ -52,7 +56,7 @@ public class AddressBookParserTest {
         assertEquals(new AddCommand(person), command);
     }
 
-
+    //@@author Godxin-test
     @Test
     public void parseCommand_schedule() throws Exception {
         Appointment appointment = new AppointmentBuilder().build();
@@ -60,6 +64,18 @@ public class AddressBookParserTest {
                                     AppointmentUtil.getScheduleCommand(appointment));
         assertEquals(new ScheduleCommand(appointment), command);
     }
+
+    //@@author Godxin-test
+    @Test
+    public void parseCommand_reschedule() throws Exception {
+        Appointment appointment = new AppointmentBuilder().build();
+        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder(appointment).build();
+        RescheduleCommand command = (RescheduleCommand) parser.parseCommand(RescheduleCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_APPT.getOneBased() + " "
+                + AppointmentUtil.getAppointmentDetails(appointment));
+        assertEquals(new RescheduleCommand(INDEX_FIRST_APPT, descriptor), command);
+    }
+
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
