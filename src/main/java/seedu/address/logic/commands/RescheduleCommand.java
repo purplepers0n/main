@@ -119,7 +119,7 @@ public class RescheduleCommand extends UndoableCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ScheduleCommand)) {
+        if (!(other instanceof RescheduleCommand)) {
             return false;
         }
 
