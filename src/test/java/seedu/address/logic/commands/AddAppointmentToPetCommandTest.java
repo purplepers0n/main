@@ -98,7 +98,12 @@ public class AddAppointmentToPetCommandTest {
         command.execute();
         command = prepareCommand(INDEX_FIRST_APPT, INDEX_SECOND_PET);
 
+
+
+
+
         assertCommandFailure(command, model, Messages.MESSAGE_APPOINTMENT_TAKEN);
+
     }
 
     @Test

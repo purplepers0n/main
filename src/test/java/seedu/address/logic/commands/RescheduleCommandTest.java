@@ -13,9 +13,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.showAppointmentAtIndex;
+import static seedu.address.testutil.TypicalAppointments.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_APPT;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -127,29 +127,6 @@ public class RescheduleCommandTest {
     }
 
     @Test
-    public void execute_duplicateAppointmentUnfilteredList_failure() {
-        Appointment firstAppointment = model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased());
-        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder(firstAppointment)
-                .build();
-        RescheduleCommand rescheduleCommand = prepareCommand(INDEX_SECOND_APPT, descriptor);
-
-        assertCommandFailure(rescheduleCommand, model, RescheduleCommand.MESSAGE_DUPLICATE_APPOINTMENT);
-    }
-
-    @Test
-    public void execute_duplicateAppointmentFilteredList_failure() {
-        showAppointmentAtIndex(model, INDEX_FIRST_APPT);
-
-        // reschedule the appointment in filtered list into a duplicate in address book
-        Appointment appointmentInList = model.getAddressBook().getAppointmentList()
-                .get(INDEX_SECOND_APPT.getZeroBased());
-        RescheduleCommand rescheduleCommand = prepareCommand(INDEX_FIRST_APPT,
-                new RescheduleAppointmentDescriptorBuilder(appointmentInList).build());
-
-        assertCommandFailure(rescheduleCommand, model, RescheduleCommand.MESSAGE_DUPLICATE_APPOINTMENT);
-    }
-
-    @Test
     public void execute_invalidAppointmentIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
         RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptorBuilder()
@@ -164,8 +141,9 @@ public class RescheduleCommandTest {
      * but smaller than size of address book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
+    public void execute_invalidAppointmentIndexFilteredList_failure() {
         showAppointmentAtIndex(model, INDEX_FIRST_APPT);
+
         Index outOfBoundIndex = INDEX_SECOND_APPT;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getAppointmentList().size());

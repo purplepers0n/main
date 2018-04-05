@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.RescheduleCommand.RescheduleAppointmentDescriptor;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Description;
 import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 
@@ -60,8 +61,8 @@ public class RescheduleAppointmentDescriptorBuilder {
     /**
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      */
-    public RescheduleAppointmentDescriptorBuilder withDescription(String duration) {
-        descriptor.setDuration(new Duration(duration));
+    public RescheduleAppointmentDescriptorBuilder withDescription(String description) {
+        descriptor.setDescription(new Description(description));
         return this;
     }
 

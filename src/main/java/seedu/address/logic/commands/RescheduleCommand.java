@@ -57,7 +57,7 @@ public class RescheduleCommand extends UndoableCommand {
 
     /**
      * @param index                of the appointment in the filtered appointment list to edit(reschedule)
-     * @param rescheduleAppointmentDescriptor details to edit the person with
+     * @param rescheduleAppointmentDescriptor details to reschedule the appointment with
      */
     public RescheduleCommand(Index index, RescheduleAppointmentDescriptor rescheduleAppointmentDescriptor) {
         requireNonNull(index);
@@ -84,7 +84,7 @@ public class RescheduleCommand extends UndoableCommand {
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
 
-        List< Appointment > appointmentList = model.getFilteredAppointmentList();
+        List<Appointment> appointmentList = model.getFilteredAppointmentList();
         if (index.getZeroBased() >= appointmentList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
         }
