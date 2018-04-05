@@ -28,6 +28,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.RescheduleAppointmentDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -47,10 +48,14 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_APPOINTMENT_DATE1 = "2018-04-01";
-    public static final String VALID_APPOINTMENT_TIME1 = "12:00";
+    public static final String VALID_APPOINTMENT_DATE1 = "2018-01-01";
+    public static final String VALID_APPOINTMENT_DATE2 = "2018-04-04";
+    public static final String VALID_APPOINTMENT_TIME1 = "00:00";
+    public static final String VALID_APPOINTMENT_TIME2 = "14:00";
     public static final String VALID_APPOINTMENT_DURATION1 = "30";
-    public static final String VALID_APPOINTMENT_DESCRIPTION1 = "sterilise Garfield";
+    public static final String VALID_APPOINTMENT_DURATION2 = "60";
+    public static final String VALID_APPOINTMENT_DESCRIPTION1 = "Sterilize garfield";
+    public static final String VALID_APPOINTMENT_DESCRIPTION2 = "Sterilise golf";
 
     public static final String ROLE_DESC_CLIENT = " " + PREFIX_PERSON_ROLE + VALID_ROLE_CLIENT;
     public static final String ROLE_DESC_VETTECHNICIAN = " " + PREFIX_PERSON_ROLE + VALID_ROLE_TECHNICIAN;
@@ -77,6 +82,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final RescheduleCommand.RescheduleAppointmentDescriptor DESC_APPT1;
+    public static final RescheduleCommand.RescheduleAppointmentDescriptor DESC_APPT2;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -85,6 +92,12 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_APPT1 = new RescheduleAppointmentDescriptorBuilder().withDate(VALID_APPOINTMENT_DATE1)
+                .withTime(VALID_APPOINTMENT_TIME1).withDuration(VALID_APPOINTMENT_DURATION1)
+                .withDescription(VALID_APPOINTMENT_DESCRIPTION1).build();
+        DESC_APPT2 = new RescheduleAppointmentDescriptorBuilder().withDate(VALID_APPOINTMENT_DATE2)
+                .withTime(VALID_APPOINTMENT_TIME2).withDuration(VALID_APPOINTMENT_DURATION2)
+                .withDescription(VALID_APPOINTMENT_DESCRIPTION2).build();
     }
 
     /**
@@ -164,7 +177,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Upates {@code model}'s filtered list to show only the appointment at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the appointment at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showAppointmentAtIndex(Model model, Index targetIndex) {
