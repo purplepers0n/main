@@ -28,6 +28,7 @@ public class TypicalAppointments {
 
     private TypicalAppointments() {}
 
+    //@@author Godxin-test
     /**
      * Returns an {@code AddressBook} with all the typical appointments.
      */

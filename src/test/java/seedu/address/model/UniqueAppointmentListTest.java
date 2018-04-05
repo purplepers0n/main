@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.appointment.UniqueAppointmentList;
 
+//@@author Godxin-test
 public class UniqueAppointmentListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

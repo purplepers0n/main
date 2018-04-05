@@ -3,6 +3,7 @@ package seedu.address.model.appointment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author Godxin-functional
 /**
  * Represents an Appointment's date in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
