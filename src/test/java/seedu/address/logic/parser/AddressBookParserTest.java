@@ -6,10 +6,10 @@ import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VETTECH_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -32,9 +32,9 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RemoveVetTechFromAppointmentCommand;
 import seedu.address.logic.commands.RescheduleCommand;
 import seedu.address.logic.commands.RescheduleCommand.RescheduleAppointmentDescriptor;
-import seedu.address.logic.commands.RemoveVetTechFromAppointmentCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;

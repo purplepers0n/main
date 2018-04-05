@@ -38,7 +38,6 @@ import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.testutil.PersonBuilder;
-import sun.security.krb5.internal.APOptions;
 
 public class AddCommandTest {
 
