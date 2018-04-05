@@ -393,6 +393,8 @@ public class RemoveVetTechFromAppointmentCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
         Appointment appointmentToRemoveVetTech = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
+        model.addVetTechToAppointment((VetTechnician) BOON, appointmentToRemoveVetTech);
+        appointmentToRemoveVetTech = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
 
         RemoveVetTechFromAppointmentCommand command = new RemoveVetTechFromAppointmentCommand(INDEX_FIRST);
         command.setData(model, new CommandHistory(), new UndoRedoStack());

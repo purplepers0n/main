@@ -48,6 +48,7 @@ public class AddVetTechToAppointmentCommand extends UndoableCommand {
         requireNonNull(appointment.get());
         try {
             model.addVetTechToAppointment(vetTech.get(), appointment.get());
+            EventsCenter.getInstance().post(new NewApptAvailableEvent(appointment.toString()));
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("The target appointment cannot be a duplicate");
         } catch (AppointmentNotFoundException e) {
@@ -111,12 +112,14 @@ public class RemoveVetTechFromAppointmentCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "removevettechfromappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": removes the vet from appointment identified by the index number"
+            + ": removes the vet technician from appointment identified by the index number"
             + " used in the last appointment listing\n"
             + "Parameters: INDEX (must be a postive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_REMOVE_VET_FROM_APPT_SUCCESS = "Removed Vet from: %1$s";
+    public static final String MESSAGE_REMOVE_VET_FROM_APPT_SUCCESS = "Removed vet technician from: %1$s";
+    public static final String MESSAGE_APPOINTMENT_DOES_NOT_HAVE_TECH = "Appointment "
+            + "does not have a vet technician";
 
     private final Index targetIndex;
 
@@ -127,14 +130,17 @@ public class RemoveVetTechFromAppointmentCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() {
+    public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(apptToRemoveVetFrom);
         try {
             model.removeVetTechFromAppointent(apptToRemoveVetFrom);
+            EventsCenter.getInstance().post(new NewApptAvailableEvent(apptToRemoveVetFrom.toString()));
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("The target appointment cannot be a duplicate");
         } catch (AppointmentNotFoundException e) {
             throw new AssertionError("The target appointment cannot be missing");
+        } catch (VetTechnicianNotFoundException e) {
+            throw new CommandException(MESSAGE_APPOINTMENT_DOES_NOT_HAVE_TECH);
         }
         return new CommandResult(String.format(MESSAGE_REMOVE_VET_FROM_APPT_SUCCESS, apptToRemoveVetFrom));
     }

@@ -587,7 +587,7 @@ public class SortAppointmentCommandTest {
     public ExpectedException error = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model modelWithNoAppointments = new ModelManager(getTypicalAddressBookWithNoAppointments(),
+    private Model modelWithNoAppointments = new ModelManager(getTypicalAddressBookEmpty(),
             new UserPrefs());
 
     @Test
@@ -630,6 +630,67 @@ public class SortAppointmentCommandTest {
 
 }
 ```
+###### \java\seedu\address\logic\commands\SortClientCommandTest.java
+``` java
+/**
+ * Adds integrations test methods for {@code SortClientCommand}
+ */
+public class SortClientCommandTest {
+
+    @Rule
+    public ExpectedException error = ExpectedException.none();
+
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model modelWithNoPersonsList =
+            new ModelManager(getTypicalAddressBookEmpty(), new UserPrefs());
+
+    @Test
+    public void sortEmptyList() throws Exception {
+        error.expect(CommandException.class);
+        prepareCommand(modelWithNoPersonsList).execute();
+    }
+
+    @Test
+    public void sortPersonsList_success() throws Exception {
+        Model modelSorted = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        modelSorted.sortClientList();
+
+        SortClientCommand command = prepareCommand(model);
+        String expectedMessage = SortClientCommand.MESSAGE_SUCCESS;
+
+        assertCommandSuccess(command, model, expectedMessage, modelSorted);
+    }
+
+    @Test
+    public void sortEmptyList_fail() throws Exception {
+        SortClientCommand command = prepareCommand(modelWithNoPersonsList);
+        assertCommandFailure(command, modelWithNoPersonsList, Messages.MESSAGE_PERSONSLIST_EMPTY);
+    }
+
+    @Test
+    public void equal() throws Exception {
+        SortClientCommand command = prepareCommand(model);
+        command.execute();
+
+        // Same objects -> return true
+        assertEquals(command, command);
+
+        // Different types -> return false
+        assertFalse(command.equals(new ClearCommand()));
+
+        // Different references -> return false
+        SortClientCommand commandDiff = prepareCommand(model);
+        commandDiff.execute();
+        assertFalse(command.equals(commandDiff));
+    }
+
+    private SortClientCommand prepareCommand(Model model) {
+        SortClientCommand command = new SortClientCommand();
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        return command;
+    }
+}
+```
 ###### \java\seedu\address\logic\commands\SortPetCommandTest.java
 ``` java
 /**
@@ -642,7 +703,7 @@ public class SortPetCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model modelWithNoClientPetAssociationList =
-            new ModelManager(getTypicalAddressBookWithNoClientPetList(), new UserPrefs());
+            new ModelManager(getTypicalAddressBookEmpty(), new UserPrefs());
 
     @Test
     public void sortEmptyList() throws Exception {
@@ -867,12 +928,50 @@ public class XmlAdaptedAppointmentTest {
     @Test
     public void equals() {
         XmlAdaptedAppointment apptOne = new XmlAdaptedAppointment(APPOINTMENT_1);
+
+        // Same objects -> returns true
         assertEquals(apptOne, apptOne);
+
+        // Different objects -> returns false
         assertNotEquals(apptOne, new Object());
+
+        // Same calls -> returns true
         XmlAdaptedAppointment apptTwo = new XmlAdaptedAppointment(APPOINTMENT_1);
         assertEquals(apptOne, apptTwo);
+
+        // Different calls -> returns false
         XmlAdaptedAppointment apptThree = new XmlAdaptedAppointment(APPOINTMENT_2);
         assertNotEquals(apptOne, apptThree);
+    }
+}
+```
+###### \java\seedu\address\storage\XmlAdaptedPetTest.java
+``` java
+public class XmlAdaptedPetTest {
+
+    @Test
+    public void toModelType_validPet_returnsModel() throws Exception {
+        XmlAdaptedPet pet = new XmlAdaptedPet(TypicalPets.GARFIELD);
+        assertEquals(TypicalPets.GARFIELD, pet.toModelType());
+    }
+
+    @Test
+    public void equals() {
+        XmlAdaptedPet petOne = new XmlAdaptedPet(TypicalPets.GARFIELD);
+
+        // Same objects -> returns true
+        assertEquals(petOne, petOne);
+
+        // Different objects -> returns false
+        assertNotEquals(petOne, new Object());
+
+        // Same calls -> returns true
+        XmlAdaptedPet petTwo = new XmlAdaptedPet(TypicalPets.GARFIELD);
+        assertEquals(petOne, petTwo);
+
+        // Different calls -> returns false
+        XmlAdaptedPet petThree = new XmlAdaptedPet(TypicalPets.LOTSO);
+        assertNotEquals(petOne, petThree);
     }
 }
 ```
@@ -968,66 +1067,6 @@ public class PetUtil {
         return sb.toString();
     }
 }
-```
-###### \java\seedu\address\testutil\TypicalAddressBook.java
-``` java
-    /**
-     * Returns an {@code AddressBook} without appointments embedded
-     */
-    public static AddressBook getTypicalAddressBookWithNoAppointments() {
-        AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            try {
-                ab.addPerson(person);
-            } catch (DuplicatePersonException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        for (Pet pet : getTypicalPets()) {
-            try {
-                ab.addPet(pet);
-            } catch (DuplicatePetException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        for (ClientOwnPet cop : getTypicalAssociations()) {
-            try {
-                ab.addPetToClient(cop.getPet(), cop.getClient());
-            } catch (ClientAlreadyOwnsPetException | PetAlreadyHasOwnerException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        return ab;
-    }
-
-    /**
-     * Returns an {@code AddressBook} without the client pet list association
-     */
-    public static AddressBook getTypicalAddressBookWithNoClientPetList() {
-        AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            try {
-                ab.addPerson(person);
-            } catch (DuplicatePersonException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        for (Pet pet : getTypicalPets()) {
-            try {
-                ab.addPet(pet);
-            } catch (DuplicatePetException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        for (Appointment appt : getTypicalAppointments()) {
-            try {
-                ab.scheduleAppointment(appt);
-            } catch (DuplicateAppointmentException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        return ab;
-    }
 ```
 ###### \java\seedu\address\testutil\TypicalAppointments.java
 ``` java

@@ -45,6 +45,7 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
         requireAllNonNull(model, pet.get(), appointment.get());
         try {
             model.addAppointmentToPet(appointment.get(), pet.get());
+            EventsCenter.getInstance().post(new NewApptAvailableEvent(appointment.toString()));
         } catch (PetAlreadyHasAppointmentException e) {
             throw new CommandException(MESSAGE_PET_HAS_APPOINTMENT);
         } catch (ClientPetAssociationNotFoundException e) {
@@ -342,7 +343,11 @@ public class SortClientCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
-        model.sortClientList();
+        try {
+            model.sortClientList();
+        } catch (PersonsListIsEmptyException e) {
+            throw new CommandException(Messages.MESSAGE_PERSONSLIST_EMPTY);
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
@@ -521,6 +526,20 @@ public class RemoveAppointmentFromPetParser implements
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
+```
+###### \java\seedu\address\model\AddressBook.java
+``` java
+    /**
+     * Sorts the persons list lexicographically.
+     * @throws PersonsListIsEmptyException
+     */
+    public void sortClientList() throws PersonsListIsEmptyException {
+        if (persons.isEmpty()) {
+            throw new PersonsListIsEmptyException();
+        } else {
+            this.persons.sort();
+        }
+    }
 ```
 ###### \java\seedu\address\model\AddressBook.java
 ``` java
@@ -755,7 +774,7 @@ public class Description {
 ###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
-    public void sortClientList() {
+    public void sortClientList() throws PersonsListIsEmptyException {
         addressBook.sortClientList();
         indicateAddressBookChanged();
     }
@@ -806,6 +825,15 @@ public class Description {
     public void sortAppointmentList() throws AppointmentListIsEmptyException {
         addressBook.sortAppointmentList();
         indicateAddressBookChanged();
+    }
+```
+###### \java\seedu\address\model\person\UniquePersonList.java
+``` java
+    /**
+     * Sorts the internal list
+     */
+    public void sort() {
+        internalList.sort((Person one, Person two) -> one.getName().toString().compareTo(two.getName().toString()));
     }
 ```
 ###### \java\seedu\address\model\pet\Pet.java
@@ -1123,6 +1151,10 @@ public class UniquePetList implements Iterable<Pet> {
      */
     public ObservableList<Pet> asObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
+    }
+
+    public ObservableList<Pet> getInternalList() {
+        return internalList;
     }
 
     @Override

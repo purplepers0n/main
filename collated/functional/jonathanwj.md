@@ -393,9 +393,13 @@ public class Trie {
      * Removes a vet technician from the given appointment
      */
     public void removeVetFromAppointment(Appointment apptToRemoveVetFrom)
-            throws AppointmentNotFoundException, DuplicateAppointmentException {
+            throws AppointmentNotFoundException, DuplicateAppointmentException,
+            VetTechnicianNotFoundException {
         if (!appointments.contains(apptToRemoveVetFrom)) {
             throw new AppointmentNotFoundException();
+        }
+        if (!apptToRemoveVetFrom.getOptionalVetTechnician().isPresent()) {
+            throw new VetTechnicianNotFoundException();
         }
         Appointment appointmentCopy = new Appointment(apptToRemoveVetFrom);
         appointmentCopy.removeVetTech();
@@ -473,7 +477,8 @@ public class Trie {
 ``` java
     @Override
     public void removeVetTechFromAppointent(Appointment apptToRemoveVetTechFrom)
-            throws DuplicateAppointmentException, AppointmentNotFoundException {
+            throws DuplicateAppointmentException, AppointmentNotFoundException,
+            VetTechnicianNotFoundException {
         requireNonNull(apptToRemoveVetTechFrom);
         addressBook.removeVetFromAppointment(apptToRemoveVetTechFrom);
         indicateAddressBookChanged();
