@@ -544,6 +544,20 @@ public class RemoveAppointmentFromPetParser implements
 ###### \seedu\address\model\AddressBook.java
 ``` java
     /**
+     * Sorts the persons list lexicographically.
+     * @throws PersonsListIsEmptyException
+     */
+    public void sortClientList() throws PersonsListIsEmptyException {
+        if (persons.isEmpty()) {
+            throw new PersonsListIsEmptyException();
+        } else {
+            this.persons.sort();
+        }
+    }
+```
+###### \java\seedu\address\model\AddressBook.java
+``` java
+    /**
      * Sets the list of pets to contain data
      */
     public void setPets(List<Pet> pets) throws DuplicatePetException {
@@ -836,6 +850,7 @@ public class Description {
         internalList.sort((Person one, Person two) -> one.getName().toString().compareTo(two.getName().toString()));
     }
 ```
+
 ###### \seedu\address\model\pet\Pet.java
 ``` java
 /**
