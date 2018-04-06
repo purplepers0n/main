@@ -163,6 +163,7 @@ Lists all the commands that you have entered in reverse chronological order. +
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::undoredo[]
 ==== Redoing the previously undone command : `redo`
 Format: `redo` +
 
@@ -186,9 +187,7 @@ Undoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
 `schedule` `sortappt`
 ====
-
-
-
+// end::undoredo[]
 
 === Client & Staff Related Commands
 This section explains and goes through the commands and features available to manage your
