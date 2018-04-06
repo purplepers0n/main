@@ -108,8 +108,11 @@ and it'll do the rest for you. +
 [TIP]
 ====
 Pressing the kbd:[Tab] key twice will provide you with suggestions of your current command input.
+====
 
-Pressing the kbd:[Tab] after a completed command with a following kbd:[Space] will provide you with the next available input parameter for the command.
+[TIP]
+====
+Pressing the kbd:[Tab] after a completed command that has a following space will provide you with the next available input parameter for the command.
 ====
 
 Here is an example of using the autocomplete functionality: +
@@ -202,7 +205,7 @@ The command expects these parameters when adding a new person: +
 
 [horizontal]
 *ROLE*::
-VetterAppointment expects a role to be either a *VetTechnician* or a *Client*.
+VetterAppointment expects a role to be either a `technician` or a `client`.
 You cannot omit this parameter. +
 
 *NAME*::
@@ -288,7 +291,7 @@ You choose to amend person 1 on the currently viewed list and changes the person
 You choose to only change the name of the person specified at index 1 on the currently viewed list and omits the remaining parameters.
 
 
-==== Finding by name: `find`
+==== Finding by name: `find` `Since v1.3`
 Command format: `find KEYWORD` +
 
 The `find` command displays all existing clients or pets containing the keyword.
@@ -350,7 +353,7 @@ vet tech list tab below. +
 .Resulting output upon executing the `list vettech` command.
 image::userguide_listVettechCommand_image.PNG[width="300']
 
-==== Selecting a client, pet or vet technician: `select`
+==== Selecting a client, pet or vet technician: `select` `Since v1.3`
 Command format: `select INDEX` +
 
 The `select` command selects the client, pet or vet technician identified by the
@@ -367,7 +370,7 @@ Let's say you're currently viewing the client list and wishes to select the 3rd 
 The program will scroll to and select the 3rd client on the list.
 
 
-==== Sorting clients in alphabetical order: `sortc`
+==== Sorting clients in alphabetical order: `sortc` `Since v1.4`
 Command format: `sortc` +
 
 The `sortc` command will sort all existing clients in the program in alphabetical ordering.
@@ -536,7 +539,7 @@ The command does not remove the appointment itself, rather, the pet associated w
 So don't worry, you don't have to reschedule the appointment.
 
 
-==== Scheduling an appointment : `schedule`
+==== Scheduling an appointment : `schedule` `Since v1.3`
 Command format: schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION +
 
 Schedules an appointment by specifying the date, time, duration and description.
@@ -571,7 +574,7 @@ you if there are any conflicts in your scheduling.
 You can execute the `addappttopet` command after creating an appointment.
 
 
-==== Rescheduling an appointment : `reschedule`
+==== Rescheduling an appointment : `reschedule` `Since v1.4`
 Command format: `reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [DESC/DESCRIPTION] +
 
 The `reschedule` command reschedules the existing appointment to another date or time. This command is also
@@ -606,13 +609,13 @@ to the next day and lasts 20 minutes longer.
 You need to provide at least one change to any filed of an existing appointment.
 
 
-=== Sorting appointments in chronological order: `sortappt`
+==== Sorting appointments in chronological order: `sortappt` `Since v1.3`
 Command format: `sortappt` +
 
 The `sortappt` command will sort all the appointments in the program chronologically.
 It sorts the appointment list by date and then by time.
 
-==== Sorting pets in alphabetical order: `sortp`
+==== Sorting pets in alphabetical order: `sortp` `Since v1.4`
 Command format: `sortp` +
 
 The `sortp` command will sort all existing pets in the program in alphabetical ordering.
@@ -674,6 +677,7 @@ about them.
 |editappt |`editappt n/CLIENT_NAME pn/PET_NAME [date/DATE (DD.MM.YYYY)] [time/TIME (HHMM)] [vettech/VET_TECHNICIAN_NAME] [cmt/COMMENTS]` |Edits an appointment's details.
 |editp |`editp INDEX [pn/PET_NAME] [pa/PET_AGE] [pg/PET_GENDER] [t/PET_TAGS]…​` |Edits a pet's details.
 |list pet |`list pet` |Lists all pets.
+|reschedule |`reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [DESC/DESCRIPTION]` | Reschedules an appointment.
 |rmapptfrompet |`rmapptfrom p/PET_INDEX` |Removes an appointment from a pet.
 |schedule | `schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION` |Schedule an appointment given date (YYYY-MM-DD), time (HH:MM), duration (minutes) and description.
 |select |`select INDEX` |Selects an index.
