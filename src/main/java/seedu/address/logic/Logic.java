@@ -64,4 +64,13 @@ public interface Logic {
 
     /** Get the index of the current list that is viewed */
     int getCurrentList();
+
+    /** Returns the queried client */
+    Client getClientDetails();
+
+    /** Returns an unmodifiable view of the pet list of the queried client */
+    ObservableList<Pet> getClientPetList();
+
+    /** Returns an unmodifiable view of the appointment list of the queried client */
+    ObservableList<Appointment> getClientApptList();
 }

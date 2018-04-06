@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -222,4 +223,24 @@ public interface Model {
      */
     void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
             throws DuplicateAppointmentException, AppointmentNotFoundException, VetTechnicianNotFoundException;
+
+    /**
+     * Updates the listed details of a client
+     */
+    void updateDetailsList(Client client, ObservableList<Pet> pets, ObservableList<Appointment> appointments);
+
+    /**
+     * Returns the queried client
+     **/
+    Client getClientDetails();
+
+    /**
+     * Returns an unmodifiable view of the pet list of the queried client
+     **/
+    ObservableList<Pet> getClientPetList();
+    
+    /**
+     * Returns an unmodifiable view of the appointment list of the queried client
+     **/
+    ObservableList<Appointment> getClientApptList();
 }
