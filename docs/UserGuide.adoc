@@ -105,6 +105,17 @@ glance of the available commands relating to the program <<Program and Shared Su
 If you're feeling lazy to type in the command type, press kbd:[Tab] on your keyboard
 and it'll do the rest for you. +
 
+[TIP]
+====
+Pressing the kbd:[Tab] key twice will provide you with suggestions of your current command input.
+
+Pressing the kbd:[Tab] after a completed command with a following kbd:[Space] will provide you with the next available input parameter for the command.
+====
+
+Here is an example of using the autocomplete functionality: +
+
+* Suppose you want to type a command `addvettechtoappointment` but it is a hassle to type out the full command. In this scenario you can type `addv` and press kbd:[Tab] to autocomplete your `addv` input to `addvettechtoappointment` +
+
 ==== Executing a command
 Every command in VetterAppointments are executed by first entering the command type
 and its respective parameters. To execute the command, simply press the kbd:[Enter]
