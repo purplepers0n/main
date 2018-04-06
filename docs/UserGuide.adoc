@@ -524,6 +524,42 @@ When this command is executed, the appointment will be removed from the pet that
 The command does not remove the appointment itself, rather, the pet associated with the appointment.
 So don't worry, you don't have to reschedule the appointment.
 
+==== Adding a vet technician to a appointment: `addvettechtoappointment` `Since v1.4`
+Command format: `addvettechtoappointment vt/VETTECH_INDEX appt/APPOINTMENT_INDEX` +
+
+The `addvettechtoappointment` command adds a vet tech to an appointment in the program. +
+The command expects these parameters when adding a vet technician to an appointment: +
+
+[horizontal]
+*VETTECH INDEX*:: The index of the vet technician in the list. It must be supplied by the user. +
+*APPOINTMENT INDEX*:: The index of the appointment in the list. It must be supplied by the user. +
+
+Here are some valid examples on using the `addvettechtoappointment` command: +
+
+* `addvettechtoappointment vt/1 appt/1` +
+This will add the first vet technician in the vet technician list will be added to the first appointment in the appointment list.
+Once this is executed, the appointment will now have the appointed vet technician. +
+
+* `addvettechtoappointment vt/1 appt/2` +
+This will add the first vet technician in the vet technician list to the second appointment in the appointment list
+you've just assigned the same vet technician to two different appointments.
+
+[NOTE]
+You need to schedule an appointment first before assigning a vet techician to it.
+
+==== Removing a vet technician from an appointment: `removevettechfromappt` `Since v1.4`
+Command format: `removevettechfromappt INDEX` +
+
+The `removevettechfromappt` command removes a vet tech from an appointment in the program. +
+The command expects the following parameter when removing a vet technician from an appointment: +
+
+[horizontal]
+*INDEX*:: The appointment index on the appointment list list displayed in the program. This must be supplied by the user.
+
+Here is an example of using the command `removevettechfromappt`: +
+
+* `removevettechfromappt 1` +
+Suppose there is an appointment with index 1 on the appointment list with a vet technician currently assigned to it. This command will remove the assigned vet technician from the appointment with the index 1
 
 ==== Scheduling an appointment : `schedule`
 Command format: schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION +
