@@ -77,7 +77,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public ObservableList<ClientOwnPet> getClientPetAssociationList() {
-        return model.getClientPetAssociationList();
+        return model.getFilteredClientPetAssociationList();
     }
 
     @Override

@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.pet.Pet;
 import seedu.address.model.vettechnician.VetTechnician;
 
 /**
@@ -46,14 +46,15 @@ public class FindCommand extends Command {
             });
             return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredClientList().size()));
         } else if (currList == 1) {
-            model.updateFilteredPetList(new Predicate<Pet>() {
+            model.updateFilteredClientOwnPetAssocation(new Predicate<ClientOwnPet>() {
                 @Override
-                public boolean test(Pet pet) {
+                public boolean test(ClientOwnPet association) {
                     return predicate.getKeywords().stream().anyMatch(keyword ->
-                            StringUtil.containsWordIgnoreCase(pet.getPetName().fullPetName, keyword));
+                            StringUtil.containsWordIgnoreCase(association.getPet().getPetName().fullPetName, keyword));
                 }
             });
-            return new CommandResult(getMessageForPetListShownSummary(model.getFilteredPetList().size()));
+            return new CommandResult(getMessageForPetListShownSummary(model
+                    .getFilteredClientPetAssociationList().size()));
         } else if (currList == 2) {
             model.updateFilteredVetTechnicianList(new Predicate<VetTechnician>() {
                 @Override

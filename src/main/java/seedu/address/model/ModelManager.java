@@ -48,7 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Client> filteredClients;
     private final FilteredList<VetTechnician> filteredVetTechnicians;
     private final FilteredList<Pet> filteredPet;
-    private final ObservableList<ClientOwnPet> clientPetAssocation;
+    private final FilteredList<ClientOwnPet> filteredClientPetAssocation;
 
     private int currList = 0;
     private final FilteredList<Appointment> filteredAppointment;
@@ -68,7 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredClients = new FilteredList<>(this.addressBook.getClientList());
         filteredVetTechnicians = new FilteredList<>(this.addressBook.getVetTechnicianList());
         filteredPet = new FilteredList<>((this.addressBook.getPetList()));
-        clientPetAssocation = getClientPetAssociationList();
+        filteredClientPetAssocation = new FilteredList<>(this.addressBook.getClientPetAssociations());
         filteredAppointment = new FilteredList<>((this.addressBook.getAppointmentList()));
     }
 
@@ -292,6 +292,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPet.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredClientOwnPetAssocation(Predicate<ClientOwnPet> predicate) {
+        requireNonNull(predicate);
+        filteredClientPetAssocation.setPredicate(predicate);
+    }
+
     //Association
 
     /**
@@ -299,8 +305,8 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code addressBook}
      */
     @Override
-    public ObservableList<ClientOwnPet> getClientPetAssociationList() {
-        return FXCollections.unmodifiableObservableList(addressBook.getClientPetAssociations());
+    public ObservableList<ClientOwnPet> getFilteredClientPetAssociationList() {
+        return FXCollections.unmodifiableObservableList(filteredClientPetAssocation);
     }
 
     // Appointment
@@ -340,7 +346,7 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredClients.equals(other.filteredClients)
                 && filteredVetTechnicians.equals(other.filteredVetTechnicians)
-                && clientPetAssocation.equals(other.clientPetAssocation);
+                && filteredClientPetAssocation.equals(other.filteredClientPetAssocation);
     }
 
     @Override
