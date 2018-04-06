@@ -214,15 +214,16 @@ Here are some valid examples on how to use the `add` command:
 * `add r/Client n/Alice Peterson p/91234567 e/alicepeter@email.com a/Blk 123, Bedok Reservoir St24` +
 In this scenario, you choose to omit the tag parameter for Alice Peterson who is your client.
 
-* `add r/Client n/Bradly Cooper p/91234567 e/bradlycooper@email.com t/friend t/dog_whisperer a/Blk 123, Bedok Reservoir St24` +
+* `add r/Client n/Bradly Cooper p/91234567 e/bradlycooper@email.com t/friend t/dogwhisperer a/Blk 123, Bedok Reservoir St24` +
 In contrast, here you choose to add multiple tags to Bradly Cooper, your client as well.
 
-The figure below is an example of the result upon executing the `add` command.
-Here, we use `add r/client n/Davis Teo p/91234765 e/davis@email.com a/123, Clementi Ave 4, #05-06 t/friend`
-as an example. +
+The figures below are the results of executing the `add` command examples above. +
 
-.Result output after adding a client
-image::userguide_addCommand_image.PNG[width="729"]
+.Result output after adding a clients Alice Peterson and Bradly Cooper
+image::userguide_addCommand_image.PNG[width="400"]
+
+.Result in command box after executing `add` command successfully.
+image::userguide_addCommand_image2.PNG[width="1000"]
 
 
 ==== Removing a client or vet technician: `delete` `Since v1.1`
@@ -240,10 +241,23 @@ you're viewing the vet technician list. The command expects this parameter when 
 Here is an example of using the command `delete`: +
 
 * `delete 1` +
-Suppose you are currently viewing the 'client' list and there is only one client in your program
-called Alice Peterson and she has Garfield and Scooby Doo as her associated pets.
-This command will remove Alice, Garfield and Scooby Doo from the program.
+Suppose you are currently viewing the 'client' list and there are two clients in your program
+called Alice Peterson and Bradly Cooper. This command will delete Alice Peterson since she's
+at the first index of the listing. +
 
+The figure below shows the result of the command box of the program when `delete 1` is executed.
+
+.Executing the `delete` command on index 1.
+image::userguide_deleteCommand_image.PNG[width="1000"]
+
+The figure below shows the result of the client list being updated upon executing the `delete 1` command.
+Here, Alice Peterson is deleted.
+
+.The client list after deleting Alice Peterson from the program.
+image::userguide_deleteCommand_image2.PNG[width="400"]
+
+[TIP]
+Remember the command works in the same way when you're on the vet tech list.
 
 ==== Editing a client or vet technician's details : `edit` `Since v1.1`
 Command format: `edit INDEX [r/ROLE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
@@ -271,10 +285,20 @@ The new address of the person that the user wants. It need not be supplied by th
 The `edit` command is very similar to the `add` command.
 Here are some examples on using the command: +
 
-* `edit 1 e/newemail@email.com a/Blk 123, Clementi Ave 3 t/friend t/part_timer` +
-You choose to amend person 1 on the currently viewed list and changes the person's email, address and tags.
 * `edit 1 n/Mary Tan` +
-You choose to only change the name of the person specified at index 1 on the currently viewed list and omits the remaining parameters.
+You choose to only change the name of the person specified at index 1 on the currently viewed
+list and omit the remaining parameters. Now Bradly Cooper's name is changed to Mary Tan.
+
+The figure below is the current listing before the `edit 1 n/Mary Tan` command is being executed.
+
+.Client list before edit command is being executed.
+image::userguide_deleteCommand_image2.PNG[width="400"]
+
+After executing the command, the following Bradly Cooper will now have a new name called Mary Tan.
+The figure below is the newly edited details of person at index 1.
+
+.Client list after the edit command is being executed.
+image::userguide_editCommand_image.PNG[width="1000"]
 
 
 ==== Finding by name: `find`
@@ -288,17 +312,29 @@ The command expects these parameters: +
 
 Here is an example on how to use the `find` command: +
 
-* `find alice` +
-You used the keyword alice to find all clients containing the word alice in their names.
+* `find jonny` +
+You used the keyword alice to find all clients or pets containing the word jonny in their names.
 
-* `find gArfIeld` +
-You used the keyword gArfIeld to find all pets containing the word garfield in their names.
+
+Say, for example, that you've added more people into your program now like the figure below.
+
+.A populated client list.
+image::userguide_findCommand_image.PNG[width="400"]
+
+Now let's execute the `find jonny` command. All persons or pets with "jonny" in their name will now be listed
+like the figure below.
+
+.The filtered persons and/or pet containing the word "jonny".
+image::userguide_findCommand_image2.PNG[width="1000"]
+
+Assuming you're trying to find a keyword that does not exist in any of the persons or pets in the program.
+For example running `find hehehaha` will result in an output like the figure below.
+
+.The filtered list when the command finds no such persons or pet containing the keyword.
+image::userguide_findCommand_image3.PNG[width="1000"]
 
 [TIP]
 The keyword is case insensitive.This means typing, "ALICE", "alice" or 'AlIcE" will result in the same output.
-[NOTE]
-You need to be in the client list to find clients by name. Likewise, you need to be in the pet list to find
-pets by name.
 
 ==== Listing all information: `listall` `coming v2.0`
 Command format: `listall INDEX` +
@@ -321,11 +357,10 @@ Command format: `list client` +
 The `list client` command will display all clients that are stored in the program.
 It automatically switches to the client view tab so you can view all your clients at a glance. +
 
-Here's the resulting output if you executed the command. Notice how it switches to the
-client list tab below. +
+Here's the resulting output if you executed the command. It will go to your client list tab. +
 
 .Resulting output upon executing the `list client` command.
-image::userguide_listClientCommand_image.PNG[width="300"]
+image::userguide_findCommand_image.PNG[width="400"]
 
 ==== Listing all vet technicians: `list vettech` `Since v1.2`
 Command format: `list vettech` +
@@ -339,32 +374,22 @@ vet tech list tab below. +
 .Resulting output upon executing the `list vettech` command.
 image::userguide_listVettechCommand_image.PNG[width="300']
 
-==== Selecting a client, pet or vet technician: `select`
-Command format: `select INDEX` +
-
-The `select` command selects the client, pet or vet technician identified by the
-index number on the currently viewed list. The command expects this parameter: +
-
-[horizontal]
-*INDEX*:: The index of the client, pet or vet technician that the user wants to select.
-It must be supplied by the user.
-
-Here is an example on using the command: +
-
-* `select 3` +
-Let's say you're currently viewing the client list and wishes to select the 3rd client on the list.
-The program will scroll to and select the 3rd client on the list.
-
 
 ==== Sorting clients in alphabetical order: `sortc`
 Command format: `sortc` +
 
-The `sortc` command will sort all existing clients in the program in alphabetical ordering.
+The `sortc` command will sort all existing clients in the program in alphabetical ordering. +
 
-==== Sorting clients in alphabetical order: `sortv` `coming in v2.0`
-Command format: `sortv` +
+Say the current client list looks like the figure below.
 
-The `sortc` command will sort all existing vet technicians in the program in alphabetical ordering.
+.The current list of clients in the program.
+image::userguide_sortcCommand_image.PNG[width="400"]
+
+After executing the `sortc` program, the list willnow be sorted alphabetically like the figure below.
+
+.The sorted client list in the program.
+image::userguide_sortcCommand_image2.PNG[width="400"]
+
 
 === Pets & Appointment Related Commands
 This section explains and goes through in depth, the commands and features available
@@ -679,9 +704,7 @@ know more about them.
 |listall |`listall INDEX` |Lists all details for a particular client.
 |list client |`list client` |Lists all clients.
 |list vettech |`list vettech` |Lists all vet technicians.
-|select |`select INDEX` |Selects an index.
 |sortc |`sortc` |Sorts the client list alphabetically.
-|sortv |`sortv` |Sorts the vet tech list alphabetically.
 |=======
 
 //sorted alphabetically
@@ -701,7 +724,6 @@ about them.
 |list pet |`list pet` |Lists all pets.
 |rmapptfrompet |`rmapptfrom p/PET_INDEX` |Removes an appointment from a pet.
 |schedule | `schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION` |Schedule an appointment given date (YYYY-MM-DD), time (HH:MM), duration (minutes) and description.
-|select |`select INDEX` |Selects an index.
 |sortappt | `sortappt` |Sorts the appointment by date and time.
 |sortp |`sortp` |Sorts the pet list alphabetically.
 |=======
