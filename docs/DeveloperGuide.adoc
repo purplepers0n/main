@@ -906,17 +906,15 @@ required for command words, to increase efficiency in using the application.
 *Choo Wen Xin*
 
 [none]
-* *Major Enhancement*: Support `listappt` and `listall` commands
+* *Major Enhancement*: Support `listall` command and listing all appointments
 +
 [none]
-** The `listappt` command will display all appointments in the main section of the application
+** The UI will update and display all appointments in the main section of the application
 listed in date order, and in time order within each (date) section. This is for the vet to
 easily keep track of his/her appointments in chronological order.
-** The `listall` command will take in a type parameter (either client, pet, vet technician or appointment)
-and an index parameter of that type's list, and will then display all the associated information of
-the particular item in a sidebar of the application. This is to easily see the relevant
-details when wanting to check a particular item.
-** The appropriate display on the UI will also be created for the above.
+** The `listall` command will take in an index parameter specifying a client, and will then display all the pets and appointments of
+that particular client in a sidebar of the application. This is to easily see the relevant details when wanting to check a particular client.
+The appropriate display on the UI will also be created.
 
 * *Minor Enhancement*: Update `list`, `edit`, `delete` command and have display tabs for the lists
 +
