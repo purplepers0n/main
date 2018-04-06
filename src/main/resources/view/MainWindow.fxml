@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Text?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         minWidth="450" minHeight="600">
+         minWidth="550" minHeight="600">
     <icons>
         <Image url="@/images/address_book_32.png"/>
     </icons>
@@ -47,7 +47,7 @@
                         <Image url="@/images/logo.png"/>
                     </ImageView>
                     <GridPane>
-                        <Text id="header-text" text="VetterAppointments" translateX="80" translateY="27"/>
+                        <Text id="header-text" text="VetterAppointments" translateX="85" translateY="15"/>
                     </GridPane>
                     <StackPane fx:id="dateTimePlaceholder" prefHeight="80"/>
                 </StackPane>
@@ -96,10 +96,8 @@
                             </padding>
                         </StackPane>
                         <SplitPane id="splitPane" dividerPositions="0.8" VBox.vgrow="ALWAYS">
-                            <VBox id="appt-display" minWidth="700" prefWidth="700" maxWidth="700">
-                                <padding>
-                                    <Insets top="10" right="10" bottom="10" left="10"/>
-                                </padding>
+                            <VBox id="appt-display" minWidth="700" prefWidth="700" maxWidth="700" >
+                                <StackPane VBox.vgrow="ALWAYS" fx:id="apptListPanelPlaceholder"  prefWidth="700" />
                             </VBox>
                             <VBox id="details-display">
                                 <padding>

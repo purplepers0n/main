@@ -1,5 +1,5 @@
 # jonathanwj-reused
-###### \java\seedu\address\logic\autocomplete\CommandParameterSyntaxHandlerTest.java
+###### \seedu\address\logic\autocomplete\CommandParameterSyntaxHandlerTest.java
 ``` java
 public class CommandParameterSyntaxHandlerTest {
 
@@ -63,7 +63,7 @@ public class CommandParameterSyntaxHandlerTest {
 
 }
 ```
-###### \java\seedu\address\logic\commands\AddCommandTest.java
+###### \seedu\address\logic\commands\AddCommandTest.java
 ``` java
     @Test
     public void execute_vetTechnicianAcceptedByModel_addSuccessful() throws Exception {
@@ -88,7 +88,7 @@ public class CommandParameterSyntaxHandlerTest {
     }
 
 ```
-###### \java\seedu\address\logic\commands\AddCommandTest.java
+###### \seedu\address\logic\commands\AddCommandTest.java
 ``` java
     @Test
     public void execute_duplicateVetTechnician_throwsCommandException() throws Exception {
@@ -102,7 +102,7 @@ public class CommandParameterSyntaxHandlerTest {
     }
 
 ```
-###### \java\seedu\address\logic\commands\AddVetTechToAppointmentCommandTest.java
+###### \seedu\address\logic\commands\AddVetTechToAppointmentCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
@@ -317,7 +317,7 @@ public class AddVetTechToAppointmentCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\EditCommandTest.java
+###### \seedu\address\logic\commands\EditCommandTest.java
 ``` java
     @Test
     public void execute_filteredList_success() throws Exception {
@@ -367,7 +367,7 @@ public class AddVetTechToAppointmentCommandTest {
     }
 
 ```
-###### \java\seedu\address\logic\commands\RemoveVetTechFromAppointmentCommandTest.java
+###### \seedu\address\logic\commands\RemoveVetTechFromAppointmentCommandTest.java
 ``` java
 /**
  * Contains integration tests unit tests for
@@ -393,6 +393,8 @@ public class RemoveVetTechFromAppointmentCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
         Appointment appointmentToRemoveVetTech = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
+        model.addVetTechToAppointment((VetTechnician) BOON, appointmentToRemoveVetTech);
+        appointmentToRemoveVetTech = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
 
         RemoveVetTechFromAppointmentCommand command = new RemoveVetTechFromAppointmentCommand(INDEX_FIRST);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
@@ -408,7 +410,7 @@ public class RemoveVetTechFromAppointmentCommandTest {
 
 }
 ```
-###### \java\seedu\address\storage\XmlAdaptedPersonTest.java
+###### \seedu\address\storage\XmlAdaptedPersonTest.java
 ``` java
     @Test
     public void toModelType_invalidRole_throwsIllegalValueException() {
@@ -428,7 +430,7 @@ public class RemoveVetTechFromAppointmentCommandTest {
 
 }
 ```
-###### \java\seedu\address\testutil\TypicalAssociations.java
+###### \seedu\address\testutil\TypicalAssociations.java
 ``` java
 /**
  * A utility class containing a list of {@code ClientOwnPet} objects to be used in tests.

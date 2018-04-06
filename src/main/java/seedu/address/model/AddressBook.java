@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +42,7 @@ import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 
 /**
@@ -259,11 +261,39 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
     public boolean removePerson(Person key) throws PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
+        ArrayList<ClientOwnPet> toRemoveClientPetAssociationList = new ArrayList<>();
+        ArrayList<Pet> toRemovePetList = new ArrayList<>();
+
+        for (ClientOwnPet cop : clientPetAssociations) {
+            if (cop.getClient().equals(key)) {
+                toRemoveClientPetAssociationList.add(cop);
+                toRemovePetList.add(cop.getPet());
+            }
+        }
+
+        clientPetAssociations.removeAll(toRemoveClientPetAssociationList);
+        pets.getInternalList().removeAll(toRemovePetList);
+        if (!persons.remove(key)) {
             throw new PersonNotFoundException();
         }
+
+        // Removes vet from any existing appointment
+        for (Appointment appointment : appointments) {
+            appointment.getOptionalVetTechnician().ifPresent(technician -> {
+                try {
+                    if (technician.equals(key)) {
+                        removeVetFromAppointment(appointment);
+                    }
+                } catch (AppointmentNotFoundException e) {
+                    throw new AssertionError("Appointment should be found");
+                } catch (DuplicateAppointmentException e) {
+                    throw new AssertionError("Program should not have duplicate appointments");
+                } catch (VetTechnicianNotFoundException e) {
+                    throw new AssertionError("VetTechnician should be found");
+                }
+            });
+        }
+        return true;
     }
 
     //// tag-level operations
@@ -282,6 +312,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void scheduleAppointment(Appointment a) throws DuplicateAppointmentException {
         appointments.add(a);
         appointments.sort();
+    }
+
+    /**
+     * Replaces the given appointment {@code target} in the list with {@code rescheduleAppointment}.
+     *
+     * @throws DuplicateAppointmentException if updating the appointment's details causes this appointment to clash with
+     *      another existing appointment in the list.
+     * @throws AppointmentNotFoundException if {@code target} could not be found in the list.
+     *
+     */
+    public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
+            throws DuplicateAppointmentException, AppointmentNotFoundException {
+        requireNonNull(rescheduleAppointment);
+
+        appointments.setAppointment(target, rescheduleAppointment);
     }
 
     //// pet-level operations
@@ -478,9 +523,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes a vet technician from the given appointment
      */
     public void removeVetFromAppointment(Appointment apptToRemoveVetFrom)
-            throws AppointmentNotFoundException, DuplicateAppointmentException {
+            throws AppointmentNotFoundException, DuplicateAppointmentException,
+            VetTechnicianNotFoundException {
         if (!appointments.contains(apptToRemoveVetFrom)) {
             throw new AppointmentNotFoundException();
+        }
+        if (!apptToRemoveVetFrom.getOptionalVetTechnician().isPresent()) {
+            throw new VetTechnicianNotFoundException();
         }
         Appointment appointmentCopy = new Appointment(apptToRemoveVetFrom);
         appointmentCopy.removeVetTech();
@@ -566,5 +615,5 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags, appointments, pets);
     }
-
 }
+

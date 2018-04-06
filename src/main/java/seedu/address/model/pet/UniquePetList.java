@@ -80,6 +80,10 @@ public class UniquePetList implements Iterable<Pet> {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
+    public ObservableList<Pet> getInternalList() {
+        return internalList;
+    }
+
     @Override
     public Iterator<Pet> iterator() {
         return internalList.iterator();

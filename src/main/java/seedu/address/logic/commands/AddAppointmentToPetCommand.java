@@ -9,8 +9,10 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PETS;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.NewApptAvailableEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
@@ -65,6 +67,7 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
         requireAllNonNull(model, pet.get(), appointment.get());
         try {
             model.addAppointmentToPet(appointment.get(), pet.get());
+            EventsCenter.getInstance().post(new NewApptAvailableEvent(appointment.toString()));
         } catch (PetAlreadyHasAppointmentException e) {
             throw new CommandException(MESSAGE_PET_HAS_APPOINTMENT);
         } catch (ClientPetAssociationNotFoundException e) {

@@ -23,6 +23,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
 import seedu.address.logic.commands.RemoveVetTechFromAppointmentCommand;
+import seedu.address.logic.commands.RescheduleCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortAppointmentCommand;
@@ -103,6 +104,9 @@ public class AddressBookParser {
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);
+
+        case RescheduleCommand.COMMAND_WORD :
+            return new RescheduleCommandParser().parse(arguments);
 
         case AddPetCommand.COMMAND_WORD:
             return new AddPetCommandParser().parse(arguments);

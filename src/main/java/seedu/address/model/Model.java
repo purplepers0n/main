@@ -24,6 +24,7 @@ import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 
 /**
@@ -121,6 +122,16 @@ public interface Model {
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
 
     /**
+     * Reschedules the given appointment {@code target} with {@code rescheduledPerson}.
+     *
+     * @throws DuplicateAppointmentException if updating the appointment's details causes the appointment
+     *                                  to be clashed with another existing appointment in the list.
+     * @throws AppointmentNotFoundException  if {@code target} could not be found in the list.
+     */
+    void updateAppointment(Appointment target, Appointment rescheduledAppointment)
+            throws DuplicateAppointmentException, AppointmentNotFoundException;
+
+    /**
      * Returns an unmodifiable view of the filtered appointment list
      **/
     ObservableList<Appointment> getFilteredAppointmentList();
@@ -210,5 +221,5 @@ public interface Model {
      * Removes the vet from the given appointment
      */
     void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
-            throws DuplicateAppointmentException, AppointmentNotFoundException;
+            throws DuplicateAppointmentException, AppointmentNotFoundException, VetTechnicianNotFoundException;
 }

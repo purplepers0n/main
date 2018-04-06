@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox styleClass="apptCardPane" fx:id="apptCardPane" prefHeight="90" maxHeight="90" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="120" prefWidth="135" />
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="10" />
+            </padding>
+            <HBox alignment="CENTER_LEFT">
+                <Label fx:id="id" id="cell_big_label_index">
+                    <minWidth>
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="time" text="\$time" id="cell_big_label_dark" />
+            </HBox>
+            <Label fx:id="clientName" id="cell_small_label_dark" text="\$clientName" />
+            <Label fx:id="petName" id="cell_small_label_dark" text="\$petName" />
+            <Label fx:id="vetTechName" id="cell_small_label_dark" text="\$vetTechName" />
+        </VBox>
+    </GridPane>
+</HBox>

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalPersons.BOON;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
+import seedu.address.model.vettechnician.VetTechnician;
 import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.TypicalAddressBook;
 
@@ -42,6 +44,8 @@ public class RemoveVetTechFromAppointmentCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
         Appointment appointmentToRemoveVetTech = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
+        model.addVetTechToAppointment((VetTechnician) BOON, appointmentToRemoveVetTech);
+        appointmentToRemoveVetTech = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
 
         RemoveVetTechFromAppointmentCommand command = new RemoveVetTechFromAppointmentCommand(INDEX_FIRST);
         command.setData(model, new CommandHistory(), new UndoRedoStack());

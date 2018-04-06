@@ -8,6 +8,7 @@ import java.util.Optional;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.vettechnician.VetTechnician;
 
+//@@author Godxin-functional
 /**
  * Represents an Appointment in the application.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -66,6 +67,10 @@ public class Appointment {
     public Optional<VetTechnician> getOptionalVetTechnician() {
         return vetTech;
     }
+    public VetTechnician getVetTechnician() {
+        return vetTech.orElse(null);
+    }
+
 
     public void setClientOwnPet(ClientOwnPet clientOwnPet) {
         this.clientOwnPet = clientOwnPet;
