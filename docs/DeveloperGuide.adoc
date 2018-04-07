@@ -462,44 +462,6 @@ All pet details will be stored in a separate XML file.
 ==== UI component
 All pet information will be displayed in the UI in a `Pet` list. All changes made to the pet will be reflected immediately after interacting with the commands.
 
-// tag::addpettoclient[]
-=== Add Pet to Client Feature [Deprecated]
-
-==== Reason for deprecation
-
-The `AddPetToClientCommand` is deprecated and not implemented since v1.3 as the command implementation is not merged together with the `AddPetCommand`.
-
-==== Implementation
-The `AddPetToClientCommand` allows the user to add an existing pet to an existing client. A user can execute the command by providing the index of the pet and the index of the client in the following format `addpettoclient p/PET_INDEX c/CLIENT_INDEX`.
-
-.Structure of the Logic Component
-image::addpettoclient_logic_command_class_diagram.png[width="800", caption="Figure 4-10. "]
-As seen from Figure 4-10, the `AddPetToClientCommand` is implemented to extend an `UndoableCommand` which enables the user to undo and redo the `AddPetToClientCommand` that is executed.
-The `AddPetToClientCommand` interacts with the `Model` component to add pet to a client.
-
-Figure 4-11 show the sequence diagram of how the add pet to client command works.
-
-.Interaction of the Logic Component for `addpetto p/1 c/1` Command
-image::addpettoclientSequence.png[width="800" caption="Figure 4-11. "]
-
-==== Design Considerations
-===== Aspect: Implementation of `AddPetToClientCommand`
-* **Alternative 1 (implemented choice):** Add a new command that extends `UndoableCommand`
-** Pros: We will be able to utilize undone/redone functionality.
-** Cons: Hard for new developers to understand undo/redo implementation.
-* **Alternative 2:** Just add a new command that extends `Command`
-** Pros: Does not involve `UndoableCommand`, easier for new developers to understand.
-** Cons: Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
-
-===== Aspect: Data structure to support the add pet to client command
-* **Alternative 1 (implemented choice):** Use an association class `ClientOwnPet` to link `Pet` and `Client`
-** Pros: Low coupling between `Pet` and `Client`.
-** Cons: More steps required for other implementations to obtain pet and client relationship.
-* **Alternative 2:** Bi-directional association between `Pet` with `Client`
-** Pros: Need not need to maintain a separate association class.
-** Cons: High coupling.
-// end::addpettoclient[]
-
 // tag::listperson[]
 === List and display clients, pets and vet technicians
 
