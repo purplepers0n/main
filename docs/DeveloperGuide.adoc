@@ -46,11 +46,11 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 .. Click `Configure` > `Project Defaults` > `Project Structure`
 .. Click `New...` and find the directory of the correct JDK version
 . Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
+. Locate the `build.gradle` file and select it and click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message.
-This will generate all resources required by the application and tests
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`) +
+It should finish with the `BUILD SUCCESSFUL` message and generate all resources required by the application and tests.
 
 === Verifying the Setup
 
@@ -61,7 +61,9 @@ This will generate all resources required by the application and tests
 
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. +
+
+Follow these steps to rectify the issue:
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
@@ -89,14 +91,8 @@ Coverage reporting could be useful for a team repository that hosts the final ve
 Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
 
 [NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based).
 
-==== Getting started with coding
-
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>
-2. Take a look at <<GetStartedProgramming>>
 
 == Design
 
@@ -111,24 +107,24 @@ The *_Architecture Diagram_* given above explains the high-level design of appli
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
 * At application launch: Initializing the components in the correct sequence, and connecting them up with each other
 * At application shut down: Shutting down the components and invoking cleanup methods where necessary
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+`Commons` represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level:
 
 * `EventsCenter`: This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter`: This class is used by many other classes to write log messages to the application's log file
 
-The rest of the application consists of four components.
+The rest of the App consists of the following four components:
 
 * <<Design-Ui,*`UI`*>>: Handles the user interface of the application
 * <<Design-Logic,*`Logic`*>>: Executes commands
 * <<Design-Model,*`Model`*>>: Holds the data of the application in-memory
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to the hard disk
 
-Each of the four components
+Note that each of the four components:
 
 * Define its _API_ in an `interface` with the same name as the component
 * Expose its functionality using a `{Component Name}Manager` class
@@ -141,7 +137,7 @@ image::LogicClassDiagram.png[width="800", caption="Figure 3-2. "]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+Figure 3-3 shows a _Sequence Diagram_ of how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Sequence Diagram of Component Interactions for `delete 1` Command (part 1)
 image::SDforDeletePerson.png[width="800", caption="Figure 3-3. "]
@@ -157,7 +153,7 @@ image::SDforDeletePersonEventHandling.png[width="800", caption="Figure 3-4. "]
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
-The following four sections give more details of each component.
+The following four sections in this guide will give more details of each component.
 
 [[Design-Ui]]
 === UI Component
@@ -167,14 +163,14 @@ image::UiClassDiagram.png[width="800", caption="Figure 3-5. "]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ClientListPanel`,
+`UI` consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ClientListPanel`,
 `PetListPanel`, `VetTechnicianListPanel`, `ApptListPanel`, `StatusBarFooter` etc.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that can be found in the `src/main/resources/view` folder.
 For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
-The `UI` component,
+The `UI` component:
 
 * Executes user commands using the `Logic` component
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes
@@ -213,11 +209,13 @@ image::ModelClassDiagram.png[width="800", caption="Figure 3-9. "]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model` component,
+`Model` represents the in-memory model of VetterAppointments data. All the data is managed by the `ModelManager` which can modify the data in the `AddressBook`. All the data are stored in `ObservableList<...>` within the `AddressBook`, any data modification will update the respective objects `ObservableList<...>`.
+
+The `Model` component:
 
 * Stores a `UserPref` object that represents the user's preferences
 * Stores the application's data
-* Exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes
+* Exposes several unmodifiable `ObservableList<...>` for each object that can be 'observed' so that the UI can bound to this list and automatically update the UI when the data in the list changes
 * Does not depend on any of the other three components
 
 [[Design-Storage]]
@@ -228,15 +226,12 @@ image::StorageClassDiagram.png[width="800", caption="Figure 3-10. "]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+`Storage` reads and write data from and to the computer local storage. The `StorageManager` handles the storage of the data in local storage. On application start, the `Storage` component will load the data from local storage into the application. Whenever the data is modified, `StorageManager` will then write the changes to the local storage.
 
-* Can save `UserPref` objects in json format and read it back
-* Can save the application's data in xml format and read it back
+The `Storage` component:
 
-[[Design-Commons]]
-=== Common Classes
-
-Classes used by multiple components can be found in the `seedu.addressbook.commons` package.
+* Saves `UserPref` objects in json format and read it back
+* Saves the application's data in xml format and read it back
 
 == Implementation
 
@@ -345,14 +340,14 @@ image::UndoRedoActivityDiagram.png[width="650", caption="Figure 4-8. "]
 ** Cons: Hard for new developers to understand the template pattern.
 * **Alternative 2:** Just override `execute()`
 ** Pros: Does not involve the template pattern, easier for new developers to understand.
-** Cons: Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
+** Cons: Classes that inherit from `UndoableCommand` must remember to call `super.execute()` or lose the ability to undo/redo.
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Save a copy of the entire address book
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Each individual command knows how to undo/redo by itself.
+* **Alternative 2:** Modify each individual command to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
@@ -360,12 +355,11 @@ image::UndoRedoActivityDiagram.png[width="650", caption="Figure 4-8. "]
 ===== Aspect: Type of commands that can be undone/redone
 
 * **Alternative 1 (current choice):** Only include commands that modifies the address book (`add`, `clear`, `edit`).
-** Pros: We only revert changes that are hard to change back (the view can easily be re-modified as no data are * lost).
-** Cons: User might think that undo also applies when the list is modified (undoing filtering for example), * only to realize that it does not do that, after executing `undo`.
-* **Alternative 2:** Include all commands.
+** Pros: We only revert changes that are hard to change back (the view can easily be re-modified as no data are lost).
+** Cons: User might think that undo also applies when the list is modified (undoing filtering for example), only to realize that it does not do that, after executing `undo`.
+* **Alternative 2:** Include all commands
 ** Pros: Might be more intuitive for the user.
-** Cons: User have no way of skipping such commands if he or she just want to reset the state of the address * book and not the view.
-**Additional Info:** See our discussion  https://github.com/se-edu/addressbook-level4/issues/390#issuecomment-298936672[here].
+** Cons: User have no way of skipping such commands if he or she just want to reset the state of the address book and not the view.
 
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -375,7 +369,7 @@ image::UndoRedoActivityDiagram.png[width="650", caption="Figure 4-8. "]
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update * both `HistoryManager` and `UndoRedoStack`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate stack, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 === Pet Component Feature
@@ -511,11 +505,11 @@ public class PetListPanel extends UiPart<Region> {
 
 The `PetCard` contains a single pet and sets the pet's details and the layout of the display of details.
 
-Figure 4-12 below is a screenshot of the final displayed pet list, where each pet, for example 'Garfield',
+Figure 4-10 below is a screenshot of the final displayed pet list, where each pet, for example 'Garfield',
 is contained in a `PetCard`, and the cards of all pets are presented in a list form by using `PetListPanel`.
 
 .Screenshot of a List of Pets
-image::list_pet.PNG[width="350" caption="Figure 4-12. "]
+image::list_pet.PNG[width="350" caption="Figure 4-10. "]
 
 Aside from toggling the lists by clicking on the tabs, the `list` command is implemented to take in a parameter
 of either 'client', 'pet' or 'vettech' so that the list view updates appropriately when the `list` command is used.
@@ -585,20 +579,20 @@ This feature supports one of the main functionality of *VetterAppointments* whic
 *Model component* +
 In order to schedule an appointment, the Vet must create an appointment by specifying the date, time and duration.
 
-The diagram(Figure 4-13)  below illustrates the overview of the appointment class. +
+The diagram(Figure 4-13) below illustrates the overview of the appointment class. +
 
 .Overview the Appointment Class in VetterAppointments
-image::ModelAppointmentClassDiagram.png[width="780", caption="Figure 4-13. "]
+image::ModelAppointmentClassDiagram.png[width="780", caption="Figure 4-11. "]
 
 As you can see from the class diagram Figure 4-13, there are three attributes of an appointment and each of them is implemented by an individual class.
 
 
 We are not using the java date and time class but implementing our self-defined classes. The reason is to check the invalidity more efficiently.
 
-The diagrams(Figure 4-14) below shows the class diagram for date and time. +
+The diagrams(Figure 4-12) below shows the class diagram for date and time. +
 
 .Date and Time Class Diagram Snippets
-image::AppointmentClassDemo.png[width="500", caption="Figure 4-14. "]
+image::AppointmentClassDemo.png[width="500", caption="Figure 4-12. "]
 
 The method to check for for a valid date is implemented this way:
 [source,java]
@@ -621,10 +615,10 @@ By checking the time regex, only time entered in the format of HH:MM will be acc
 [NOTE]
 Time is expressed in 24 hour format hence hour ranges from 00 to 23 and minute from 01 to 60. +
 
-The diagram(Figure 4-15) below shows the class diagram of duration. +
+The diagram(Figure 4-13) below shows the class diagram of duration. +
 
 .Duration Class Diagram Snippet
-image::AppointmentClassDemo2.png[width="500", caption="Figure 4-15. "]
+image::AppointmentClassDemo2.png[width="500", caption="Figure 4-13. "]
 
 The method to check for a valid duration is implemented this way:
 [source,java]
@@ -635,10 +629,10 @@ The method to check for a valid duration is implemented this way:
 [NOTE]
 Duration can be either two or three digit number and the value is in minute.
 
-The diagram(Figure 4-16) below shows the class diagram of appointment. +
+The diagram(Figure 4-14) below shows the class diagram of appointment. +
 
 .Appointment Class Diagram Snippet
-image::AppointmentClassDemo3.png[width="500", caption="Figure 4-16. "]
+image::AppointmentClassDemo3.png[width="500", caption="Figure 4-14. "]
 
 To differentiate appointments, the equals method is implemented this way:
 
@@ -657,22 +651,96 @@ public boolean equals(Object other) {
 Only date and time are responsible for duplicate appointments.
 
 *Logic component* +
-The following sequence diagram(Figure 4-17) shows how the schedule command works. +
+The following sequence diagram(Figure 4-15) shows how the schedule command works. +
 
 .Sequence Diagram of Interactions inside the Logic Component for `schedule date time duration` Command
-image::ScheduleLogicSequenceDiagram.png[width="800", caption="Figure 4-17. "]
+image::ScheduleLogicSequenceDiagram.png[width="800", caption="Figure 4-15. "]
 
 As you can see from the above diagram, the schedule command first goes to the `logicManager` and then gets parsed by the `ScheduleCommandParser`.
 After getting the appointment object from `Model`, the command result is returned to `LogicManager`.
 
 *Storage component* +
-The following diagram(Figure 4-18) shows how the appointment is being stored in the addressBook. +
+The following diagram(Figure 4-16) shows how the appointment is being stored in the addressBook. +
 
 .Appointment Storage Class Diagram
-image::AppointmentStorageClassDiagram.png[width="800", caption="Figure 4-18. "]
+image::AppointmentStorageClassDiagram.png[width="800", caption="Figure 4-16. "]
 
 As shown in the above diagram, appointments are saved and read back in xml format.
 // end::scheduleappt[]
+
+// tag::autocomplete[]
+=== Autocomplete feature
+
+==== Reasons for implementation
+
+The autocomplete feature will allow vets to type their commands quicker as some of the commands require several input from the vet. With the autocomplete feature, vets will be able to execute commands faster to save time.
+
+==== Current Implementation
+
+The autocomplete mechanism is facilitated by `AutoCompleteManager`, which resides inside `LogicManager`. It supports the auto completion of incomplete commands by providing a list of auto completed command from a given incomplete command.
+
+A underlying `Trie` data structure is used to facilitate the `AutoCompleteManager` functionality.
+The `Trie` only supports the auto completion of commands provided by `AutoCompleteManager`. The `CommandParameterSyntaxHandler` which resides in `AutocompleteManager` supports the auto completion of parameters for commands.
+
+Figure 4-17 shows the class diagram of the autocomplete implementation.
+
+.AutoComplete Implementation Class Diagram
+image::LogicAutoCompleteClassDiagram.png[width="800", caption="Figure 4-17. "]
+
+The `CommandBox` will interact with the AutoCompleteManager from using the `LogicManager`.
+When the user presses tab in the command box area, the `CommandBox` will handle the tab key press and executes the `autoCompleteUserInput()` method.
+
+[source,java]
+----
+public class CommandBox extends UiPart<Region> {
+
+    private void handleKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        // ... other cases ...
+        case TAB:
+            keyEvent.consume();
+            autoCompleteUserInput();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+
+    /* Shows auto completed text or suggestions on the UI */
+    private void autoCompleteUserInput() {
+        // ... auto complete logic ...
+
+        if (isTabDoubleTap()) {
+            // ... show suggestion on UI logic ...
+        }
+    }
+
+}
+----
+
+The `isTabDoubleTap()` method will check if the user presses tab twice in quick succession. If true, the `CommandBox` will show a list of command suggestions for the current user input.
+
+
+==== Design Considerations
+
+===== Aspect: Implementation of autocomplete capability
+
+* **Alternative 1 (current choice):** Add a manager class to handle all autocomplete behaviour
+** Pros: The class will allow for more code abstraction and can also be implemented elsewhere.
+** Cons: New developers will need to throughly understand the class interactions.
+* **Alternative 2:** Add the autocomplete logic simply in the `Commandbox`
+** Pros: Does not involve other classes, easier for new developers to understand.
+** Cons: Breaks the Single Responsibility Principle.
+
+===== Aspect: Implementation of Algorithm
+
+* **Alternative 1 (current choice):** Use a Trie data structure
+** Pros: Better software performance.
+** Cons: Difficult to implement.
+* **Alternative 2:** Iterate through all possible commands to find match prefix
+** Pros: Easier to implement.
+** Cons: May result in performance loss if there are too many commands.
+// end::autocomplete[]
 
 === Logging
 
@@ -681,7 +749,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>).
 
 The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
-Currently log messages are output through: `Console` and to a `.log` file.
+Currently log messages are output through the `Console` and to a `.log` file.
 
 *Logging Levels*
 
@@ -716,14 +784,14 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
-Here are the steps to convert the project documentation files to PDF format.
+Here are the steps to convert the project documentation files to PDF format:
 
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`
 .  Within Chrome, click on the `Print` option in Chrome's menu
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below
 
-.Saving documentation as PDF files in Chrome
+.Saving Documentation as PDF Files in Chrome
 image::chrome_save_as_pdf.png[width="300" caption="Figure 5-1. "]
 
 [[Testing]]
@@ -753,7 +821,7 @@ See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using G
 
 Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
-To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`).
 
 === Types of Tests
 
@@ -798,10 +866,10 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
-.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`]
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>
 .  Tag the repo with the version number. e.g. `v0.1`
-.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created
 
 === Managing Dependencies
 
