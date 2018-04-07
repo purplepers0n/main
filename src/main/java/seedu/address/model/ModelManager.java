@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
+import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
@@ -192,7 +193,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void removeAppointmentFromPet(Appointment appointment)
-        throws AppointmentNotFoundException, DuplicateAppointmentException {
+        throws AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
         requireNonNull(appointment);
         addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();

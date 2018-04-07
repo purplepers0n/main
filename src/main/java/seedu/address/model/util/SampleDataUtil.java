@@ -26,7 +26,6 @@ import seedu.address.model.pet.PetGender;
 import seedu.address.model.pet.PetName;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -46,10 +45,10 @@ public class SampleDataUtil {
             new Client(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("premium")),
-            new VetTechnician(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new Client(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet("fulltimer")),
-            new VetTechnician(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new Client(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("parttimer"))
         };

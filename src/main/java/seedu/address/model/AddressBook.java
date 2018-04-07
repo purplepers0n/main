@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
+import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
@@ -473,13 +474,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes the appointment from a pet
      */
     public void removeAppointmentFromPet(Appointment appointment) throws
-            AppointmentNotFoundException, DuplicateAppointmentException {
+            AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
         if (!appointments.contains(appointment)) {
             throw new AppointmentNotFoundException();
         } else {
             Appointment appointmentCopy = new Appointment(appointment);
-            appointmentCopy.setClientOwnPetToNull();
-            appointments.setAppointment(appointment, appointmentCopy);
+
+            if (appointmentCopy.getClientOwnPet() == null) {
+                throw new AppointmentDoesNotHavePetException();
+            } else {
+                appointmentCopy.setClientOwnPetToNull();
+                appointments.setAppointment(appointment, appointmentCopy);
+            }
         }
     }
     //@@author

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
+import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
@@ -193,7 +194,7 @@ public interface Model {
      * Removes an appointment from a pet.
      */
     void removeAppointmentFromPet(Appointment appointment) throws
-            AppointmentNotFoundException, DuplicateAppointmentException;
+            AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException;
 
     /**
      * Sorts the appointment by date and then by time
