@@ -59,7 +59,7 @@ public class Trie {
     /**
      * Auto-complete strings
      * <p>
-     * Returns an {@code ArrayList<String>} of auto-completed words
+     * Returns an {@code ArrayList<String>} of auto-completed words with given prefix
      */
     public List<String> autoComplete(String prefix) {
         List<String> result = new ArrayList<>();

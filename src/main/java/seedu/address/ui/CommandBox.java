@@ -24,9 +24,9 @@ public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
     private static final int DOUBLE_PRESS_DELAY = 300;
-    private static final String EMPTY_STRING = "";
     private static final String MESSAGE_AVAILABLE_AUTOCOMPLETE = "Command suggestions: ";
     private static final String MESSAGE_NO_MORE_AVAILABLE_COMMANDS = "No more available commands suggestions";
+    private static final String SPACING = " ";
 
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -65,7 +65,7 @@ public class CommandBox extends UiPart<Region> {
             break;
         case TAB:
             keyEvent.consume();
-            autoCompleteInput();
+            autoCompleteUserInput();
             break;
         default:
             // let JavaFx handle the keypress
@@ -74,56 +74,61 @@ public class CommandBox extends UiPart<Region> {
 
     //@@author jonathanwj
     /**
-     * Shows auto completed text on the UI
+     * Shows auto completed text or suggestions on the UI
      */
-    private void autoCompleteInput() {
+    private void autoCompleteUserInput() {
         if (commandTextField.getText().isEmpty()) {
             return;
         }
 
-        String currUserInput = commandTextField.getText();
-        if (currUserInput.endsWith(" ")) {
-            autoCompleteCommandParameters();
+        if (getCurrentText().endsWith(SPACING)) {
+            autoCompleteNextCommandParameter();
             return;
         }
 
-        List<String> listOfAutoComplete = logic.autoCompleteCommands(currUserInput);
+        List<String> listOfAutoComplete = logic.getAutoCompleteCommands(getCurrentText());
         if (listOfAutoComplete.isEmpty()) {
             return;
         }
 
         if (listOfAutoComplete.size() == 1) {
-            commandTextField.setText(listOfAutoComplete.get(0));
-            commandTextField.positionCaret(commandTextField.getText().length());
+            replaceText(listOfAutoComplete.get(0));
         }
-        logger.info("Auto Complete Suggestions '"
-                + currUserInput + "' : " + listToString(listOfAutoComplete));
 
         if (isTabDoubleTap()) {
-            if (listOfAutoComplete.size() == 1) {
-                raise(new NewResultAvailableEvent(MESSAGE_NO_MORE_AVAILABLE_COMMANDS));
-            } else {
-                raise(new NewResultAvailableEvent(MESSAGE_AVAILABLE_AUTOCOMPLETE + listToString(listOfAutoComplete)));
-            }
+            showSuggestionsOnUi(listOfAutoComplete);
         }
 
     }
 
+    /**
+     * Shows autocomplete suggestions on the UI given the list of string suggestions
+     */
+    private void showSuggestionsOnUi(List<String> listOfAutoComplete) {
+        logger.info(MESSAGE_AVAILABLE_AUTOCOMPLETE
+                + commandTextField.getText() + " >> " + getStringFromList(listOfAutoComplete));
+        if (listOfAutoComplete.size() == 1) {
+            raise(new NewResultAvailableEvent(MESSAGE_NO_MORE_AVAILABLE_COMMANDS));
+        } else {
+            raise(new NewResultAvailableEvent(MESSAGE_AVAILABLE_AUTOCOMPLETE + getStringFromList(listOfAutoComplete)));
+        }
+    }
+
     //@@author jonathanwj
     /**
-     * Shows auto completed text with next prefix parameter on UI
+     * Shows auto completed next prefix parameter for completed command on UI
      */
-    private void autoCompleteCommandParameters() {
-        String autoCompletedText = logic.autoCompleteNextParameter(commandTextField.getText());
-        commandTextField.setText(autoCompletedText);
-        commandTextField.positionCaret(commandTextField.getText().length());
+    private void autoCompleteNextCommandParameter() {
+        String textToShow = getCurrentText()
+                + logic.getAutoCompleteNextParameter(getCurrentText());
+        replaceText(textToShow);
     }
 
     //@@author jonathanwj
     /**
      * Returns the {@code String} representative of given the list of Strings.
      */
-    private String listToString(List<String> listOfAutoComplete) {
+    private String getStringFromList(List<String> listOfAutoComplete) {
         String toString = listOfAutoComplete.toString();
         toString = toString.substring(1, toString.length() - 1).trim();
         return toString;
@@ -136,10 +141,17 @@ public class CommandBox extends UiPart<Region> {
     private boolean isTabDoubleTap() {
         if (System.currentTimeMillis() - previousTabPressTime < DOUBLE_PRESS_DELAY) {
             return true;
-        } else {
-            previousTabPressTime = System.currentTimeMillis();
         }
+        previousTabPressTime = System.currentTimeMillis();
         return false;
+    }
+
+    //@@author jonathanwj
+    /**
+     * Returns the current text in the command box
+     */
+    private String getCurrentText() {
+        return commandTextField.getText();
     }
 
     //@@author
