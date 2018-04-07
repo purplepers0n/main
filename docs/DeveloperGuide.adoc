@@ -153,7 +153,7 @@ image::SDforDeletePersonEventHandling.png[width="800", caption="Figure 3-4. "]
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
-The following fouur sections in this guide will give more details of each component.
+The following four sections in this guide will give more details of each component.
 
 [[Design-Ui]]
 === UI Component
