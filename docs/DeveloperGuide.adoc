@@ -457,7 +457,7 @@ The `Pet` object interacts with several commands in the program. +
 6. `findp` `*NOT IMPLEMENTED YET*` +
 
 ==== Storage component
-All pet details will be stored in a seperate XML file.
+All pet details will be stored in a separate XML file.
 
 ==== UI component
 All pet information will be displayed in the UI in a `Pet` list. All changes made to the pet will be reflected immediately after interacting with the commands.
