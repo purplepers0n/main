@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -264,6 +265,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         ArrayList<ClientOwnPet> toRemoveClientPetAssociationList = new ArrayList<>();
         ArrayList<Pet> toRemovePetList = new ArrayList<>();
 
+        // Adds the key and its pets to the toRemoveList
         for (ClientOwnPet cop : clientPetAssociations) {
             if (cop.getClient().equals(key)) {
                 toRemoveClientPetAssociationList.add(cop);
@@ -271,6 +273,16 @@ public class AddressBook implements ReadOnlyAddressBook {
             }
         }
 
+        for (Iterator<Appointment> iterator = appointments.iterator(); iterator.hasNext();) {
+            Appointment appt = iterator.next();
+            if (appt.getClientOwnPet() == null) {
+                continue;
+            } else if (appt.getClientOwnPet().getClient().equals(key)) {
+                appt.setClientOwnPetToNull();
+            }
+        }
+
+        // Removes the key and its pets.
         clientPetAssociations.removeAll(toRemoveClientPetAssociationList);
         pets.getInternalList().removeAll(toRemovePetList);
         if (!persons.remove(key)) {

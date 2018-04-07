@@ -95,6 +95,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         setAppointments(replacement);
     }
 
+    //@@author md-azsa
     /**
      * Sorts the internal list
      */
@@ -102,6 +103,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         SortedList<Appointment> sortedList = new SortedList<>(internalList, Appointment::compareTo);
         internalList.setAll(sortedList);
     }
+    //@@author
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
