@@ -349,5 +349,9 @@ public class AddPetCommandTest {
         public void updateFilteredPetList(Predicate<Pet> predicate) {
         }
 
+        @Override
+        public void updateFilteredClientOwnPetAssocation(Predicate<ClientOwnPet> predicate) {
+        }
+
     }
 }

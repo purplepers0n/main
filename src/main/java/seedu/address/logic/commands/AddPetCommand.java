@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PET_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PET_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PET_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSOCIATION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PETS;
 
 import java.util.List;
@@ -70,6 +71,7 @@ public class AddPetCommand extends UndoableCommand {
             model.addPet(petToAdd);
             model.addPetToClient(petToAdd, client.get());
             model.updateFilteredPetList(PREDICATE_SHOW_ALL_PETS);
+            model.updateFilteredClientOwnPetAssocation(PREDICATE_SHOW_ALL_ASSOCIATION);
         } catch (DuplicatePetException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PET);
         } catch (ClientAlreadyOwnsPetException e) {
