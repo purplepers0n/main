@@ -105,6 +105,20 @@ glance of the available commands relating to the program <<Program and Shared Su
 If you're feeling lazy to type in the command type, press kbd:[Tab] on your keyboard
 and it'll do the rest for you. +
 
+[TIP]
+====
+Pressing the kbd:[Tab] key twice will provide you with suggestions of your current command input.
+====
+
+[TIP]
+====
+Pressing the kbd:[Tab] after a completed command that has a following space will provide you with the next available input parameter for the command.
+====
+
+Here is an example of using the autocomplete functionality: +
+
+* Suppose you want to type a command `addvettechtoappointment` but it is a hassle to type out the full command. In this scenario you can type `addv` and press kbd:[Tab] to autocomplete your `addv` input to `addvettechtoappointment` +
+
 ==== Executing a command
 Every command in VetterAppointments are executed by first entering the command type
 and its respective parameters. To execute the command, simply press the kbd:[Enter]
@@ -149,6 +163,7 @@ Lists all the commands that you have entered in reverse chronological order. +
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::undoredo[]
 ==== Redoing the previously undone command : `redo`
 Format: `redo` +
 
@@ -172,9 +187,7 @@ Undoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
 `schedule`
 ====
-
-
-
+// end::undoredo[]
 
 === Client & Staff Related Commands
 This section explains and goes through the commands and features available to manage your
@@ -191,7 +204,7 @@ The command expects these parameters when adding a new person: +
 
 [horizontal]
 *ROLE*::
-VetterAppointment expects a role to be either a *VetTechnician* or a *Client*.
+VetterAppointment expects a role to be either a `technician` or a `client`.
 You cannot omit this parameter. +
 
 *NAME*::
@@ -301,7 +314,7 @@ The figure below is the newly edited details of person at index 1.
 image::userguide_editCommand_image.PNG[width="1000"]
 
 
-==== Finding by name: `find`
+==== Finding by name: `find` `Since v1.3`
 Command format: `find KEYWORD` +
 
 The `find` command displays all existing clients or pets containing the keyword.
@@ -374,8 +387,7 @@ vet tech list tab below. +
 .Resulting output upon executing the `list vettech` command.
 image::userguide_listVettechCommand_image.PNG[width="300']
 
-
-==== Sorting clients in alphabetical order: `sortc`
+==== Sorting clients in alphabetical order: `sortc` `Since v1.4`
 Command format: `sortc` +
 
 The `sortc` command will sort all existing clients in the program in alphabetical ordering. +
@@ -455,7 +467,7 @@ pet list tab below. +
 .Resulting output upon executing the `list pet` command.
 image::userguide_addpCommand_image.PNG[width="300"]
 
-==== Scheduling an appointment : `schedule`
+==== Scheduling an appointment : `schedule` `Since v1.4`
 Command format: schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION +
 
 Schedules an appointment by specifying the date, time, duration and description.
@@ -639,7 +651,6 @@ When this command is executed, the appointment will be removed from the pet that
 The command does not remove the appointment itself, rather, the pet associated with the appointment.
 So don't worry, you don't have to reschedule the appointment.
 
-
 ==== Removing a vet technician from an appointment: `removevettechfromappt` `Since v1.4`
 Command format: `removevettechfromappt INDEX` +
 
@@ -667,7 +678,7 @@ image::userguide_removevettech_image.PNG[width="400"]
 
 
 
-==== Rescheduling an appointment : `reschedule`
+==== Rescheduling an appointment : `reschedule` `Since v1.4`
 Command format: `reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [DESC/DESCRIPTION] +
 
 The `reschedule` command reschedules the existing appointment to another date or time. This command is also
@@ -700,7 +711,6 @@ to the next day and lasts 20 minutes longer.
 
 [NOTE]
 You need to provide at least one change to any filed of an existing appointment.
-
 
 ==== Sorting pets in alphabetical order: `sortp`
 Command format: `sortp` +
@@ -773,6 +783,7 @@ about them.
 |editappt |`editappt n/CLIENT_NAME pn/PET_NAME [date/DATE (DD.MM.YYYY)] [time/TIME (HHMM)] [vettech/VET_TECHNICIAN_NAME] [cmt/COMMENTS]` |Edits an appointment's details.
 |editp |`editp INDEX [pn/PET_NAME] [pa/PET_AGE] [pg/PET_GENDER] [t/PET_TAGS]…​` |Edits a pet's details.
 |list pet |`list pet` |Lists all pets.
+|reschedule |`reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [DESC/DESCRIPTION]` | Reschedules an appointment.
 |rmapptfrompet |`rmapptfrom p/PET_INDEX` |Removes an appointment from a pet.
 |schedule | `schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION` |Schedule an appointment given date (YYYY-MM-DD), time (HH:MM), duration (minutes) and description.
 |sortp |`sortp` |Sorts the pet list alphabetically.
