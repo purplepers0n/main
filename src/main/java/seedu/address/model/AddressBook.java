@@ -132,7 +132,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new ClientPetAssociationListEmptyException();
         } else {
             this.clientPetAssociations.sort((ClientOwnPet a, ClientOwnPet b) ->
-                    a.getPet().getPetName().toString().compareTo(b.getPet().getPetName().toString()));
+                    a.getPet().getPetName().toString().toLowerCase()
+                    .compareTo(b.getPet().getPetName().toString().toLowerCase()));
         }
     }
 
