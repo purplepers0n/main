@@ -16,9 +16,10 @@ By: `F09-B4`      Since: `March 2018`      Licence: `MIT`
 
 == Introduction
 
-VetterAppointments is a Java based application that helps manage the appointments of a veterinarian.
-This guide will aid an incoming developer to understand the architecture and underlying interface of the application.
-This guide will walk through the process of setting up the program and building upon it.
+VetterAppointments is a Java based application that helps manage the clients, employees and appointments of a vet.
+
+This guide serves to aid an incoming developer to understand the architecture and underlying interface of the application.
+This guide will walk you through the process of setting up the program and building upon it.
 
 == Setting Up
 
@@ -27,24 +28,23 @@ This guide will walk through the process of setting up the program and building 
 . *JDK `1.8.0_60`* or later
 +
 [NOTE]
-Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
 
 . *IntelliJ* IDE
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+IntelliJ has Gradle and JavaFx plugins installed by default. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
 === Setting up the Project in Your Computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork this repository, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
+.. Click `New...` and find the directory of the correct JDK version
 . Click `Import Project`
 . Locate the `build.gradle` file and select it and click `OK`
 . Click `Open as Project`
@@ -76,7 +76,8 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level4` repo. If you plan to develop this as a separate product (i.e. instead of contributing to the `se-edu/addressbook-level4`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
+After forking the repository, links in the documentation will still point to the `se-edu/addressbook-level4` repository.
+If you plan to develop this as a separate product (i.e. instead of contributing to the `se-edu/addressbook-level4`), you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
 
 ==== Setting up CI
 
@@ -92,6 +93,7 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based).
 
+
 == Design
 
 [[Design-Architecture]]
@@ -100,34 +102,34 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 .Architecture Diagram
 image::Architecture.png[width="600", caption="Figure 3-1. "]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of application. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At application launch: Initializing the components in the correct sequence, and connecting them up with each other
+* At application shut down: Shutting down the components and invoking cleanup methods where necessary
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level:
 
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `EventsCenter`: This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter`: This class is used by many other classes to write log messages to the application's log file
 
 The rest of the App consists of the following four components:
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Ui,*`UI`*>>: Handles the user interface of the application
+* <<Design-Logic,*`Logic`*>>: Executes commands
+* <<Design-Model,*`Model`*>>: Holds the data of the application in-memory
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to the hard disk
 
 Note that each of the four components:
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Define its _API_ in an `interface` with the same name as the component
+* Expose its functionality using a `{Component Name}Manager` class
 
-Take for example, the `Logic` component class diagram shown in Figure 3-2. The component defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see Figure 3-2 given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Logic Component Class Diagram
 image::LogicClassDiagram.png[width="800", caption="Figure 3-2. "]
@@ -137,21 +139,21 @@ image::LogicClassDiagram.png[width="800", caption="Figure 3-2. "]
 
 Figure 3-3 shows a _Sequence Diagram_ of how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component Interactions for `delete 1` Command (part 1)
+.Sequence Diagram of Component Interactions for `delete 1` Command (part 1)
 image::SDforDeletePerson.png[width="800", caption="Figure 3-3. "]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `AddressBookChangedEvent` when the application's data is changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component Interactions for `delete 1` Command (part 2)
+.Sequence Diagram of Component Interactions for `delete 1` Command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800", caption="Figure 3-4. "]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
-The following sections in this guide will give more details of each component.
+The following fouur sections in this guide will give more details of each component.
 
 [[Design-Ui]]
 === UI Component
@@ -161,15 +163,18 @@ image::UiClassDiagram.png[width="800", caption="Figure 3-5. "]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ClientListPanel`,
+`PetListPanel`, `VetTechnicianListPanel`, `ApptListPanel`, `StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that can be found in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
 The `UI` component:
 
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+* Executes user commands using the `Logic` component
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes
+* Responds to events raised from various parts of the application and updates the UI accordingly
 
 [[Design-Logic]]
 === Logic Component
@@ -186,16 +191,14 @@ image::LogicCommandClassDiagram.png[width="800", caption="Figure 3-7. "]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-The `Logic` component:
-
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+`Logic` uses the `AddressBookParser` class to parse the user command.
+This results in a `Command` object which is executed by the `LogicManager`.
+The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Figure 3-8 shows the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Sequence Diagram of Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800", caption="Figure 3-8. "]
 
 [[Design-Model]]
@@ -208,10 +211,10 @@ image::ModelClassDiagram.png[width="800", caption="Figure 3-9. "]
 
 The `Model` component:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Stores a `UserPref` object that represents the user's preferences
+* Stores the application's data
+* Exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes
+* Does not depend on any of the other three components
 
 [[Design-Storage]]
 === Storage Component
@@ -223,13 +226,13 @@ image::StorageClassDiagram.png[width="800", caption="Figure 3-10. "]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* Can save `UserPref` objects in json format and read it back
+* Can save the application's data in xml format and read it back
 
 [[Design-Commons]]
 === Common Classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components can be found in the `seedu.addressbook.commons` package.
 
 == Implementation
 
@@ -306,7 +309,7 @@ If the `undoStack` is empty, then there are no other commands left to be undone,
 
 Figure 4-5 shows a sequence diagram of how the undo operation works:
 
-.Undo/Redo Sequence Diagram
+.Sequence Diagram of Undo/Redo operation
 image::UndoRedoSequenceDiagram.png[width="800", caption="Figure 4-5. "]
 
 The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores the address book to the state after the command is executed).
@@ -345,7 +348,7 @@ image::UndoRedoActivityDiagram.png[width="650", caption="Figure 4-8. "]
 * **Alternative 1 (current choice):** Saves the entire address book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
+* **Alternative 2:** Each individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
@@ -375,9 +378,9 @@ image::UndoRedoActivityDiagram.png[width="650", caption="Figure 4-8. "]
 
 ==== Reasons for implementation
 
-VetterAppointments is designed for vets who manages his team of vet technician, clients and most importantly, the pets.
-The Pet component feature stores the necessary Pet details like name, gender, age, tags as well as appointment.
-Such details are essential to facilitate other functions such as viewing the client's appointments and the pet's appointments at a glance displayed on the GUI.
+VetterAppointments is designed for vets to manage his team of vet technicians, clients and most importantly, the pets.
+The Pet component feature stores the necessary Pet details like name, gender, age, tags as well as appointments.
+Such details are essential to facilitate other functions such as viewing the client's appointments and the pet's appointments on the GUI.
 
 ==== Current implementation
 
@@ -420,7 +423,7 @@ The constraints for a valid pet age is implemented this way:
 public static final String PET_VALIDATIONS_REGEX = "\\d{1,2}";
 ----
 
-`Petgender`: A class that takes in a String supplied by the user with the prefix `pg\`. It stores the pet gender details
+`Petgender`: A class that takes in a String supplied by the user with the prefix `pg/`. It stores the pet gender details
 and creates an object for the `Pet` constructor to consume.
 [NOTE]
 The `PetGender` validates for supplied gender. Only M or F is allowed, representing Male or Female.
@@ -442,10 +445,11 @@ The `UniquePetList` class ensures that no duplicates of the same pet are stored 
 The figure below shows a simple overview of the `Pet` class. +
 
 .Pet class diagram snippet
-image::pet_diagram_snippet.png[width="790", caption="Figure 4-9. "]
+image::pet_diagram_snippet.png[width="780", caption="Figure 4-9. "]
 
-==== Logic component
+*Logic component* +
 The `Pet` object interacts with several commands in the program. +
+<<<<<<< HEAD
 1. `addp` +
 2. `deletep` +
 3. `list pet` +
@@ -458,6 +462,20 @@ All pet details will be stored in a separate XML file.
 
 ==== UI component
 All pet information will be displayed in the UI in a `Pet` list. All changes made to the pet will be reflected immediately after interacting with the commands.
+=======
+1. `addappttopet` +
+2. `addp` +
+3. `deletep` +
+4. `list pet` +
+5. `sortp` +
+6. `findp` `*COMING IN V2.0*` +
+
+*Storage component* +
+All pet details will be stored in a separate XML file.
+
+*UI component* +
+All pet information will be displayed in the UI in a `PetListPanel`. All changes made to the pet will be reflected immediately after interacting with the commands.
+>>>>>>> upstream-master
 
 // tag::listperson[]
 === List and display clients, pets and vet technicians
@@ -471,7 +489,7 @@ corresponding list. We will use the pet list to demonstrate the implementation.
 The 'Pet' `Tab` consists of a `StackPane` called `petListPanelPlaceholder` in the `MainWindow.fxml` file.
 
 In the `MainWindow.java` file, the `petListPanel`
-retrieves the updated list of pets from `logic`, and the `petListPanel` is added to `petListPanelPlaceholder` to be displayed like so:
+retrieves the updated list of pets from `logic`, and the `petListPanel` is added to `petListPanelPlaceholder` to be displayed this way:
 
 [source, java]
 ----
@@ -484,7 +502,7 @@ public class MainWindow extends UiPart<Stage> {
 }
 ----
 
-The `PetListPanel` is a `ListView` which contains a list of `PetCard` which is implemented like so:
+The `PetListPanel` is a `ListView` which contains a list of `PetCard` which is implemented this way:
 
 [source, java]
 ----
@@ -513,8 +531,8 @@ image::list_pet.PNG[width="350" caption="Figure 4-12. "]
 Aside from toggling the lists by clicking on the tabs, the `list` command is implemented to take in a parameter
 of either 'client', 'pet' or 'vettech' so that the list view updates appropriately when the `list` command is used.
 
-To implement this, depending on the parameter, the `ListCommand` creates and adds `ChangeListTabEvent`
-to `EventCenter` like so:
+Depending on the parameter, the `ListCommand` creates and adds `ChangeListTabEvent`
+to `EventCenter`, which is implemented this way:
 [source, java]
 ----
 public class ListCommand extends Command {
@@ -535,7 +553,7 @@ public class ListCommand extends Command {
 
 The `MainWindow` then handles the `ChangeListTabEvent` by changing to the corresponding list on the UI display,
 and updates `logic` with the index of the current list so that other commands like `edit` and `delete`
-can perform the command on the correct list, like so:
+can perform the command on the correct list, which is implemented this way:
 
 [source, java]
 ----
@@ -572,29 +590,26 @@ command is executed
 
 // tag::scheduleappt[]
 === Schedule feature
-This feature supports one of the main functionality of *Vetter Appointments* which is to facilitate the process of scheduling appointments with clients.
+This feature supports one of the main functionality of *VetterAppointments* which is to facilitate the process of scheduling appointments with clients.
 
 ==== Current Implementation
 *Model component* +
-
-* *Overview*:
 In order to schedule an appointment, the Vet must create an appointment by specifying the date, time and duration.
 
 The diagram(Figure 4-13)  below illustrates the overview of the appointment class. +
 
-.overview the appointment class in addressbook
-image::ModelAppointmentClassDiagram.png[width="800", caption="Figure 4-13. "]
+.Overview the Appointment Class in VetterAppointments
+image::ModelAppointmentClassDiagram.png[width="780", caption="Figure 4-13. "]
 
 As you can see from the class diagram Figure 4-13, there are three attributes of an appointment and each of them is implemented by an individual class.
 
-* *Components*: +
-Date & time +
+
 We are not using the java date and time class but implementing our self-defined classes. The reason is to check the invalidity more efficiently.
 
 The diagrams(Figure 4-14) below shows the class diagram for date and time. +
 
-.Date and time class diagram snippets
-image::AppointmentClassDemo.png[width="800", caption="Figure 4-14. "]
+.Date and Time Class Diagram Snippets
+image::AppointmentClassDemo.png[width="500", caption="Figure 4-14. "]
 
 The method to check for for a valid date is implemented this way:
 [source,java]
@@ -605,7 +620,7 @@ The method to check for for a valid date is implemented this way:
 By checking the date regex, only date entered in the format of YYYY-MM-DD will be accepted.
 
 [NOTE]
-The year should be later than 2018
+The year should be later than 2018.
 
 The method to check for a valid time is implemented this way:
 [source,java]
@@ -617,12 +632,10 @@ By checking the time regex, only time entered in the format of HH:MM will be acc
 [NOTE]
 Time is expressed in 24 hour format hence hour ranges from 00 to 23 and minute from 01 to 60. +
 
-Duration +
-
 The diagram(Figure 4-15) below shows the class diagram of duration. +
 
-.Duration class diagram snippet
-image::AppointmentClassDemo2.png[width="800", caption="Figure 4-15. "]
+.Duration Class Diagram Snippet
+image::AppointmentClassDemo2.png[width="500", caption="Figure 4-15. "]
 
 The method to check for a valid duration is implemented this way:
 [source,java]
@@ -633,12 +646,10 @@ The method to check for a valid duration is implemented this way:
 [NOTE]
 Duration can be either two or three digit number and the value is in minute.
 
-Appointment +
-
 The diagram(Figure 4-16) below shows the class diagram of appointment. +
 
-.Appoint class diagram snippet
-image::AppointmentClassDemo3.png[width="800", caption="Figure 4-16. "]
+.Appointment Class Diagram Snippet
+image::AppointmentClassDemo3.png[width="500", caption="Figure 4-16. "]
 
 To differentiate appointments, the equals method is implemented this way:
 
@@ -656,22 +667,22 @@ public boolean equals(Object other) {
 [NOTE]
 Only date and time are responsible for duplicate appointments.
 
-==== Logic component
-The following diagram(Figure 4-17) shows how the schedule command works. +
+*Logic component* +
+The following sequence diagram(Figure 4-17) shows how the schedule command works. +
 
-.Interactions inside the Logic Component for `schedule date time duration` Command
+.Sequence Diagram of Interactions inside the Logic Component for `schedule date time duration` Command
 image::ScheduleLogicSequenceDiagram.png[width="800", caption="Figure 4-17. "]
 
-As you can see from the above diagram, the schedule command first goes to the `logicManager` and then get parsed by the `ScheduleCommand Parser`.
-After getting the appointment object from `Model`, the command result returns to `LogicManager`.
+As you can see from the above diagram, the schedule command first goes to the `logicManager` and then gets parsed by the `ScheduleCommandParser`.
+After getting the appointment object from `Model`, the command result is returned to `LogicManager`.
 
-==== Storage component
-The following diagram(Figure 4-18) shows how the appointment be stored in the addressBook. +
+*Storage component* +
+The following diagram(Figure 4-18) shows how the appointment is being stored in the addressBook. +
 
-.Stores the appointment
+.Appointment Storage Class Diagram
 image::AppointmentStorageClassDiagram.png[width="800", caption="Figure 4-18. "]
 
-As shown in the above diagram Figure 4-18, appointments are saved and read back in xml format.
+As shown in the above diagram, appointments are saved and read back in xml format.
 // end::scheduleappt[]
 
 // tag::autocomplete[]
@@ -752,9 +763,10 @@ The `isTabDoubleTap()` method will check if the user presses tab twice in quick 
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>).
+
+The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
+Currently log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
 
@@ -791,10 +803,10 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
-.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
-.  Within Chrome, click on the `Print` option in Chrome's menu.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`
+.  Within Chrome, click on the `Print` option in Chrome's menu
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below
 
 .Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300" caption="Figure 5-1. "]
@@ -811,12 +823,13 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 
 *Method 1: Using IntelliJ JUnit test runner*
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`.
+
+To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`.
 
 *Method 2: Using Gradle*
 
-* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+To run all tests, open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`).
 
 [NOTE]
 See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
@@ -832,14 +845,14 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package
+.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
-..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working) +
 e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
@@ -1111,14 +1124,14 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2a. The list is empty.
+* 2a. The list is empty
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given index is invalid
 +
 [none]
-** 3a1. VetterAppointments shows an error message.
+** 3a1. VetterAppointments shows an error message
 +
 Use case resumes at step 2.
 
@@ -1145,7 +1158,7 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2a. The list is empty.
+* 2a. The list is empty
 +
 Use case ends.
 
@@ -1180,14 +1193,14 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2a. The list is empty.
+* 2a. The list is empty
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given index is invalid
 +
 [none]
-** 3a1. VetterAppointments shows an error message.
+** 3a1. VetterAppointments shows an error message
 +
 Use case resumes at step 2.
 
@@ -1230,7 +1243,7 @@ Use case resumes at step 2.
 Use case ends.
 
 [none]
-* 2a. The list is empty.
+* 2a. The list is empty
 +
 Use case ends.
 
@@ -1243,7 +1256,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [none]
-* 4a. The list is empty.
+* 4a. The list is empty
 +
 Use case ends.
 
@@ -1278,7 +1291,7 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2a. The list is empty.
+* 2a. The list is empty
 +
 Use case ends.
 
@@ -1348,14 +1361,14 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2a. The list is empty.
+* 2a. The list is empty
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given index is invalid
 +
 [none]
-** 3a1. VetterAppointments shows an error message.
+** 3a1. VetterAppointments shows an error message
 +
 Use case resumes at step 2.
 
@@ -1402,11 +1415,11 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2a. The list is empty.
+* 2a. The list is empty
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given index is invalid
 +
 [none]
 ** 3a1. VetterAppointments shows an error message.
@@ -1417,23 +1430,23 @@ Use case resumes at step 2.
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  System should respond under a second.
-.  Should be resizable for any screen resolution without any user-application interaction problems.
-.  Should be able to be used by a novice keyboard user.
-.  Should be able to be used by a person with hearing loss.
-.  UI colors should be able to be identifiable by a color blind user.
-.  Data should be backwards compatible with older application versions.
-.  Data should be encrypted for security.
-.  Should be able to be installed and uninstalled automatically with a single user interaction.
-.  Application should run indefinitely until closed.
-.  Should have hidden text for certain sensitive data (e.g. NRIC, passwords).
-.  Data should be stored online.
-.  Should recover immediately from a system failure without any data loss or corruption.
-.  Should be able to detect and handle corruption in software data and stored data.
-.  Should have a software size of less than 500MB.
+*  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
+*  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+*  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+*  System should respond under a second.
+*  Should be resizable for any screen resolution without any user-application interaction problems.
+*  Should be able to be used by a novice keyboard user.
+*  Should be able to be used by a person with hearing loss.
+*  UI colors should be able to be identifiable by a color blind user.
+*  Data should be backwards compatible with older application versions.
+*  Data should be encrypted for security.
+*  Should be able to be installed and uninstalled automatically with a single user interaction.
+*  Application should run indefinitely until closed.
+*  Should have hidden text for certain sensitive data (e.g. NRIC, passwords).
+*  Data should be stored online.
+*  Should recover immediately from a system failure without any data loss or corruption.
+*  Should be able to detect and handle corruption in software data and stored data.
+*  Should have a software size of less than 500MB.
 
 
 [appendix]
@@ -1499,8 +1512,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Resize the window to an optimum size. Move the window to a different location. Close the window
+.. Re-launch the app by double-clicking the jar file +
    Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
@@ -1509,13 +1522,13 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+   Expected: Similar to previous
 
 _{ more test cases ... }_
 

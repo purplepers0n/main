@@ -19,6 +19,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VETTECH_INDEX;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import seedu.address.logic.commands.AddAppointmentToPetCommand;
 import seedu.address.logic.commands.AddCommand;
@@ -30,6 +31,7 @@ import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.parser.Prefix;
 
 //@@author jonathanwj
+
 /**
  * Contains Command syntax definitions for multiple commands
  */
@@ -61,11 +63,7 @@ public class CommandParameterSyntaxHandler {
      * Returns ArrayList of prefixes from given prefixes
      */
     private static ArrayList<Prefix> getListOfPrefix(Prefix... prefixes) {
-        ArrayList<Prefix> list = new ArrayList<>();
-        for (int i = 0; i < prefixes.length; i++) {
-            list.add(prefixes[i]);
-        }
-        return list;
+        return new ArrayList<>(Arrays.asList(prefixes));
     }
 
     /**
