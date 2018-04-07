@@ -7,8 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.NewApptAvailableEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
