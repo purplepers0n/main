@@ -508,7 +508,7 @@ You can execute the `addappttopet` command after creating an appointment.
 
 
 ==== Adding an appointment to a pet: `addappttopet` `Since v1.3`
-Command format: `addappttopet appt/APPOINTMENT_INDEX pn/PET_INDEX` +
+Command format: `addappttopet appt/APPOINTMENT_INDEX p/PET_INDEX` +
 
 The `addapptto` command adds an appointment to a pet in the program. +
 The command expects these parameters when adding an appointment to a pet: +
