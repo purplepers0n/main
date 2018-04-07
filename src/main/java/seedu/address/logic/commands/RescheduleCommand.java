@@ -73,7 +73,6 @@ public class RescheduleCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         try {
             model.updateAppointment(appointmentToReschedule, rescheduledAppointment);
-            EventsCenter.getInstance().post(new NewApptAvailableEvent(rescheduledAppointment.toString()));
         } catch (DuplicateAppointmentException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         } catch (AppointmentNotFoundException anfe) {

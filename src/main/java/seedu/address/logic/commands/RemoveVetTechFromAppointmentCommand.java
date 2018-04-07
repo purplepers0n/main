@@ -46,7 +46,6 @@ public class RemoveVetTechFromAppointmentCommand extends UndoableCommand {
         requireNonNull(apptToRemoveVetFrom);
         try {
             model.removeVetTechFromAppointent(apptToRemoveVetFrom);
-            EventsCenter.getInstance().post(new NewApptAvailableEvent(apptToRemoveVetFrom.toString()));
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("The target appointment cannot be a duplicate");
         } catch (AppointmentNotFoundException e) {

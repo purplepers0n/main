@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.NewApptAvailableEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
@@ -92,6 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
+        raise(new NewApptAvailableEvent(addressBook.toString()));
     }
 
     //Person

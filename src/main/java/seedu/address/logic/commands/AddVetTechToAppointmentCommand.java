@@ -68,7 +68,6 @@ public class AddVetTechToAppointmentCommand extends UndoableCommand {
         requireNonNull(appointment.get());
         try {
             model.addVetTechToAppointment(vetTech.get(), appointment.get());
-            EventsCenter.getInstance().post(new NewApptAvailableEvent(appointment.toString()));
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("The target appointment cannot be a duplicate");
         } catch (AppointmentNotFoundException e) {

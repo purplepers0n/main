@@ -67,7 +67,6 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
         requireAllNonNull(model, pet.get(), appointment.get());
         try {
             model.addAppointmentToPet(appointment.get(), pet.get());
-            EventsCenter.getInstance().post(new NewApptAvailableEvent(appointment.toString()));
         } catch (PetAlreadyHasAppointmentException e) {
             throw new CommandException(MESSAGE_PET_HAS_APPOINTMENT);
         } catch (ClientPetAssociationNotFoundException e) {
