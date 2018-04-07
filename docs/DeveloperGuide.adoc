@@ -752,16 +752,16 @@ public class CommandBox extends UiPart<Region> {
             // let JavaFx handle the keypress
         }
     }
-    
+
     /* Shows auto completed text or suggestions on the UI */
     private void autoCompleteUserInput() {
         // ... auto complete logic ...
-        
+
         if (isTabDoubleTap()) {
             // ... show suggestion on UI logic ...
         }
     }
-    
+
 }
 ----
 
