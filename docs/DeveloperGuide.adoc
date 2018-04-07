@@ -463,9 +463,14 @@ All pet details will be stored in a seperate XML file.
 All pet information will be displayed in the UI in a `Pet` list. All changes made to the pet will be reflected immediately after interacting with the commands.
 
 // tag::addpettoclient[]
-=== Add Pet to Client Feature
-==== Current Implementation
-The `AddPetToClientCommand` allows the user to add an existing pet to and existing client. A user can execute the command by providing the index of the pet and the index of the client in the following format `addpettoclient p/PET_INDEX c/CLIENT_INDEX`.
+=== Add Pet to Client Feature [Deprecated]
+
+==== Reason for deprecation
+
+The `AddPetToClientCommand` is deprecated and not implemented since v1.3 as the command implementation is not merged together with the `AddPetCommand`.
+
+==== Implementation
+The `AddPetToClientCommand` allows the user to add an existing pet to an existing client. A user can execute the command by providing the index of the pet and the index of the client in the following format `addpettoclient p/PET_INDEX c/CLIENT_INDEX`.
 
 .Structure of the Logic Component
 image::addpettoclient_logic_command_class_diagram.png[width="800", caption="Figure 4-10. "]
@@ -479,7 +484,7 @@ image::addpettoclientSequence.png[width="800" caption="Figure 4-11. "]
 
 ==== Design Considerations
 ===== Aspect: Implementation of `AddPetToClientCommand`
-* **Alternative 1 (current choice):** Add a new command that extends `UndoableCommand`
+* **Alternative 1 (implemented choice):** Add a new command that extends `UndoableCommand`
 ** Pros: We will be able to utilize undone/redone functionality.
 ** Cons: Hard for new developers to understand undo/redo implementation.
 * **Alternative 2:** Just add a new command that extends `Command`
@@ -487,7 +492,7 @@ image::addpettoclientSequence.png[width="800" caption="Figure 4-11. "]
 ** Cons: Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
 
 ===== Aspect: Data structure to support the add pet to client command
-* **Alternative 1 (current choice):** Use an association class `ClientOwnPet` to link `Pet` and `Client`
+* **Alternative 1 (implemented choice):** Use an association class `ClientOwnPet` to link `Pet` and `Client`
 ** Pros: Low coupling between `Pet` and `Client`.
 ** Cons: More steps required for other implementations to obtain pet and client relationship.
 * **Alternative 2:** Bi-directional association between `Pet` with `Client`
@@ -709,6 +714,80 @@ image::AppointmentStorageClassDiagram.png[width="800", caption="Figure 4-18. "]
 
 As shown in the above diagram Figure 4-18, appointments are saved and read back in xml format.
 // end::scheduleappt[]
+
+// tag::autocomplete[]
+=== Autocomplete feature
+
+==== Reasons for implementation
+
+The autocomplete feature will allow vets to type their commands quicker as some of the commands require several input from the vet. With the autocomplete feature, vets will be able to execute commands faster to save time.
+
+==== Current Implementation
+
+The autocomplete mechanism is facilitated by `AutoCompleteManager`, which resides inside `LogicManager`. It supports the auto completion of incomplete commands by providing a list of auto completed command from a given incomplete command.
+
+A underlying `Trie` data structure is used to facilitate the `AutoCompleteManager` functionality.
+The `Trie` only supports the auto completion of commands provided by `AutoCompleteManager`. The `CommandParameterSyntaxHandler` which resides in `AutocompleteManager` supports the auto completion of parameters for commands.
+
+The following diagram shows the class diagram of the autocomplete implementation.
+
+.AutoComplete Implementation Class Diagram
+image::LogicAutoCompleteClassDiagram.png[width="800", caption="Figure 4-1. "]
+
+The `CommandBox` will interact with the AutoCompleteManager from using the `LogicManager`.
+When the user presses tab in the command box area, the `CommandBox` will handle the tab key press and executes the `autoCompleteUserInput()` method.
+
+[source,java]
+----
+public class CommandBox extends UiPart<Region> {
+
+    private void handleKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        // ... other cases ...
+        case TAB:
+            keyEvent.consume();
+            autoCompleteUserInput();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+    
+    /* Shows auto completed text or suggestions on the UI */
+    private void autoCompleteUserInput() {
+        // ... auto complete logic ...
+        
+        if (isTabDoubleTap()) {
+            // ... show suggestion on UI logic ...
+        }
+    }
+    
+}
+----
+
+The `isTabDoubleTap()` method will check if the user presses tab twice in quick succession. If true, the `CommandBox` will show a list of command suggestions for the current user input.
+
+
+==== Design Considerations
+
+===== Aspect: Implementation of autocomplete capability
+
+* **Alternative 1 (current choice):** Add a manager class to handle all autocomplete behaviour
+** Pros: The class will allow for more code abstraction and can also be implemented elsewhere.
+** Cons: New developers will need to throughly understand the class interactions.
+* **Alternative 2:** Add the autocomplete logic simply in the `Commandbox`
+** Pros: Does not involve other classes, easier for new developers to understand.
+** Cons: Breaks the Single Responsibility Principle.
+
+===== Aspect: Implementation of Algorithm
+
+* **Alternative 1 (current choice):** Use a Trie data structure.
+** Pros: Better software performance.
+** Cons: Difficult to implement.
+* **Alternative 2:** Iterate through all possible commands to find match prefix.
+** Pros: Easier to implement.
+** Cons: May result in performance loss if there are too many commands.
+// end::autocomplete[]
 
 === Logging
 
