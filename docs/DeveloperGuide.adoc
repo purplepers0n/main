@@ -449,20 +449,6 @@ image::pet_diagram_snippet.png[width="780", caption="Figure 4-9. "]
 
 *Logic component* +
 The `Pet` object interacts with several commands in the program. +
-<<<<<<< HEAD
-1. `addp` +
-2. `deletep` +
-3. `list pet` +
-4. `sortp` `*NOT IMPLEMENTED YET*` +
-5. `addapptto` `*NOT IMPLEMENTED YET*` +
-6. `findp` `*NOT IMPLEMENTED YET*` +
-
-==== Storage component
-All pet details will be stored in a separate XML file.
-
-==== UI component
-All pet information will be displayed in the UI in a `Pet` list. All changes made to the pet will be reflected immediately after interacting with the commands.
-=======
 1. `addappttopet` +
 2. `addp` +
 3. `deletep` +
@@ -475,7 +461,6 @@ All pet details will be stored in a separate XML file.
 
 *UI component* +
 All pet information will be displayed in the UI in a `PetListPanel`. All changes made to the pet will be reflected immediately after interacting with the commands.
->>>>>>> upstream-master
 
 // tag::listperson[]
 === List and display clients, pets and vet technicians
