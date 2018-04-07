@@ -387,16 +387,6 @@ vet tech list tab below. +
 .Resulting output upon executing the `list vettech` command.
 image::userguide_listVettechCommand_image.PNG[width="300']
 
-==== Selecting a client, pet or vet technician: `select` `Since v1.3`
-Command format: `select INDEX` +
-
-The `select` command selects the client, pet or vet technician identified by the
-index number on the currently viewed list. The command expects this parameter: +
-
-[horizontal]
-*INDEX*:: The index of the client, pet or vet technician that the user wants to select.
-It must be supplied by the user.
-
 ==== Sorting clients in alphabetical order: `sortc` `Since v1.4`
 Command format: `sortc` +
 
