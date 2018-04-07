@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.NewApptAvailableEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
@@ -39,7 +41,7 @@ public class RescheduleCommand extends UndoableCommand {
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_DURATION + "DURATION] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "2018-04-01 "
             + PREFIX_TIME + "16:00";
@@ -71,6 +73,7 @@ public class RescheduleCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         try {
             model.updateAppointment(appointmentToReschedule, rescheduledAppointment);
+            EventsCenter.getInstance().post(new NewApptAvailableEvent(rescheduledAppointment.toString()));
         } catch (DuplicateAppointmentException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         } catch (AppointmentNotFoundException anfe) {
