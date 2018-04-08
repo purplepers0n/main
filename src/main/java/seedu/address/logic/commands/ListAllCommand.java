@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.NewListAllDisplayAvailableEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.association.ClientOwnPet;
@@ -45,6 +47,7 @@ public class ListAllCommand extends Command {
         setAppts(displayPet);
 
         model.updateDetailsList(displayClient, displayPet, displayAppt);
+        EventsCenter.getInstance().post(new NewListAllDisplayAvailableEvent(displayClient.getName().fullName));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, displayClient.getName().fullName));
     }
