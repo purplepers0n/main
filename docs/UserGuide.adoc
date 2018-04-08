@@ -705,16 +705,29 @@ The new duration of the appointment that the user wants. It need not be supplied
 *DESCRIPTION*::
 The new description of the appointment that the user wants. It need not be supplied by the user.
 
+[TIP]
+The more detailed information for each parameter can be found in section 3.3.3.
 
 The `reschedule` command is very similar to the `schedule` command.
 Here are some examples on using the command: +
 
 * `reschedule 1 tm/15:30` +
-You choose to only reschedule the time of appointment specified by index 1 [da/2018-10-10 tm/15:00 du/40 desc/Sterilize Garfield when he's feeling better.]
- from 15:00 to 15:30 and other details remain unchanged.
-* `reschedule 1 da/2018-10-11 du/60` +
-You choose to reschedule the date and duration of the appointment specified at index 1 [da/2018-10-10 tm/15:00 du/40 desc/Sterilize Garfield when he's feeling better.]
-to the next day and lasts 20 minutes longer.
+You choose to only reschedule the time of appointment specified by index 1 [da/2018-01-02 tm/14:30 du/60 desc/Sterilize Garfield when he's feeling better.]
+from 14:30 to 15:30 and other details remain unchanged. +
+
+Executing the `reschedule` command will result in an appointment card being updated like the figure below. +
+
+.The appointment card being updated after the command.
+image::userguide_reschedule1.PNG[width="1000"]
+
+* `reschedule 1 da/2018-01-03 du/90` +
+You choose to reschedule the date and duration of the appointment specified at index 1 [da/2018-01-02 tm/15:30 du/60 desc/Sterilize Garfield when he's feeling better.]
+to the next day and lasts 30 minutes longer. +
+
+Executing the `reschedule` command will result in an appointment card being updated like the figure below. +
+
+.The appointment card being updated after the command.
+image::userguide_reschedule2.PNG[width="1000"]
 
 [NOTE]
 You need to provide at least one change to any filed of an existing appointment.
