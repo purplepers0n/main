@@ -712,7 +712,7 @@ to the next day and lasts 20 minutes longer.
 [NOTE]
 You need to provide at least one change to any filed of an existing appointment.
 
-==== Sorting pets in alphabetical order: `sortp`
+==== Sorting pets in alphabetical order: `sortp` `Since v1.4`
 Command format: `sortp` +
 
 The `sortp` command will sort all existing pets in the program in alphabetical ordering.
