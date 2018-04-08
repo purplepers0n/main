@@ -76,7 +76,7 @@ public class ApptDisplayCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ApptCard)) {
+        if (!(other instanceof ApptDisplayCard)) {
             return false;
         }
 

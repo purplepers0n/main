@@ -8,15 +8,16 @@ import javafx.scene.layout.Region;
 import seedu.address.model.client.Client;
 
 //@@author purplepers0n-reused
+
 /**
  * A UI component that displays information of a {@code Client} for {@code ListAllPanel} display.
  */
 public class ClientDisplayCard extends UiPart<Region> {
     private static final String FXML = "ClientDisplayCard.fxml";
-    
+
     private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
-            "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
-            "green2", "white", "wine", "fuchsia", "sea"};
+        "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
+        "green2", "white", "wine", "fuchsia", "sea"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -77,12 +78,12 @@ public class ClientDisplayCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ClientCard)) {
+        if (!(other instanceof ClientDisplayCard)) {
             return false;
         }
 
         // state check
-        ClientCard card = (ClientCard) other;
+        ClientDisplayCard card = (ClientDisplayCard) other;
         return client.equals(card.client);
     }
 }
