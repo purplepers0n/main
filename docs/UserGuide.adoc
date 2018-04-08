@@ -485,6 +485,13 @@ The duration of the appointment, or how long it is in minutes. This needs to be 
 *DESCRIPTION*::
 A brief information or description of the appointment. This needs to be supplied by the user.
 
+[TIP]
+Date is in the format "YYYY-MM-DD" and the year "YYYY" can only be the current year which is "2018".
+[TIP]
+Time adapts the 24-hour format from 00:00 to 23:59.
+[TIP]
+Duration can be any valid integer numbers from 15 to 120.
+
 Here is an example on how you can use the `schedule` command to mark appointment dates: +
 
 * `schedule da/2018-01-02 tm/14:30 du/60 desc/Sterilize Garfield when he's feeling better.` +
