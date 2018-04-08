@@ -1,0 +1,56 @@
+= Choo Wen Xin - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: VetterAppointments
+
+== Overview
+
+VetterAppointments is a desktop application catered to vets to manage their employees, clients, pets and appointments.
+The vet interacts with the application mostly by a command line interface (CLI).
+The application, written in Java, has a graphical user interface (GUI) created with JavaFX.
+
+== Summary of contributions
+
+* *Major enhancement*: Added `listall` command
+** What it does: Displays all relevant details of the client that is queried, such as his/her pets and appointments, in a sidebar display
+** Justification: When dealing with a client, vets often require a quick overview of the client, so that the vet can easily check the client's pets and upcoming appointments
+** Highlights: This command requires iterations through multiple lists, one time to find all pets that belong to the queried client, and another time to search for all appointments that belong to each pet.
+This command will update a separate sidebar display, instead of the individual lists. Hence much effort was also required to create the layout on the UI
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: Update `list`, `edit`, `delete` commands, create UI for list tabs and appointment display
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+***
+** Enhancements to existing features:
+*** Updated the tag colors (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/52[#52])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Added use cases to Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/30[#30])
+*** Added each member's feature contribution in Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/95[#95])
+*** Did cosmetic tweaks to existing contents of the Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/213[#213])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103JAN2018-F09-B4/main/pull/29[#29]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103JAN2018-W10-B1/main/issues/132[1], https://github.com/CS2103JAN2018-W10-B1/main/issues/135[2])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo, leveloffset=-1]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
