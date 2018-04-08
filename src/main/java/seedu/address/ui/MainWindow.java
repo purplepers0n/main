@@ -44,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private PetListPanel petListPanel;
     private VetTechnicianListPanel vetTechnicianListPanel;
     private ApptListPanel apptListPanel;
+    private ListAllPanel listAllPanel;
     private DateTimeCard dateTimeCard;
     private Config config;
     private UserPrefs prefs;
@@ -71,6 +72,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane apptListPanelPlaceholder;
+    
+    @FXML
+    private StackPane listAllPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -162,6 +166,9 @@ public class MainWindow extends UiPart<Stage> {
 
         dateTimeCard = new DateTimeCard();
         dateTimePlaceholder.getChildren().add(dateTimeCard.getRoot());
+        
+        listAllPanel = new ListAllPanel(logic.getClientDetails(), logic.getClientPetList(), logic.getClientApptList());
+        listAllPanelPlaceholder.getChildren().add(listAllPanel.getRoot());
 
         fillAppt();
     }
