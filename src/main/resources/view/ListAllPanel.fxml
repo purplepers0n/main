@@ -17,13 +17,13 @@
     <ListView>
         <StackPane fx:id="clientPane" />
         <StackPane>
-            <Label text="Pets: " StackPane.alignment="CENTER_LEFT" translateX="10"/>
+            <Label id="listalllabel" text="Pets: " StackPane.alignment="CENTER_LEFT" minWidth="248"/>
         </StackPane>
         <HBox>
             <ListView fx:id="petListView" prefWidth="248.0" HBox.hgrow="ALWAYS"/>
         </HBox>
         <StackPane>
-            <Label text="Appointments: " StackPane.alignment="CENTER_LEFT" translateX="10"/>
+            <Label id="listalllabel" text="Appointments: " StackPane.alignment="CENTER_LEFT" minWidth="248"/>
         </StackPane>
         <HBox>
             <ListView fx:id="apptListView" prefWidth="248.0" HBox.hgrow="ALWAYS"/>

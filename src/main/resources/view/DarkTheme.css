@@ -677,3 +677,8 @@
     -fx-background-color: #105A5E;
     -fx-font-weight: bold;
 }
+
+#listalllabel {
+    -fx-background-color: #6B7275;
+    -fx-padding: 0px 5px 0px 10px
+}
