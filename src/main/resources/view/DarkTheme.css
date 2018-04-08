@@ -471,11 +471,9 @@
 .apptCardPane {
      -fx-background-color: #F1F2EB;
      -fx-border-width: 0;
-     -fx-padding: 5px;
-     -fx-border-insets: 5px;
-     -fx-background-insets: 5px;
-     -fx-background-radius: 5px;
-     -fx-effect: dropshadow( gaussian , #A4A5A0 , 0,0,0,3 );
+     -fx-padding: 2px;
+     -fx-border-insets: 2px;
+     -fx-background-insets: 2px;
 }
 
 #cell_big_label_index {
@@ -509,9 +507,9 @@
 #red {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
     -fx-background-color: #EF5350;
@@ -521,21 +519,21 @@
 #yellow {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #212121;
-    -fx-background-color: #FFF176;
+    -fx-text-fill: #493838;
+    -fx-background-color: #FFE900;
     -fx-font-weight: bold;
 }
 
 #blue {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
     -fx-background-color: #4D9DE0;
@@ -545,9 +543,9 @@
 #orange {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
     -fx-background-color: #FFA726;
@@ -557,9 +555,9 @@
 #green {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
     -fx-background-color: #81C784;
@@ -569,11 +567,11 @@
 #pink {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #212121;
+    -fx-text-fill: #FFF8F0;
     -fx-background-color: #F48FB1;
     -fx-font-weight: bold;
 }
@@ -581,9 +579,9 @@
 #navy {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
     -fx-background-color: #42A5F5;
@@ -593,9 +591,9 @@
 #teal {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
     -fx-background-color: #80CBC4;
@@ -605,9 +603,9 @@
 #purple {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
     -fx-background-color: #CE93D8;
@@ -617,11 +615,11 @@
 #peach {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #3D2B21;
+    -fx-text-fill: #FFF8F0;
     -fx-background-color: #FFCF9C;
     -fx-font-weight: bold;
 }
@@ -629,9 +627,9 @@
 #lightblue {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
     -fx-background-color: #8EC8F2;
@@ -641,11 +639,11 @@
 #darkpurple {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #E2D3DD;
+    -fx-text-fill: #FFF8F0;
     -fx-background-color: #AB47BC;
     -fx-font-weight: bold;
 }
@@ -653,11 +651,11 @@
 #green2 {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #DEF7E8;
+    -fx-text-fill: #FFF8F0;
     -fx-background-color: #69F0AE;
     -fx-font-weight: bold;
 }
@@ -665,11 +663,11 @@
 #wine {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #DDBABB;
+    -fx-text-fill: #FFF8F0;
     -fx-background-color: #D32F2F;
     -fx-font-weight: bold;
 }
@@ -677,9 +675,9 @@
 #fuchsia {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
     -fx-text-fill: #FFF8F0;
     -fx-background-color: #C45AB3;
@@ -689,11 +687,11 @@
 #sea {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
-    -fx-padding: 5px 0px 0px 0px;
-    -fx-border-insets: 5px 0px 0px 0px;
-    -fx-background-insets: 5px 0px 0px 0px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
     -fx-background-radius: 5px;
-    -fx-text-fill: #CDF2F4;
+    -fx-text-fill: #FFF8F0;
     -fx-background-color: #105A5E;
     -fx-font-weight: bold;
 }
