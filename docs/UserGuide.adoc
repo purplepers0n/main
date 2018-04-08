@@ -630,10 +630,10 @@ Here is an example of using the `editp` command: +
 Here you choose to edit the pet of the first index and changed the existing name, age and gender to Jerry, 2 and male.
 
 
-==== Removing an appointment from a pet: `removemapptfrom` `since v1.3`
+==== Removing an appointment from a pet: `removeapptfrompet` `since v1.3`
 Command format: `removeapptfrompet appt/APPOINTMENT_INDEX` +
 
-The `rmapptfrom` command removes an associated appointment from a pet.
+The `removeapptfrompet` command removes an associated appointment from a pet.
 The command requires the index of the appointment in the appointment list.
 The command expects these parameters: +
 
@@ -642,9 +642,9 @@ The command expects these parameters: +
 The appointment to be removed based on the appointment listing. This needs to be supplied by
 the user. +
 
-Here is an exammple of using the command `rmapptfrom`: +
+Here is an exammple of using the command `removeapptfrompet`: +
 
-* `rmapptfrom appt/1` +
+* `removeapptfrompet appt/1` +
 When this command is executed, the appointment will be removed from the pet that is associated to it.
 
 [NOTE]
@@ -784,7 +784,7 @@ about them.
 |editp |`editp INDEX [pn/PET_NAME] [pa/PET_AGE] [pg/PET_GENDER] [t/PET_TAGS]…​` |Edits a pet's details.
 |list pet |`list pet` |Lists all pets.
 |reschedule |`reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [DESC/DESCRIPTION]` | Reschedules an appointment.
-|rmapptfrompet |`rmapptfrom p/PET_INDEX` |Removes an appointment from a pet.
+|removeapptfrompet |`removeapptfrompet p/PET_INDEX` |Removes an appointment from a pet.
 |schedule | `schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION` |Schedule an appointment given date (YYYY-MM-DD), time (HH:MM), duration (minutes) and description.
 |sortp |`sortp` |Sorts the pet list alphabetically.
 |=======
