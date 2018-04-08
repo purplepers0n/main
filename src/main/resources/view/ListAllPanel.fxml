@@ -9,12 +9,24 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ListView?>
+
+<!-- @@author purplepers0n -->
 <HBox fx:id="listAllPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-        </columnConstraints>
-         
-        
-    </GridPane>
+    <ListView>
+        <StackPane fx:id="clientPane" />
+        <StackPane>
+            <Label text="Pets: " StackPane.alignment="CENTER_LEFT" translateX="10"/>
+        </StackPane>
+        <HBox>
+            <ListView fx:id="petListView" prefWidth="248.0" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <StackPane>
+            <Label text="Appointments: " StackPane.alignment="CENTER_LEFT" translateX="10"/>
+        </StackPane>
+        <HBox>
+            <ListView fx:id="apptListView" prefWidth="248.0" HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </ListView>
 </HBox>

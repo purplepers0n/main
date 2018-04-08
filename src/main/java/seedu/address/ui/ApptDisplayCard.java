@@ -49,7 +49,7 @@ public class ApptDisplayCard extends UiPart<Region> {
         } else {
             vetTechName.setText("V.Tech: " + appointment.getVetTechnician().getName().fullName);
         }
-        desc.setText("Description:" + appointment.getDescription().description);
+        desc.setText("Description: " + appointment.getDescription().description);
         desc.setWrapText(true);
     }
 
