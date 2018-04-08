@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -126,7 +125,7 @@ public interface Model {
      * Reschedules the given appointment {@code target} with {@code rescheduledPerson}.
      *
      * @throws DuplicateAppointmentException if updating the appointment's details causes the appointment
-     *                                  to be clashed with another existing appointment in the list.
+     *                                       to be clashed with another existing appointment in the list.
      * @throws AppointmentNotFoundException  if {@code target} could not be found in the list.
      */
     void updateAppointment(Appointment target, Appointment rescheduledAppointment)
@@ -164,7 +163,9 @@ public interface Model {
      */
     void sortPetList() throws ClientPetAssociationListEmptyException;
 
-    /** Returns an unmodifiable view of the filtered client pet association list */
+    /**
+     * Returns an unmodifiable view of the filtered client pet association list
+     */
     ObservableList<ClientOwnPet> getClientPetAssociationList();
 
     /**
@@ -179,6 +180,7 @@ public interface Model {
 
     /**
      * Updates the filteredAppointmentList
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
@@ -238,7 +240,7 @@ public interface Model {
      * Returns an unmodifiable view of the pet list of the queried client
      **/
     ObservableList<Pet> getClientPetList();
-    
+
     /**
      * Returns an unmodifiable view of the appointment list of the queried client
      **/
