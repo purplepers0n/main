@@ -53,7 +53,7 @@ public class ListAllCommand extends Command {
     }
 
     private void setPets(Client client) {
-        ObservableList<ClientOwnPet> clientOwnPets = model.getClientPetAssociationList();
+        ObservableList<ClientOwnPet> clientOwnPets = model.getFilteredClientPetAssociationList();
 
         for (ClientOwnPet clientOwnPet : clientOwnPets) {
             if (clientOwnPet.getClient().equals(client)) {
