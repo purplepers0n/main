@@ -76,13 +76,13 @@ public class LogicManagerTest {
     @Test
     public void getAutoCompleteCommands_nullKeyWord_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        logic.autoCompleteCommands(null);
+        logic.getAutoCompleteCommands(null);
     }
 
     @Test
     public void getAutoCompleteNextParameter_nullKeyWord_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        logic.autoCompleteCommands(null);
+        logic.getAutoCompleteCommands(null);
     }
 
     @Test

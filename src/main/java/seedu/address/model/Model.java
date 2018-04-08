@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
+import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
@@ -44,6 +45,7 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Pet> PREDICATE_SHOW_ALL_PET = unused -> true;
+    Predicate<ClientOwnPet> PREDICATE_SHOW_ALL_ASSOCIATION = unused -> true;
 
     /**
      * Clears existing backing model and replaces with the provided new data.
@@ -159,14 +161,19 @@ public interface Model {
     void updateFilteredPetList(Predicate<Pet> predicate);
 
     /**
+     * Updates the filter of the filtered client pet association list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredClientOwnPetAssocation(Predicate<ClientOwnPet> predicate);
+
+    /**
      * Sorts the pet list.
      */
     void sortPetList() throws ClientPetAssociationListEmptyException;
 
-    /**
-     * Returns an unmodifiable view of the filtered client pet association list
-     */
-    ObservableList<ClientOwnPet> getClientPetAssociationList();
+    /** Returns an unmodifiable view of the filtered client pet association list */
+    ObservableList<ClientOwnPet> getFilteredClientPetAssociationList();
 
     /**
      * Associates pet to client
@@ -196,7 +203,7 @@ public interface Model {
      * Removes an appointment from a pet.
      */
     void removeAppointmentFromPet(Appointment appointment) throws
-            AppointmentNotFoundException, DuplicateAppointmentException;
+            AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException;
 
     /**
      * Sorts the appointment by date and then by time

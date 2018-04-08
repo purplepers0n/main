@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSOCIATION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PET;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TECHNICIAN;
 
 import seedu.address.commons.core.EventsCenter;
@@ -41,7 +41,7 @@ public class ListCommand extends Command {
             break;
 
         case "pet":
-            model.updateFilteredPetList(PREDICATE_SHOW_ALL_PET);
+            model.updateFilteredClientOwnPetAssocation(PREDICATE_SHOW_ALL_ASSOCIATION);
             EventsCenter.getInstance().post(new ChangeListTabEvent(1));
             break;
 

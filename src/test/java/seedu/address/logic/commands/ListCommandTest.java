@@ -19,29 +19,43 @@ import seedu.address.model.UserPrefs;
  */
 public class ListCommandTest {
 
-    private static final String LIST_EXPECTED_MESSAGE_SUCCESS = "Listed all clients";
+    private static final String LIST_EXPECTED_CLIENT_MESSAGE_SUCCESS = "Listed all clients";
+    private static final String LIST_EXPECTED_PET_MESSAGE_SUCCESS = "Listed all pets";
+    private static final String LIST_EXPECTED_TECH_MESSAGE_SUCCESS = "Listed all vettechs";
+
+
 
     private Model model;
     private Model expectedModel;
-    private ListCommand listCommand;
+    private ListCommand listCommandClient;
+    private ListCommand listCommandPet;
+    private ListCommand listCommandVetTech;
+
 
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
-        listCommand = new ListCommand("client");
-        listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        listCommandClient = new ListCommand("client");
+        listCommandPet = new ListCommand("pet");
+        listCommandVetTech = new ListCommand("vettech");
+
+        listCommandClient.setData(model, new CommandHistory(), new UndoRedoStack());
+        listCommandPet.setData(model, new CommandHistory(), new UndoRedoStack());
+        listCommandVetTech.setData(model, new CommandHistory(), new UndoRedoStack());
+
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(listCommand, model, LIST_EXPECTED_MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(listCommandClient, model, LIST_EXPECTED_CLIENT_MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(listCommandPet, model, LIST_EXPECTED_PET_MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(listCommandVetTech, model, LIST_EXPECTED_TECH_MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        //showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(listCommand, model, LIST_EXPECTED_MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(listCommandClient, model, LIST_EXPECTED_CLIENT_MESSAGE_SUCCESS, expectedModel);
     }
 }

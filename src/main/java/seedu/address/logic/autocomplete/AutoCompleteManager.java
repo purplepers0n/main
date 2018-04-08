@@ -32,18 +32,20 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.Prefix;
 
 //@@author jonathanwj
+
 /**
  * the main AutoCompleteManager of the application
  */
-public class AutoComplete {
+public class AutoCompleteManager {
 
     private static final String LIST_CLIENT_PREFIX = " client";
     private static final String LIST_VETTECH_PREFIX = " vettech";
     private static final String LIST_PET_PREFIX = " pet";
+    private static final String EMPTY_STRING = "";
     private Trie commandTrie;
     private CommandParameterSyntaxHandler commandParameterSyntaxHandler;
 
-    public AutoComplete() {
+    public AutoCompleteManager() {
         commandTrie = new Trie();
         commandParameterSyntaxHandler = new CommandParameterSyntaxHandler();
         initCommandKeyWords();
@@ -82,37 +84,36 @@ public class AutoComplete {
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_VETTECH_PREFIX);
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_PET_PREFIX);
 
-
     }
 
     /**
-     * Returns a sorted list of auto completed commands with prefix {@code keyWord}
-     *
+     * Returns a sorted list of auto completed commands with prefix
      */
-    public List<String> autoCompleteCommands(String keyWord) {
-        requireNonNull(keyWord);
-        return commandTrie.autoComplete(keyWord).stream()
+    public List<String> getAutoCompleteCommands(String commandPrefix) {
+        requireNonNull(commandPrefix);
+        return commandTrie.autoComplete(commandPrefix).stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
 
     /**
-     * Returns the concatenation String of the next missing prefix parameter with the input string.
+     * Returns the the next missing prefix parameter of the {@code inputText}
+     * or an empty string if there is no next prefix
      */
-    public String autoCompleteNextMissingParameter(String input) {
-        requireNonNull(input);
-        if (input.isEmpty()) {
-            return input;
+    public String getAutoCompleteNextMissingParameter(String inputText) {
+        requireNonNull(inputText);
+        if (inputText.isEmpty()) {
+            return EMPTY_STRING;
         }
-        String command = input.split(" ")[0];
+        String command = inputText.split(" ")[0];
 
-        ArrayList<Prefix> missingPrefixes = commandParameterSyntaxHandler.getMissingPrefixes(command, input);
-        String completedText = input;
+        ArrayList<Prefix> missingPrefixes = commandParameterSyntaxHandler.getMissingPrefixes(command, inputText);
 
         if (!missingPrefixes.isEmpty()) {
-            completedText = completedText + missingPrefixes.get(0);
+            return missingPrefixes.get(0).getPrefix();
+        } else {
+            return EMPTY_STRING;
         }
 
-        return completedText;
     }
 }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_PETS_LISTED_OVERVIEW;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
@@ -58,25 +59,40 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noClientFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        FindCommand command = prepareCommand(" ");
-        assertCommandSuccess(command, expectedMessage, Collections.emptyList());
+        FindCommand command = prepareCommand(" ", 0);
+        assertCommandSuccess(command, expectedMessage, Collections.emptyList(), 0);
+    }
+
+    @Test
+    public void execute_zeroKeywords_noPetFound() {
+        String expectedMessage = String.format(MESSAGE_PETS_LISTED_OVERVIEW, 0);
+        FindCommand command = prepareCommand(" ", 1);
+        assertCommandSuccess(command, expectedMessage, Collections.emptyList(), 1);
+    }
+
+    @Test
+    public void execute_zeroKeywords_noTechFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        FindCommand command = prepareCommand(" ", 2);
+        assertCommandSuccess(command, expectedMessage, Collections.emptyList(), 2);
     }
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        FindCommand command = prepareCommand("Kurz Elle Kunz");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
+        FindCommand command = prepareCommand("Kurz Elle Kunz", 0);
+        assertCommandSuccess(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA), 0);
     }
 
     /**
      * Parses {@code userInput} into a {@code FindCommand}.
      */
-    private FindCommand prepareCommand(String userInput) {
+    private FindCommand prepareCommand(String userInput, int list) {
         FindCommand command =
                 new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+"))));
+        model.setCurrentList(list);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
@@ -87,12 +103,25 @@ public class FindCommandTest {
      * - the {@code FilteredList<Person>} is equal to {@code expectedList}<br>
      * - the {@code AddressBook} in model remains the same after executing the {@code command}
      */
-    private void assertCommandSuccess(FindCommand command, String expectedMessage, List<Person> expectedList) {
+    private void assertCommandSuccess(FindCommand command, String expectedMessage,
+                                      List<Person> expectedList, int list) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         CommandResult commandResult = command.execute();
 
         assertEquals(expectedMessage, commandResult.feedbackToUser);
-        assertEquals(expectedList, model.getFilteredClientList());
+        switch (list) {
+        case 0:
+            assertEquals(expectedList, model.getFilteredClientList());
+            break;
+        case 1:
+            assertEquals(expectedList, model.getFilteredClientPetAssociationList());
+            break;
+        case 2:
+            assertEquals(expectedList, model.getFilteredVetTechnicianList());
+            break;
+        default:
+            break;
+        }
         assertEquals(expectedAddressBook, model.getAddressBook());
     }
 }

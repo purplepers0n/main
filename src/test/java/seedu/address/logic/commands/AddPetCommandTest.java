@@ -185,7 +185,12 @@ public class AddPetCommandTest {
         }
 
         @Override
-        public ObservableList<ClientOwnPet> getClientPetAssociationList() {
+        public void updateFilteredClientOwnPetAssocation(Predicate<ClientOwnPet> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ClientOwnPet> getFilteredClientPetAssociationList() {
             fail("This method should not be called.");
             return null;
         }
@@ -366,6 +371,10 @@ public class AddPetCommandTest {
 
         @Override
         public void updateFilteredPetList(Predicate<Pet> predicate) {
+        }
+
+        @Override
+        public void updateFilteredClientOwnPetAssocation(Predicate<ClientOwnPet> predicate) {
         }
 
     }

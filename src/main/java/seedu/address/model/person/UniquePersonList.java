@@ -99,7 +99,8 @@ public class UniquePersonList implements Iterable<Person> {
      * Sorts the internal list
      */
     public void sort() {
-        internalList.sort((Person one, Person two) -> one.getName().toString().compareTo(two.getName().toString()));
+        internalList.sort((Person one, Person two) -> one.getName().toString().toLowerCase()
+                .compareTo(two.getName().toString().toLowerCase()));
     }
     //@@author
 

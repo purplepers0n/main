@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -18,6 +19,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
+import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
@@ -130,7 +132,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new ClientPetAssociationListEmptyException();
         } else {
             this.clientPetAssociations.sort((ClientOwnPet a, ClientOwnPet b) ->
-                    a.getPet().getPetName().toString().compareTo(b.getPet().getPetName().toString()));
+                    a.getPet().getPetName().toString().toLowerCase()
+                    .compareTo(b.getPet().getPetName().toString().toLowerCase()));
         }
     }
 
@@ -264,6 +267,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         ArrayList<ClientOwnPet> toRemoveClientPetAssociationList = new ArrayList<>();
         ArrayList<Pet> toRemovePetList = new ArrayList<>();
 
+        // Adds the key and its pets to the toRemoveList
         for (ClientOwnPet cop : clientPetAssociations) {
             if (cop.getClient().equals(key)) {
                 toRemoveClientPetAssociationList.add(cop);
@@ -271,6 +275,16 @@ public class AddressBook implements ReadOnlyAddressBook {
             }
         }
 
+        for (Iterator<Appointment> iterator = appointments.iterator(); iterator.hasNext();) {
+            Appointment appt = iterator.next();
+            if (appt.getClientOwnPet() == null) {
+                continue;
+            } else if (appt.getClientOwnPet().getClient().equals(key)) {
+                appt.setClientOwnPetToNull();
+            }
+        }
+
+        // Removes the key and its pets.
         clientPetAssociations.removeAll(toRemoveClientPetAssociationList);
         pets.getInternalList().removeAll(toRemovePetList);
         if (!persons.remove(key)) {
@@ -351,6 +365,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean removePet(Pet key) throws PetNotFoundException, ClientPetAssociationNotFoundException {
         boolean found = false;
+        for (Appointment appointment : appointments) {
+            if (appointment.getClientOwnPet() != null
+                    && appointment.getClientOwnPet().getPet().equals(key)) {
+                appointment.setClientOwnPetToNull();
+            }
+        }
         for (ClientOwnPet association : clientPetAssociations) {
             if (association.getPet().equals(key)) {
                 clientPetAssociations.remove(association);
@@ -461,13 +481,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes the appointment from a pet
      */
     public void removeAppointmentFromPet(Appointment appointment) throws
-            AppointmentNotFoundException, DuplicateAppointmentException {
+            AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
         if (!appointments.contains(appointment)) {
             throw new AppointmentNotFoundException();
         } else {
             Appointment appointmentCopy = new Appointment(appointment);
-            appointmentCopy.setClientOwnPetToNull();
-            appointments.setAppointment(appointment, appointmentCopy);
+
+            if (appointmentCopy.getClientOwnPet() == null) {
+                throw new AppointmentDoesNotHavePetException();
+            } else {
+                appointmentCopy.setClientOwnPetToNull();
+                appointments.setAppointment(appointment, appointmentCopy);
+            }
         }
     }
     //@@author

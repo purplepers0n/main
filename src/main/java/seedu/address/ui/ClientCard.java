@@ -15,7 +15,7 @@ public class ClientCard extends UiPart<Region> {
 
     private static final String FXML = "ClientListCard.fxml";
     private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
-        "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
+        "pink", "navy", "teal", "purple", "peach", "lightblue",
         "green2", "white", "wine", "fuchsia", "sea"};
 
     /**

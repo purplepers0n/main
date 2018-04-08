@@ -5,5 +5,5 @@
 
 <!-- @@author purplepers0n -->
 <VBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
-    <ListView fx:id="apptListView" styleClass="apptList" prefWidth="700.0" VBox.vgrow="ALWAYS"/>
+    <ListView fx:id="apptListView" styleClass="apptList" VBox.vgrow="ALWAYS"/>
 </VBox>

@@ -28,7 +28,7 @@ public class PetGender {
     public PetGender(String petGender) {
         requireNonNull(petGender);
         checkArgument(isValidGender(petGender), MESSAGE_PETGENDER_CONSTRAINTS);
-        this.fullGender = petGender;
+        this.fullGender = petGender.toUpperCase();
     }
 
     /**

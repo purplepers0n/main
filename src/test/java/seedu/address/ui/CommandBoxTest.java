@@ -20,6 +20,7 @@ public class CommandBoxTest extends GuiUnitTest {
     private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD + " client";
     private static final String COMMAND_THAT_FAILS = "invalid command";
     private static final String ADD_APPT_TO_PET_COMMAND_PREFIX = "adda";
+    private static final String ADD_COMMAND_PREFIX = "ad";
     private static final String INVALID_COMMAND_PREFIX = "invalid";
     private static final String ADD_APPT_TO_PET_COMMAND = "addappttopet";
     private static final String ADD_COMMAND_WITH_SPACE = "add ";
@@ -88,6 +89,12 @@ public class CommandBoxTest extends GuiUnitTest {
         guiRobot.push(KeyCode.TAB);
         guiRobot.pauseForHuman();
         guiRobot.pauseForHuman();
+
+        // autocomplete multiple
+        commandBoxHandle.setInput(ADD_COMMAND_PREFIX);
+        guiRobot.push(KeyCode.TAB);
+        guiRobot.push(KeyCode.TAB);
+        assertEquals(ADD_COMMAND_PREFIX, commandBoxHandle.getInput());
 
         // autocomplete invalid command
         commandBoxHandle.setInput(INVALID_COMMAND_PREFIX);

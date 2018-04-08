@@ -9,10 +9,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TECHNICIAN;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.NewApptAvailableEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
@@ -68,7 +66,6 @@ public class AddVetTechToAppointmentCommand extends UndoableCommand {
         requireNonNull(appointment.get());
         try {
             model.addVetTechToAppointment(vetTech.get(), appointment.get());
-            EventsCenter.getInstance().post(new NewApptAvailableEvent(appointment.toString()));
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("The target appointment cannot be a duplicate");
         } catch (AppointmentNotFoundException e) {

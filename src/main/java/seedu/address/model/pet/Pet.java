@@ -87,8 +87,8 @@ public class Pet {
                 .append(getPetAge())
                 .append(" Gender: ")
                 .append(getPetGender())
-                .append(" Pet Owner: ")
-                .append(" Species/Breed ");
+                //.append(" Pet Owner: ")
+                .append(" Species/Breed: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
