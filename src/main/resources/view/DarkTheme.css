@@ -469,7 +469,7 @@
 }
 
 .apptCardPane {
-     -fx-background-color: #F1F2EB;
+     -fx-background-color: #3c3e3f;
      -fx-border-width: 0;
      -fx-padding: 2px;
      -fx-border-insets: 2px;
@@ -479,19 +479,7 @@
 #cell_big_label_index {
     -fx-font-family: Helvetica;
     -fx-font-size: 16px;
-    -fx-text-fill: #B72C2C;
-}
-
-#cell_big_label_dark {
-    -fx-font-family: Helvetica;
-    -fx-font-size: 16px;
-    -fx-text-fill: #282020;
-}
-
-#cell_small_label_dark {
-    -fx-font-family: Helvetica;
-    -fx-font-size: 13px;
-    -fx-text-fill: #282020;
+    -fx-text-fill: #DD3535;
 }
 
 .apptList .list-cell {
