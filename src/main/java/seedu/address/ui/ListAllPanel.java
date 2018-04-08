@@ -47,7 +47,7 @@ public class ListAllPanel extends UiPart<Region> {
                 pets.indexOf(pet) + 1));
         petListView.setItems(mappedList);
         petListView.setCellFactory(listView -> new PetListViewCell());
-        petListView.setPrefHeight(pets.size() * 105 + 1);
+        petListView.setPrefHeight(pets.size() * 105);
     }
 
     private void setAppts(ObservableList<Appointment> appts) {
@@ -55,7 +55,7 @@ public class ListAllPanel extends UiPart<Region> {
                 appts.indexOf(appt) + 1));
         apptListView.setItems(mappedList);
         apptListView.setCellFactory(listView -> new ApptListViewCell());
-        apptListView.setPrefHeight(appts.size() * 105 + 1);
+        apptListView.setPrefHeight(appts.size() * 105);
     }
 
     /**
