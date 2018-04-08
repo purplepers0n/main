@@ -22,6 +22,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ChangeListTabEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.NewApptAvailableEvent;
+import seedu.address.commons.events.ui.NewListAllDisplayAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -72,7 +73,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane apptListPanelPlaceholder;
-    
+
     @FXML
     private StackPane listAllPanelPlaceholder;
 
@@ -166,9 +167,6 @@ public class MainWindow extends UiPart<Stage> {
 
         dateTimeCard = new DateTimeCard();
         dateTimePlaceholder.getChildren().add(dateTimeCard.getRoot());
-        
-        listAllPanel = new ListAllPanel(logic.getClientDetails(), logic.getClientPetList(), logic.getClientApptList());
-        listAllPanelPlaceholder.getChildren().add(listAllPanel.getRoot());
 
         fillAppt();
     }
@@ -178,8 +176,13 @@ public class MainWindow extends UiPart<Stage> {
         apptListPanel = new ApptListPanel(logic.getFilteredAppointmentList());
         apptListPanelPlaceholder.getChildren().add(apptListPanel.getRoot());
     }
+
+    void fillListAllPanel() {
+        listAllPanel = new ListAllPanel(logic.getClientDetails(), logic.getClientPetList(), logic.getClientApptList());
+        listAllPanelPlaceholder.getChildren().add(listAllPanel.getRoot());
+    }
     //@@author
-    
+
     void hide() {
         primaryStage.hide();
     }
@@ -246,6 +249,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     //@@author purplepers0n
+
     /**
      * Changes to the {@code Tab} of the specific {@code list} requested and selects it.
      */
@@ -254,7 +258,7 @@ public class MainWindow extends UiPart<Stage> {
             listPanel.getSelectionModel().select(list);
         });
     }
-    
+
     @Subscribe
     private void handleChangeListTabEvent(ChangeListTabEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -266,6 +270,12 @@ public class MainWindow extends UiPart<Stage> {
     private void handleApptAvailableEvent(NewApptAvailableEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         Platform.runLater(() -> fillAppt());
+    }
+
+    @Subscribe
+    private void handleApptAvailableEvent(NewListAllDisplayAvailableEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> fillListAllPanel());
     }
 
     /**
