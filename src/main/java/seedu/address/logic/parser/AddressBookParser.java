@@ -136,9 +136,9 @@ public class AddressBookParser {
 
         case RemoveVetTechFromAppointmentCommand.COMMAND_WORD:
             return new RemoveVetTechFromAppointmentCommandParser().parse(arguments);
-            
+
         case ListAllCommand.COMMAND_WORD:
-            return new ListAllCommandParser().parse(arguments);    
+            return new ListAllCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
