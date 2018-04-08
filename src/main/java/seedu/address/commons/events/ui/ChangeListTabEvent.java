@@ -2,6 +2,7 @@ package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 
+//@@author purplepers0n-reused
 /**
  * Indicates a request to change the tab to show other list
  */

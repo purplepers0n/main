@@ -356,6 +356,7 @@ public class ModelManager extends ComponentManager implements Model {
         return this.currList;
     }
 
+    //@@author purplepers0n
     @Override
     public void updateDetailsList(Client client, ObservableList<Pet> pets, ObservableList<Appointment> appointments) {
         displayClient = client;

@@ -17,6 +17,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.VetTechnicianPanelSelectionChangedEvent;
 import seedu.address.model.vettechnician.VetTechnician;
 
+//@@author purplepers0n-reused
 /**
  * Panel containing the list of vetTechnicians.
  */

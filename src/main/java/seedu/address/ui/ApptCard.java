@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.appointment.Appointment;
 
+//@@author purplepers0n
 /**
  * An UI component that displays information of an {@code Appointment}.
  */

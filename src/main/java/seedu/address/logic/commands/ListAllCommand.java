@@ -10,7 +10,7 @@ import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
 import seedu.address.model.pet.Pet;
 
-//@author purplepers0n
+//@@author purplepers0n
 /**
  * Lists all details of a client, pet, technician or appointment in the address book.
  */

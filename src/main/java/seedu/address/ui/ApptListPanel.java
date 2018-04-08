@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.appointment.Appointment;
 
+//@@author purplepers0n
 /**
  * Panel containing the list of all appointments
  */

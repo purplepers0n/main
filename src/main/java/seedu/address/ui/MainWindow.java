@@ -166,11 +166,13 @@ public class MainWindow extends UiPart<Stage> {
         fillAppt();
     }
 
+    //@@author purplepers0n
     void fillAppt() {
         apptListPanel = new ApptListPanel(logic.getFilteredAppointmentList());
         apptListPanelPlaceholder.getChildren().add(apptListPanel.getRoot());
     }
-
+    //@@author
+    
     void hide() {
         primaryStage.hide();
     }
@@ -236,7 +238,7 @@ public class MainWindow extends UiPart<Stage> {
         return this.apptListPanel;
     }
 
-
+    //@@author purplepers0n
     /**
      * Changes to the {@code Tab} of the specific {@code list} requested and selects it.
      */
@@ -245,7 +247,7 @@ public class MainWindow extends UiPart<Stage> {
             listPanel.getSelectionModel().select(list);
         });
     }
-
+    
     @Subscribe
     private void handleChangeListTabEvent(ChangeListTabEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -270,6 +272,7 @@ public class MainWindow extends UiPart<Stage> {
             }
         });
     }
+    //@@author
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
