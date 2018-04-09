@@ -349,7 +349,7 @@ image::userguide_findCommand_image3.PNG[width="1000"]
 [TIP]
 The keyword is case insensitive.This means typing, "ALICE", "alice" or 'AlIcE" will result in the same output.
 
-==== Listing all information: `listall` `coming v2.0`
+==== Listing all information: `listall` `Since v1.5`
 Command format: `listall INDEX` +
 
 The `listall` command will display all pets and appointments that are tagged to a client.
@@ -361,7 +361,7 @@ The command expects this parameter when called: +
 Here is an example of using the command `listall`: +
 
 * `listall 1`  +
-Suppose there is only one client in the program and is stored at index 1. This command will then display all the information regarding the person at index one. +
+Suppose there is only one client in the program and is stored at index 1. This command will then display all the pets and appointments of the person at index 1. +
 
 
 ==== Listing all clients: `list client` `Since v1.2`
