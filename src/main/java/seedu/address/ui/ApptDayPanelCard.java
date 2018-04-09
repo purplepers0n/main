@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.model.appointment.Appointment;
 
+//@@author purplepers0n
 /**
  * Panel containing the list of appointments in a day
  */

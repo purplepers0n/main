@@ -109,4 +109,19 @@ public class LogicManager extends ComponentManager implements Logic {
     public int getCurrentList() {
         return this.currList;
     }
+
+    @Override
+    public Client getClientDetails() {
+        return model.getClientDetails();
+    }
+
+    @Override
+    public ObservableList<Pet> getClientPetList() {
+        return model.getClientPetList();
+    }
+
+    @Override
+    public ObservableList<Appointment> getClientApptList() {
+        return model.getClientApptList();
+    }
 }

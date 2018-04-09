@@ -32,10 +32,9 @@
             <FlowPane fx:id="tags" />
             <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
             <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
-            <Label fx:id="client" styleClass="cell_small_label" text="\$client" />
         </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
+        <rowConstraints>
+            <RowConstraints />
+        </rowConstraints>
     </GridPane>
 </HBox>

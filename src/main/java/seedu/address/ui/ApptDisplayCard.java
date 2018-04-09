@@ -10,32 +10,32 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.appointment.Appointment;
 
-//@@author purplepers0n
+//@@author purplepers0n-reused
 /**
- * An UI component that displays information of an {@code Appointment}.
+ * An UI component that displays information of an {@code Appointment} for the {@code ListAllPanel} display.
  */
-public class ApptCard extends UiPart<Region> {
+public class ApptDisplayCard extends UiPart<Region> {
 
-    private static final String FXML = "ApptCard.fxml";
+    private static final String FXML = "ApptDisplayCard.fxml";
 
     public final Appointment appointment;
     private String startTime;
     private String endTime;
 
     @FXML
-    private HBox apptCardPane;
+    private HBox cardPane;
     @FXML
     private Label id;
     @FXML
     private Label time;
     @FXML
-    private Label clientName;
-    @FXML
     private Label petName;
     @FXML
     private Label vetTechName;
+    @FXML
+    private Label desc;
 
-    public ApptCard(Appointment appointment, int startIndex) {
+    public ApptDisplayCard(Appointment appointment, int startIndex) {
         super(FXML);
 
         this.appointment = appointment;
@@ -43,18 +43,14 @@ public class ApptCard extends UiPart<Region> {
         startTime = appointment.getTime().toString();
         getTimeFrame(startTime, appointment.getDuration().toString());
         time.setText(startTime + " - " + endTime);
-        if (appointment.getClientOwnPet() == null) {
-            clientName.setText("Client: ");
-            petName.setText("Pet: ");
-        } else {
-            clientName.setText("Client: " + appointment.getClientOwnPet().getClient().getName().fullName);
-            petName.setText("Pet: " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
-        }
+        petName.setText("Pet: " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
         if (appointment.getVetTechnician() == null) {
-            vetTechName.setText("V.Tech: ");
+            vetTechName.setText("V.Tech: -");
         } else {
             vetTechName.setText("V.Tech: " + appointment.getVetTechnician().getName().fullName);
         }
+        desc.setText("Description: " + appointment.getDescription().description);
+        desc.setWrapText(true);
     }
 
     private void getTimeFrame(String time, String duration) {
@@ -80,12 +76,12 @@ public class ApptCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ApptCard)) {
+        if (!(other instanceof ApptDisplayCard)) {
             return false;
         }
 
         // state check
-        ApptCard card = (ApptCard) other;
+        ApptDisplayCard card = (ApptDisplayCard) other;
         return startTime.equals(card.startTime)
                 && appointment.equals(card.appointment);
     }

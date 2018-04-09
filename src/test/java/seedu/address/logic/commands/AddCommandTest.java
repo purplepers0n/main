@@ -303,6 +303,30 @@ public class AddCommandTest {
         public void sortAppointmentList() throws AppointmentListIsEmptyException {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void updateDetailsList(Client client, ObservableList<Pet> pets,
+                                      ObservableList<Appointment> appointments) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public Client getClientDetails() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<Pet> getClientPetList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<Appointment> getClientApptList() {
+            fail("This method should not be called.");
+            return null;
+        }
     }
 
     /**
@@ -338,16 +362,20 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) { }
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        }
 
         @Override
-        public void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate) { }
+        public void updateFilteredVetTechnicianList(Predicate<VetTechnician> predicate) {
+        }
 
         @Override
-        public void updateFilteredPetList(Predicate<Pet> predicate) { }
+        public void updateFilteredPetList(Predicate<Pet> predicate) {
+        }
 
         @Override
-        public void updateFilteredClientList(Predicate<Client> predicate) { }
+        public void updateFilteredClientList(Predicate<Client> predicate) {
+        }
     }
 
 }

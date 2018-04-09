@@ -49,11 +49,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Client> filteredClients;
     private final FilteredList<VetTechnician> filteredVetTechnicians;
     private final FilteredList<Pet> filteredPet;
-    private final FilteredList<ClientOwnPet> filteredClientPetAssocation;
 
-    private int currList = 0;
+    private final FilteredList<ClientOwnPet> filteredClientPetAssocation;
     private final FilteredList<Appointment> filteredAppointment;
 
+    private Client displayClient = null;
+    private ObservableList<Pet> displayPet = null;
+    private ObservableList<Appointment> displayAppt = null;
+
+    private int currList = 0;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -224,6 +228,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Person List Accessors =============================================================
     //@@author
+
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code addressBook}
@@ -359,5 +364,28 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public int getCurrentList() {
         return this.currList;
+    }
+
+    //@@author purplepers0n
+    @Override
+    public void updateDetailsList(Client client, ObservableList<Pet> pets, ObservableList<Appointment> appointments) {
+        displayClient = client;
+        displayPet = pets;
+        displayAppt = appointments;
+    }
+
+    @Override
+    public Client getClientDetails() {
+        return displayClient;
+    }
+
+    @Override
+    public ObservableList<Pet> getClientPetList() {
+        return displayPet;
+    }
+
+    @Override
+    public ObservableList<Appointment> getClientApptList() {
+        return displayAppt;
     }
 }

@@ -127,7 +127,7 @@ public interface Model {
      * Reschedules the given appointment {@code target} with {@code rescheduledPerson}.
      *
      * @throws DuplicateAppointmentException if updating the appointment's details causes the appointment
-     *                                  to be clashed with another existing appointment in the list.
+     *                                       to be clashed with another existing appointment in the list.
      * @throws AppointmentNotFoundException  if {@code target} could not be found in the list.
      */
     void updateAppointment(Appointment target, Appointment rescheduledAppointment)
@@ -187,6 +187,7 @@ public interface Model {
 
     /**
      * Updates the filteredAppointmentList
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
@@ -231,4 +232,24 @@ public interface Model {
      */
     void removeVetTechFromAppointent(Appointment apptToRemoveVetFrom)
             throws DuplicateAppointmentException, AppointmentNotFoundException, VetTechnicianNotFoundException;
+
+    /**
+     * Updates the listed details of a client
+     */
+    void updateDetailsList(Client client, ObservableList<Pet> pets, ObservableList<Appointment> appointments);
+
+    /**
+     * Returns the queried client
+     **/
+    Client getClientDetails();
+
+    /**
+     * Returns an unmodifiable view of the pet list of the queried client
+     **/
+    ObservableList<Pet> getClientPetList();
+
+    /**
+     * Returns an unmodifiable view of the appointment list of the queried client
+     **/
+    ObservableList<Appointment> getClientApptList();
 }

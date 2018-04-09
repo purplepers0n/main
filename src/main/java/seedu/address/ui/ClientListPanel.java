@@ -17,6 +17,7 @@ import seedu.address.commons.events.ui.ClientPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.client.Client;
 
+//@@author purplepers0n-reused
 /**
  * Panel containing the list of clients.
  */

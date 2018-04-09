@@ -5,15 +5,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.pet.Pet;
 
 //@@author purplepers0n-reused
-/**
- * An UI component that displays information of a {@code VetTechnician}.
- */
-public class VetTechnicianCard extends UiPart<Region> {
 
-    private static final String FXML = "VetTechnicianListCard.fxml";
+/**
+ * An UI component that displays information of a {@code clientOwnPet}.
+ */
+public class PetDisplayCard extends UiPart<Region> {
+
+    private static final String FXML = "PetDisplayCard.fxml";
     private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
         "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
         "green2", "white", "wine", "fuchsia", "sea"};
@@ -26,7 +27,7 @@ public class VetTechnicianCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final VetTechnician vetTechnician;
+    public final Pet pet;
 
     @FXML
     private HBox cardPane;
@@ -35,23 +36,22 @@ public class VetTechnicianCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label gender;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
+    private Label age;
+
+    //species and breed included in tags
     @FXML
     private FlowPane tags;
 
-    public VetTechnicianCard(VetTechnician vetTechnician, int displayedIndex) {
+    public PetDisplayCard(Pet pet, int displayedIndex) {
         super(FXML);
-        this.vetTechnician = vetTechnician;
+        this.pet = pet;
         id.setText(displayedIndex + ". ");
-        name.setText(vetTechnician.getName().fullName);
-        phone.setText(vetTechnician.getPhone().value);
-        address.setText(vetTechnician.getAddress().value);
-        email.setText(vetTechnician.getEmail().value);
-        initTags(vetTechnician);
+        name.setText(pet.getPetName().fullPetName);
+        gender.setText("Gender: " + pet.getPetGender().fullGender);
+        age.setText(pet.getPetAge().value + " years old");
+        initTags(pet);
     }
 
     /**
@@ -62,10 +62,10 @@ public class VetTechnicianCard extends UiPart<Region> {
     }
 
     /**
-     * Creates the tag labels for {@code client}.
+     * Creates the tag labels for {@code pet}.
      */
-    private void initTags(VetTechnician vetTechnician) {
-        vetTechnician.getTags().forEach(tag -> {
+    private void initTags(Pet pet) {
+        pet.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
             tagLabel.getStyleClass().add(getTagColorFor(tag.tagName));
             tags.getChildren().add(tagLabel);
@@ -80,13 +80,13 @@ public class VetTechnicianCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VetTechnicianCard)) {
+        if (!(other instanceof PetDisplayCard)) {
             return false;
         }
 
         // state check
-        VetTechnicianCard card = (VetTechnicianCard) other;
+        PetDisplayCard card = (PetDisplayCard) other;
         return id.getText().equals(card.id.getText())
-                && vetTechnician.equals(card.vetTechnician);
+                && pet.equals(card.pet);
     }
 }

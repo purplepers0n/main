@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- @@author purplepers0n -->
 <HBox styleClass="apptCardPane" fx:id="apptCardPane" prefHeight="90" maxHeight="90" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -24,11 +25,11 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="time" text="\$time" id="cell_big_label_dark" />
+                <Label fx:id="time" text="\$time" styleClass="cell_big_label" />
             </HBox>
-            <Label fx:id="clientName" id="cell_small_label_dark" text="\$clientName" />
-            <Label fx:id="petName" id="cell_small_label_dark" text="\$petName" />
-            <Label fx:id="vetTechName" id="cell_small_label_dark" text="\$vetTechName" />
+            <Label fx:id="clientName" styleClass="cell_small_label" text="\$clientName" />
+            <Label fx:id="petName" styleClass="cell_small_label" text="\$petName" />
+            <Label fx:id="vetTechName" styleClass="cell_small_label" text="\$vetTechName" />
         </VBox>
     </GridPane>
 </HBox>

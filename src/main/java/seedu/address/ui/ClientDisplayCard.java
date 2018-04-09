@@ -5,15 +5,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.client.Client;
 
 //@@author purplepers0n-reused
-/**
- * An UI component that displays information of a {@code VetTechnician}.
- */
-public class VetTechnicianCard extends UiPart<Region> {
 
-    private static final String FXML = "VetTechnicianListCard.fxml";
+/**
+ * A UI component that displays information of a {@code Client} for {@code ListAllPanel} display.
+ */
+public class ClientDisplayCard extends UiPart<Region> {
+    private static final String FXML = "ClientDisplayCard.fxml";
+
     private static final String[] TAG_COLOR = {"red", "yellow", "blue", "orange", "green",
         "pink", "navy", "teal", "purple", "peach", "lightblue", "darkpurple",
         "green2", "white", "wine", "fuchsia", "sea"};
@@ -26,14 +27,12 @@ public class VetTechnicianCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final VetTechnician vetTechnician;
+    public final Client client;
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label name;
-    @FXML
-    private Label id;
     @FXML
     private Label phone;
     @FXML
@@ -43,15 +42,14 @@ public class VetTechnicianCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public VetTechnicianCard(VetTechnician vetTechnician, int displayedIndex) {
+    public ClientDisplayCard(Client client) {
         super(FXML);
-        this.vetTechnician = vetTechnician;
-        id.setText(displayedIndex + ". ");
-        name.setText(vetTechnician.getName().fullName);
-        phone.setText(vetTechnician.getPhone().value);
-        address.setText(vetTechnician.getAddress().value);
-        email.setText(vetTechnician.getEmail().value);
-        initTags(vetTechnician);
+        this.client = client;
+        name.setText(client.getName().fullName);
+        phone.setText(client.getPhone().value);
+        address.setText(client.getAddress().value);
+        email.setText(client.getEmail().value);
+        initTags(client);
     }
 
     /**
@@ -64,8 +62,8 @@ public class VetTechnicianCard extends UiPart<Region> {
     /**
      * Creates the tag labels for {@code client}.
      */
-    private void initTags(VetTechnician vetTechnician) {
-        vetTechnician.getTags().forEach(tag -> {
+    private void initTags(Client client) {
+        client.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
             tagLabel.getStyleClass().add(getTagColorFor(tag.tagName));
             tags.getChildren().add(tagLabel);
@@ -80,13 +78,12 @@ public class VetTechnicianCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VetTechnicianCard)) {
+        if (!(other instanceof ClientDisplayCard)) {
             return false;
         }
 
         // state check
-        VetTechnicianCard card = (VetTechnicianCard) other;
-        return id.getText().equals(card.id.getText())
-                && vetTechnician.equals(card.vetTechnician);
+        ClientDisplayCard card = (ClientDisplayCard) other;
+        return client.equals(card.client);
     }
 }

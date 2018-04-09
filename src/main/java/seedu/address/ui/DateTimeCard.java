@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
+//@@author purplepers0n
 /**
  * Card displaying the current date and time
  */

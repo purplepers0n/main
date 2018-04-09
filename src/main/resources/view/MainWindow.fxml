@@ -18,6 +18,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Text?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="550" minHeight="600">
     <icons>
@@ -40,7 +41,9 @@
                     </Menu>
                 </MenuBar>
 
-                <StackPane fx:id="stackPane" VBox.vgrow="NEVER" styleClass="pane-with-border" minHeight="75" prefHeight="75"
+                <!-- @@author purplepers0n -->
+                <StackPane fx:id="stackPane" VBox.vgrow="NEVER" styleClass="pane-with-border" minHeight="75"
+                           prefHeight="75"
                            maxHeight="75">
                     <ImageView fitHeight="70" fitWidth="70" pickOnBounds="true" preserveRatio="true" translateX="10"
                                StackPane.alignment="CENTER_LEFT">
@@ -96,18 +99,16 @@
                             </padding>
                         </StackPane>
                         <SplitPane id="splitPane" dividerPositions="0.8" VBox.vgrow="ALWAYS">
-                            <VBox id="appt-display" minWidth="700" prefWidth="700" maxWidth="1000" >
-                                <StackPane VBox.vgrow="ALWAYS" fx:id="apptListPanelPlaceholder"  prefWidth="700" />
+                            <VBox id="appt-display" prefWidth="700">
+                                <StackPane VBox.vgrow="ALWAYS" fx:id="apptListPanelPlaceholder" prefWidth="700"/>
                             </VBox>
-                            <VBox id="details-display">
-                                <padding>
-                                    <Insets top="10" right="10" bottom="10" left="10"/>
-                                </padding>
+                            <VBox id="details-display" minWidth="248" prefWidth="248" maxWidth="248">
+                                <StackPane VBox.vgrow="ALWAYS" fx:id="listAllPanelPlaceholder" prefWidth="248"/>
                             </VBox>
                         </SplitPane>
                     </VBox>
                 </SplitPane>
-
+                <!-- @@author -->
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
             </VBox>
         </Scene>
