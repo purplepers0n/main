@@ -24,7 +24,6 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
 import seedu.address.logic.commands.RemoveVetTechFromAppointmentCommand;
 import seedu.address.logic.commands.ScheduleCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortAppointmentCommand;
 import seedu.address.logic.commands.SortClientCommand;
 import seedu.address.logic.commands.SortPetCommand;
@@ -67,7 +66,6 @@ public class AutoCompleteManager {
         commandTrie.insertWord(HistoryCommand.COMMAND_WORD);
         commandTrie.insertWord(RedoCommand.COMMAND_WORD);
         commandTrie.insertWord(ScheduleCommand.COMMAND_WORD);
-        commandTrie.insertWord(SelectCommand.COMMAND_WORD);
         commandTrie.insertWord(UndoCommand.COMMAND_WORD);
 
         commandTrie.insertWord(AddAppointmentToPetCommand.COMMAND_WORD);

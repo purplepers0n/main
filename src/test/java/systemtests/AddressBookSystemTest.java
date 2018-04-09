@@ -33,7 +33,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -144,14 +143,6 @@ public abstract class AddressBookSystemTest {
         assertTrue(getModel().getFilteredClientList().size()
                 <= getModel().getAddressBook().getPersonList().stream()
                 .filter(Person::isClient).collect(Collectors.toList()).size());
-    }
-
-    /**
-     * Selects the person at {@code index} of the displayed list.
-     */
-    protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getClientListPanel().getSelectedCardIndex());
     }
 
     /**
