@@ -122,6 +122,16 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author md-azsa
+    @Override
+    public synchronized void unscheduleAppointment(Appointment appointment) throws
+            AppointmentNotFoundException, AppointmentListIsEmptyException {
+        addressBook.unscheduleAppointment(appointment);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
+        indicateAddressBookChanged();
+    }
+    //@@author
+
     @Override
     public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
             throws DuplicateAppointmentException, AppointmentNotFoundException {

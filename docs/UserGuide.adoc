@@ -173,7 +173,7 @@ Reverses the most recent `undo` command. +
 ====
 Redoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
-`schedule`
+`schedule` `unschedule`
 ====
 
 ==== Undoing previous command : `undo`
@@ -185,7 +185,7 @@ Restores the address book to the state before the previous _undoable_ command wa
 ====
 Undoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
-`schedule`
+`schedule` `unschedule`
 ====
 // end::undoredo[]
 
@@ -636,6 +636,33 @@ Here is an example of using the `editp` command: +
 * `editp 1 pn/Jerry pa/2 pg/M` +
 Here you choose to edit the pet of the first index and changed the existing name, age and gender to Jerry, 2 and male.
 
+==== Unscheduling an appointment: `unschedule` `since v1.5`
+Command format: `unschedule INDEX` +
+
+The `unschedule` command removes the appointment from the program.
+It requires the index of the appointment in the appointment listing.
+The command expects these parameters: +
+
+[horizontal]
+*INDEX*::
+The appointment index to be removed based on the appointment listing. This needs to be supplied by the
+user. +
+
+Here is an example of using the `unschedule` command: +
+
+* `unschedule 1` +
+When this command is executed, the appointment at the first index is removed.
+
+The figure below shows the current state of your program as an exammple.
+
+.The current status of appointments in your program.
+image::userguide_unscheduleCommand_image.PNG[width="500"]
+
+After executing the `unschedule 1` command, the first appointment on 02 January 2018 will be removed.
+The figure below shows the resulting output upon executing the command.
+
+.The resulting output after executing the `unschedule 1` command.
+image::userguide_unscheduleCommand_image2.PNG[width="500"]
 
 ==== Removing an appointment from a pet: `removeapptfrompet` `since v1.3`
 Command format: `removeapptfrompet appt/APPOINTMENT_INDEX` +
@@ -809,6 +836,7 @@ about them.
 |removevettechfromappt |`removevettechfromappt INDEX` |Removes a vet technician from appointment based on index.
 |schedule | `schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION` |Schedule an appointment given date (YYYY-MM-DD), time (HH:MM), duration (minutes) and description.
 |sortp |`sortp` |Sorts the pet list alphabetically.
+|unschedule |`unschedule INDEX` |Unschedules an appointment from the program.
 |=======
 
 //sorted alphabetically

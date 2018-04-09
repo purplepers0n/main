@@ -318,6 +318,20 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// appointment-level operations
 
+    //@@author md-azsa
+    /**
+     * Unschedules an appointment
+     */
+    public void unscheduleAppointment(Appointment key) throws AppointmentListIsEmptyException,
+            AppointmentNotFoundException {
+        if (appointments.isEmpty()) {
+            throw new AppointmentListIsEmptyException();
+        } else {
+            appointments.remove(key);
+        }
+    }
+    //@@author
+
     /**
      * Schedule an appointment to the address book.
      *

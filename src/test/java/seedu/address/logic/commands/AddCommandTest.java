@@ -305,6 +305,11 @@ public class AddCommandTest {
         }
 
         @Override
+
+        public void unscheduleAppointment(Appointment appointment) {
+            fail("This method should not be called.");
+        }
+
         public void updateDetailsList(Client client, ObservableList<Pet> pets,
                                       ObservableList<Appointment> appointments) {
             fail("This method should not be called.");

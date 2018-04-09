@@ -124,6 +124,12 @@ public interface Model {
     void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
 
     /**
+     * Unschedule the given appointment according to index
+     */
+    void unscheduleAppointment(Appointment appointment) throws
+            AppointmentListIsEmptyException, AppointmentNotFoundException;
+
+    /**
      * Reschedules the given appointment {@code target} with {@code rescheduledPerson}.
      *
      * @throws DuplicateAppointmentException if updating the appointment's details causes the appointment
@@ -143,9 +149,6 @@ public interface Model {
      */
     void addPet(Pet pet) throws DuplicatePetException;
 
-    /**
-     * Removes the given pet
-     */
     void deletePet(Pet pet) throws PetNotFoundException, ClientPetAssociationNotFoundException;
 
     /**
