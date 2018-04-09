@@ -46,6 +46,7 @@ public class ParserUtilTest {
 
     private static final String INVALID_DATE = "2018/01/02";
     private static final String INVALID_DATE_YEAR = "2016-01-02";
+    private static final String INVALID_DATE_DAY = "2018-02-31";
     private static final String INVALID_TIME = "15-15";
     private static final String INVALID_DURATION = "130";
 
@@ -276,6 +277,12 @@ public class ParserUtilTest {
     public void parseDate_invalidValueOfYear_throwsIllegalValueException() {
         Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseDate(INVALID_DATE_YEAR));
         Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseDate(Optional.of(INVALID_DATE_YEAR)));
+    }
+
+    @Test
+    public void parseDate_invalidValueOfDays_throwsIllegalValueException() {
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseDate(INVALID_DATE_DAY));
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseDate(Optional.of(INVALID_DATE_DAY)));
     }
 
     @Test
