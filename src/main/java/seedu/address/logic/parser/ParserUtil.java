@@ -215,6 +215,9 @@ public class ParserUtil {
         if (!Date.isValidYear(Date.getYear(trimmedDate))) {
             throw new IllegalValueException(Date.MESSAGE_YEAR_CONSTRAINTS);
         }
+        if (!Date.isValidDaysInMonth(trimmedDate)) {
+            throw new IllegalValueException(Date.MESSAGE_DAYINMONTH_CONSTRAINTS);
+        }
         return new Date(trimmedDate);
     }
 
