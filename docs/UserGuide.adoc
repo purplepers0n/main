@@ -486,7 +486,8 @@ The duration of the appointment, or how long it is in minutes. This needs to be 
 A brief information or description of the appointment. This needs to be supplied by the user.
 
 [TIP]
-Date is in the format "YYYY-MM-DD" and the year "YYYY" can only be the current year which is "2018".
+Date is in the format "YYYY-MM-DD" and the year "YYYY" must be later than the current year "2018".
+
 [TIP]
 Time adapts the 24-hour format from 00:00 to 23:59.
 [TIP]

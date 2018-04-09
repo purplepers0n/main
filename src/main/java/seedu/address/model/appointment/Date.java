@@ -12,13 +12,17 @@ public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Appointment date should be all integers in format YYYY-MM-DD, and it should not be blank";
-
+    public static final String MESSAGE_YEAR_CONSTRAINTS =
+            "Appointment year should be later than 2018";
     /*
      * The first character of the date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String DATE_VALIDATION_REGEX =
-            "([2-9][0-9][1-9][89])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])";
+            "([2-9][0-9][1-9][0-9])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])";
+    private static final int YEAR_START_INDEX = 0;
+    private static final int YEAR_END_INDEX = 4;
+    private static final int YEAR_LOWER_BOUND = 2018;
 
     public final String date;
 
@@ -30,6 +34,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        checkArgument(isValidYear(this.getYear(date)), MESSAGE_YEAR_CONSTRAINTS);
         this.date = date;
     }
 
@@ -38,6 +43,24 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         return test.matches(DATE_VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string is a valid date.
+     */
+    public static boolean isValidYear(int test) {
+        return test >= YEAR_LOWER_BOUND;
+    }
+
+    /**
+     *  Returns the integer value of year
+     */
+    public static int getYear(String date) {
+
+        String year = date.substring(YEAR_START_INDEX, YEAR_END_INDEX);
+
+        return Integer.parseInt(year);
+
     }
 
     @Override
