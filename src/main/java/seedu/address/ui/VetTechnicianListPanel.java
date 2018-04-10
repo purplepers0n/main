@@ -4,17 +4,12 @@ import java.util.logging.Logger;
 
 import org.fxmisc.easybind.EasyBind;
 
-import com.google.common.eventbus.Subscribe;
-
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.VetTechnicianPanelSelectionChangedEvent;
 import seedu.address.model.vettechnician.VetTechnician;
 
 //@@author purplepers0n-reused
@@ -40,35 +35,6 @@ public class VetTechnicianListPanel extends UiPart<Region> {
                         new VetTechnicianCard(vetTechnician, vetTechnicianList.indexOf(vetTechnician) + 1));
         vetTechnicianListView.setItems(mappedList);
         vetTechnicianListView.setCellFactory(listView -> new VetTechnicianListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        vetTechnicianListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in vetTechnician list panel changed to : '" + newValue + "'");
-                        raise(new VetTechnicianPanelSelectionChangedEvent(newValue));
-                    }
-                });
-    }
-
-    /**
-     * Scrolls to the {@code VetTechnicianCard} at the {@code index} and selects it.
-     */
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            vetTechnicianListView.scrollTo(index);
-            vetTechnicianListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.targetList == 2) {
-            scrollTo(event.targetIndex);
-        }
     }
 
     /**
