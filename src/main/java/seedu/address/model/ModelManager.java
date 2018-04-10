@@ -11,8 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.NewApptAvailableEvent;
+import seedu.address.commons.events.ui.NewListAllDisplayAvailableEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
@@ -58,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
     private ObservableList<Appointment> displayAppt = null;
 
     private int currList = 0;
+    private Index currListAllIndex = null;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -85,6 +88,10 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
+        displayClient = null;
+        displayPet = null;
+        displayAppt = null;
+        raise(new NewListAllDisplayAvailableEvent(null));
     }
 
     @Override
@@ -106,6 +113,10 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
+        displayClient = null;
+        displayPet = null;
+        displayAppt = null;
+        raise(new NewListAllDisplayAvailableEvent(null));
     }
 
     @Override
@@ -209,7 +220,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void removeAppointmentFromPet(Appointment appointment)
-        throws AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
+            throws AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
         requireNonNull(appointment);
         addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();
@@ -378,10 +389,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author purplepers0n
     @Override
-    public void updateDetailsList(Client client, ObservableList<Pet> pets, ObservableList<Appointment> appointments) {
+    public void updateDetailsList(Client client, ObservableList<Pet> pets,
+                                  ObservableList<Appointment> appointments, Index index) {
         displayClient = client;
         displayPet = pets;
         displayAppt = appointments;
+        currListAllIndex = index;
     }
 
     @Override
