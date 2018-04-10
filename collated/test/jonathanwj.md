@@ -1,53 +1,61 @@
 # jonathanwj
-###### \seedu\address\logic\autocomplete\AutoCompleteTest.java
+###### \java\seedu\address\logic\autocomplete\AutoCompleteManagerTest.java
 ``` java
-public class AutoCompleteTest {
+public class AutoCompleteManagerTest {
 
     public static final String NOT_FOUND_KEYWORD = "NotFoundKeyword";
+    public static final String ADD_COMMAND_SAMPLE = AddCommand.COMMAND_WORD + " "
+            + PREFIX_PERSON_ROLE + "client "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_PHONE + "98765432 "
+            + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_TAG + "friends ";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private AutoComplete autoComplete;
-
-    @Before
-    public void setup() {
-        autoComplete = new AutoComplete();
-    }
+    private AutoCompleteManager autoCompleteManger = new AutoCompleteManager();
 
     @Test
-    public void autoCompleteCommands_preFixKeyWordInCommandTrie_notEmptyList() {
-        List<String> listOfWords = autoComplete.autoCompleteCommands("add");
+    public void getAutoCompleteCommands_preFixKeyWordInCommandTrie_notEmptyList() {
+        List<String> listOfWords = autoCompleteManger.getAutoCompleteCommands("add");
         assertTrue(!listOfWords.isEmpty());
     }
 
     @Test
-    public void autoCompleteCommands_emptyKeyWord_notEmptyList() {
-        List<String> listOfWords = autoComplete.autoCompleteCommands("");
+    public void getAutoCompleteCommands_emptyKeyWord_notEmptyList() {
+        List<String> listOfWords = autoCompleteManger.getAutoCompleteCommands("");
         assertTrue(!listOfWords.isEmpty());
     }
 
     @Test
-    public void autoCompleteCommands_preFixKeyWordNotInCommandTrie_emptyList() {
-        List<String> listOfWords = autoComplete.autoCompleteCommands(NOT_FOUND_KEYWORD);
+    public void getAutoCompleteCommands_preFixKeyWordNotInCommandTrie_emptyList() {
+        List<String> listOfWords = autoCompleteManger.getAutoCompleteCommands(NOT_FOUND_KEYWORD);
         assertTrue(listOfWords.isEmpty());
     }
 
     @Test
-    public void autoCompleteCommands_nullKeyWord_throwsNullPointerException() {
+    public void getAutoCompleteCommands_nullKeyWord_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        List<String> listOfWords = autoComplete.autoCompleteCommands(null);
+        autoCompleteManger.getAutoCompleteCommands(null);
     }
 
     @Test
-    public void autoCompleteParameter_emptyInput_emptyString() {
-        String result = autoComplete.autoCompleteNextMissingParameter("");
+    public void getAutoCompleteCommands_emptyInput_emptyString() {
+        String result = autoCompleteManger.getAutoCompleteNextMissingParameter("");
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void getAutoCompleteNextMissingParameter_noMorePrefix_emptyString() {
+        String result = autoCompleteManger.getAutoCompleteNextMissingParameter(ADD_COMMAND_SAMPLE);
         assertTrue(result.isEmpty());
     }
 
 }
 ```
-###### \seedu\address\logic\autocomplete\TrieTest.java
+###### \java\seedu\address\logic\autocomplete\TrieTest.java
 ``` java
 public class TrieTest {
 
@@ -72,7 +80,7 @@ public class TrieTest {
     }
 }
 ```
-###### \seedu\address\model\association\AssociatePetToClientTest.java
+###### \java\seedu\address\model\association\AssociatePetToClientTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)

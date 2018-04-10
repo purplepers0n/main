@@ -1,5 +1,5 @@
 # jonathanwj-reused
-###### \seedu\address\logic\autocomplete\CommandParameterSyntaxHandlerTest.java
+###### \java\seedu\address\logic\autocomplete\CommandParameterSyntaxHandlerTest.java
 ``` java
 public class CommandParameterSyntaxHandlerTest {
 
@@ -63,7 +63,7 @@ public class CommandParameterSyntaxHandlerTest {
 
 }
 ```
-###### \seedu\address\logic\commands\AddCommandTest.java
+###### \java\seedu\address\logic\commands\AddCommandTest.java
 ``` java
     @Test
     public void execute_vetTechnicianAcceptedByModel_addSuccessful() throws Exception {
@@ -88,7 +88,7 @@ public class CommandParameterSyntaxHandlerTest {
     }
 
 ```
-###### \seedu\address\logic\commands\AddCommandTest.java
+###### \java\seedu\address\logic\commands\AddCommandTest.java
 ``` java
     @Test
     public void execute_duplicateVetTechnician_throwsCommandException() throws Exception {
@@ -102,7 +102,7 @@ public class CommandParameterSyntaxHandlerTest {
     }
 
 ```
-###### \seedu\address\logic\commands\AddVetTechToAppointmentCommandTest.java
+###### \java\seedu\address\logic\commands\AddVetTechToAppointmentCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
@@ -317,7 +317,7 @@ public class AddVetTechToAppointmentCommandTest {
     }
 }
 ```
-###### \seedu\address\logic\commands\EditCommandTest.java
+###### \java\seedu\address\logic\commands\EditCommandTest.java
 ``` java
     @Test
     public void execute_filteredList_success() throws Exception {
@@ -367,7 +367,7 @@ public class AddVetTechToAppointmentCommandTest {
     }
 
 ```
-###### \seedu\address\logic\commands\RemoveVetTechFromAppointmentCommandTest.java
+###### \java\seedu\address\logic\commands\RemoveVetTechFromAppointmentCommandTest.java
 ``` java
 /**
  * Contains integration tests unit tests for
@@ -410,7 +410,7 @@ public class RemoveVetTechFromAppointmentCommandTest {
 
 }
 ```
-###### \seedu\address\storage\XmlAdaptedPersonTest.java
+###### \java\seedu\address\storage\XmlAdaptedPersonTest.java
 ``` java
     @Test
     public void toModelType_invalidRole_throwsIllegalValueException() {
@@ -430,7 +430,7 @@ public class RemoveVetTechFromAppointmentCommandTest {
 
 }
 ```
-###### \seedu\address\testutil\TypicalAssociations.java
+###### \java\seedu\address\testutil\TypicalAssociations.java
 ``` java
 /**
  * A utility class containing a list of {@code ClientOwnPet} objects to be used in tests.

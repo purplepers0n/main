@@ -1,5 +1,5 @@
 # jonathanwj-reused
-###### \seedu\address\logic\commands\AddVetTechToAppointmentCommand.java
+###### \java\seedu\address\logic\commands\AddVetTechToAppointmentCommand.java
 ``` java
 /**
  * Adds a vet technician to an appointment in the address book.
@@ -48,7 +48,6 @@ public class AddVetTechToAppointmentCommand extends UndoableCommand {
         requireNonNull(appointment.get());
         try {
             model.addVetTechToAppointment(vetTech.get(), appointment.get());
-            EventsCenter.getInstance().post(new NewApptAvailableEvent(appointment.toString()));
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("The target appointment cannot be a duplicate");
         } catch (AppointmentNotFoundException e) {
@@ -102,7 +101,7 @@ public class AddVetTechToAppointmentCommand extends UndoableCommand {
 
 }
 ```
-###### \seedu\address\logic\commands\RemoveVetTechFromAppointmentCommand.java
+###### \java\seedu\address\logic\commands\RemoveVetTechFromAppointmentCommand.java
 ``` java
 /**
  * removes the vet from appointment identified using it's last displayed index from the program
@@ -134,7 +133,6 @@ public class RemoveVetTechFromAppointmentCommand extends UndoableCommand {
         requireNonNull(apptToRemoveVetFrom);
         try {
             model.removeVetTechFromAppointent(apptToRemoveVetFrom);
-            EventsCenter.getInstance().post(new NewApptAvailableEvent(apptToRemoveVetFrom.toString()));
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("The target appointment cannot be a duplicate");
         } catch (AppointmentNotFoundException e) {
@@ -166,7 +164,7 @@ public class RemoveVetTechFromAppointmentCommand extends UndoableCommand {
     }
 }
 ```
-###### \seedu\address\logic\parser\AddVetTechToAppointmentCommandParser.java
+###### \java\seedu\address\logic\parser\AddVetTechToAppointmentCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new AddVetTechToAppointmentCommand object
@@ -212,7 +210,7 @@ public class AddVetTechToAppointmentCommandParser implements Parser<AddVetTechTo
 
 }
 ```
-###### \seedu\address\logic\parser\RemoveVetTechFromAppointmentCommandParser.java
+###### \java\seedu\address\logic\parser\RemoveVetTechFromAppointmentCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new RemoveVetTechFromAppointmentCommand object
@@ -236,7 +234,7 @@ public class RemoveVetTechFromAppointmentCommandParser implements Parser<RemoveV
     }
 }
 ```
-###### \seedu\address\model\vettechnician\exceptions\DuplicateVetTechnicianException.java
+###### \java\seedu\address\model\vettechnician\exceptions\DuplicateVetTechnicianException.java
 ``` java
 /**
  * Signals that the operation will result in duplicate VetTechnician objects
@@ -247,7 +245,7 @@ public class DuplicateVetTechnicianException extends DuplicateDataException {
     }
 }
 ```
-###### \seedu\address\model\vettechnician\exceptions\VetTechnicianNotFoundException.java
+###### \java\seedu\address\model\vettechnician\exceptions\VetTechnicianNotFoundException.java
 ``` java
 /**
  * Signals the operation is unable to find the specified pet.
@@ -255,7 +253,7 @@ public class DuplicateVetTechnicianException extends DuplicateDataException {
 public class VetTechnicianNotFoundException extends Exception {
 }
 ```
-###### \seedu\address\model\vettechnician\UniqueVetTechnicianList.java
+###### \java\seedu\address\model\vettechnician\UniqueVetTechnicianList.java
 ``` java
 /**
  * A list of vetTechnicians that enforces uniqueness between its elements and does not allow nulls.
@@ -366,7 +364,7 @@ public class UniqueVetTechnicianList implements Iterable<VetTechnician> {
     }
 }
 ```
-###### \seedu\address\model\vettechnician\VetTechnician.java
+###### \java\seedu\address\model\vettechnician\VetTechnician.java
 ``` java
 /**
  * Represents a Vet Technician in the address book.
@@ -408,7 +406,7 @@ public class VetTechnician extends Person {
 
 }
 ```
-###### \seedu\address\storage\XmlAdaptedClientOwnPet.java
+###### \java\seedu\address\storage\XmlAdaptedClientOwnPet.java
 ``` java
 /**
  * JAXV-friendly version of the ClientOwnPet.
@@ -464,7 +462,7 @@ public class XmlAdaptedClientOwnPet {
     }
 }
 ```
-###### \seedu\address\storage\XmlAdaptedPerson.java
+###### \java\seedu\address\storage\XmlAdaptedPerson.java
 ``` java
     /**
      * Converts this jaxb-friendly adapted person object into the model's Person object.

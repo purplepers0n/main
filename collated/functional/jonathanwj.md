@@ -1,18 +1,20 @@
 # jonathanwj
-###### \seedu\address\logic\autocomplete\AutoComplete.java
+###### \java\seedu\address\logic\autocomplete\AutoCompleteManager.java
 ``` java
+
 /**
  * the main AutoCompleteManager of the application
  */
-public class AutoComplete {
+public class AutoCompleteManager {
 
     private static final String LIST_CLIENT_PREFIX = " client";
     private static final String LIST_VETTECH_PREFIX = " vettech";
     private static final String LIST_PET_PREFIX = " pet";
+    private static final String EMPTY_STRING = "";
     private Trie commandTrie;
     private CommandParameterSyntaxHandler commandParameterSyntaxHandler;
 
-    public AutoComplete() {
+    public AutoCompleteManager() {
         commandTrie = new Trie();
         commandParameterSyntaxHandler = new CommandParameterSyntaxHandler();
         initCommandKeyWords();
@@ -51,43 +53,43 @@ public class AutoComplete {
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_VETTECH_PREFIX);
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_PET_PREFIX);
 
-
     }
 
     /**
-     * Returns a sorted list of auto completed commands with prefix {@code keyWord}
-     *
+     * Returns a sorted list of auto completed commands with prefix
      */
-    public List<String> autoCompleteCommands(String keyWord) {
-        requireNonNull(keyWord);
-        return commandTrie.autoComplete(keyWord).stream()
+    public List<String> getAutoCompleteCommands(String commandPrefix) {
+        requireNonNull(commandPrefix);
+        return commandTrie.autoComplete(commandPrefix).stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
 
     /**
-     * Returns the concatenation String of the next missing prefix parameter with the input string.
+     * Returns the the next missing prefix parameter of the {@code inputText}
+     * or an empty string if there is no next prefix
      */
-    public String autoCompleteNextMissingParameter(String input) {
-        requireNonNull(input);
-        if (input.isEmpty()) {
-            return input;
+    public String getAutoCompleteNextMissingParameter(String inputText) {
+        requireNonNull(inputText);
+        if (inputText.isEmpty()) {
+            return EMPTY_STRING;
         }
-        String command = input.split(" ")[0];
+        String command = inputText.split(" ")[0];
 
-        ArrayList<Prefix> missingPrefixes = commandParameterSyntaxHandler.getMissingPrefixes(command, input);
-        String completedText = input;
+        ArrayList<Prefix> missingPrefixes = commandParameterSyntaxHandler.getMissingPrefixes(command, inputText);
 
         if (!missingPrefixes.isEmpty()) {
-            completedText = completedText + missingPrefixes.get(0);
+            return missingPrefixes.get(0).getPrefix();
+        } else {
+            return EMPTY_STRING;
         }
 
-        return completedText;
     }
 }
 ```
-###### \seedu\address\logic\autocomplete\CommandParameterSyntaxHandler.java
+###### \java\seedu\address\logic\autocomplete\CommandParameterSyntaxHandler.java
 ``` java
+
 /**
  * Contains Command syntax definitions for multiple commands
  */
@@ -119,11 +121,7 @@ public class CommandParameterSyntaxHandler {
      * Returns ArrayList of prefixes from given prefixes
      */
     private static ArrayList<Prefix> getListOfPrefix(Prefix... prefixes) {
-        ArrayList<Prefix> list = new ArrayList<>();
-        for (int i = 0; i < prefixes.length; i++) {
-            list.add(prefixes[i]);
-        }
-        return list;
+        return new ArrayList<>(Arrays.asList(prefixes));
     }
 
     /**
@@ -199,7 +197,7 @@ public class CommandParameterSyntaxHandler {
     }
 }
 ```
-###### \seedu\address\logic\autocomplete\Trie.java
+###### \java\seedu\address\logic\autocomplete\Trie.java
 ``` java
 /**
  * Trie data structure for word auto-complete
@@ -252,7 +250,7 @@ public class Trie {
     /**
      * Auto-complete strings
      * <p>
-     * Returns an {@code ArrayList<String>} of auto-completed words
+     * Returns an {@code ArrayList<String>} of auto-completed words with given prefix
      */
     public List<String> autoComplete(String prefix) {
         List<String> result = new ArrayList<>();
@@ -311,7 +309,7 @@ public class Trie {
 }
 
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Associates pet to client
@@ -335,7 +333,7 @@ public class Trie {
     }
 
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Returns true if specified pet has an owner
@@ -350,7 +348,7 @@ public class Trie {
     }
 
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Removes association from pet and client
@@ -367,7 +365,7 @@ public class Trie {
     }
 
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Adds vet technician to appointment
@@ -387,7 +385,7 @@ public class Trie {
     }
 
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Removes a vet technician from the given appointment
@@ -408,7 +406,7 @@ public class Trie {
 
     //// util methods
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     @Override
     public ObservableList<Client> getClientList() {
@@ -424,7 +422,7 @@ public class Trie {
     }
 
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     @Override
     public ObservableList<VetTechnician> getVetTechnicianList() {
@@ -440,7 +438,7 @@ public class Trie {
     }
 
 ```
-###### \seedu\address\model\ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void addPetToClient(Pet pet, Client client)
@@ -451,7 +449,7 @@ public class Trie {
     }
 
 ```
-###### \seedu\address\model\ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void removePetFromClient(Pet pet, Client client) throws ClientPetAssociationNotFoundException {
@@ -461,7 +459,7 @@ public class Trie {
     }
 
 ```
-###### \seedu\address\model\ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void addVetTechToAppointment(VetTechnician technician, Appointment appointment)
@@ -473,7 +471,7 @@ public class Trie {
     }
 
 ```
-###### \seedu\address\model\ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void removeVetTechFromAppointent(Appointment apptToRemoveVetTechFrom)
@@ -486,7 +484,7 @@ public class Trie {
 
     //=========== Filtered Person List Accessors =============================================================
 ```
-###### \seedu\address\model\person\PersonRole.java
+###### \java\seedu\address\model\person\PersonRole.java
 ``` java
 /**
  * Represents a Person's role in the address book.
@@ -588,70 +586,75 @@ public class PersonRole {
     }
 }
 ```
-###### \seedu\address\ui\CommandBox.java
+###### \java\seedu\address\ui\CommandBox.java
 ``` java
     /**
-     * Shows auto completed text on the UI
+     * Shows auto completed text or suggestions on the UI
      */
-    private void autoCompleteInput() {
+    private void autoCompleteUserInput() {
         if (commandTextField.getText().isEmpty()) {
             return;
         }
 
-        String currUserInput = commandTextField.getText();
-        if (currUserInput.endsWith(" ")) {
-            autoCompleteCommandParameters();
+        if (getCurrentText().endsWith(SPACING)) {
+            autoCompleteNextCommandParameter();
             return;
         }
 
-        List<String> listOfAutoComplete = logic.autoCompleteCommands(currUserInput);
+        List<String> listOfAutoComplete = logic.getAutoCompleteCommands(getCurrentText());
         if (listOfAutoComplete.isEmpty()) {
             return;
         }
 
         if (listOfAutoComplete.size() == 1) {
-            commandTextField.setText(listOfAutoComplete.get(0));
-            commandTextField.positionCaret(commandTextField.getText().length());
+            replaceText(listOfAutoComplete.get(0));
         }
-        logger.info("Auto Complete Suggestions '"
-                + currUserInput + "' : " + listToString(listOfAutoComplete));
 
         if (isTabDoubleTap()) {
-            if (listOfAutoComplete.size() == 1) {
-                raise(new NewResultAvailableEvent(MESSAGE_NO_MORE_AVAILABLE_COMMANDS));
-            } else {
-                raise(new NewResultAvailableEvent(MESSAGE_AVAILABLE_AUTOCOMPLETE + listToString(listOfAutoComplete)));
-            }
+            showSuggestionsOnUi(listOfAutoComplete);
         }
 
     }
 
-```
-###### \seedu\address\ui\CommandBox.java
-``` java
     /**
-     * Shows auto completed text with next prefix parameter on UI
+     * Shows autocomplete suggestions on the UI given the list of string suggestions
      */
-    private void autoCompleteCommandParameters() {
-        String autoCompletedText = logic.autoCompleteNextParameter(commandTextField.getText());
-        commandTextField.setText(autoCompletedText);
-        commandTextField.positionCaret(commandTextField.getText().length());
+    private void showSuggestionsOnUi(List<String> listOfAutoComplete) {
+        logger.info(MESSAGE_AVAILABLE_AUTOCOMPLETE
+                + commandTextField.getText() + " >> " + getStringFromList(listOfAutoComplete));
+        if (listOfAutoComplete.size() == 1) {
+            raise(new NewResultAvailableEvent(MESSAGE_NO_MORE_AVAILABLE_COMMANDS));
+        } else {
+            raise(new NewResultAvailableEvent(MESSAGE_AVAILABLE_AUTOCOMPLETE + getStringFromList(listOfAutoComplete)));
+        }
     }
 
 ```
-###### \seedu\address\ui\CommandBox.java
+###### \java\seedu\address\ui\CommandBox.java
+``` java
+    /**
+     * Shows auto completed next prefix parameter for completed command on UI
+     */
+    private void autoCompleteNextCommandParameter() {
+        String textToShow = getCurrentText()
+                + logic.getAutoCompleteNextParameter(getCurrentText());
+        replaceText(textToShow);
+    }
+
+```
+###### \java\seedu\address\ui\CommandBox.java
 ``` java
     /**
      * Returns the {@code String} representative of given the list of Strings.
      */
-    private String listToString(List<String> listOfAutoComplete) {
+    private String getStringFromList(List<String> listOfAutoComplete) {
         String toString = listOfAutoComplete.toString();
         toString = toString.substring(1, toString.length() - 1).trim();
         return toString;
     }
 
 ```
-###### \seedu\address\ui\CommandBox.java
+###### \java\seedu\address\ui\CommandBox.java
 ``` java
     /**
      * Returns true if TAB is pressed in quick succession
@@ -659,10 +662,19 @@ public class PersonRole {
     private boolean isTabDoubleTap() {
         if (System.currentTimeMillis() - previousTabPressTime < DOUBLE_PRESS_DELAY) {
             return true;
-        } else {
-            previousTabPressTime = System.currentTimeMillis();
         }
+        previousTabPressTime = System.currentTimeMillis();
         return false;
+    }
+
+```
+###### \java\seedu\address\ui\CommandBox.java
+``` java
+    /**
+     * Returns the current text in the command box
+     */
+    private String getCurrentText() {
+        return commandTextField.getText();
     }
 
 ```

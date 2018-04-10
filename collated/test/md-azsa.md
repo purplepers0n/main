@@ -1,5 +1,5 @@
 # md-azsa
-###### \seedu\address\logic\commands\AddAppointmentToPetCommandTest.java
+###### \java\seedu\address\logic\commands\AddAppointmentToPetCommandTest.java
 ``` java
 /**
  * Contains tests for AddAppointmentToPetCommand
@@ -119,7 +119,7 @@ public class AddAppointmentToPetCommandTest {
     }
 }
 ```
-###### \seedu\address\logic\commands\AddPetCommandIntegrationTest.java
+###### \java\seedu\address\logic\commands\AddPetCommandIntegrationTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) for {@code AddPetCommand}
@@ -165,7 +165,7 @@ public class AddPetCommandIntegrationTest {
     }
 }
 ```
-###### \seedu\address\logic\commands\AddPetCommandTest.java
+###### \java\seedu\address\logic\commands\AddPetCommandTest.java
 ``` java
 public class AddPetCommandTest {
 
@@ -307,7 +307,12 @@ public class AddPetCommandTest {
         }
 
         @Override
-        public ObservableList<ClientOwnPet> getClientPetAssociationList() {
+        public void updateFilteredClientOwnPetAssocation(Predicate<ClientOwnPet> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ClientOwnPet> getFilteredClientPetAssociationList() {
             fail("This method should not be called.");
             return null;
         }
@@ -400,6 +405,34 @@ public class AddPetCommandTest {
         public void sortAppointmentList() throws AppointmentListIsEmptyException {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void unscheduleAppointment(Appointment appointment) {
+            fail("This method should not be called.");
+        }
+
+        public void updateDetailsList(Client client, ObservableList<Pet> pets,
+                                      ObservableList<Appointment> appointments) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public Client getClientDetails() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<Pet> getClientPetList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<Appointment> getClientApptList() {
+            fail("This method should not be called.");
+            return null;
+        }
     }
 
     /**
@@ -466,11 +499,16 @@ public class AddPetCommandTest {
         public void updateFilteredPetList(Predicate<Pet> predicate) {
         }
 
+        @Override
+        public void updateFilteredClientOwnPetAssocation(Predicate<ClientOwnPet> predicate) {
+        }
+
     }
 }
 ```
-###### \seedu\address\logic\commands\DeletePetCommandTest.java
+###### \java\seedu\address\logic\commands\DeletePetCommandTest.java
 ``` java
+
 /**
  * Contains integration tests unit tests for
  * {@code DeletePetCommand}.
@@ -488,9 +526,26 @@ public class DeletePetCommandTest {
         model.deletePet(GARFIELD);
     }
 
+    @Test
+    public void removePet_petHasAppointment_success() throws Exception {
+        model.addPetToClient(GARFIELD, (Client) FIONA);
+        model.addAppointmentToPet(APPOINTMENT_1, GARFIELD);
+
+        Pet petToDelete = model.getFilteredPetList().get(INDEX_FIRST.getZeroBased());
+        DeletePetCommand deletePetCommand = new DeletePetCommand(INDEX_FIRST);
+
+        String expectedMessage = String.format(DeletePetCommand.MESSAGE_DELETE_PET_SUCCESS, petToDelete);
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePet(petToDelete);
+        deletePetCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+
+        assertCommandSuccess(deletePetCommand, model, expectedMessage, expectedModel);
+    }
+
 }
 ```
-###### \seedu\address\logic\commands\RemoveAppointmentFromPetCommandTest.java
+###### \java\seedu\address\logic\commands\RemoveAppointmentFromPetCommandTest.java
 ``` java
 /**
  * Contains integration test and unit tests for RemoveAppointmentFromPetCommand
@@ -587,7 +642,7 @@ public class RemoveAppointmentFromPetCommandTest {
     }
 }
 ```
-###### \seedu\address\logic\commands\SortAppointmentCommandTest.java
+###### \java\seedu\address\logic\commands\SortAppointmentCommandTest.java
 ``` java
 /**
  * Contains integration tests for sorting the appointment list.
@@ -641,7 +696,7 @@ public class SortAppointmentCommandTest {
 
 }
 ```
-###### \seedu\address\logic\commands\SortClientCommandTest.java
+###### \java\seedu\address\logic\commands\SortClientCommandTest.java
 ``` java
 /**
  * Adds integrations test methods for {@code SortClientCommand}
@@ -702,7 +757,7 @@ public class SortClientCommandTest {
     }
 }
 ```
-###### \seedu\address\logic\commands\SortPetCommandTest.java
+###### \java\seedu\address\logic\commands\SortPetCommandTest.java
 ``` java
 /**
  * Contains integration tests for sorting the client association list.
@@ -764,7 +819,109 @@ public class SortPetCommandTest {
     }
 }
 ```
-###### \seedu\address\logic\parser\AddAppointmentToPetCommandParserTest.java
+###### \java\seedu\address\logic\commands\UnscheduleCommandTest.java
+``` java
+/**
+ * Contains integration tests unit for {@code UnscheduleCommand}.
+ */
+public class UnscheduleCommandTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    private Model model = new ModelManager(TypicalAddressBook.getTypicalAddressBook(),
+            new UserPrefs());
+
+    @Test
+    public void execute_unscheduleCommand_throwsCOmmandException() throws Exception {
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
+        prepareCommand(INDEX_THIRD_APPT).execute();
+    }
+
+    @Test
+    public void execute_unscheduleCommand_success() throws Exception {
+        Appointment appointmentInFilteredList = model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased());
+
+        UnscheduleCommand command = prepareCommand(INDEX_FIRST_APPT);
+
+        String expectedMessage = String.format(UnscheduleCommand.MESSAGE_UNSCHEDULE_APPOINTMENT_SUCCESS,
+                appointmentInFilteredList);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new UserPrefs());
+        expectedModel.unscheduleAppointment(model.getFilteredAppointmentList().get(0));
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndex_failure() {
+        showAppointmentAtIndex(model, INDEX_FIRST_APPT);
+        Index outOfBOunds = INDEX_SECOND_APPT;
+
+        assertTrue(outOfBOunds.getZeroBased() < model.getAddressBook().getAppointmentList().size());
+
+        UnscheduleCommand command = prepareCommand(outOfBOunds);
+
+        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
+    }
+
+    @Test
+    public void executeUndoRedo_validIndexUnfileteredList_success() throws Exception {
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
+        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        Appointment appointmentToDelete = model.getFilteredAppointmentList().get(INDEX_FIRST_APPT.getZeroBased());
+        UnscheduleCommand command = prepareCommand(INDEX_FIRST_APPT);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        // delete -> first appt unschedule
+        command.execute();
+        undoRedoStack.push(command);
+
+        // undo -> reverts
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo
+        expectedModel.unscheduleAppointment(appointmentToDelete);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+
+    @Test
+    public void equals() throws Exception {
+        final UnscheduleCommand standardCommand = prepareCommand(INDEX_FIRST_APPT);
+
+        // same values -> true
+        UnscheduleCommand sameValueCommand = prepareCommand(INDEX_FIRST_APPT);
+        assertTrue(standardCommand.equals(standardCommand));
+        assertTrue(standardCommand.equals(sameValueCommand));
+
+        // preprocessed
+        sameValueCommand.preprocessUndoableCommand();
+        assertFalse(sameValueCommand.equals(standardCommand));
+
+        // null -> false
+        assertFalse(standardCommand.equals(null));
+
+        // different type -> false
+        assertFalse(standardCommand.equals(new ClearCommand()));
+
+        // different index
+        assertFalse(standardCommand.equals(new UnscheduleCommand(INDEX_SECOND_APPT)));
+    }
+
+    /**
+     * Returns an {@code UnscheduleCommand} object with param.
+     */
+    private UnscheduleCommand prepareCommand(Index appointmentIndex) {
+        UnscheduleCommand command = new UnscheduleCommand(appointmentIndex);
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        return command;
+    }
+
+}
+```
+###### \java\seedu\address\logic\parser\AddAppointmentToPetCommandParserTest.java
 ``` java
 public class AddAppointmentToPetCommandParserTest {
 
@@ -818,7 +975,29 @@ public class AddAppointmentToPetCommandParserTest {
     }
 }
 ```
-###### \seedu\address\model\pet\PetAgeTest.java
+###### \java\seedu\address\logic\parser\UnscheduleCommandParserTest.java
+``` java
+/**
+ * Testing for UnschedulCommandParser
+ */
+public class UnscheduleCommandParserTest {
+
+    private UnscheduleCommandParser parser = new UnscheduleCommandParser();
+
+    @Test
+    public void parse_validArgs_returnsUnscheduleCommand() {
+        assertParseSuccess(parser, "1", new UnscheduleCommand(INDEX_FIRST_APPT));
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "a",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnscheduleCommand.MESSAGE_USAGE));
+    }
+
+}
+```
+###### \java\seedu\address\model\pet\PetAgeTest.java
 ``` java
 public class PetAgeTest {
 
@@ -852,7 +1031,7 @@ public class PetAgeTest {
     }
 }
 ```
-###### \seedu\address\model\pet\PetGenderTest.java
+###### \java\seedu\address\model\pet\PetGenderTest.java
 ``` java
 public class PetGenderTest {
 
@@ -889,7 +1068,7 @@ public class PetGenderTest {
     }
 }
 ```
-###### \seedu\address\model\pet\PetNameTest.java
+###### \java\seedu\address\model\pet\PetNameTest.java
 ``` java
 public class PetNameTest {
 
@@ -926,7 +1105,7 @@ public class PetNameTest {
     }
 }
 ```
-###### \seedu\address\storage\XmlAdaptedAppointmentTest.java
+###### \java\seedu\address\storage\XmlAdaptedAppointmentTest.java
 ``` java
 public class XmlAdaptedAppointmentTest {
 
@@ -956,7 +1135,7 @@ public class XmlAdaptedAppointmentTest {
     }
 }
 ```
-###### \seedu\address\storage\XmlAdaptedPetTest.java
+###### \java\seedu\address\storage\XmlAdaptedPetTest.java
 ``` java
 public class XmlAdaptedPetTest {
 
@@ -986,7 +1165,7 @@ public class XmlAdaptedPetTest {
     }
 }
 ```
-###### \seedu\address\testutil\PetBuilder.java
+###### \java\seedu\address\testutil\PetBuilder.java
 ``` java
 /**
  * Util class to help with building Pet objects.
@@ -1050,7 +1229,7 @@ public class PetBuilder {
     }
 }
 ```
-###### \seedu\address\testutil\PetUtil.java
+###### \java\seedu\address\testutil\PetUtil.java
 ``` java
 /**
  * Util class for pet.
@@ -1079,7 +1258,7 @@ public class PetUtil {
     }
 }
 ```
-###### \seedu\address\testutil\TypicalAppointments.java
+###### \java\seedu\address\testutil\TypicalAppointments.java
 ``` java
 /**
  * A utility class containing a list of {@code Appointment} objects
@@ -1101,7 +1280,7 @@ public class TypicalAppointments {
     private TypicalAppointments() {}
 
 ```
-###### \seedu\address\testutil\TypicalPets.java
+###### \java\seedu\address\testutil\TypicalPets.java
 ``` java
 /**
  * A utility class containing a list of {@code Pet} objects to be used in tests.

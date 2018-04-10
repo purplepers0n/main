@@ -1,5 +1,5 @@
 # Godxin-functional
-###### \seedu\address\logic\commands\RescheduleCommand.java
+###### \java\seedu\address\logic\commands\RescheduleCommand.java
 ``` java
 /**
  * Edits or reschedules the details of an existing appointment in the address book.
@@ -16,7 +16,7 @@ public class RescheduleCommand extends UndoableCommand {
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_DURATION + "DURATION] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "2018-04-01 "
             + PREFIX_TIME + "16:00";
@@ -193,7 +193,7 @@ public class RescheduleCommand extends UndoableCommand {
     }
 }
 ```
-###### \seedu\address\logic\commands\ScheduleCommand.java
+###### \java\seedu\address\logic\commands\ScheduleCommand.java
 ``` java
 /**
  * Schedule the date and time for an appointment as well as the duration of this appointment
@@ -382,7 +382,6 @@ public class ScheduleCommand extends UndoableCommand {
             durationCheckPrevious(model.getFilteredAppointmentList());
             durationCheckNext(model.getFilteredAppointmentList());
             model.scheduleAppointment(toAdd);
-            EventsCenter.getInstance().post(new NewApptAvailableEvent(toAdd.toString()));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateAppointmentException e1) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
@@ -406,7 +405,7 @@ public class ScheduleCommand extends UndoableCommand {
 
 }
 ```
-###### \seedu\address\model\appointment\Appointment.java
+###### \java\seedu\address\model\appointment\Appointment.java
 ``` java
 /**
  * Represents an Appointment in the application.
@@ -540,7 +539,7 @@ public class Appointment {
 
 }
 ```
-###### \seedu\address\model\appointment\Date.java
+###### \java\seedu\address\model\appointment\Date.java
 ``` java
 /**
  * Represents an Appointment's date in the application.
@@ -550,13 +549,17 @@ public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Appointment date should be all integers in format YYYY-MM-DD, and it should not be blank";
-
+    public static final String MESSAGE_YEAR_CONSTRAINTS =
+            "Appointment year should be later than 2018";
     /*
      * The first character of the date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String DATE_VALIDATION_REGEX =
-            "([2-9][0-9][1-9][89])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])";
+            "([2-9][0-9][1-9][0-9])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])";
+    private static final int YEAR_START_INDEX = 0;
+    private static final int YEAR_END_INDEX = 4;
+    private static final int YEAR_LOWER_BOUND = 2018;
 
     public final String date;
 
@@ -568,6 +571,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        checkArgument(isValidYear(this.getYear(date)), MESSAGE_YEAR_CONSTRAINTS);
         this.date = date;
     }
 
@@ -576,6 +580,24 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         return test.matches(DATE_VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string is a valid date.
+     */
+    public static boolean isValidYear(int test) {
+        return test >= YEAR_LOWER_BOUND;
+    }
+
+    /**
+     *  Returns the integer value of year
+     */
+    public static int getYear(String date) {
+
+        String year = date.substring(YEAR_START_INDEX, YEAR_END_INDEX);
+
+        return Integer.parseInt(year);
+
     }
 
     @Override
@@ -596,7 +618,7 @@ public class Date {
     }
 
 ```
-###### \seedu\address\model\appointment\Duration.java
+###### \java\seedu\address\model\appointment\Duration.java
 ``` java
 /**
  * Represents an Appointment's duration in the application.
@@ -665,7 +687,7 @@ public class Duration {
     }
 }
 ```
-###### \seedu\address\model\appointment\exceptions\AppointmentCloseToNextException.java
+###### \java\seedu\address\model\appointment\exceptions\AppointmentCloseToNextException.java
 ``` java
 /**
  *Signals that the operation will result the newly scheduled appointment falls
@@ -677,7 +699,7 @@ public class AppointmentCloseToNextException extends Exception {
     }
 }
 ```
-###### \seedu\address\model\appointment\exceptions\AppointmentCloseToPreviousException.java
+###### \java\seedu\address\model\appointment\exceptions\AppointmentCloseToPreviousException.java
 ``` java
 /**
  *Signals that the operation will result the newly scheduled appointment falls
@@ -689,7 +711,7 @@ public class AppointmentCloseToPreviousException extends Exception {
     }
 }
 ```
-###### \seedu\address\model\appointment\exceptions\AppointmentHasBeenTakenException.java
+###### \java\seedu\address\model\appointment\exceptions\AppointmentHasBeenTakenException.java
 ``` java
 /**
  * Signals that the appointment has been taken by a pet.
@@ -697,7 +719,7 @@ public class AppointmentCloseToPreviousException extends Exception {
 public class AppointmentHasBeenTakenException extends Exception {
 }
 ```
-###### \seedu\address\model\appointment\exceptions\AppointmentListIsEmptyException.java
+###### \java\seedu\address\model\appointment\exceptions\AppointmentListIsEmptyException.java
 ``` java
 /**
  * Throws an exception if the appointment list is empty when a user tries to ammend it.
@@ -705,14 +727,14 @@ public class AppointmentHasBeenTakenException extends Exception {
 public class AppointmentListIsEmptyException extends Exception {
 }
 ```
-###### \seedu\address\model\appointment\exceptions\AppointmentNotFoundException.java
+###### \java\seedu\address\model\appointment\exceptions\AppointmentNotFoundException.java
 ``` java
 /**
  * Signals that the operation is unable to find the specified appointment.
  */
 public class AppointmentNotFoundException extends Exception {}
 ```
-###### \seedu\address\model\appointment\exceptions\DuplicateAppointmentException.java
+###### \java\seedu\address\model\appointment\exceptions\DuplicateAppointmentException.java
 ``` java
 /**
  * Signals that the operation will result in duplicate(clashed) appointment objects.
@@ -723,7 +745,7 @@ public class DuplicateAppointmentException extends DuplicateDataException {
     }
 }
 ```
-###### \seedu\address\model\appointment\Time.java
+###### \java\seedu\address\model\appointment\Time.java
 ``` java
 /**
  * Represents an Appointment's time in the application.
@@ -804,7 +826,7 @@ public class Time {
     }
 
 ```
-###### \seedu\address\model\appointment\UniqueAppointmentList.java
+###### \java\seedu\address\model\appointment\UniqueAppointmentList.java
 ``` java
 /**
  * A list of appointments that enforces uniqueness between its elements and does not allow nulls.
@@ -886,40 +908,4 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         setAppointments(replacement);
     }
 
-    /**
-     * Sorts the internal list
-     */
-    public void sort() {
-        SortedList<Appointment> sortedList = new SortedList<>(internalList, Appointment::compareTo);
-        internalList.setAll(sortedList);
-    }
-
-    /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
-     */
-    public ObservableList<Appointment> asObservableList() {
-        return FXCollections.unmodifiableObservableList(internalList);
-    }
-
-    public boolean isEmpty() {
-        return internalList.isEmpty();
-    }
-
-    @Override
-    public Iterator<Appointment> iterator() {
-        return internalList.iterator();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.appointment.UniqueAppointmentList // instanceof handles nulls
-                && this.internalList.equals(((UniqueAppointmentList) other).internalList));
-    }
-
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
-    }
-}
 ```
