@@ -1,5 +1,5 @@
 # md-azsa
-###### \seedu\address\logic\commands\AddAppointmentToPetCommand.java
+###### \java\seedu\address\logic\commands\AddAppointmentToPetCommand.java
 ``` java
 /**
  * Adds an appointment to the pet object.
@@ -45,7 +45,6 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
         requireAllNonNull(model, pet.get(), appointment.get());
         try {
             model.addAppointmentToPet(appointment.get(), pet.get());
-            EventsCenter.getInstance().post(new NewApptAvailableEvent(appointment.toString()));
         } catch (PetAlreadyHasAppointmentException e) {
             throw new CommandException(MESSAGE_PET_HAS_APPOINTMENT);
         } catch (ClientPetAssociationNotFoundException e) {
@@ -95,7 +94,7 @@ public class AddAppointmentToPetCommand extends UndoableCommand {
     }
 }
 ```
-###### \seedu\address\logic\commands\AddPetCommand.java
+###### \java\seedu\address\logic\commands\AddPetCommand.java
 ``` java
 /**
  * Adds support for adding a pet into the program.
@@ -146,6 +145,7 @@ public class AddPetCommand extends UndoableCommand {
             model.addPet(petToAdd);
             model.addPetToClient(petToAdd, client.get());
             model.updateFilteredPetList(PREDICATE_SHOW_ALL_PETS);
+            model.updateFilteredClientOwnPetAssocation(PREDICATE_SHOW_ALL_ASSOCIATION);
         } catch (DuplicatePetException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PET);
         } catch (ClientAlreadyOwnsPetException e) {
@@ -175,7 +175,7 @@ public class AddPetCommand extends UndoableCommand {
 
 }
 ```
-###### \seedu\address\logic\commands\DeletePetCommand.java
+###### \java\seedu\address\logic\commands\DeletePetCommand.java
 ``` java
 /**
  * Deletes a pet identified using it's last displayed index from the program
@@ -233,7 +233,7 @@ public class DeletePetCommand extends UndoableCommand {
     }
 }
 ```
-###### \seedu\address\logic\commands\RemoveAppointmentFromPetCommand.java
+###### \java\seedu\address\logic\commands\RemoveAppointmentFromPetCommand.java
 ``` java
 /**
  * Removes the appointment from a pet
@@ -271,10 +271,13 @@ public class RemoveAppointmentFromPetCommand extends UndoableCommand {
         requireAllNonNull(model, appointment.get());
         try {
             model.removeAppointmentFromPet(appointment.get());
+            EventsCenter.getInstance().post(new NewApptAvailableEvent(appointment.toString()));
         } catch (AppointmentNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
         } catch (DuplicateAppointmentException e) {
             throw new CommandException(ScheduleCommand.MESSAGE_DUPLICATE_APPOINTMENT);
+        } catch (AppointmentDoesNotHavePetException e) {
+            throw new CommandException(Messages.MESSAGE_APPOINTMENT_NO_PET);
         }
         return new CommandResult(String.format(MESSAGE_REMOVE_APPOINTMENT_SUCCESS, appointment.get()));
     }
@@ -308,7 +311,7 @@ public class RemoveAppointmentFromPetCommand extends UndoableCommand {
 
 }
 ```
-###### \seedu\address\logic\commands\SortAppointmentCommand.java
+###### \java\seedu\address\logic\commands\SortAppointmentCommand.java
 ``` java
 /**
  * Sorts the appointment list.
@@ -329,7 +332,7 @@ public class SortAppointmentCommand extends  UndoableCommand {
     }
 }
 ```
-###### \seedu\address\logic\commands\SortClientCommand.java
+###### \java\seedu\address\logic\commands\SortClientCommand.java
 ``` java
 /**
  * Sorts the client list
@@ -352,7 +355,7 @@ public class SortClientCommand extends UndoableCommand {
     }
 }
 ```
-###### \seedu\address\logic\commands\SortPetCommand.java
+###### \java\seedu\address\logic\commands\SortPetCommand.java
 ``` java
 /**
  * Sorts the pet list.
@@ -373,7 +376,67 @@ public class SortPetCommand extends UndoableCommand {
     }
 }
 ```
-###### \seedu\address\logic\parser\AddAppointmentToPetCommandParser.java
+###### \java\seedu\address\logic\commands\UnscheduleCommand.java
+``` java
+/**
+ * Deletes an appointment identifiedusing it's last displayed index from the program.
+ */
+public class UnscheduleCommand extends UndoableCommand {
+
+    public static final String COMMAND_WORD = "unschedule";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes the appointment identified by the index number used in the appointment listing.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
+
+    public static final String MESSAGE_UNSCHEDULE_APPOINTMENT_SUCCESS =
+            "Unscheduled appointment: %1$s";
+
+    private final Index targetIndex;
+
+    private Appointment appointmentToDelete;
+
+    public UnscheduleCommand (Index targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
+    @Override
+    public CommandResult executeUndoableCommand() {
+        requireNonNull(appointmentToDelete);
+        try {
+            model.unscheduleAppointment(appointmentToDelete);
+        } catch (AppointmentNotFoundException e) {
+            throw new AssertionError("The target cannot be missing.");
+        } catch (AppointmentListIsEmptyException e) {
+            throw new AssertionError("Appointment cannot be missing");
+        }
+        return new CommandResult(String.format(MESSAGE_UNSCHEDULE_APPOINTMENT_SUCCESS, appointmentToDelete));
+    }
+
+    @Override
+    protected void preprocessUndoableCommand() throws CommandException {
+        List<Appointment> lastShownList = model.getFilteredAppointmentList();
+
+        if (lastShownList.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_APPOINTMENT_LIST_EMPTY);
+        } else if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_INDEX);
+        }
+
+        appointmentToDelete = lastShownList.get(targetIndex.getZeroBased());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof UnscheduleCommand
+                && this.targetIndex.equals(((UnscheduleCommand) other).targetIndex)
+                && Objects.equals(this.appointmentToDelete, ((UnscheduleCommand) other).appointmentToDelete));
+    }
+}
+```
+###### \java\seedu\address\logic\parser\AddAppointmentToPetCommandParser.java
 ``` java
 /**
  * Parses the input arguments and creates a new AddAppointmentToPet object.
@@ -416,7 +479,7 @@ public class AddAppointmentToPetCommandParser implements Parser<AddAppointmentTo
     }
 }
 ```
-###### \seedu\address\logic\parser\AddPetCommandParser.java
+###### \java\seedu\address\logic\parser\AddPetCommandParser.java
 ``` java
 /**
  * Parses the input arguments and create a new AddPetCommand object.
@@ -465,7 +528,7 @@ public class AddPetCommandParser implements Parser<AddPetCommand> {
     }
 }
 ```
-###### \seedu\address\logic\parser\DeletePetCommandParser.java
+###### \java\seedu\address\logic\parser\DeletePetCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new DeletePetCommand object
@@ -489,7 +552,7 @@ public class DeletePetCommandParser implements Parser<DeletePetCommand> {
     }
 }
 ```
-###### \seedu\address\logic\parser\RemoveAppointmentFromPetParser.java
+###### \java\seedu\address\logic\parser\RemoveAppointmentFromPetParser.java
 ``` java
 /**
  * Parses input arguments and creates a new RemoveAppointmentFromPet object
@@ -527,21 +590,43 @@ public class RemoveAppointmentFromPetParser implements
     }
 }
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\logic\parser\UnscheduleCommandParser.java
 ``` java
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.UnscheduleCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+```
+###### \java\seedu\address\logic\parser\UnscheduleCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new UnscheduleCommand object.
+ */
+public class UnscheduleCommandParser implements Parser<UnscheduleCommand> {
+
     /**
-     * Sorts the persons list lexicographically.
-     * @throws PersonsListIsEmptyException
+     * Parses the given {@code String} of arguments in the context
+     * of UnscheduleCOmmand
+     * returns UnscheduleCommand object for execution
+     * @throws ParseException if user input does not conform to expected format
      */
-    public void sortClientList() throws PersonsListIsEmptyException {
-        if (persons.isEmpty()) {
-            throw new PersonsListIsEmptyException();
-        } else {
-            this.persons.sort();
+    @Override
+    public UnscheduleCommand parse(String args) throws ParseException {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new UnscheduleCommand(index);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnscheduleCommand.MESSAGE_USAGE));
         }
     }
+}
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Sorts the persons list lexicographically.
@@ -572,7 +657,8 @@ public class RemoveAppointmentFromPetParser implements
             throw new ClientPetAssociationListEmptyException();
         } else {
             this.clientPetAssociations.sort((ClientOwnPet a, ClientOwnPet b) ->
-                    a.getPet().getPetName().toString().compareTo(b.getPet().getPetName().toString()));
+                    a.getPet().getPetName().toString().toLowerCase()
+                    .compareTo(b.getPet().getPetName().toString().toLowerCase()));
         }
     }
 
@@ -589,7 +675,21 @@ public class RemoveAppointmentFromPetParser implements
         }
     }
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
+``` java
+    /**
+     * Unschedules an appointment
+     */
+    public void unscheduleAppointment(Appointment key) throws AppointmentListIsEmptyException,
+            AppointmentNotFoundException {
+        if (appointments.isEmpty()) {
+            throw new AppointmentListIsEmptyException();
+        } else {
+            appointments.remove(key);
+        }
+    }
+```
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Adds a pet to the program.
@@ -610,6 +710,12 @@ public class RemoveAppointmentFromPetParser implements
      */
     public boolean removePet(Pet key) throws PetNotFoundException, ClientPetAssociationNotFoundException {
         boolean found = false;
+        for (Appointment appointment : appointments) {
+            if (appointment.getClientOwnPet() != null
+                    && appointment.getClientOwnPet().getPet().equals(key)) {
+                appointment.setClientOwnPetToNull();
+            }
+        }
         for (ClientOwnPet association : clientPetAssociations) {
             if (association.getPet().equals(key)) {
                 clientPetAssociations.remove(association);
@@ -652,7 +758,7 @@ public class RemoveAppointmentFromPetParser implements
         return syncedPet;
     }
 ```
-###### \seedu\address\model\AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Finds the pet and adds the appointment
@@ -695,17 +801,22 @@ public class RemoveAppointmentFromPetParser implements
      * Removes the appointment from a pet
      */
     public void removeAppointmentFromPet(Appointment appointment) throws
-            AppointmentNotFoundException, DuplicateAppointmentException {
+            AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
         if (!appointments.contains(appointment)) {
             throw new AppointmentNotFoundException();
         } else {
             Appointment appointmentCopy = new Appointment(appointment);
-            appointmentCopy.setClientOwnPetToNull();
-            appointments.setAppointment(appointment, appointmentCopy);
+
+            if (appointmentCopy.getClientOwnPet() == null) {
+                throw new AppointmentDoesNotHavePetException();
+            } else {
+                appointmentCopy.setClientOwnPetToNull();
+                appointments.setAppointment(appointment, appointmentCopy);
+            }
         }
     }
 ```
-###### \seedu\address\model\appointment\Date.java
+###### \java\seedu\address\model\appointment\Date.java
 ``` java
     /**
      * Negative if argument is smaller
@@ -722,7 +833,7 @@ public class RemoveAppointmentFromPetParser implements
     }
 }
 ```
-###### \seedu\address\model\appointment\Description.java
+###### \java\seedu\address\model\appointment\Description.java
 ``` java
 /**
  * Represents the description of an Appointment
@@ -768,7 +879,7 @@ public class Description {
     }
 }
 ```
-###### \seedu\address\model\appointment\Time.java
+###### \java\seedu\address\model\appointment\Time.java
 ``` java
     /**
      * Negative if argument is smaller
@@ -785,7 +896,27 @@ public class Description {
     }
 }
 ```
-###### \seedu\address\model\ModelManager.java
+###### \java\seedu\address\model\appointment\UniqueAppointmentList.java
+``` java
+    /**
+     * Sorts the internal list
+     */
+    public void sort() {
+        SortedList<Appointment> sortedList = new SortedList<>(internalList, Appointment::compareTo);
+        internalList.setAll(sortedList);
+    }
+```
+###### \java\seedu\address\model\ModelManager.java
+``` java
+    @Override
+    public synchronized void unscheduleAppointment(Appointment appointment) throws
+            AppointmentNotFoundException, AppointmentListIsEmptyException {
+        addressBook.unscheduleAppointment(appointment);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
+        indicateAddressBookChanged();
+    }
+```
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void sortClientList() throws PersonsListIsEmptyException {
@@ -808,7 +939,7 @@ public class Description {
         indicateAddressBookChanged();
     }
 ```
-###### \seedu\address\model\ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void sortPetList() throws ClientPetAssociationListEmptyException {
@@ -827,13 +958,13 @@ public class Description {
 
     @Override
     public void removeAppointmentFromPet(Appointment appointment)
-        throws AppointmentNotFoundException, DuplicateAppointmentException {
+            throws AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
         requireNonNull(appointment);
         addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();
     }
 ```
-###### \seedu\address\model\ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void sortAppointmentList() throws AppointmentListIsEmptyException {
@@ -841,17 +972,17 @@ public class Description {
         indicateAddressBookChanged();
     }
 ```
-###### \seedu\address\model\person\UniquePersonList.java
+###### \java\seedu\address\model\person\UniquePersonList.java
 ``` java
     /**
      * Sorts the internal list
      */
     public void sort() {
-        internalList.sort((Person one, Person two) -> one.getName().toString().compareTo(two.getName().toString()));
+        internalList.sort((Person one, Person two) -> one.getName().toString().toLowerCase()
+                .compareTo(two.getName().toString().toLowerCase()));
     }
 ```
-
-###### \seedu\address\model\pet\Pet.java
+###### \java\seedu\address\model\pet\Pet.java
 ``` java
 /**
  * Represents a Pet in the applications.
@@ -930,8 +1061,8 @@ public class Pet {
                 .append(getPetAge())
                 .append(" Gender: ")
                 .append(getPetGender())
-                .append(" Pet Owner: ")
-                .append(" Species/Breed ");
+                //.append(" Pet Owner: ")
+                .append(" Species/Breed: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
@@ -940,7 +1071,7 @@ public class Pet {
 
 }
 ```
-###### \seedu\address\model\pet\PetAge.java
+###### \java\seedu\address\model\pet\PetAge.java
 ``` java
 /**
  * Represents a Pet's age in the application.
@@ -989,7 +1120,7 @@ public class PetAge {
     }
 }
 ```
-###### \seedu\address\model\pet\PetGender.java
+###### \java\seedu\address\model\pet\PetGender.java
 ``` java
 /**
  * Represents a Pet's gender in the program.
@@ -1015,7 +1146,7 @@ public class PetGender {
     public PetGender(String petGender) {
         requireNonNull(petGender);
         checkArgument(isValidGender(petGender), MESSAGE_PETGENDER_CONSTRAINTS);
-        this.fullGender = petGender;
+        this.fullGender = petGender.toUpperCase();
     }
 
     /**
@@ -1043,7 +1174,7 @@ public class PetGender {
     }
 }
 ```
-###### \seedu\address\model\pet\PetName.java
+###### \java\seedu\address\model\pet\PetName.java
 ``` java
 /**
  * Represents a pet's name in the address book.
@@ -1098,7 +1229,7 @@ public class PetName {
     }
 }
 ```
-###### \seedu\address\model\pet\UniquePetList.java
+###### \java\seedu\address\model\pet\UniquePetList.java
 ``` java
 /**
  * A list of pets that enforces uniqueness between its elements and does not allow nulls.
@@ -1190,7 +1321,7 @@ public class UniquePetList implements Iterable<Pet> {
     }
 }
 ```
-###### \seedu\address\model\util\SampleDataUtilPet.java
+###### \java\seedu\address\model\util\SampleDataUtilPet.java
 ``` java
 /**
  * Contains util for populating {@code AddressBook} with sampledata.
@@ -1219,7 +1350,7 @@ public class SampleDataUtilPet {
     }
 }
 ```
-###### \seedu\address\storage\XmlAdaptedPet.java
+###### \java\seedu\address\storage\XmlAdaptedPet.java
 ``` java
 /**
  * JAXV-friendly version of the Person.
