@@ -60,7 +60,6 @@ public class ModelManager extends ComponentManager implements Model {
     private ObservableList<Appointment> displayAppt = null;
 
     private int currList = 0;
-    private Index currListAllIndex = null;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -390,11 +389,10 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author purplepers0n
     @Override
     public void updateDetailsList(Client client, ObservableList<Pet> pets,
-                                  ObservableList<Appointment> appointments, Index index) {
+                                  ObservableList<Appointment> appointments) {
         displayClient = client;
         displayPet = pets;
         displayAppt = appointments;
-        currListAllIndex = index;
     }
 
     @Override

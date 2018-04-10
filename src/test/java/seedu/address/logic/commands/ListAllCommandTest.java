@@ -55,6 +55,11 @@ public class ListAllCommandTest {
 
         assertExecutionSuccess(INDEX_FIRST_PERSON);
     }
+    
+    @Test
+    public void assert_listAllPanel_cleared() {
+        
+    }
 
     /**
      * Executes a {@code ListAllCommand} with the given {@code index}

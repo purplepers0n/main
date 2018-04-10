@@ -46,7 +46,7 @@ public class ListAllCommand extends Command {
         setPets(displayClient);
         setAppts(displayPet);
 
-        model.updateDetailsList(displayClient, displayPet, displayAppt, targetIndex);
+        model.updateDetailsList(displayClient, displayPet, displayAppt);
         EventsCenter.getInstance().post(new NewListAllDisplayAvailableEvent(displayClient.getName().fullName));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, displayClient.getName().fullName));
