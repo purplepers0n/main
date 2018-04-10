@@ -273,7 +273,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleApptAvailableEvent(NewListAllDisplayAvailableEvent event) {
+    private void handleListAllDisplayAvailableEvent(NewListAllDisplayAvailableEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         Platform.runLater(() -> fillListAllPanel());
     }
