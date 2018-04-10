@@ -13,23 +13,20 @@ The application, written in Java, has a graphical user interface (GUI) created w
 == Summary of contributions
 
 * *Major enhancement*: Added `listall` command
-** What it does: Displays all relevant details of the client that is queried, such as his/her pets and appointments, in a sidebar display
+** What it does: The application will display all relevant details of the client that is queried, such as his/her pets and appointments, in a sidebar display
 ** Justification: When dealing with a client, vets often require a quick overview of the client, so that the vet can easily check the client's pets and upcoming appointments
 ** Highlights: This command requires iterations through multiple lists, one time to find all pets that belong to the queried client, and another time to search for all appointments that belong to each pet.
 This command will update a separate sidebar display, instead of the individual lists. Hence much effort was also required to create the layout on the UI
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: Update `list`, `edit`, `delete` commands, create UI for list tabs and appointment display
+* *Minor enhancement*: Updated `list` command and created UI for list tabs and appointment display
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/functional/purplepers0n.md[Functional code]] [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/test/purplepers0n.md[Test code]]
 
 * *Other contributions*:
 
-** Project management:
-***
 ** Enhancements to existing features:
 *** Updated the tag colors (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/52[#52])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated existing commands `edit` and `delete` to work only on the currently viewed list (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/103[#103])
 ** Documentation:
 *** Added use cases to Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/30[#30])
 *** Added each member's feature contribution in Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/95[#95])
@@ -53,4 +50,4 @@ include::../UserGuide.adoc[tag=undoredo, leveloffset=-1]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=listperson]
