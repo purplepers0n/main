@@ -18,12 +18,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.pet.Pet;
 
 //@@author purplepers0n
@@ -55,10 +57,29 @@ public class ListAllCommandTest {
 
         assertExecutionSuccess(INDEX_FIRST_PERSON);
     }
-    
+
     @Test
-    public void assert_listAllPanel_cleared() {
-        
+    public void execute_clearData_listAllPanelCleared() {
+        model.resetData(new AddressBook());
+
+        assertEquals(null, model.getClientDetails());
+        assertEquals(null, model.getClientPetList());
+        assertEquals(null, model.getClientApptList());
+    }
+
+    @Test
+    public void execute_deleteClient_listAllPanelCleared() {
+        Client clientToDelete = model.getFilteredClientList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        try {
+            model.deletePerson(clientToDelete);
+        } catch (PersonNotFoundException pnfe) {
+            throw new IllegalArgumentException("Execution of command should not fail.", pnfe);
+        }
+
+        assertEquals(null, model.getClientDetails());
+        assertEquals(null, model.getClientPetList());
+        assertEquals(null, model.getClientApptList());
     }
 
     /**
