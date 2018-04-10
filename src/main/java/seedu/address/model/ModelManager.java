@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.NewApptAvailableEvent;
 import seedu.address.commons.events.ui.NewListAllDisplayAvailableEvent;
@@ -112,10 +111,12 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
-        displayClient = null;
-        displayPet = null;
-        displayAppt = null;
-        raise(new NewListAllDisplayAvailableEvent(null));
+        if (displayClient.equals(target)) {
+            displayClient = null;
+            displayPet = null;
+            displayAppt = null;
+            raise(new NewListAllDisplayAvailableEvent(null));
+        }
     }
 
     @Override
