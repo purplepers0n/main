@@ -958,7 +958,7 @@ public class Description {
 
     @Override
     public void removeAppointmentFromPet(Appointment appointment)
-            throws AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
+        throws AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
         requireNonNull(appointment);
         addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();
