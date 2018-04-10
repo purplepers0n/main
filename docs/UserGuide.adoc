@@ -173,7 +173,7 @@ Reverses the most recent `undo` command. +
 ====
 Redoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
-`schedule`
+`schedule` `unschedule`
 ====
 
 ==== Undoing previous command : `undo`
@@ -185,7 +185,7 @@ Restores the address book to the state before the previous _undoable_ command wa
 ====
 Undoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
-`schedule`
+`schedule` `unschedule`
 ====
 // end::undoredo[]
 
@@ -349,7 +349,7 @@ image::userguide_findCommand_image3.PNG[width="1000"]
 [TIP]
 The keyword is case insensitive.This means typing, "ALICE", "alice" or 'AlIcE" will result in the same output.
 
-==== Listing all information: `listall` `coming v2.0`
+==== Listing all information: `listall` `Since v1.5`
 Command format: `listall INDEX` +
 
 The `listall` command will display all pets and appointments that are tagged to a client.
@@ -361,7 +361,7 @@ The command expects this parameter when called: +
 Here is an example of using the command `listall`: +
 
 * `listall 1`  +
-Suppose there is only one client in the program and is stored at index 1. This command will then display all the information regarding the person at index one. +
+Suppose there is only one client in the program and is stored at index 1. This command will then display all the pets and appointments of the person at index 1. +
 
 
 ==== Listing all clients: `list client` `Since v1.2`
@@ -485,6 +485,14 @@ The duration of the appointment, or how long it is in minutes. This needs to be 
 *DESCRIPTION*::
 A brief information or description of the appointment. This needs to be supplied by the user.
 
+[TIP]
+Date is in the format "YYYY-MM-DD" and the year "YYYY" must be later than the current year "2018".
+
+[TIP]
+Time adapts the 24-hour format from 00:00 to 23:59.
+[TIP]
+Duration can be any valid integer numbers from 15 to 120.
+
 Here is an example on how you can use the `schedule` command to mark appointment dates: +
 
 * `schedule da/2018-01-02 tm/14:30 du/60 desc/Sterilize Garfield when he's feeling better.` +
@@ -508,7 +516,7 @@ You can execute the `addappttopet` command after creating an appointment.
 
 
 ==== Adding an appointment to a pet: `addappttopet` `Since v1.3`
-Command format: `addappttopet appt/APPOINTMENT_INDEX pn/PET_INDEX` +
+Command format: `addappttopet appt/APPOINTMENT_INDEX p/PET_INDEX` +
 
 The `addapptto` command adds an appointment to a pet in the program. +
 The command expects these parameters when adding an appointment to a pet: +
@@ -629,11 +637,38 @@ Here is an example of using the `editp` command: +
 * `editp 1 pn/Jerry pa/2 pg/M` +
 Here you choose to edit the pet of the first index and changed the existing name, age and gender to Jerry, 2 and male.
 
+==== Unscheduling an appointment: `unschedule` `since v1.5`
+Command format: `unschedule INDEX` +
 
-==== Removing an appointment from a pet: `removemapptfrom` `since v1.3`
+The `unschedule` command removes the appointment from the program.
+It requires the index of the appointment in the appointment listing.
+The command expects these parameters: +
+
+[horizontal]
+*INDEX*::
+The appointment index to be removed based on the appointment listing. This needs to be supplied by the
+user. +
+
+Here is an example of using the `unschedule` command: +
+
+* `unschedule 1` +
+When this command is executed, the appointment at the first index is removed.
+
+The figure below shows the current state of your program as an exammple.
+
+.The current status of appointments in your program.
+image::userguide_unscheduleCommand_image.PNG[width="500"]
+
+After executing the `unschedule 1` command, the first appointment on 02 January 2018 will be removed.
+The figure below shows the resulting output upon executing the command.
+
+.The resulting output after executing the `unschedule 1` command.
+image::userguide_unscheduleCommand_image2.PNG[width="500"]
+
+==== Removing an appointment from a pet: `removeapptfrompet` `since v1.3`
 Command format: `removeapptfrompet appt/APPOINTMENT_INDEX` +
 
-The `rmapptfrom` command removes an associated appointment from a pet.
+The `removeapptfrompet` command removes an associated appointment from a pet.
 The command requires the index of the appointment in the appointment list.
 The command expects these parameters: +
 
@@ -642,9 +677,9 @@ The command expects these parameters: +
 The appointment to be removed based on the appointment listing. This needs to be supplied by
 the user. +
 
-Here is an exammple of using the command `rmapptfrom`: +
+Here is an exammple of using the command `removeapptfrompet`: +
 
-* `rmapptfrom appt/1` +
+* `removeapptfrompet appt/1` +
 When this command is executed, the appointment will be removed from the pet that is associated to it.
 
 [NOTE]
@@ -698,21 +733,34 @@ The new duration of the appointment that the user wants. It need not be supplied
 *DESCRIPTION*::
 The new description of the appointment that the user wants. It need not be supplied by the user.
 
+[TIP]
+The more detailed information for each parameter can be found in section 3.3.3.
 
 The `reschedule` command is very similar to the `schedule` command.
 Here are some examples on using the command: +
 
 * `reschedule 1 tm/15:30` +
-You choose to only reschedule the time of appointment specified by index 1 [da/2018-10-10 tm/15:00 du/40 desc/Sterilize Garfield when he's feeling better.]
- from 15:00 to 15:30 and other details remain unchanged.
-* `edit 1 da/2018-10-11 du/60` +
-You choose to reschedule the date and duration of the appointment specified at index 1 [da/2018-10-10 tm/15:00 du/40 desc/Sterilize Garfield when he's feeling better.]
-to the next day and lasts 20 minutes longer.
+You choose to only reschedule the time of appointment specified by index 1 [da/2018-01-02 tm/14:30 du/60 desc/Sterilize Garfield when he's feeling better.]
+from 14:30 to 15:30 and other details remain unchanged. +
+
+Executing the `reschedule` command will result in an appointment card being updated like the figure below. +
+
+.The appointment card being updated after the command.
+image::userguide_reschedule1.PNG[width="1000"]
+
+* `reschedule 1 da/2018-01-03 du/90` +
+You choose to reschedule the date and duration of the appointment specified at index 1 [da/2018-01-02 tm/15:30 du/60 desc/Sterilize Garfield when he's feeling better.]
+to the next day and lasts 30 minutes longer. +
+
+Executing the `reschedule` command will result in an appointment card being updated like the figure below. +
+
+.The appointment card being updated after the command.
+image::userguide_reschedule2.PNG[width="1000"]
 
 [NOTE]
 You need to provide at least one change to any filed of an existing appointment.
 
-==== Sorting pets in alphabetical order: `sortp`
+==== Sorting pets in alphabetical order: `sortp` `Since v1.4`
 Command format: `sortp` +
 
 The `sortp` command will sort all existing pets in the program in alphabetical ordering.
@@ -779,14 +827,17 @@ about them.
 |*Command* |*Command Format* |*Description*
 |addappttopet |`addapptto appt/APPOINTMENT_INDEX p/PET_INDEX` |Adds an appointment to a pet.
 |addp |`addp n/CLIENT_INDEX pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG…​` |Adds a pet to a client.
+|addvettechtoappointment |`addvettechtoappointment vt/VETTECH_INDEX appt/APPOINTMENT_INDEX​` |Adds a vet technician to an appointment.
 |deletep |`deletep INDEX` |Removes a pet from the program based on index.
 |editappt |`editappt n/CLIENT_NAME pn/PET_NAME [date/DATE (DD.MM.YYYY)] [time/TIME (HHMM)] [vettech/VET_TECHNICIAN_NAME] [cmt/COMMENTS]` |Edits an appointment's details.
 |editp |`editp INDEX [pn/PET_NAME] [pa/PET_AGE] [pg/PET_GENDER] [t/PET_TAGS]…​` |Edits a pet's details.
 |list pet |`list pet` |Lists all pets.
 |reschedule |`reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [DESC/DESCRIPTION]` | Reschedules an appointment.
-|rmapptfrompet |`rmapptfrom p/PET_INDEX` |Removes an appointment from a pet.
+|removeapptfrompet |`removeapptfrompet p/PET_INDEX` |Removes an appointment from a pet.
+|removevettechfromappt |`removevettechfromappt INDEX` |Removes a vet technician from appointment based on index.
 |schedule | `schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION` |Schedule an appointment given date (YYYY-MM-DD), time (HH:MM), duration (minutes) and description.
 |sortp |`sortp` |Sorts the pet list alphabetically.
+|unschedule |`unschedule INDEX` |Unschedules an appointment from the program.
 |=======
 
 //sorted alphabetically

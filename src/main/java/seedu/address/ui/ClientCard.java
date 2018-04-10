@@ -7,8 +7,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.client.Client;
 
+//@@author purplepers0n-reused
 /**
- * An UI component that displays information of a {@code Client}.
+ * A UI component that displays information of a {@code Client}.
  */
 public class ClientCard extends UiPart<Region> {
 

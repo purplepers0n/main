@@ -47,15 +47,16 @@ public interface Logic {
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
 
-    /** Returns the sorted list of autocomplete commands with prefix {@code keyWord},
+    /** Returns the sorted list of autocomplete commands with given prefix string,
      *  encapsulated in a {@code List<String>} object
      */
-    List<String> autoCompleteCommands(String keyWord);
+    List<String> getAutoCompleteCommands(String prefix);
 
     /**
-     * Returns the String concatenation of the next missing prefix parameter with the input string.
+     * Returns the the next missing prefix parameter with given input text
+     * or an empty string if there is no next prefix
      */
-    String autoCompleteNextParameter(String input);
+    String getAutoCompleteNextParameter(String inputText);
 
     /**
      * Sets the index of the current list that is viewed
@@ -64,4 +65,13 @@ public interface Logic {
 
     /** Get the index of the current list that is viewed */
     int getCurrentList();
+
+    /** Returns the queried client */
+    Client getClientDetails();
+
+    /** Returns an unmodifiable view of the pet list of the queried client */
+    ObservableList<Pet> getClientPetList();
+
+    /** Returns an unmodifiable view of the appointment list of the queried client */
+    ObservableList<Appointment> getClientApptList();
 }

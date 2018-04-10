@@ -41,6 +41,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws IllegalValueException {
@@ -139,7 +140,6 @@ public class ParserUtil {
     }
 
     /**
-
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
@@ -196,8 +196,8 @@ public class ParserUtil {
     public static Optional<PersonRole> parseRole(Optional<String> role) throws IllegalValueException {
         requireNonNull(role);
         return role.isPresent()
-               ? Optional.of(parseRole(role.get()))
-               : Optional.empty();
+                ? Optional.of(parseRole(role.get()))
+                : Optional.empty();
     }
 
     /**
@@ -211,6 +211,12 @@ public class ParserUtil {
         String trimmedDate = date.trim();
         if (!Date.isValidDate(trimmedDate)) {
             throw new IllegalValueException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        if (!Date.isValidYear(Date.getYear(trimmedDate))) {
+            throw new IllegalValueException(Date.MESSAGE_YEAR_CONSTRAINTS);
+        }
+        if (!Date.isValidDaysInMonth(trimmedDate)) {
+            throw new IllegalValueException(Date.MESSAGE_DAYINMONTH_CONSTRAINTS);
         }
         return new Date(trimmedDate);
     }

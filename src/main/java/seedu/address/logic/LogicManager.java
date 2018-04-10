@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.autocomplete.AutoComplete;
+import seedu.address.logic.autocomplete.AutoCompleteManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -30,7 +30,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private final UndoRedoStack undoRedoStack;
-    private final AutoComplete autoComplete;
+    private final AutoCompleteManager autoCompleteManager;
     private int currList = 0;
 
     public LogicManager(Model model) {
@@ -38,7 +38,7 @@ public class LogicManager extends ComponentManager implements Logic {
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
         undoRedoStack = new UndoRedoStack();
-        autoComplete = new AutoComplete();
+        autoCompleteManager = new AutoCompleteManager();
     }
 
     @Override
@@ -91,13 +91,13 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public List<String> autoCompleteCommands(String keyWord) {
-        return autoComplete.autoCompleteCommands(keyWord);
+    public List<String> getAutoCompleteCommands(String commandPrefix) {
+        return autoCompleteManager.getAutoCompleteCommands(commandPrefix);
     }
 
     @Override
-    public String autoCompleteNextParameter(String input) {
-        return autoComplete.autoCompleteNextMissingParameter(input);
+    public String getAutoCompleteNextParameter(String inputText) {
+        return autoCompleteManager.getAutoCompleteNextMissingParameter(inputText);
     }
 
     public void setCurrentList(int currList) {
@@ -108,5 +108,20 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public int getCurrentList() {
         return this.currList;
+    }
+
+    @Override
+    public Client getClientDetails() {
+        return model.getClientDetails();
+    }
+
+    @Override
+    public ObservableList<Pet> getClientPetList() {
+        return model.getClientPetList();
+    }
+
+    @Override
+    public ObservableList<Appointment> getClientApptList() {
+        return model.getClientApptList();
     }
 }

@@ -1,5 +1,5 @@
 # Godxin-test
-###### \seedu\address\logic\commands\RescheduleCommandTest.java
+###### \java\seedu\address\logic\commands\RescheduleCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -239,7 +239,7 @@ public class RescheduleCommandTest {
     }
 }
 ```
-###### \seedu\address\logic\commands\ScheduleCommandTest.java
+###### \java\seedu\address\logic\commands\ScheduleCommandTest.java
 ``` java
 public class ScheduleCommandTest {
 
@@ -390,7 +390,12 @@ public class ScheduleCommandTest {
         }
 
         @Override
-        public ObservableList<ClientOwnPet> getClientPetAssociationList() {
+        public void updateFilteredClientOwnPetAssocation(Predicate<ClientOwnPet> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ClientOwnPet> getFilteredClientPetAssociationList() {
             fail("This method should not be called.");
             return null;
         }
@@ -482,6 +487,34 @@ public class ScheduleCommandTest {
         public void sortAppointmentList() throws AppointmentListIsEmptyException {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void unscheduleAppointment(Appointment appointment) {
+            fail("This method should not be called.");
+        }
+
+        public void updateDetailsList(Client client, ObservableList<Pet> pets,
+                                      ObservableList<Appointment> appointments) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public Client getClientDetails() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<Pet> getClientPetList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<Appointment> getClientApptList() {
+            fail("This method should not be called.");
+            return null;
+        }
     }
 
     /**
@@ -519,7 +552,7 @@ public class ScheduleCommandTest {
 
 }
 ```
-###### \seedu\address\logic\parser\AddressBookParserTest.java
+###### \java\seedu\address\logic\parser\AddressBookParserTest.java
 ``` java
     @Test
     public void parseCommand_schedule() throws Exception {
@@ -530,7 +563,7 @@ public class ScheduleCommandTest {
     }
 
 ```
-###### \seedu\address\logic\parser\AddressBookParserTest.java
+###### \java\seedu\address\logic\parser\AddressBookParserTest.java
 ``` java
     @Test
     public void parseCommand_reschedule() throws Exception {
@@ -698,7 +731,7 @@ public class ScheduleCommandTest {
     }
 }
 ```
-###### \seedu\address\model\appointment\AppointmentTest.java
+###### \java\seedu\address\model\appointment\AppointmentTest.java
 ``` java
 public class AppointmentTest {
 
@@ -746,7 +779,7 @@ public class AppointmentTest {
 
 }
 ```
-###### \seedu\address\model\UniqueAppointmentListTest.java
+###### \java\seedu\address\model\UniqueAppointmentListTest.java
 ``` java
 public class UniqueAppointmentListTest {
     @Rule
@@ -760,7 +793,7 @@ public class UniqueAppointmentListTest {
     }
 }
 ```
-###### \seedu\address\testutil\AppointmentBuilder.java
+###### \java\seedu\address\testutil\AppointmentBuilder.java
 ``` java
 /**
  * A utility class to help with building Appointment objects.
@@ -832,7 +865,7 @@ public class AppointmentBuilder {
 
 }
 ```
-###### \seedu\address\testutil\AppointmentUtil.java
+###### \java\seedu\address\testutil\AppointmentUtil.java
 ``` java
 /**
  * A utility class for Appointment.
@@ -861,7 +894,7 @@ public class AppointmentUtil {
     }
 }
 ```
-###### \seedu\address\testutil\RescheduleAppointmentDescriptorBuilder.java
+###### \java\seedu\address\testutil\RescheduleAppointmentDescriptorBuilder.java
 ``` java
 /**
  * A utility class to help with building RescheduleAppointmentBuilder objects.
@@ -926,7 +959,7 @@ public class RescheduleAppointmentDescriptorBuilder {
     }
 }
 ```
-###### \seedu\address\testutil\TypicalAppointments.java
+###### \java\seedu\address\testutil\TypicalAppointments.java
 ``` java
     /**
      * Returns an {@code AddressBook} with all the typical appointments.

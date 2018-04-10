@@ -22,6 +22,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ChangeListTabEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.NewApptAvailableEvent;
+import seedu.address.commons.events.ui.NewListAllDisplayAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -44,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private PetListPanel petListPanel;
     private VetTechnicianListPanel vetTechnicianListPanel;
     private ApptListPanel apptListPanel;
+    private ListAllPanel listAllPanel;
     private DateTimeCard dateTimeCard;
     private Config config;
     private UserPrefs prefs;
@@ -71,6 +73,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane apptListPanelPlaceholder;
+
+    @FXML
+    private StackPane listAllPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -166,10 +171,25 @@ public class MainWindow extends UiPart<Stage> {
         fillAppt();
     }
 
+    //@@author purplepers0n
     void fillAppt() {
         apptListPanel = new ApptListPanel(logic.getFilteredAppointmentList());
         apptListPanelPlaceholder.getChildren().add(apptListPanel.getRoot());
     }
+
+    /**
+     * updates the listallpanel display
+     */
+    void fillListAllPanel() {
+        if (logic.getClientDetails() != null) {
+            listAllPanel = new ListAllPanel(logic.getClientDetails(),
+                    logic.getClientPetList(), logic.getClientApptList());
+            listAllPanelPlaceholder.getChildren().add(listAllPanel.getRoot());
+        } else {
+            listAllPanelPlaceholder.getChildren().removeAll(listAllPanel.getRoot());
+        }
+    }
+    //@@author
 
     void hide() {
         primaryStage.hide();
@@ -236,6 +256,7 @@ public class MainWindow extends UiPart<Stage> {
         return this.apptListPanel;
     }
 
+    //@@author purplepers0n
 
     /**
      * Changes to the {@code Tab} of the specific {@code list} requested and selects it.
@@ -259,6 +280,12 @@ public class MainWindow extends UiPart<Stage> {
         Platform.runLater(() -> fillAppt());
     }
 
+    @Subscribe
+    private void handleListAllDisplayAvailableEvent(NewListAllDisplayAvailableEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> fillListAllPanel());
+    }
+
     /**
      * Updates the current index being viewed if tab is changed by mouseclick event
      */
@@ -270,6 +297,7 @@ public class MainWindow extends UiPart<Stage> {
             }
         });
     }
+    //@@author
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {

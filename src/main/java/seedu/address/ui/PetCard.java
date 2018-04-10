@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.pet.Pet;
 
+//@@author purplepers0n-reused
 /**
  * An UI component that displays information of a {@code clientOwnPet}.
  */

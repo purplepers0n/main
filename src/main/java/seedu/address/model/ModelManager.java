@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.NewApptAvailableEvent;
+import seedu.address.commons.events.ui.NewListAllDisplayAvailableEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
 import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
@@ -49,11 +50,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Client> filteredClients;
     private final FilteredList<VetTechnician> filteredVetTechnicians;
     private final FilteredList<Pet> filteredPet;
-    private final FilteredList<ClientOwnPet> filteredClientPetAssocation;
 
-    private int currList = 0;
+    private final FilteredList<ClientOwnPet> filteredClientPetAssocation;
     private final FilteredList<Appointment> filteredAppointment;
 
+    private Client displayClient = null;
+    private ObservableList<Pet> displayPet = null;
+    private ObservableList<Appointment> displayAppt = null;
+
+    private int currList = 0;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -81,6 +86,10 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
+        displayClient = null;
+        displayPet = null;
+        displayAppt = null;
+        raise(new NewListAllDisplayAvailableEvent(null));
     }
 
     @Override
@@ -102,6 +111,12 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
+        if (displayClient != null && displayClient.equals(target)) {
+            displayClient = null;
+            displayPet = null;
+            displayAppt = null;
+            raise(new NewListAllDisplayAvailableEvent(null));
+        }
     }
 
     @Override
@@ -117,6 +132,16 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
         indicateAddressBookChanged();
     }
+
+    //@@author md-azsa
+    @Override
+    public synchronized void unscheduleAppointment(Appointment appointment) throws
+            AppointmentNotFoundException, AppointmentListIsEmptyException {
+        addressBook.unscheduleAppointment(appointment);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
+        indicateAddressBookChanged();
+    }
+    //@@author
 
     @Override
     public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
@@ -195,7 +220,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void removeAppointmentFromPet(Appointment appointment)
-        throws AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
+            throws AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
         requireNonNull(appointment);
         addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();
@@ -224,6 +249,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Person List Accessors =============================================================
     //@@author
+
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code addressBook}
@@ -359,5 +385,29 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public int getCurrentList() {
         return this.currList;
+    }
+
+    //@@author purplepers0n
+    @Override
+    public void updateDetailsList(Client client, ObservableList<Pet> pets,
+                                  ObservableList<Appointment> appointments) {
+        displayClient = client;
+        displayPet = pets;
+        displayAppt = appointments;
+    }
+
+    @Override
+    public Client getClientDetails() {
+        return displayClient;
+    }
+
+    @Override
+    public ObservableList<Pet> getClientPetList() {
+        return displayPet;
+    }
+
+    @Override
+    public ObservableList<Appointment> getClientApptList() {
+        return displayAppt;
     }
 }
