@@ -9,6 +9,7 @@
 VetterAppointments is a desktop application catered to vets to manage their employees, clients, pets and appointments.
 The vet interacts with the application mostly by a command line interface (CLI).
 The application, written in Java, has a graphical user interface (GUI) created with JavaFX.
+This application was created by building upon an existing code base for an address book for the module CS2103T Software Engineering, and has around 15kLoC.
 
 == Summary of contributions
 
@@ -30,9 +31,9 @@ This command will update a separate sidebar display, instead of the individual l
 ** Documentation:
 *** Added use cases to Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/30[#30])
 *** Added each member's feature contribution in Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/95[#95])
-*** Did cosmetic tweaks to existing contents of the Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/213[#213])
+*** Tweaked existing contents of the Developer Guide (Pull requests https://github.com/CS2103JAN2018-F09-B4/main/pull/213[#213], https://github.com/CS2103JAN2018-F09-B4/main/pull/240[#240])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103JAN2018-F09-B4/main/pull/29[#29]
+*** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103JAN2018-F09-B4/main/pull/29[#29]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103JAN2018-W10-B1/main/issues/132[1], https://github.com/CS2103JAN2018-W10-B1/main/issues/135[2])
 
 == Contributions to the User Guide
@@ -42,7 +43,9 @@ This command will update a separate sidebar display, instead of the individual l
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo, leveloffset=-1]
+include::../UserGuide.adoc[tag=listall, leveloffset=-1]
+include::../UserGuide.adoc[tag=lists, leveloffset=-1]
+include::../UserGuide.adoc[tag=listp, leveloffset=-1]
 
 == Contributions to the Developer Guide
 
