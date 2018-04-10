@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -60,6 +61,8 @@ public class ListAllCommandTest {
 
     @Test
     public void execute_clearData_listAllPanelCleared() {
+        assertExecutionSuccess(INDEX_FIRST_PERSON);
+
         model.resetData(new AddressBook());
 
         assertEquals(null, model.getClientDetails());
@@ -69,6 +72,7 @@ public class ListAllCommandTest {
 
     @Test
     public void execute_deleteClient_listAllPanelCleared() {
+        assertExecutionSuccess(INDEX_FIRST_PERSON);
         Client clientToDelete = model.getFilteredClientList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         try {
@@ -80,6 +84,22 @@ public class ListAllCommandTest {
         assertEquals(null, model.getClientDetails());
         assertEquals(null, model.getClientPetList());
         assertEquals(null, model.getClientApptList());
+    }
+
+    @Test
+    public void execute_deleteOtherClient_listAllPanelNoChange() {
+        assertExecutionSuccess(INDEX_FIRST_PERSON);
+        Client clientToDelete = model.getFilteredClientList().get(INDEX_SECOND_PERSON.getZeroBased());
+
+        try {
+            model.deletePerson(clientToDelete);
+        } catch (PersonNotFoundException pnfe) {
+            throw new IllegalArgumentException("Execution of command should not fail.", pnfe);
+        }
+
+        assertNotEquals(null, model.getClientDetails());
+        assertNotEquals(null, model.getClientPetList());
+        assertNotEquals(null, model.getClientApptList());
     }
 
     /**
