@@ -472,48 +472,22 @@ Command format: schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION +
 
 Schedules an appointment by specifying the date, time, duration and description.
 
-[horizontal]
-*DATE*::
-The date of the appointment in YYYY-MM-DD format. This needs to be supplied by the user.
-
-*TIME*::
-The time of the appointment in HH:MM format. This needs to be supplied by the user.
-
-*DURATION*::
-The duration of the appointment, or how long it is in minutes. This needs to be supplied by the user.
-
-*DESCRIPTION*::
-A brief information or description of the appointment. This needs to be supplied by the user.
-
 [TIP]
-Date is in the format "YYYY-MM-DD" and the year "YYYY" must be later than the current year "2018".
-
-[TIP]
-Time adapts the 24-hour format from 00:00 to 23:59.
-[TIP]
-Duration can be any valid integer numbers from 15 to 120.
+* The date is in YYYY-MM-DD format.Year(YYYY) must be later than the current year "2018" +
+* The time is in HH:MM format and adapts the 24-hour format from 00:00 to 23:59. +
+* The duration can be any valid integer numbers from 15 to 120. +
+* A brief information or description of the appointment.
 
 Here is an example on how you can use the `schedule` command to mark appointment dates: +
 
 * `schedule da/2018-01-02 tm/14:30 du/60 desc/Sterilize Garfield when he's feeling better.` +
-You've just made an appointment on 2018-01-02 at 1430 hours. It will last for 60 minutes and
+An appointment is scheduled on 2018-01-02 at 1430 hours. It will last for 60 minutes and
 dedicated to sterilizing Garfield. +
 
-Executing the `schedule` command will result in an appointment card being created like the figure below.
+Executing the `schedule` command will result in an appointment card being created like the Figure 18 below.
 
 .The appointment card being created after the command.
 image::userguide_scheduleCommand_image.PNG[width="1000"]
-
-[TIP]
-VetterAppointments will make sure you have breaks for your meals. This means that you cannot
-schedule appointments that are too close with one another.
-[TIP]
-VetterAppointments will also make sure you don't accidentally book the same time slot for
-an appointment. Therefore you'll never have a clash in schedules. Don't worry, we'll inform
-you if there are any conflicts in your scheduling.
-[NOTE]
-You can execute the `addappttopet` command after creating an appointment.
-
 
 ==== Adding an appointment to a pet: `addappttopet` `Since v1.3`
 Command format: `addappttopet appt/APPOINTMENT_INDEX p/PET_INDEX` +
@@ -716,49 +690,32 @@ image::userguide_removevettech_image.PNG[width="400"]
 ==== Rescheduling an appointment : `reschedule` `Since v1.4`
 Command format: `reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [DESC/DESCRIPTION] +
 
-The `reschedule` command reschedules the existing appointment to another date or time. This command is also
-able to vary the duration or amend the description of existing appointments.
-The details of the specified appointments's index will be replaced with the supplied parameters from the user.
-The existing details will be overriden. The command expects these parameters: +
+Reschedules the existing appointment to another date or time. This command is also
+able to vary the duration or amend the description of existing appointments. +
 
-[horizontal]
-*INDEX*::
-The index of the appointment that the user wants to reschedule. It must be supplied by the user.
-*DATE*::
-The new date of the appointment that the user wants. It need not be supplied by the user.
-*TIME*::
-The new time of the appointment that the user wants. It need not be supplied by the user.
-*DURATION*::
-The new duration of the appointment that the user wants. It need not be supplied by the user.
-*DESCRIPTION*::
-The new description of the appointment that the user wants. It need not be supplied by the user.
+[NOTE]
+You need to provide at least one change to any filed of an existing appointment. +
+`reschedule 1` is an invalid command.
 
-[TIP]
-The more detailed information for each parameter can be found in section 3.3.3.
-
-The `reschedule` command is very similar to the `schedule` command.
 Here are some examples on using the command: +
 
 * `reschedule 1 tm/15:30` +
-You choose to only reschedule the time of appointment specified by index 1 [da/2018-01-02 tm/14:30 du/60 desc/Sterilize Garfield when he's feeling better.]
+Reschedules the time of appointment with index 1[da/2018-01-02 tm/14:30 du/60 desc/Sterilize Garfield when he's feeling better.]
 from 14:30 to 15:30 and other details remain unchanged. +
 
-Executing the `reschedule` command will result in an appointment card being updated like the figure below. +
+Executing the `reschedule` command will result in an appointment card being updated like the Figure 28 below: +
 
 .The appointment card being updated after the command.
 image::userguide_reschedule1.PNG[width="1000"]
 
 * `reschedule 1 da/2018-01-03 du/90` +
-You choose to reschedule the date and duration of the appointment specified at index 1 [da/2018-01-02 tm/15:30 du/60 desc/Sterilize Garfield when he's feeling better.]
+Reschedules the date and duration of appointment with index 1[da/2018-01-02 tm/15:30 du/60 desc/Sterilize Garfield when he's feeling better.]
 to the next day and lasts 30 minutes longer. +
 
-Executing the `reschedule` command will result in an appointment card being updated like the figure below. +
+Executing the `reschedule` command will result in an appointment card being updated like the Figure 29 below: +
 
 .The appointment card being updated after the command.
 image::userguide_reschedule2.PNG[width="1000"]
-
-[NOTE]
-You need to provide at least one change to any filed of an existing appointment.
 
 ==== Sorting pets in alphabetical order: `sortp` `Since v1.4`
 Command format: `sortp` +
