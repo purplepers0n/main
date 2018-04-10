@@ -111,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
-        if (displayClient.equals(target)) {
+        if (displayClient != null && displayClient.equals(target)) {
             displayClient = null;
             displayPet = null;
             displayAppt = null;
