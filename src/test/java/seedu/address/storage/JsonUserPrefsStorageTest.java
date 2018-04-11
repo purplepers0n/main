@@ -63,6 +63,10 @@ public class JsonUserPrefsStorageTest {
         UserPrefs expected = getTypicalUserPrefs();
         UserPrefs actual = readUserPrefs("TypicalUserPref.json").get();
         assertEquals(expected, actual);
+
+        expected = getTypicalUserPrefsNegativeCoord();
+        actual = readUserPrefs("TypicalUserPrefNegativeCoord.json").get();
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -82,6 +86,14 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(1000, 500, 300, 100);
+        userPrefs.setAddressBookFilePath("addressbook.xml");
+        userPrefs.setAddressBookName("TypicalAddressBookName");
+        return userPrefs;
+    }
+
+    private UserPrefs getTypicalUserPrefsNegativeCoord() {
+        UserPrefs userPrefs = new UserPrefs();
+        userPrefs.setGuiSettings(1000, 500, -100, -100);
         userPrefs.setAddressBookFilePath("addressbook.xml");
         userPrefs.setAddressBookName("TypicalAddressBookName");
         return userPrefs;
