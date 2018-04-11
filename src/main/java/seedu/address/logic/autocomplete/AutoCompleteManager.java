@@ -19,15 +19,18 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListAllCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
 import seedu.address.logic.commands.RemoveVetTechFromAppointmentCommand;
+import seedu.address.logic.commands.RescheduleCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SortAppointmentCommand;
 import seedu.address.logic.commands.SortClientCommand;
 import seedu.address.logic.commands.SortPetCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UnscheduleCommand;
 import seedu.address.logic.parser.Prefix;
 
 //@@author jonathanwj
@@ -66,6 +69,8 @@ public class AutoCompleteManager {
         commandTrie.insertWord(HistoryCommand.COMMAND_WORD);
         commandTrie.insertWord(RedoCommand.COMMAND_WORD);
         commandTrie.insertWord(ScheduleCommand.COMMAND_WORD);
+        commandTrie.insertWord(RescheduleCommand.COMMAND_WORD);
+        commandTrie.insertWord(UnscheduleCommand.COMMAND_WORD);
         commandTrie.insertWord(UndoCommand.COMMAND_WORD);
 
         commandTrie.insertWord(AddAppointmentToPetCommand.COMMAND_WORD);
@@ -78,6 +83,7 @@ public class AutoCompleteManager {
         commandTrie.insertWord(SortPetCommand.COMMAND_WORD);
 
         commandTrie.insertWord(ListCommand.COMMAND_WORD);
+        commandTrie.insertWord(ListAllCommand.COMMAND_WORD);
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_CLIENT_PREFIX);
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_VETTECH_PREFIX);
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_PET_PREFIX);
