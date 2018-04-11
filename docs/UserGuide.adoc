@@ -117,7 +117,7 @@ in managing your clients, staff, pets and appointments.
 ==== Clearing all entries : `clear`
 *Command format:* `clear` +
 
-*Description:* Clears all entries from VetterAppointments. +
+*Description:* Clears all entries from the address book. +
 
 [CAUTION]
 `clear` command will remove *all* existing clients, pets, appointments and vet technicians
@@ -161,7 +161,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 [NOTE]
 ====
-Redoable commands: those commands that modify VetterAppointments' content: +
+Redoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
 `schedule` `unschedule` `reschedule`
 ====
@@ -169,11 +169,11 @@ Redoable commands: those commands that modify VetterAppointments' content: +
 ==== Undoing previous command : `undo`
 *Command format:* `undo` +
 
-*Description:* Restores VetterAppointments to the state before the previous _undoable_ command was executed. +
+*Description:* Restores the address book to the state before the previous _undoable_ command was executed. +
 
 [NOTE]
 ====
-Undoable commands: those commands that modify VetterAppointments' content: +
+Undoable commands: those commands that modify the address book's content: +
 `add` `addp` `addappttopet` `sortc` `sortp` `delete` `deletep` `rmapptfrompet` `edit` `editp` `editappt` `clear`
 `schedule` `unschedule` `reschedule`
 ====
@@ -320,14 +320,14 @@ For example running `find hehehaha` will result in an output like the figure bel
 image::userguide_findCommand_image3.PNG[width="1000"]
 
 
-// tag::listall[]
+
 ==== Listing all information: `listall` `Since v1.5`
 *Command format:* `listall INDEX` +
 
 [NOTE]
 Index must be a positive integer. +
 
-*Description:* Lists all the details of the client at the specified index, including his/her pets and appointments. +
+*Description:* Lists all the details of a client. +
 
 
 Here is an example of using the command `listall`: +
@@ -339,9 +339,9 @@ Figure 13 below shows the outcome upon executing `listall 1`.
 
 .The resulting output after executing `listall 1`.
 image::userguide_listallCommand_image.PNG[width="400"]
-// end::listall[]
 
-// tag::lists[]
+
+
 ==== Listing all clients: `list client` `Since v1.2`
 *Command format:* `list client` +
 
@@ -372,7 +372,6 @@ Figure 15 below shows the outcome of executing the `list vettech` command.
 
 .Resulting output upon executing the `list vettech` command.
 image::userguide_listVettechCommand_image.PNG[width="400"]
-// end::lists[]
 
 ==== Sorting clients in alphabetical order: `sortc` `Since v1.4`
 *Command format:* `sortc` +
@@ -423,7 +422,7 @@ Figure 18 below shows the outcome of executing the `addp` commands in the exampl
 .The pet list of the program after executing the `addp` example commands.
 image::userguide_addpCommand_image.PNG[width="400"]
 
-// tag::listp[]
+
 ==== Listing all pets: `list pet` `Since v1.2`
 *Command format:* `list pet` +
 
@@ -434,7 +433,6 @@ Figure 19 below shows the outcome upon executing `list pet`.
 
 .Resulting output upon executing the `list pet` command.
 image::userguide_addpCommand_image.PNG[width="400"]
-// end::listp[]
 
 ==== Scheduling an appointment : `schedule` `Since v1.4`
 *Command format:* schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION +

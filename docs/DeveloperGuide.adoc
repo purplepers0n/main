@@ -464,18 +464,35 @@ image::pet_diagram_snippet.png[width="780", caption="Figure 4-9. "]
 
 *Logic component* +
 The `Pet` object interacts with several commands in the program. +
-1. `addappttopet` +
-2. `addp` +
-3. `deletep` +
-4. `list pet` +
-5. `sortp` +
-6. `findp` `*COMING IN V2.0*` +
+
+. `addp`
+. `deletep`
+. `addappttopet`
+. `removeapptfrompet`
+. `sortp`
 
 *Storage component* +
 All pet details will be stored in a separate XML file.
 
 *UI component* +
 All pet information will be displayed in the UI in a `PetListPanel`. All changes made to the pet will be reflected immediately after interacting with the commands.
+
+==== Design considerations
+==== Aspect: Implementation of Appointment class,  Pet class & Client class
+* *Alternative 1 (current choice):* Make a wrapper class that associates
+a pet and a client together. With that association class, insert the object into
+an appointment object. Have the appointment class that sets and gets the client
+and pet association class.
+** Pros: Reduces coupling and increases cohesion. The appointment class will now be
+the overheading class that takes in the pet and client.
+** Cons: Increases the code and program complexity. To amend the details of a client/pet
+after insertion into an appointment will be inefficient.
+
+* *Alternative 2:* Make the Pet class take in Appointment and Client object.
+** Pros: Querying each component will be simplified and fast. Code will be easier to
+understand while still respecting the OOP principle.
+** Cons: Hugely increases coupling. There will be too many null objects or dependencies
+on other class components.
 
 // tag::listperson[]
 === List and display clients, pets and vet technicians
@@ -935,18 +952,35 @@ so that the vet can add the new person to the correct list.
 *Md Azhar*
 
 [none]
-* *Major Enhancement*: Support all pet related commands
-+
+* *Major Enhancement*: A collection of commands that supports the Pet component and Appointment component.
+
+. Pet class containing: PetName, PetAge, PetGender and Tag classes.
+. AddPetCommand
+. DeletePetCommand
+. AddAppointmentToPetCommand
+. RemoveAppointmentFromPetCommand
+. SortAppointmentCommand
+. SortClientCommand
+. SortPetCommand
+. UnscheduleCommand
+
+
 [none]
-** The `addp`, `deletep` and `editp` commands will support the updating of the
-pet list whenever the vet requires to add a pet to the list, delete a pet from the list
-or edit a pet that currently exists in the list.
-** The `findp` command will allow the vet to efficiently search for a pet of a specific name
-in the list.
-** The `addapptto` command will add an appointment to an existing pet in the application.
-This will allow the vet to easily schedule an appointment for the relevant pet.
-The vet will also state the date, time, vet technician assigned to the appointment as well
-as any comments he/she wishes to add. `rmapptfrom` will remove the appointment from a pet.
+** The Pet class component is the backbone of `addp`, `deletep`, `addappttopet`,
+`removeapptfrompet`, `sortp` commands.
+** The `addp` command adds a pet to a specified client based on the index provided by
+the user. The `deletep` command is the converse of `addp`. It removes the pet from a
+specified client.
+** The `addapptopet` adds a specified appointment to a specified pet based on the index
+provided. Likewise, `removeapptfrompet` is the converse of `addappttopet` command,
+removing the specified appointment based on the appointment index from a pet.
+** The `sortp` command sorts the existing pet objects in the XML file lexicographically.
+** The `sortc` command sorts the existing client objects in the XML file lexicographically.
+** The `sortappt` sorts the appointment objects in date then time. It automatically
+sorts when scheduling a new appointment.
+** The `unschedule` command removes a specified appointment object based on index.
+
+All of the commands listed are Undoable and saved into the XML data file.
 
 * *Minor Enhancement*: Implement aliases for command words +
 
