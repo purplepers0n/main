@@ -73,11 +73,6 @@ https://github.com/CS2103JAN2018-F09-B4/main/issues/207[#207]
 include::../UserGuide.adoc[tag=userInterfaceWalkthrough]
 include::../UserGuide.adoc[tag=addPetCommand]
 include::../UserGuide.adoc[tag=addAppointmentToPetCommand]
-include::../UserGuide.adoc[tag=deletePetCommand]
-include::../UserGuide.adoc[tag=unscheduleCommand]
-include::../UserGuide.adoc[tag=removeAppointmentFromPetCommand]
-include::../UserGuide.adoc[tag=sortpCommand]
-include::../UserGuide.adoc[tag=commandSummaryTable]
 
 == Contributions to the Developer Guide
 
