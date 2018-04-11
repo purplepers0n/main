@@ -389,6 +389,7 @@ image::UndoRedoActivityDiagram.png[width="650", caption="Figure 4-8. "]
 ** Cons: We are required to deal with commands that have already been undone: We must remember to skip these commands. This violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::mdazharPet[]
 === Pet component feature
 
 ==== Reasons for implementation
@@ -493,6 +494,7 @@ after insertion into an appointment will be inefficient.
 understand while still respecting the OOP principle.
 ** Cons: Hugely increases coupling. There will be too many null objects or dependencies
 on other class components.
+// end::mdazharPet[]
 
 // tag::listperson[]
 === List and display clients, pets and vet technicians
@@ -949,6 +951,7 @@ the application will list down all possible text to be auto-completed to.
 so that the vet can add the new person to the correct list.
 ** The `delete` and `edit` command will also allow the vet to remove and edit clients and vet technicians.
 
+// tag::mdazharEnhancements[]
 *Md Azhar*
 
 [none]
@@ -987,6 +990,8 @@ All of the commands listed are Undoable and saved into the XML data file.
 [none]
 ** The aliases of command words will allow the vet to reduce the amount of typing
 required for command words, to increase efficiency in using the application.
+
+// end::mdazharEnhancements[]
 
 *Choo Wen Xin*
 
