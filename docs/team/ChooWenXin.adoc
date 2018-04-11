@@ -43,7 +43,6 @@ This command will update a separate sidebar display, instead of the individual l
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=listall, leveloffset=-1]
 include::../UserGuide.adoc[tag=lists, leveloffset=-1]
 include::../UserGuide.adoc[tag=listp, leveloffset=-1]
 
@@ -54,3 +53,5 @@ include::../UserGuide.adoc[tag=listp, leveloffset=-1]
 |===
 
 include::../DeveloperGuide.adoc[tag=listperson]
+
+include::../DeveloperGuide.adoc[tag=wxEnhancements]
