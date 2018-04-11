@@ -993,6 +993,7 @@ required for command words, to increase efficiency in using the application.
 
 // end::mdazharEnhancements[]
 
+// tag::wxEnhancements[]
 *Choo Wen Xin*
 
 [none]
@@ -1013,6 +1014,7 @@ The appropriate display on the UI will also be created.
 and the `MainWindow` will handle the event created by the `list` command and toggle the tabs in the sidebar of the application and display the appropriate list
 for easy viewing and keeping track. The tabs can be toggled by mouse-click as well.
 ** The `edit` and `delete` commands will be updated so that it only affect the index of the currently viewed list.
+// end::wxEnhancements[]
 
 *Zhong Zheng Xin*
 
