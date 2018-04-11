@@ -25,7 +25,11 @@ public class GuiSettings implements Serializable {
     public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
-        this.windowCoordinates = new Point(xPosition, yPosition);
+        if (xPosition < 0 || yPosition < 0) {
+            this.windowCoordinates = null;
+        } else {
+            this.windowCoordinates = new Point(xPosition, yPosition);
+        }
     }
 
     public Double getWindowWidth() {

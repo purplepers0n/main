@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         minWidth="550" minHeight="600">
+         minWidth="1280" minHeight="720">
     <icons>
         <Image url="@/images/address_book_32.png"/>
     </icons>
