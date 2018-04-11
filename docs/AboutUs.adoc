@@ -33,7 +33,7 @@ Responsibilities: Model component
 image::purplepers0n.jpg[width="150", align="left"]
 Studies computer science and obsessed with UI/UX, Multimedia, Information Retrieval and anything graphics related. +
 {empty}[http://github.com/purplepers0n[GitHub]]
-
+[<<ChooWenXin#, Porfolio>>] +
 Role: Code Quality, Integration, Documentation +
 Responsibilities: UI component
 
