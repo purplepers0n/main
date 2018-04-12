@@ -92,7 +92,6 @@ E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend 
 * Parameters can be in any order. +
 E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
-'''
 
 === System Based Commands
 This section explains commands that are based around the system. These commands are not related
