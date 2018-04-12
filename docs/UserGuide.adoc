@@ -679,14 +679,13 @@ This section shows you the different keyboard shortcuts that are available in Ve
 The table below shows a list of shortcuts you can use. +
 
 [width="100%"]
-[cols="2,1"]
-|=======
+|=====
 |*Result* |*Shortcut*
-| Clears the Command Box | kbd:[Esc]
-| Auto-complete your text input | kbd:[Tab]
-| Switches panel selection forward | kbd:[Control]+kbd:[Tab]
-| Switches panel selection backwards  | kbd:[Shift]+kbd:[Tab]
-|=======
+|Clears the Command Box |kbd:[Esc]
+|Auto-complete your text input |kbd:[Tab]
+|Switches panel selection forward |kbd:[Control]+kbd:[Tab]
+|Switches panel selection backwards |kbd:[Shift]+kbd:[Tab]
+|=====
 
 [NOTE]
 ====
@@ -711,7 +710,6 @@ program. You can head to the respective section on the commands if you want to
 know more about them.
 
 [width="100%"]
-[cols="1,5,3"]
 |=======
 |*Command* |*Command Format* |*Description*
 |add |`add r/ROLE n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]…` |Adds a person into the program.
@@ -731,7 +729,6 @@ in your program. You can head to the respective section on the commands if you w
 about them.
 
 [width="100%"]
-[cols="1,5,3"]
 |=======
 |*Command* |*Command Format* |*Description*
 |addappttopet |`addapptto appt/APPOINTMENT_INDEX p/PET_INDEX` |Adds an appointment to a pet.
@@ -759,7 +756,6 @@ The table below shows commands that are program based. These commands have no re
 clients, staff, pets and appointments. They're solely for the program.
 
 [width="100%"]
-[cols="1,3,3"]
 |=======
 |*Command* |*Command Format* |*Description*
 |clear |`clear` |Deletes all data of the program.
