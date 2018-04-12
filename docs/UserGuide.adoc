@@ -26,7 +26,7 @@ right program for you. +
 The program helps to organize all of your appointments and
 display only important information to you. The program strips away any unnecessary clutter
 and allows you to focus on what matters to you the most; your clients, the animals under your
-care and their appointments, and your staff. This allows the program to help you out on managing your clients. +
+care and their appointments, as well as your staff. This allows the program to help you out on managing your clients. +
 
 The program works by typing in commands and executing them. It is also supported by a beautiful design
 that eases navigation. +
@@ -423,24 +423,23 @@ image::userguide_addpCommand_image.PNG[width="400"]
 *Command format:* schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION +
 
 [NOTE]
-Date format: YYYY-MM-DD +
-Time format: HH:MM
+The date is in YYYY-MM-DD format.Year(YYYY) must be later than the current year "2018" +
+[NOTE]
+The time is in HH:MM format and adapts the 24-hour format from 00:00 to 23:59. +
+[NOTE]
+The duration can be any valid integer numbers from 15 to 120. +
 
 *Description:* Schedules an appointment. +
 
-
 Here is an example on how you can use the `schedule` command to mark appointment dates: +
 
-* `schedule da/2018-01-02 tm/14:30 du/60 desc/Sterilize Garfield when he's feeling better.` +
+ `schedule da/2018-01-02 tm/14:30 du/60 desc/Sterilize Garfield when he's feeling better.`
 
-//
-Executing the `schedule` command will result in an appointment card being created like figure 20 below.
+Figure 20 below shows the outcome after scheduling an appointment. +
 
 .The appointment card being created after the command.
-image::userguide_scheduleCommand_image.PNG[width="1000"]
+image::userguide_schedule.PNG[width="1000"]
 
-
-// tag::addAppointmentToPetCommand[]
 ==== Adding an appointment to a pet: `addappttopet` `Since v1.3`
 *Command format:* `addappttopet appt/APPOINTMENT_INDEX p/PET_INDEX` +
 
@@ -604,8 +603,6 @@ Calling the command will result in the output shown in figure 31 below.
 .The resulting output after calling `removevettechfromappt 1` command
 image::userguide_removevettech_image.PNG[width="1000"]
 
-
-
 ==== Rescheduling an appointment : `reschedule` `Since v1.4`
 *Command format:* `reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [desc/DESCRIPTION] +
 
@@ -614,24 +611,38 @@ Index provided must be a positive integer. +
 
 [NOTE]
 At least one parameter must be provided. +
+eg. `reschedule 1` is an invalid command.
 
-*Description:* Reschedules the specified appointment.
+*Description:* Reschedules or amends the description of the specified appointment.
 
-Here is an example on using the command: +
+Here are some examples on using the command: +
 
 * `reschedule 1 tm/15:30` +
 
-//
-Figure 32 below shows the current state of the program before executing `reschedule 1 tm/1530`.
+Figure 32 below shows the current state of the appointment card before rescheduling. +
 
 .Current state of program before executing `reschedule`
-image::userguide_rescheduleCommand_image.PNG[width="1000"]
+image::userguide_reschedule1.1.PNG[width="1000"]
 
-//add to do
+Figure 33 below shows the outcome after rescheduling the appointment. +
+
 .Current state of program before executing `reschedule`
-image::userguide_rescheduleCommand_image.PNG[width="1000"]
+image::userguide_reschedule1.2.PNG[width="1000"]
+
+* `reschedule 1 da/2018-01-03 du/90` +
+
+Figure 34 below shows the current state of the appointment card before rescheduling. +
+
+.Current state of program before executing `reschedule`
+image::userguide_reschedule2.1.PNG[width="1000"]
+
+Figure 35 below shows the outcome after rescheduling the appointment. +
+
+.Current state of program before executing `reschedule`
+image::userguide_reschedule2.2.PNG[width="1000"]
 
 // tag::sortpCommand[]
+
 ==== Sorting pets in alphabetical order: `sortp` `Since v1.4`
 *Command format:* `sortp` +
 

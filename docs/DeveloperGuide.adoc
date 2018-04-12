@@ -479,7 +479,8 @@ All pet details will be stored in a separate XML file.
 All pet information will be displayed in the UI in a `PetListPanel`. All changes made to the pet will be reflected immediately after interacting with the commands.
 
 ==== Design considerations
-==== Aspect: Implementation of Appointment class,  Pet class & Client class
+
+===== Aspect: Implementation of Appointment class,  Pet class & Client class
 * *Alternative 1 (current choice):* Make a wrapper class that associates
 a pet and a client together. With that association class, insert the object into
 an appointment object. Have the appointment class that sets and gets the client
@@ -608,29 +609,33 @@ command is executed
 // end::listperson[]
 
 // tag::scheduleappt[]
-=== Schedule feature
-This feature supports one of the main functionality of *VetterAppointments* which is to facilitate the process of scheduling appointments with clients.
+=== Schedule, unschedule and reschedule appointments feature
+==== Reasons for implementation
+These features support the main functionality of *VetterAppointments* which is to facilitate the process of scheduling and organizing appointments.
 
 ==== Current implementation
 *Model component* +
-In order to schedule an appointment, the Vet must create an appointment by specifying the date, time and duration.
+In order to schedule an appointment, the Vet must create an appointment by specifying the date, time, duration and a brief description.
 
-The diagram(Figure 4-13) below illustrates the overview of the appointment class. +
+The diagram figure 4-11 below illustrates the overview of the appointment class. +
 
 .Overview the Appointment Class in VetterAppointments
 image::ModelAppointmentClassDiagram.png[width="780", caption="Figure 4-11. "]
 
-As you can see from the class diagram Figure 4-13, there are three attributes of an appointment and each of them is implemented by an individual class.
+As you can see from the class diagram figure 4-11, there are four attributes of an appointment and each of them is implemented by an individual class.
 
 
 We are not using the java date and time class but implementing our self-defined classes. The reason is to check the invalidity more efficiently.
 
-The diagrams(Figure 4-12) below shows the class diagram for date and time. +
+The diagrams figure 4-12 below shows the class diagram for date and time. +
 
 .Date and Time Class Diagram Snippets
 image::AppointmentClassDemo.png[width="500", caption="Figure 4-12. "]
 
-The method to check for for a valid date is implemented this way:
+The methods to check for for a valid date are implemented this ways:
+
+* check for format
+
 [source,java]
 ----
  public static final String DATE_VALIDATION_REGEX =
@@ -638,10 +643,83 @@ The method to check for for a valid date is implemented this way:
 ----
 By checking the date regex, only date entered in the format of YYYY-MM-DD will be accepted.
 
+* check for valid years
+
+[source,java]
+----
+private static final int YEAR_LOWER_BOUND = 2018;
+
+public static boolean isValidYear(int test) {
+        return test >= YEAR_LOWER_BOUND;
+    }
+----
+
 [NOTE]
 The year should be later than 2018.
 
+* check for valid days
+
+The code below shows all static values used to check for the validity of a given date.
+
+[source,java]
+----
+private static final int BIG_MONTH_DAY = 31;
+private static final int SMALL_MONTH_DAY = 30;
+private static final int FEB_LEAP_YEAR_DAY = 29;
+private static final int FEB_NONLEAP_YEAR_DAY = 28;
+private  static final String[] BIG_MONTH = {"01", "03", "05", "07", "08", "10", "12"};
+private  static final String[] SMALL_MONTH = {"04", "06", "09", "11"};
+----
+
+The code below shows actual implementation on validating values for a given date.
+[source,java]
+----
+public static Boolean isValidDaysInMonth(String test) {
+        int testYear = getYear(test);
+        String testMonth = getMonth(test);
+        int testDay = getDay(test);
+        int daysInMonth;
+
+        if (Arrays.asList(BIG_MONTH).contains(testMonth)) {
+            daysInMonth = BIG_MONTH_DAY;
+        } else if (Arrays.asList(SMALL_MONTH).contains(testMonth)) {
+            daysInMonth = SMALL_MONTH_DAY;
+        } else {
+            if (isLeapYear(testYear)) {
+                daysInMonth = FEB_LEAP_YEAR_DAY;
+            } else {
+                daysInMonth = FEB_NONLEAP_YEAR_DAY;
+            }
+        }
+        return testDay <= daysInMonth;
+    }
+----
+
+By checking whether the given month is big, small or February, we can compare the day entered with the last day in the month.
+If the the day given is less than or equal to the last day in the month then the date entered by the user can be considered valid.
+
+The code below shows how to determine a leap year:
+[source,java]
+----
+private static final int LEAP_YEAR_DIVIDER = 4;
+private static final int CENTURY_YEAR_DIVIDER = 100;
+private static final int CENTURY_LEAP_YEAR_DIVIDER = 400;
+private static final int LEAP_YEAR_REMAINDER = 0;
+
+ public static boolean isLeapYear(int test) {
+    if ((test % CENTURY_LEAP_YEAR_DIVIDER == LEAP_YEAR_REMAINDER)
+        || ((test % LEAP_YEAR_DIVIDER == LEAP_YEAR_REMAINDER)
+        && (test % CENTURY_YEAR_DIVIDER != LEAP_YEAR_REMAINDER))) {
+        return true;
+    } else {
+        return false;
+    }
+ }
+----
+
+
 The method to check for a valid time is implemented this way:
+
 [source,java]
 ----
  public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3]):([0-5][0-9])";
@@ -665,7 +743,7 @@ The method to check for a valid duration is implemented this way:
 [NOTE]
 Duration can be either two or three digit number and the value is in minute.
 
-The diagram(Figure 4-14) below shows the class diagram of appointment. +
+The diagram figure 4-14 below shows the class diagram of appointment. +
 
 .Appointment Class Diagram Snippet
 image::AppointmentClassDemo3.png[width="500", caption="Figure 4-14. "]
@@ -687,7 +765,7 @@ public boolean equals(Object other) {
 Only date and time are responsible for duplicate appointments.
 
 *Logic component* +
-The following sequence diagram(Figure 4-15) shows how the schedule command works. +
+The following sequence diagram figure 4-15 shows how the schedule command works. +
 
 .Sequence Diagram of Interactions inside the Logic Component for `schedule date time duration` Command
 image::ScheduleLogicSequenceDiagram.png[width="800", caption="Figure 4-15. "]
@@ -696,12 +774,31 @@ As you can see from the above diagram, the schedule command first goes to the `l
 After getting the appointment object from `Model`, the command result is returned to `LogicManager`.
 
 *Storage component* +
-The following diagram(Figure 4-16) shows how the appointment is being stored in VetterAppointments. +
+The following diagram figure 4-16 shows how the appointment is being stored in VetterAppointments. +
 
 .Appointment Storage Class Diagram
 image::AppointmentStorageClassDiagram.png[width="800", caption="Figure 4-16. "]
 
-As shown in the above diagram, appointments are saved and read back in xml format.
+As shown in the above diagram figure 4-16, appointments are saved and read back in xml format.
+
+==== Design considerations
+
+===== Aspect: Implementation of appointment class
+* ** Alternative 1 (current choice): ** Use aggregation association
+** Pros: All objects such as date, time, duration and description can survive individually which means ending one entity will not effect the other entity.
+Aggregation also helps to reduce class coupling.
+** Cons: The association is weak.
+* ** Alternative 2: **Use composition association
+** Pros: It ensures a strong association between all parts.
+** Cons: The composed objects cannot exist without the other entity.
+
+==== Aspect: Implementation of date and time classes
+* ** Alternative 1: **(current choice) Use self defined classes
+** Pros: You have the full knowledge of the implementation of the methods and characteristic of attributes. As a result, you can customize the class to make it answer quries more efficiently.
+** Cons: It is easier to make mistake when implementing the methods.
+* ** Alternative 2: ** Use java class library
+** Pros: It is very simple to use. You only care about the functions rather than the implementation.
+** Cons: The lack of the knowledge about implementation make the debugging hardr. In addition, you may need to create extra methods in order to perform certain functions that are not defined in the class.
 // end::scheduleappt[]
 
 // tag::autocomplete[]
@@ -1022,14 +1119,15 @@ for easy viewing and keeping track. The tabs can be toggled by mouse-click as we
 * *Major Enhancement*: Support for all appointment related commands
 +
 [none]
-** The `schedule` command allows the vet to schedule an appointment of a certain date and time.
+** The `schedule` command allows the vet to schedule an appointment of a certain date, time and duration attached with a brief description.
+** The `reschedule` command to reschedule the appointment to other date, time or duration. This command is also able to edit the duration and description.
 ** The `editappt` command allows the vet to update the details of an appointment,
 such as the assigned vet technician and the data and time. Client and Pet can be
 changed as well if necessary. The affected clients, pets and vet technicians should
 be updated accordingly as well.
 ** The `deleteappt` command allows the vet to delete an appointment he/she no longer wants.
 
-* *Minor Enhancement*: Add constraints to Appointment parameters
+* *Minor Enhancement*: Features to detect appointment clashes, invalid appointments and giving suggestions for a valid appointment
 +
 [none]
 ** The application will prompt the vet if he/she has scheduled an appointment that
