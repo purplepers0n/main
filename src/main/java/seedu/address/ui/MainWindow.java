@@ -186,7 +186,7 @@ public class MainWindow extends UiPart<Stage> {
                     logic.getClientPetList(), logic.getClientApptList());
             listAllPanelPlaceholder.getChildren().add(listAllPanel.getRoot());
         } else {
-            listAllPanelPlaceholder.getChildren().removeAll(listAllPanel.getRoot());
+            listAllPanelPlaceholder.getChildren().remove(0, listAllPanelPlaceholder.getChildren().size());
         }
     }
     //@@author
