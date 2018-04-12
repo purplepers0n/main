@@ -784,7 +784,7 @@ As shown in the above diagram figure 4-16, appointments are saved and read back 
 ==== Design considerations
 
 ===== Aspect: Implementation of appointment class
-* ** Alternative 1: **(current choice) Use aggregation association
+* ** Alternative 1 (current choice): ** Use aggregation association
 ** Pros: All objects such as date, time, duration and description can survive individually which means ending one entity will not effect the other entity.
 Aggregation also helps to reduce class coupling.
 ** Cons: The association is weak.
@@ -792,7 +792,13 @@ Aggregation also helps to reduce class coupling.
 ** Pros: It ensures a strong association between all parts.
 ** Cons: The composed objects cannot exist without the other entity.
 
-
+==== Aspect: Implementation of date and time classes
+* ** Alternative 1: **(current choice) Use self defined classes
+** Pros: You have the full knowledge of the implementation of the methods and characteristic of attributes. As a result, you can customize the class to make it answer quries more efficiently.
+** Cons: It is easier to make mistake when implementing the methods.
+* ** Alternative 2: ** Use java class library
+** Pros: It is very simple to use. You only care about the functions rather than the implementation.
+** Cons: The lack of the knowledge about implementation make the debugging hardr. In addition, you may need to create extra methods in order to perform certain functions that are not defined in the class.
 // end::scheduleappt[]
 
 // tag::autocomplete[]
@@ -1111,14 +1117,15 @@ for easy viewing and keeping track. The tabs can be toggled by mouse-click as we
 * *Major Enhancement*: Support for all appointment related commands
 +
 [none]
-** The `schedule` command allows the vet to schedule an appointment of a certain date and time.
+** The `schedule` command allows the vet to schedule an appointment of a certain date, time and duration attached with a brief description.
+** The `reschedule` command to reschedule the appointment to other date, time or duration. This command is also able to edit the duration and description.
 ** The `editappt` command allows the vet to update the details of an appointment,
 such as the assigned vet technician and the data and time. Client and Pet can be
 changed as well if necessary. The affected clients, pets and vet technicians should
 be updated accordingly as well.
 ** The `deleteappt` command allows the vet to delete an appointment he/she no longer wants.
 
-* *Minor Enhancement*: Add constraints to Appointment parameters
+* *Minor Enhancement*: Features to detect appointment clashes, invalid appointments and giving suggestions for a valid appointment
 +
 [none]
 ** The application will prompt the vet if he/she has scheduled an appointment that
