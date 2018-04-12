@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ChangeListTabEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
@@ -27,6 +29,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String MESSAGE_AVAILABLE_AUTOCOMPLETE = "Command suggestions: ";
     private static final String MESSAGE_NO_MORE_AVAILABLE_COMMANDS = "No more available commands suggestions";
     private static final String SPACING = " ";
+    private static final String EMPTY_STRING = "";
+    private static final int NUMBER_OF_LIST_PANELS = 3;
 
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -52,6 +56,15 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
+        if (keyEvent.isControlDown()) {
+            handleControlDownKeyPress(keyEvent);
+            return;
+        }
+        if (keyEvent.isShiftDown()) {
+            handleShiftDownKeyPress(keyEvent);
+            return;
+        }
+
         switch (keyEvent.getCode()) {
         case UP:
             // As up and down buttons will alter the position of the caret,
@@ -67,9 +80,66 @@ public class CommandBox extends UiPart<Region> {
             keyEvent.consume();
             autoCompleteUserInput();
             break;
+        case ESCAPE:
+            keyEvent.consume();
+            clearCommandBox();
+            break;
         default:
             // let JavaFx handle the keypress
         }
+    }
+
+    /**
+     * Handles the key press on Control Down event, {@code keyEvent}.
+     */
+    private void handleControlDownKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        case TAB:
+            keyEvent.consume();
+            changeSelectionPanelForward();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+
+    /**
+     * Handles the key press on Control Down event, {@code keyEvent}.
+     */
+    private void handleShiftDownKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        case TAB:
+            keyEvent.consume();
+            changeSelectionPanelBackwards();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+
+    /**
+     * Change the selection panel forward on the UI
+     */
+    private void changeSelectionPanelForward() {
+        int listToChange = logic.getCurrentList();
+        listToChange = ++listToChange % NUMBER_OF_LIST_PANELS;
+        EventsCenter.getInstance().post(new ChangeListTabEvent(listToChange));
+    }
+
+    /**
+     * Change the selection panel forward on the UI
+     */
+    private void changeSelectionPanelBackwards() {
+        int listToChange = logic.getCurrentList();
+        listToChange = (--listToChange + NUMBER_OF_LIST_PANELS) % NUMBER_OF_LIST_PANELS;
+        EventsCenter.getInstance().post(new ChangeListTabEvent(listToChange));
+    }
+
+    /**
+     * Clears the command box
+     */
+    private void clearCommandBox() {
+        replaceText(EMPTY_STRING);
     }
 
     //@@author jonathanwj

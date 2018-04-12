@@ -25,7 +25,7 @@ public class CommandBoxTest extends GuiUnitTest {
     private static final String ADD_APPT_TO_PET_COMMAND = "addappttopet";
     private static final String ADD_COMMAND_WITH_SPACE = "add ";
     private static final String ADD_COMMAND_FIRST_PARAMETER_PREFIX = "r/";
-
+    private static final String EMPTY_STRING = "";
 
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -70,11 +70,15 @@ public class CommandBoxTest extends GuiUnitTest {
     public void commandBox_handleKeyPress() {
         commandBoxHandle.run(COMMAND_THAT_FAILS);
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
-        guiRobot.push(KeyCode.ESCAPE);
-        assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
 
         guiRobot.push(KeyCode.A);
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
+    }
+
+    @Test
+    public void commandBox_handleEscKeyPress() {
+        guiRobot.push(KeyCode.ESCAPE);
+        assertEquals(EMPTY_STRING, commandBoxHandle.getInput());
     }
 
     @Test
@@ -87,6 +91,7 @@ public class CommandBoxTest extends GuiUnitTest {
         guiRobot.push(KeyCode.TAB);
         assertEquals(ADD_APPT_TO_PET_COMMAND, commandBoxHandle.getInput());
         guiRobot.push(KeyCode.TAB);
+        guiRobot.push(KeyCode.SHIFT, KeyCode.TAB);
         guiRobot.pauseForHuman();
         guiRobot.pauseForHuman();
 
@@ -99,6 +104,7 @@ public class CommandBoxTest extends GuiUnitTest {
         // autocomplete invalid command
         commandBoxHandle.setInput(INVALID_COMMAND_PREFIX);
         guiRobot.push(KeyCode.TAB);
+        guiRobot.push(KeyCode.CONTROL, KeyCode.TAB);
         guiRobot.pauseForHuman();
 
         // autocomplete first add command parameter prefix
