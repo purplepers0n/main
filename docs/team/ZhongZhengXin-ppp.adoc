@@ -1,0 +1,84 @@
+= Zhong ZhengXin - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: VetterAppointments
+
+== Overview
+
+VetterAppointments is a desktop based application developed from an addressbook application. It is specially designed
+for vets to facilitate the process of scheduling appointments as well as managing important data such as clients, pets, appointments and staff. +
+
+The user interacts with the program by typing words through a Command Line Interface (CLI). The result of each interaction will
+be shown right below where you type. The Graphical User Interface(GUI) neatly displays all important information to the user. +
+
+VetterAppointments is written by java for about 20K line of code and its GUI is built using JavaFX. +
+
+== Summary of contributions
+
+* *Major Enhancement*: Add `schedule` and `reschedule` command.
+
+** Overview: +
+Both commands require similar parameters such as date, time, duration and description. The difference is that `schedule`
+command requires all parameters presented bt the vet while `reschedule` command only needs at least one of them
+
+** Justification: +
+The enhancements complement one of the major functionality of Vetterappointments which is to schedule appointments.
+
+** Highlights: +
+Appointment associates with date, time, duration and description in aggregation. The benefit is that all the component class
+still survives even when an appointment is deleted.
+
+* *Minor Enhancements*:Add support to detect appointment clashes, invalid duration and prompt suggestions for a valid duration.
+
+* *Code Contribution*: +
+** [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/functional/Godxin-functional.md[Functional code]]
+ [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/test/Godxin-test.md[Test code]]
+
+* *Other contributions:* +
+** Project management:
+*** Uploaded the jar file for releases `v1.4` on GitHub
+** Feature:
+*** Created client class (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/31[#31])
+*** Modified appointment class with more exceptions (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/61[#61]
+*** Added UniqueAppointment list: +
+ (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/61[#61]
+ https://github.com/CS2103JAN2018-F09-B4/main/pull/67[#67]
+ https://github.com/CS2103JAN2018-F09-B4/main/pull/68[#68]
+ https://github.com/CS2103JAN2018-F09-B4/main/pull/69[#69])
+*** Added schedule command: +
+ (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/72[#72]
+ https://github.com/CS2103JAN2018-F09-B4/main/pull/74[#74]
+ https://github.com/CS2103JAN2018-F09-B4/main/pull/78[#78]
+ https://github.com/CS2103JAN2018-F09-B4/main/pull/81[#81])
+** Documentation:
+*** Added glossary in Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/28[#28])
+*** Added description for commands in User Guide: +
+(Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/114[#114]
+ https://github.com/CS2103JAN2018-F09-B4/main/pull/173[#173])
+** Community:
+*** Reported and documented bugs for other teams in procedural manner: +
+
+*** Reported bugs and provided solutions to team: +
+
+== Contributions to userguide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=schedule]
+include::../UserGuide.adoc[tag=addPetCommand]
+include::../UserGuide.adoc[tag=addAppointmentToPetCommand]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=zzxEnhancements]
+
+include::../DeveloperGuide.adoc[tag=scheduleappt]
+
+
+
