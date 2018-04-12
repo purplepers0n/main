@@ -688,6 +688,7 @@ image::userguide_sortpCommand_image.PNG[width="500"]
 *A*: Yes there is! We have a keyboard shorcut that you might find useful.
 See <<Section 6.Keyboard_shortcuts, Keyboard Shortcuts>> for more details.
 
+// tag::keyboardshortcuts[]
 == Keyboard Shortcuts
 
 This section shows you the different keyboard shortcuts that are available in VetterAppointments. +
@@ -713,6 +714,8 @@ In this scenario you can type `addv` and press kbd:[Tab] to auto-complete your `
 
 * Pressing the kbd:[Tab] after a completed command that has a following space will provide you with the next available input parameter for the command.
 ====
+// end::keyboardshortcuts[]
+
 
 // tag::commandSummaryTable[]
 == Command Summary

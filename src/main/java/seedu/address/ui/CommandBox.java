@@ -51,6 +51,7 @@ public class CommandBox extends UiPart<Region> {
         previousTabPressTime = 0;
     }
 
+    //@@author jonathanwj
     /**
      * Handles the key press event, {@code keyEvent}.
      */
@@ -142,7 +143,6 @@ public class CommandBox extends UiPart<Region> {
         replaceText(EMPTY_STRING);
     }
 
-    //@@author jonathanwj
     /**
      * Shows auto completed text or suggestions on the UI
      */
@@ -184,7 +184,6 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    //@@author jonathanwj
     /**
      * Shows auto completed next prefix parameter for completed command on UI
      */
@@ -194,7 +193,6 @@ public class CommandBox extends UiPart<Region> {
         replaceText(textToShow);
     }
 
-    //@@author jonathanwj
     /**
      * Returns the {@code String} representative of given the list of Strings.
      */
@@ -204,7 +202,6 @@ public class CommandBox extends UiPart<Region> {
         return toString;
     }
 
-    //@@author jonathanwj
     /**
      * Returns true if TAB is pressed in quick succession
      */
@@ -216,7 +213,6 @@ public class CommandBox extends UiPart<Region> {
         return false;
     }
 
-    //@@author jonathanwj
     /**
      * Returns the current text in the command box
      */

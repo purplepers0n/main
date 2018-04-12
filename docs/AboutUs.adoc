@@ -12,8 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Jonathan Weng
 image::jonathanwj.jpg[width="150", align="left"]
 Studies computer science and passionate about Networks. Loves working on the backend +
-{empty}[https://jonathanwj.github.io/portfolio/[Home Page]] [https://github.com/jonathanwj[GitHub]]
-
+{empty}[https://jonathanwj.github.io/portfolio/[Home Page]] [https://github.com/jonathanwj[GitHub]] [<<JonathanWeng#, Porfolio>>] +
 Role: Team Lead, Scheduling & Tracking +
 Responsibilities: Logic component
 
@@ -42,7 +41,7 @@ Responsibilities: UI component
 === Zheng Xin
 image::Godxin.jpg[width="150", align="left"]
 Studies computer science and has strong interest in cyber security in general. +
-{empty}[http://github.com/Godxin[GitHub]]
+{empty}[http://github.com/Godxin[GitHub]][<<ZhongZhengXin-ppp#, Porfolio>>] +
 
 Role: Testing, Integration, Deliverables & Deadlines +
 Responsibilities: Storage component

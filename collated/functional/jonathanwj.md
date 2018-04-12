@@ -36,7 +36,8 @@ public class AutoCompleteManager {
         commandTrie.insertWord(HistoryCommand.COMMAND_WORD);
         commandTrie.insertWord(RedoCommand.COMMAND_WORD);
         commandTrie.insertWord(ScheduleCommand.COMMAND_WORD);
-        commandTrie.insertWord(SelectCommand.COMMAND_WORD);
+        commandTrie.insertWord(RescheduleCommand.COMMAND_WORD);
+        commandTrie.insertWord(UnscheduleCommand.COMMAND_WORD);
         commandTrie.insertWord(UndoCommand.COMMAND_WORD);
 
         commandTrie.insertWord(AddAppointmentToPetCommand.COMMAND_WORD);
@@ -49,6 +50,7 @@ public class AutoCompleteManager {
         commandTrie.insertWord(SortPetCommand.COMMAND_WORD);
 
         commandTrie.insertWord(ListCommand.COMMAND_WORD);
+        commandTrie.insertWord(ListAllCommand.COMMAND_WORD);
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_CLIENT_PREFIX);
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_VETTECH_PREFIX);
         commandTrie.insertWord(ListCommand.COMMAND_WORD + LIST_PET_PREFIX);
@@ -589,6 +591,97 @@ public class PersonRole {
 ###### \java\seedu\address\ui\CommandBox.java
 ``` java
     /**
+     * Handles the key press event, {@code keyEvent}.
+     */
+    @FXML
+    private void handleKeyPress(KeyEvent keyEvent) {
+        if (keyEvent.isControlDown()) {
+            handleControlDownKeyPress(keyEvent);
+            return;
+        }
+        if (keyEvent.isShiftDown()) {
+            handleShiftDownKeyPress(keyEvent);
+            return;
+        }
+
+        switch (keyEvent.getCode()) {
+        case UP:
+            // As up and down buttons will alter the position of the caret,
+            // consuming it causes the caret's position to remain unchanged
+            keyEvent.consume();
+            navigateToPreviousInput();
+            break;
+        case DOWN:
+            keyEvent.consume();
+            navigateToNextInput();
+            break;
+        case TAB:
+            keyEvent.consume();
+            autoCompleteUserInput();
+            break;
+        case ESCAPE:
+            keyEvent.consume();
+            clearCommandBox();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+
+    /**
+     * Handles the key press on Control Down event, {@code keyEvent}.
+     */
+    private void handleControlDownKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        case TAB:
+            keyEvent.consume();
+            changeSelectionPanelForward();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+
+    /**
+     * Handles the key press on Control Down event, {@code keyEvent}.
+     */
+    private void handleShiftDownKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        case TAB:
+            keyEvent.consume();
+            changeSelectionPanelBackwards();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+
+    /**
+     * Change the selection panel forward on the UI
+     */
+    private void changeSelectionPanelForward() {
+        int listToChange = logic.getCurrentList();
+        listToChange = ++listToChange % NUMBER_OF_LIST_PANELS;
+        EventsCenter.getInstance().post(new ChangeListTabEvent(listToChange));
+    }
+
+    /**
+     * Change the selection panel forward on the UI
+     */
+    private void changeSelectionPanelBackwards() {
+        int listToChange = logic.getCurrentList();
+        listToChange = (--listToChange + NUMBER_OF_LIST_PANELS) % NUMBER_OF_LIST_PANELS;
+        EventsCenter.getInstance().post(new ChangeListTabEvent(listToChange));
+    }
+
+    /**
+     * Clears the command box
+     */
+    private void clearCommandBox() {
+        replaceText(EMPTY_STRING);
+    }
+
+    /**
      * Shows auto completed text or suggestions on the UI
      */
     private void autoCompleteUserInput() {
@@ -629,9 +722,6 @@ public class PersonRole {
         }
     }
 
-```
-###### \java\seedu\address\ui\CommandBox.java
-``` java
     /**
      * Shows auto completed next prefix parameter for completed command on UI
      */
@@ -641,9 +731,6 @@ public class PersonRole {
         replaceText(textToShow);
     }
 
-```
-###### \java\seedu\address\ui\CommandBox.java
-``` java
     /**
      * Returns the {@code String} representative of given the list of Strings.
      */
@@ -653,9 +740,6 @@ public class PersonRole {
         return toString;
     }
 
-```
-###### \java\seedu\address\ui\CommandBox.java
-``` java
     /**
      * Returns true if TAB is pressed in quick succession
      */
@@ -667,9 +751,6 @@ public class PersonRole {
         return false;
     }
 
-```
-###### \java\seedu\address\ui\CommandBox.java
-``` java
     /**
      * Returns the current text in the command box
      */

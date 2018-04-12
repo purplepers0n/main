@@ -1,0 +1,73 @@
+= Jonathan Weng - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: VetterAppointments
+
+---
+
+== Overview
+
+VetterAppointments is a desktop application made for vets to manage appointments, clients, pets and staff. The application has a graphical user interface (GUI) created with JavaFX and works via a command line interface (CLI) where users can enter single line commands to interact with the application. +
+
+This project is part of a NUS CS2103T module. VetterAppointments was created by building upon an existing code base of the AddressBook-Level4 project by https://github.com/se-edu/[SE-EDU] initiative. The application is written in Java and has about 20kLOC.
+
+
+== Summary of contributions
+
+* *Major enhancement*: added the *Autocomplete* capability
+** What it does: provides the user with suggestions for completing their commands and allows the user to autocomplete their command by pressing tab.
+** Justification: This feature improves the product significantly because some commands of the application are long. A user can quickly enter the command they wish to type by using this autocomplete feature.
+** Highlights: This enchancement is an additional component to the existing code base, little modification of the exisiting code base was required. However, the modification of the UI logic was required to handle the tab keypress.
+
+* *Minor enhancement*: added the support for adding and removing clients and vet technicians in the application. +
+** List of new/modified command enhancements:
+*** AddCommand
+*** DeleteCommand
+*** EditCommand
+*** AddVetTechToAppointentCommand
+*** RemoveVetTechFromAppointmentCommand
+
+* *Code contributed*: [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/functional/jonathanwj.md[Functional code]] [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/functional/jonathanwj-reused.md[Reused Functional code]] [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/test/jonathanwj.md[Test code]] [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/test/jonathanwj-reused.md[Reused Test code]] [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/unused/jonathanwj-unused.md[Unused code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed Github issue tracker
+** Documentation:
+*** Tweaked and improved existing contents of the User Guide:
+https://github.com/CS2103JAN2018-F09-B4/main/pull/210[#210],
+https://github.com/CS2103JAN2018-F09-B4/main/pull/255[#255]
+** Community:
+*** PRs reviewed with discussions (with non-trivial review comments): https://github.com/CS2103JAN2018-F09-B4/main/issues/141[#141],
+https://github.com/CS2103JAN2018-F09-B4/main/issues/159[#159],
+https://github.com/CS2103JAN2018-F09-B4/main/issues/167[#167]
+*** Contributed to discussions (examples:
+https://github.com/CS2103JAN2018-F09-B4/main/issues/251[1],
+https://github.com/CS2103JAN2018-F09-B4/main/issues/178[2],
+https://github.com/CS2103JAN2018-F09-B4/main/issues/177[3])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103JAN2018-W13-B1/main/issues/154[1],
+https://github.com/CS2103JAN2018-W13-B1/main/issues/146[2],
+https://github.com/CS2103JAN2018-W13-B1/main/issues/143[3],
+https://github.com/CS2103JAN2018-W13-B1/main/issues/145[4])
+** Tools:
+*** Integrated a Travis CI to the team repo
+*** Integrated a Appveyor to the team repo
+*** Integrated a Coveralls to the team repo
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=keyboardshortcuts]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=autocomplete]
+
