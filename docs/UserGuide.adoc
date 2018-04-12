@@ -419,6 +419,7 @@ Figure 19 below shows the outcome upon executing `list pet`.
 image::userguide_addpCommand_image.PNG[width="400"]
 // end::listp[]
 
+// tag::schedule[]
 ==== Scheduling an appointment : `schedule` `Since v1.4`
 *Command format:* schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION +
 
@@ -439,7 +440,9 @@ Figure 20 below shows the outcome after scheduling an appointment. +
 
 .The appointment card being created after the command.
 image::userguide_schedule.PNG[width="1000"]
+// end::schedule[]
 
+// tag::addAppointmentToPetCommand[]
 ==== Adding an appointment to a pet: `addappttopet` `Since v1.3`
 *Command format:* `addappttopet appt/APPOINTMENT_INDEX p/PET_INDEX` +
 
@@ -603,6 +606,7 @@ Calling the command will result in the output shown in figure 31 below.
 .The resulting output after calling `removevettechfromappt 1` command
 image::userguide_removevettech_image.PNG[width="1000"]
 
+// tag::reschedule[]
 ==== Rescheduling an appointment : `reschedule` `Since v1.4`
 *Command format:* `reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [desc/DESCRIPTION] +
 
@@ -640,6 +644,7 @@ Figure 35 below shows the outcome after rescheduling the appointment. +
 
 .Current state of program before executing `reschedule`
 image::userguide_reschedule2.2.PNG[width="1000"]
+// end::reschedule[]
 
 // tag::sortpCommand[]
 

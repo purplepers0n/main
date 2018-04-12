@@ -1113,6 +1113,7 @@ for easy viewing and keeping track. The tabs can be toggled by mouse-click as we
 ** The `edit` and `delete` commands will be updated so that it only affect the index of the currently viewed list.
 // end::wxEnhancements[]
 
+//  tag::zzxEnhancements[]
 *Zhong Zheng Xin*
 
 [none]
@@ -1133,6 +1134,7 @@ be updated accordingly as well.
 ** The application will prompt the vet if he/she has scheduled an appointment that
 clashes with or is too close to another appointment. Only appointments with reasonable
 date and time can be scheduled to help the vet maintain appropriate appointment schedules.
+// end::zzxEnhancements[]
 
 [appendix]
 == User Stories
