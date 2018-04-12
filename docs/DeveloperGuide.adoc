@@ -16,12 +16,16 @@ By: `F09-B4`      Since: `March 2018`      Licence: `MIT`
 
 == Introduction
 
-VetterAppointments is a Java based application that helps manage the clients, employees and appointments of a vet.
+Welcome to VetterAppointments Developer Guide! VetterAppointments is a Java based application that helps manage the clients, employees and appointments of a vet. The application consists of many different components and feature implementations that work together to make VetterAppointments. +
 
-This guide serves to aid an incoming developer to understand the architecture and underlying interface of the application.
-This guide will walk you through the process of setting up the program and building upon it.
+This guide will serve to aid a you to understand the architecture and underlying interface of the application. +
+
+If you are a new developer, you can follow the instructions in this guide to set up the program and start building upon it. +
+
 
 == Setting Up
+
+This section will guide you through the setting up of the development environment that you will require to start developing VetterAppointments.
 
 === Prerequisites
 
@@ -65,6 +69,8 @@ To verify that the project has been set up properly:
 
 === Configurations to do before writing code
 
+There are certain configurations that you need to set up before you are able to start writing code. You can follow the guide in this section to set up the configurations.
+
 ==== Configuring the coding style
 
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. +
@@ -102,8 +108,12 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 == Design
 
+This section will walk you through the design aspect of VetterAppointments. It will explain the application architecture and the different components that make up the application.
+
 [[Design-Architecture]]
 === Architecture
+
+The software architecture of VetterAppointments consists of several key components that make VetterAppointments. It shows the overall organization of the system and how the underlying components interact with each other.
 
 The *_Architecture Diagram_* given below in figure 3-1 explains the high-level design of the application.
 
@@ -146,6 +156,8 @@ image::LogicClassDiagram.png[width="800", caption="Figure 3-2. "]
 [discrete]
 ==== Events-Driven nature of the design
 
+The architecture design of VetterAppointments is based on an event-driven architectural style. The events-driven nature of the design allows for the communication of several components of the application.
+
 Figure 3-3 shows a _Sequence Diagram_ of how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Sequence Diagram of Component Interactions for `delete 1` Command (part 1)
@@ -167,7 +179,9 @@ The following four sections in this guide will give more details of each compone
 [[Design-Ui]]
 === UI component
 
-The diagram below (Figure 3-5) represents the structure of the `UI` componenet in VetterAppointments.
+The UI component controls the interactions that the user have with the VetterAppointments. It consists of several underlying components that make up the what the user sees on the UI.
+
+The diagram below (Figure 3-5) represents the structure of the `UI` component in VetterAppointments.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800", caption="Figure 3-5. "]
@@ -190,7 +204,9 @@ The `UI` component:
 [[Design-Logic]]
 === Logic component
 
-The diagram below (Figure 3-6) represents the structure of the `Logic` componenet in VetterAppointments.
+The logic component makes up the main logic of the VetterAppointments. It consists of the main bulk of logic code that allows the application to function as its intended purpose.
+
+The diagram below (Figure 3-6) represents the structure of the `Logic` component in VetterAppointments.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -217,6 +233,8 @@ image::DeletePersonSdForLogic.png[width="800", caption="Figure 3-8. "]
 [[Design-Model]]
 === Model component
 
+The model component allows for the management of data in VetterAppointments. It controls the flow of the data and how the data is contained within the application.
+
 The diagram below (Figure 3-9) represents the structure of the `Model` componenet in VetterAppointments.
 
 .Structure of the Model Component
@@ -235,6 +253,8 @@ The `Model` component:
 
 [[Design-Storage]]
 === Storage component
+
+The storage component controls the storage of data in VetterAppointments. It enable the application to safely read and write data on the user's computer.
 
 The diagram below (Figure 3-10) represents the structure of the `Storage` componenet in VetterAppointments.
 
