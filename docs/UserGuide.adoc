@@ -56,8 +56,9 @@ image::userguide_userInterface_image.PNG[width="1000"]
 // tag::userInterfaceWalkthrough[]
 == User Interface
 
-Figure 2 below shows the interface of VetterAppointments. This section will help you understand
-the different sections of VetterAppointments.
+This section will help you understand the different sections of the user interface for VetterAppointments.
+
+Figure 2 below shows a typical user interface of VetterAppointments.
 
 .User interface of VetterAppointments program.
 image::userguide_interfaceWalkthrough_image.PNG[width="1000"]
@@ -65,13 +66,13 @@ image::userguide_interfaceWalkthrough_image.PNG[width="1000"]
 *Sections of the interface:* +
 
 . *Client/Pet/Vet Tech List Panel:* +
-Displays all clients/pets/vet technicians in the program.
+Displays all your clients/pets/vet technicians in the program.
 . *Command Box:* +
-Takes in the input by the user.
+Allows you to input commands in to the program.
 . *Command Box Notification:* +
-Notifies the command feedback to the user.
+Shows to you the feedback result of your most recent command.
 . *Appointment Panel:* +
-Displays all appoinments scheduled in the program.
+Displays all your appoinments scheduled in the program.
 . *List All Panel:* +
 Displays all information of a specified client.
 // end::userInterfaceWalkthrough[]
@@ -194,7 +195,6 @@ Figure 4 below shows the outcomes of executing the `add` commands.
 
 .Result output after adding a clients Alice Peterson and Bradly Cooper
 image::userguide_addCommand_image.PNG[width="400"]
-
 
 
 ==== Removing a client or vet technician: `delete` `Since v1.1`
