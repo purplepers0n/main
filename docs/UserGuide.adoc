@@ -46,8 +46,7 @@ To get the program up and running, follow the instructions below:
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
-.  Download the latest `VetterAppointments.jar` link:{repoURL}/releases[here]. You'll be
-see the version releases of the program there similar to the image below.
+.  Download the latest `VetterAppointments.jar` link:{repoURL}/releases[here]. You will see the version releases of the program there.
 .  Copy the file to the folder you want to use as the home folder for your VetterAppointments.
 .  Double-click the file to start the app. Figure 1 below shows the program upon start up.
 +
@@ -84,32 +83,16 @@ Displays all information of a specified client.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+E.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional +
+E.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times. +
+E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order. +
+E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 '''
-
-
-=== Autocomplete Feature
-If you're feeling lazy to type in the command type, press kbd:[Tab] on your keyboard
-and it'll do the rest for you. +
-
-[TIP]
-====
-Pressing the kbd:[Tab] key twice will provide you with suggestions of your current command input.
-====
-
-[TIP]
-====
-Pressing the kbd:[Tab] after a completed command that has a following space will provide you with the next available input parameter for the command.
-====
-
-Here is an example of using the autocomplete functionality: +
-
-* Suppose you want to type a command `addvettechtoappointment` but it is a hassle to type out the full command.
-In this scenario you can type `addv` and press kbd:[Tab] to autocomplete your `addv` input to `addvettechtoappointment` +
 
 === System Based Commands
 This section explains commands that are based around the system. These commands are not related
@@ -138,7 +121,7 @@ So there's nothing to worry about, all your data will be saved.
 ==== Viewing help : `help`
 *Command format:* `help` +
 
-*Description:* Bring up the user guide. +
+*Description:* Brings up the user guide. +
 
 Upon entering the `help` command, a User Guide manual will pop up displaying the
 available commands for you. You can always enter the `help` command if you need help
@@ -147,7 +130,7 @@ with the program. +
 ==== Listing entered commands : `history`
 *Command format:* `history` +
 
-*Description:* Lists all the commands that you have entered in reverse chronological order. +
+*Description:* Lists all your previously entered commands in reverse chronological order. +
 
 [TIP]
 ====
@@ -399,8 +382,7 @@ image::userguide_sortcCommand_image2.PNG[width="400"]
 
 
 === Pets & Appointment Related Commands
-This section explains and goes through in depth, the commands available
-that are used to manage your pets and appointments.
+This section explains the commands available that can be used to manage your pets and appointments.
 
 // tag::addPetCommand[]
 ==== Adding a pet: `addp` `Since v1.2`
@@ -688,8 +670,35 @@ image::userguide_sortpCommand_image.PNG[width="500"]
 
 *Q*: The commands are long. Are there anyway to speed up the process? +
 
-*A*: Yes there is! We have an autocomplete feature that you might find useful.
-See <<Section 3.Features, 3.1. Autocomplete>> for more details.
+*A*: Yes there is! We have a keyboard shorcut that you might find useful.
+See <<Section 6.Keyboard_shortcuts, Keyboard Shortcuts>> for more details.
+
+== Keyboard Shortcuts
+
+This section shows you the different keyboard shortcuts that are available in VetterAppointments. +
+
+The table below shows a list of shortcuts you can use. +
+
+[width="100%"]
+[cols="2,1"]
+|=======
+|*Result* |*Shortcut*
+| Clears the Command Box | kbd:[Esc]
+| Auto-complete your text input | kbd:[Tab]
+| Switches panel selection forward | kbd:[Control]+kbd:[Tab]
+| Switches panel selection backwards  | kbd:[Shift]+kbd:[Tab]
+|=======
+
+[NOTE]
+====
+Pressing the kbd:[Tab] key twice will provide you with suggestions of your current command input. +
+
+* Here is an example of using the auto-complete functionality: +
+Suppose you want to type a command `addvettechtoappointment` but it is a hassle to type out the full command. +
+In this scenario you can type `addv` and press kbd:[Tab] to auto-complete your `addv` input to `addvettechtoappointment` +
+
+* Pressing the kbd:[Tab] after a completed command that has a following space will provide you with the next available input parameter for the command.
+====
 
 // tag::commandSummaryTable[]
 == Command Summary
@@ -703,10 +712,11 @@ program. You can head to the respective section on the commands if you want to
 know more about them.
 
 [width="100%"]
+[cols="1,5,3"]
 |=======
 |*Command* |*Command Format* |*Description*
 |add |`add r/ROLE n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]…` |Adds a person into the program.
-|delete |`delete INDEX` |Remove a client/vettech from the program based on index.
+|delete |`delete INDEX` |Removes a client/vettech from the program based on index.
 |edit |`edit INDEX [n/ROLE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` |Edits a person's details.
 |find |`find KEYWORD` |Finds a client with keyword.
 |listall |`listall INDEX` |Lists all details for a particular client.
@@ -722,19 +732,24 @@ in your program. You can head to the respective section on the commands if you w
 about them.
 
 [width="100%"]
+[cols="1,5,3"]
 |=======
 |*Command* |*Command Format* |*Description*
 |addappttopet |`addapptto appt/APPOINTMENT_INDEX p/PET_INDEX` |Adds an appointment to a pet.
 |addp |`addp n/CLIENT_INDEX pn/PET_NAME pa/PET_AGE pg/PET_GENDER t/PET_TAG…​` |Adds a pet to a client.
 |addvettechtoappointment |`addvettechtoappointment vt/VETTECH_INDEX appt/APPOINTMENT_INDEX​` |Adds a vet technician to an appointment.
 |deletep |`deletep INDEX` |Removes a pet from the program based on index.
-|editappt |`editappt n/CLIENT_NAME pn/PET_NAME [date/DATE (DD.MM.YYYY)] [time/TIME (HHMM)] [vettech/VET_TECHNICIAN_NAME] [cmt/COMMENTS]` |Edits an appointment's details.
+|editappt |`editappt n/CLIENT_NAME pn/PET_NAME +
+[date/DATE (DD.MM.YYYY)] +
+[time/TIME (HHMM)] +
+[vettech/VET_TECHNICIAN_NAME] +
+[cmt/COMMENTS]` |Edits an appointment's details.
 |editp |`editp INDEX [pn/PET_NAME] [pa/PET_AGE] [pg/PET_GENDER] [t/PET_TAGS]…​` |Edits a pet's details.
 |list pet |`list pet` |Lists all pets.
 |reschedule |`reschedule INDEX [da/DATE] [tm/TIME] [du/DURATION] [DESC/DESCRIPTION]` | Reschedules an appointment.
 |removeapptfrompet |`removeapptfrompet p/PET_INDEX` |Removes an appointment from a pet.
 |removevettechfromappt |`removevettechfromappt INDEX` |Removes a vet technician from appointment based on index.
-|schedule | `schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION` |Schedule an appointment given date (YYYY-MM-DD), time (HH:MM), duration (minutes) and description.
+|schedule | `schedule da/DATE tm/TIME du/DURATION desc/DESCRIPTION` |Schedules an appointment given date (YYYY-MM-DD), time (HH:MM), duration (minutes) and description.
 |sortp |`sortp` |Sorts the pet list alphabetically.
 |unschedule |`unschedule INDEX` |Unschedules an appointment from the program.
 |=======
@@ -745,6 +760,7 @@ The table below shows commands that are program based. These commands have no re
 clients, staff, pets and appointments. They're solely for the program.
 
 [width="100%"]
+[cols="1,3,3"]
 |=======
 |*Command* |*Command Format* |*Description*
 |clear |`clear` |Deletes all data of the program.
