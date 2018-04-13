@@ -84,6 +84,10 @@ public class Appointment {
         this.vetTech = Optional.of(vetTech);
     }
 
+    public void setOptionalVetTech (Optional<VetTechnician> vetTech) {
+        this.vetTech = vetTech;
+    }
+
     public void removeVetTech() {
         vetTech = Optional.empty();
     }

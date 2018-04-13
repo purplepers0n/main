@@ -109,14 +109,13 @@ public class RescheduleCommand extends UndoableCommand {
                 appointmentToReschedule.getDuration());
         Description updatedDescription = rescheduleAppointmentDescriptor.getDescription().orElse(
                 appointmentToReschedule.getDescription());
-        ClientOwnPet updatedClient = rescheduleAppointmentDescriptor.getClientOwnPet()
-                .orElse(appointmentToReschedule.getClientOwnPet());
-        Optional<VetTechnician> updatedVetTech = rescheduleAppointmentDescriptor.getVetTech();
+        ClientOwnPet updatedClientOwnPet = appointmentToReschedule.getClientOwnPet();
+        Optional<VetTechnician> updatedVetTech = appointmentToReschedule.getOptionalVetTechnician();
 
         Appointment newAppointment = new Appointment(updatedDate, updatedTime, updatedDuration, updatedDescription);
-        newAppointment.setClientOwnPet(updatedClient);
-        newAppointment.setVetTech(updatedVetTech.get());
-        return newAppointment;
+        newAppointment.setClientOwnPet(updatedClientOwnPet);
+        newAppointment.setOptionalVetTech(updatedVetTech);
+        return new Appointment(newAppointment);
     }
 
     @Override
@@ -147,8 +146,6 @@ public class RescheduleCommand extends UndoableCommand {
         private Time time;
         private Duration duration;
         private Description description;
-        private ClientOwnPet clientOwnPet;
-        private Optional<VetTechnician> vetTech;
 
         public RescheduleAppointmentDescriptor() {
         }
@@ -161,8 +158,6 @@ public class RescheduleCommand extends UndoableCommand {
             setTime(toCopy.time);
             setDuration(toCopy.duration);
             setDescription(toCopy.description);
-            setClientOwnPet(toCopy.clientOwnPet);
-            setVetTech(toCopy.vetTech.get());
         }
 
         /**
@@ -203,18 +198,6 @@ public class RescheduleCommand extends UndoableCommand {
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
-
-        public void setClientOwnPet(ClientOwnPet clientOwnPet) {
-            this.clientOwnPet = clientOwnPet; }
-
-        public Optional<ClientOwnPet> getClientOwnPet() {
-            return Optional.ofNullable(clientOwnPet); }
-
-        public void setVetTech(VetTechnician vetTech) {
-            this.vetTech = Optional.of(vetTech); }
-
-        public Optional<VetTechnician> getVetTech() {
-            return vetTech; }
 
         @Override
         public boolean equals(Object other) {
