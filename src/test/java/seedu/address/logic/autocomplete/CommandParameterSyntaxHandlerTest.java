@@ -15,6 +15,7 @@ import seedu.address.logic.commands.AddPetCommand;
 import seedu.address.logic.commands.AddVetTechToAppointmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RemoveAppointmentFromPetCommand;
+import seedu.address.logic.commands.RescheduleCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.parser.Prefix;
 
@@ -77,6 +78,13 @@ public class CommandParameterSyntaxHandlerTest {
         ArrayList<Prefix> result = handler.getMissingPrefixes(AddVetTechToAppointmentCommand.COMMAND_WORD,
                 AddVetTechToAppointmentCommand.COMMAND_WORD);
         assertEquals(result, handler.ADD_VET_TECH_TO_APPT_COMMAND_PREFIXES);
+    }
+
+    @Test
+    public void getMissingPrefix_rescheduleAppointmentCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(RescheduleCommand.COMMAND_WORD,
+                RescheduleCommand.COMMAND_WORD);
+        assertEquals(result, handler.RESCHEDULE_COMMAND_PREFIXES);
     }
 
 }
