@@ -18,7 +18,7 @@ Responsibilities: Logic component
 
 '''
 
-=== Md Azhar
+=== Muhammad Azhar bin Abdul Hamid
 image::md-azsa.jpg[width="150", align="left"]
 Studies computer science and highly interested in Information Security. +
 {empty}[http://www.comp.nus.edu.sg/~azharham[Home Page]]  [http://github.com/md-azsa[GitHub]]
