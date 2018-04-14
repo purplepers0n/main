@@ -44,14 +44,14 @@ public class ApptCard extends UiPart<Region> {
         getTimeFrame(startTime, appointment.getDuration().toString());
         time.setText(startTime + " - " + endTime);
         if (appointment.getClientOwnPet() == null) {
-            clientName.setText("Client: ");
-            petName.setText("Pet: ");
+            clientName.setText("Client: -");
+            petName.setText("Pet: -");
         } else {
             clientName.setText("Client: " + appointment.getClientOwnPet().getClient().getName().fullName);
             petName.setText("Pet: " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
         }
         if (appointment.getVetTechnician() == null) {
-            vetTechName.setText("V.Tech: ");
+            vetTechName.setText("V.Tech: -");
         } else {
             vetTechName.setText("V.Tech: " + appointment.getVetTechnician().getName().fullName);
         }

@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,6 +33,8 @@ import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundEx
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
+import seedu.address.model.client.exceptions.ClientHasExistingAppointmentException;
+import seedu.address.model.client.exceptions.ClientHasExistingPetException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRole;
 import seedu.address.model.person.UniquePersonList;
@@ -44,6 +48,7 @@ import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.TechnicianHasExistingAppointmentException;
 import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 
@@ -207,6 +212,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(person);
     }
 
+    //@@author
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedPerson}.
@@ -217,8 +223,64 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @see #syncWithMasterTagList(Person)
      */
     public void updatePerson(Person target, Person editedPerson)
-            throws DuplicatePersonException, PersonNotFoundException {
+            throws DuplicatePersonException, PersonNotFoundException, ClientHasExistingPetException,
+            ClientHasExistingAppointmentException, TechnicianHasExistingAppointmentException {
         requireNonNull(editedPerson);
+
+        // check able to update
+        if (target instanceof Client && editedPerson instanceof VetTechnician) {
+            ListIterator<ClientOwnPet> copIterator = clientPetAssociations.listIterator();
+            while (copIterator.hasNext()) {
+                ClientOwnPet association = copIterator.next();
+                if (association.getClient().equals(target)) {
+                    throw new ClientHasExistingPetException();
+                }
+            }
+            Iterator<Appointment> i = appointments.iterator();
+            while (i.hasNext()) {
+                Appointment app = i.next();
+                if (app.getClientOwnPet() != null && app.getClientOwnPet().getClient().equals(target)) {
+                    throw new ClientHasExistingAppointmentException();
+                }
+            }
+        }
+        if (target instanceof VetTechnician && editedPerson instanceof Client) {
+            Iterator<Appointment> i = appointments.iterator();
+            while (i.hasNext()) {
+                Appointment app = i.next();
+                if (app.getVetTechnician() != null && app.getVetTechnician().equals(target)) {
+                    throw new TechnicianHasExistingAppointmentException();
+                }
+            }
+        }
+
+        // update objects
+        if (target instanceof Client && editedPerson instanceof Client) {
+            ListIterator<ClientOwnPet> copIterator = clientPetAssociations.listIterator();
+            while (copIterator.hasNext()) {
+                ClientOwnPet association = copIterator.next();
+                if (association.getClient().equals(target)) {
+                    copIterator.remove();
+                    copIterator.add(new ClientOwnPet((Client) editedPerson, association.getPet()));
+                }
+            }
+            Iterator<Appointment> i = appointments.iterator();
+            while (i.hasNext()) {
+                Appointment app = i.next();
+                if (app.getClientOwnPet() != null && app.getClientOwnPet().getClient().equals(target)) {
+                    app.setClientOwnPet(new ClientOwnPet((Client) editedPerson, app.getClientOwnPet().getPet()));
+                }
+            }
+        } else {
+            Iterator<Appointment> i = appointments.iterator();
+            while (i.hasNext()) {
+                Appointment app = i.next();
+                if (app.getVetTechnician() != null && app.getVetTechnician().equals(target)) {
+                    app.removeVetTech();
+                    app.setOptionalVetTech(Optional.of((VetTechnician) editedPerson));
+                }
+            }
+        }
 
         Person syncedEditedPerson = syncWithMasterTagList(editedPerson);
         // TODO: the tags master list will be updated even though the below line fails.
@@ -227,6 +289,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(target, syncedEditedPerson);
     }
 
+    //@@author
     /**
      * Updates the master tag list to include tags in {@code person} that are not in the list.
      *
@@ -258,6 +321,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return syncedPerson;
     }
 
+    //@@author
     /**
      * Removes {@code key} from this {@code AddressBook}.
      *

@@ -41,6 +41,8 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.client.exceptions.ClientHasExistingAppointmentException;
+import seedu.address.model.client.exceptions.ClientHasExistingPetException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -49,6 +51,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vettechnician.exceptions.TechnicianHasExistingAppointmentException;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -193,7 +196,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Person, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, Person editedPerson) {
+    private void assertCommandSuccess(String command, Index toEdit, Person editedPerson)
+            throws TechnicianHasExistingAppointmentException,
+            ClientHasExistingAppointmentException, ClientHasExistingPetException {
         assertCommandSuccess(command, toEdit, editedPerson, null);
     }
 
@@ -205,8 +210,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * @param toEdit the index of the current model's filtered list.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, Person editedPerson,
-                                      Index expectedSelectedCardIndex) {
+    private void assertCommandSuccess(String command, Index toEdit,
+            Person editedPerson, Index expectedSelectedCardIndex)
+            throws TechnicianHasExistingAppointmentException,
+            ClientHasExistingAppointmentException, ClientHasExistingPetException {
         Model expectedModel = getModel();
         try {
             expectedModel.updatePerson(

@@ -28,6 +28,8 @@ import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundEx
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
+import seedu.address.model.client.exceptions.ClientHasExistingAppointmentException;
+import seedu.address.model.client.exceptions.ClientHasExistingPetException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -36,6 +38,7 @@ import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.TechnicianHasExistingAppointmentException;
 import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 /**
@@ -86,10 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
-        displayClient = null;
-        displayPet = null;
-        displayAppt = null;
-        raise(new NewListAllDisplayAvailableEvent(null));
+        clearListAllPanel();
     }
 
     @Override
@@ -112,10 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
         if (displayClient != null && displayClient.equals(target)) {
-            displayClient = null;
-            displayPet = null;
-            displayAppt = null;
-            raise(new NewListAllDisplayAvailableEvent(null));
+            clearListAllPanel();
         }
     }
 
@@ -140,23 +137,33 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.unscheduleAppointment(appointment);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
         indicateAddressBookChanged();
+        if (displayAppt != null && displayAppt.contains(appointment)) {
+            displayAppt.remove(appointment);
+            indicateListAllPanelChanged();
+        }
     }
-    //@@author
 
+    //@@author
     @Override
     public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
             throws DuplicateAppointmentException, AppointmentNotFoundException {
         requireAllNonNull(target, rescheduleAppointment);
         addressBook.updateAppointment(target, rescheduleAppointment);
         indicateAddressBookChanged();
+        if (displayAppt != null && displayAppt.contains(target)) {
+            displayAppt.set(displayAppt.indexOf(target), rescheduleAppointment);
+            indicateListAllPanelChanged();
+        }
     }
 
     @Override
     public void updatePerson(Person target, Person editedPerson)
-            throws DuplicatePersonException, PersonNotFoundException {
+            throws DuplicatePersonException, PersonNotFoundException, ClientHasExistingAppointmentException,
+            ClientHasExistingPetException, TechnicianHasExistingAppointmentException {
         requireAllNonNull(target, editedPerson);
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 
     //@@author md-azsa
@@ -179,6 +186,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deletePet(Pet target) throws PetNotFoundException, ClientPetAssociationNotFoundException {
         addressBook.removePet(target);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
     //@@author
 
@@ -191,6 +199,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(pet, client);
         addressBook.addPetToClient(pet, client);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 
     //@@author jonathanwj
@@ -216,6 +225,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(appointment, pet);
         addressBook.addAppointmentToPet(appointment, pet);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 
     @Override
@@ -224,6 +234,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(appointment);
         addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
     //@@author
 
@@ -235,6 +246,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(technician, appointment);
         addressBook.addVetTechToAppointment(technician, appointment);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 
     //@@author jonathanwj
@@ -245,6 +257,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(apptToRemoveVetTechFrom);
         addressBook.removeVetFromAppointment(apptToRemoveVetTechFrom);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -409,5 +422,22 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Appointment> getClientApptList() {
         return displayAppt;
+    }
+
+    /**
+     * Clears the list all panel
+     */
+    private void clearListAllPanel() {
+        displayClient = null;
+        displayPet = null;
+        displayAppt = null;
+        indicateListAllPanelChanged();
+    }
+
+    /**
+     * Updates the list all panel for UI
+     */
+    private void indicateListAllPanelChanged() {
+        raise(new NewListAllDisplayAvailableEvent(null));
     }
 }

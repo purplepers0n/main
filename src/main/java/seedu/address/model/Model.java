@@ -17,6 +17,8 @@ import seedu.address.model.association.exceptions.ClientPetAssociationNotFoundEx
 import seedu.address.model.association.exceptions.PetAlreadyHasAppointmentException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 import seedu.address.model.client.Client;
+import seedu.address.model.client.exceptions.ClientHasExistingAppointmentException;
+import seedu.address.model.client.exceptions.ClientHasExistingPetException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -25,6 +27,7 @@ import seedu.address.model.pet.Pet;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.pet.exceptions.PetNotFoundException;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.TechnicianHasExistingAppointmentException;
 import seedu.address.model.vettechnician.exceptions.VetTechnicianNotFoundException;
 
 
@@ -80,7 +83,8 @@ public interface Model {
      * @throws PersonNotFoundException  if {@code target} could not be found in the list.
      */
     void updatePerson(Person target, Person editedPerson)
-            throws DuplicatePersonException, PersonNotFoundException;
+            throws DuplicatePersonException, PersonNotFoundException, ClientHasExistingAppointmentException,
+            ClientHasExistingPetException, TechnicianHasExistingAppointmentException;
 
     /**
      * Returns an unmodifiable view of the filtered person list

@@ -23,6 +23,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.client.Client;
+import seedu.address.model.client.exceptions.ClientHasExistingAppointmentException;
+import seedu.address.model.client.exceptions.ClientHasExistingPetException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -33,6 +35,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vettechnician.VetTechnician;
+import seedu.address.model.vettechnician.exceptions.TechnicianHasExistingAppointmentException;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -58,6 +61,12 @@ public class EditCommand extends UndoableCommand {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    private static final String MESSAGE_TECHNICIAN_HAS_APPOINTMENT = "Technician has existing appointment,"
+            + " please remove appointment before changing role.";
+    private static final String MESSAGE_CLIENT_HAS_APPOINTMENT = "Client has existing appiontment,"
+            + " please remove appointment before changing role";
+    private static final String MESSAGE_CLIENT_HAS_PET = "Client has existing pet,"
+            + " please remove pet before changing role";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -90,6 +99,12 @@ public class EditCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("The target person cannot be missing");
+        } catch (ClientHasExistingPetException e) {
+            throw new CommandException(MESSAGE_CLIENT_HAS_PET);
+        } catch (TechnicianHasExistingAppointmentException e) {
+            throw new CommandException(MESSAGE_TECHNICIAN_HAS_APPOINTMENT);
+        } catch (ClientHasExistingAppointmentException e) {
+            throw new CommandException(MESSAGE_CLIENT_HAS_APPOINTMENT);
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
