@@ -2,6 +2,7 @@ package seedu.address.model.util;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.AddressBook;
@@ -26,6 +27,7 @@ import seedu.address.model.pet.PetGender;
 import seedu.address.model.pet.PetName;
 import seedu.address.model.pet.exceptions.DuplicatePetException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vettechnician.VetTechnician;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -45,12 +47,15 @@ public class SampleDataUtil {
             new Client(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("premium")),
-            new Client(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new VetTechnician(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet("fulltimer")),
-            new Client(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new VetTechnician(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("parttimer"))
+                getTagSet("parttimer")),
+            new VetTechnician(new Name("Frank Boo"), new Phone("63830808"), new Email("frank@example.com"),
+                    new Address("31 Pandan Road, 609278, Singapore"),
+                    getTagSet("parttimer"))
         };
     }
 
@@ -58,13 +63,22 @@ public class SampleDataUtil {
         return new Pet[] {
             new Pet(new PetName("Tweety"), new PetAge("2"), new PetGender("M"), getTagSet("Bird")),
             new Pet(new PetName("Sylvester"), new PetAge("1"), new PetGender("M"), getTagSet("Cat")),
+            new Pet(new PetName("Mickey"), new PetAge("1"), new PetGender("M"), getTagSet("Mouse")),
+            new Pet(new PetName("Goofy"), new PetAge("1"), new PetGender("M"), getTagSet("Dog")),
+            new Pet(new PetName("Daisy"), new PetAge("1"), new PetGender("F"), getTagSet("Duck")),
+            new Pet(new PetName("Minnie"), new PetAge("1"), new PetGender("F"), getTagSet("Mouse")),
         };
     }
+
 
     public static ClientOwnPet[] getSampleClientOwnpetAssociation() {
         return new ClientOwnPet[] {
             new ClientOwnPet((Client) getSamplePersons()[0], getSamplePets()[0]),
-            new ClientOwnPet((Client) getSamplePersons()[1], getSamplePets()[1])
+            new ClientOwnPet((Client) getSamplePersons()[1], getSamplePets()[1]),
+            new ClientOwnPet((Client) getSamplePersons()[2], getSamplePets()[2]),
+            new ClientOwnPet((Client) getSamplePersons()[0], getSamplePets()[3]),
+            new ClientOwnPet((Client) getSamplePersons()[1], getSamplePets()[4]),
+            new ClientOwnPet((Client) getSamplePersons()[2], getSamplePets()[5])
         };
     }
 
@@ -73,7 +87,15 @@ public class SampleDataUtil {
             new Appointment(new Date("2018-01-02"), new Time("14:30"),
                     new Duration("60"), new Description("Sterilize Garfield now")),
             new Appointment(new Date("2018-02-01"), new Time("15:30"),
-                    new Duration("60"), new Description("Give Tweety a shower"))
+                    new Duration("60"), new Description("Give Tweety a shower")),
+            new Appointment(new Date("2018-01-02"), new Time("10:30"),
+                    new Duration("60"), new Description("Sick")),
+            new Appointment(new Date("2018-02-01"), new Time("08:30"),
+                    new Duration("60"), new Description("Unwell")),
+            new Appointment(new Date("2018-01-02"), new Time("13:30"),
+                    new Duration("60"), new Description("Injury")),
+            new Appointment(new Date("2018-02-01"), new Time("11:30"),
+                    new Duration("60"), new Description("Euthanasia"))
         };
     }
 
@@ -86,8 +108,13 @@ public class SampleDataUtil {
             for (Pet samplePet : getSamplePets()) {
                 sampleAb.addPet(samplePet);
             }
+            int cycle = 0;
             for (Appointment sampleAppointment : getSampleAppointment()) {
+                sampleAppointment.setClientOwnPet(getSampleClientOwnpetAssociation()[cycle]);
+                sampleAppointment.setOptionalVetTech(Optional.of((VetTechnician) getSamplePersons()[4 + cycle]));
                 sampleAb.scheduleAppointment(sampleAppointment);
+                cycle++;
+                cycle = cycle % 3;
             }
             sampleAb.setClientPetAssociations(Arrays.asList(getSampleClientOwnpetAssociation()));
 
