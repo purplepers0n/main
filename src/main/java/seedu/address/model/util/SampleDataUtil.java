@@ -59,6 +59,23 @@ public class SampleDataUtil {
         };
     }
 
+    public static Person[] getSampleClientsInSamplePersons() {
+        return new Person[] {
+            new Client(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                    new Address("Blk 30 Geylang Street 29, #06-40"),
+                    getTagSet("premium")),
+            new Client(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+                    new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                    getTagSet("premium", "insurance")),
+            new Client(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+                    new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                    getTagSet("temporary")),
+            new Client(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+                    new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                    getTagSet("premium")),
+        };
+    }
+
     public static Pet[] getSamplePets() {
         return new Pet[] {
             new Pet(new PetName("Tweety"), new PetAge("2"), new PetGender("M"), getTagSet("Bird")),
