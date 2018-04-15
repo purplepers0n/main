@@ -51,7 +51,7 @@ public class RescheduleCommand extends UndoableCommand {
         } catch (DuplicateAppointmentException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         } catch (AppointmentNotFoundException anfe) {
-            throw new AssertionError("The target appointment cannot be missing");
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
 
@@ -227,12 +227,12 @@ public class ScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_SUGGESTION_TIME = "You may delay the appointment for: ";
     public static final String MESSAGE_CLOSE_APPOINTMENT_NEXT = "The later appointment is within the duration "
             + "of the new appointment.\n";
+    public static final String MESSAGE_CANNOT_SCHEDULE_AT_THIS_TIME = "The new appointment is within"
+            + " the duration of another appointment, you need at least 15 minutes for an appointment\n";
     public static final String MESSAGE_SUGGESTION_DURATION = "This appointment can last at most: ";
     private static final String MINUTE_SUFFIX = " minutes";
     private static final int MINIMUM_INTERVAL = 1440;
     private static final int CORRECT_DURATION = 120;
-    private static final int CONVERSION_TIME = 60;
-    private static final Time DEFAULT_TIME = new Time("23:59");
 
     private final Appointment toAdd;
 
@@ -246,76 +246,9 @@ public class ScheduleCommand extends UndoableCommand {
     }
 
     /**
-     * Check that there is no earlier existing appointment too close
+     * Returns an integer value of duration
      */
-    public void durationCheckPrevious(ObservableList<Appointment> existingAppointmentList)
-            throws AppointmentCloseToPreviousException {
-
-        Date newAppointmentDate = this.toAdd.getDate();
-        Time newAppointmentTime = this.toAdd.getTime();
-        int min = newAppointmentTime.getMinute();
-        int hour = newAppointmentTime.getHour();
-
-        int interval;
-        int minInterval = MINIMUM_INTERVAL;
-        int correctDuration = CORRECT_DURATION;
-
-        for (Appointment earlierAppointment : existingAppointmentList) {
-            Date earlierAppointmentDate = earlierAppointment.getDate();
-            Time earlierAppointmentTime = earlierAppointment.getTime();
-
-            if (newAppointmentDate.equals(earlierAppointmentDate)) {
-                if (earlierAppointmentTime.getHour() < hour
-                        || (earlierAppointmentTime.getHour() == hour && earlierAppointmentTime.getMinute() < min)) {
-                    interval = (hour - earlierAppointmentTime.getHour()) * CONVERSION_TIME
-                            + (min - earlierAppointmentTime.getMinute());
-                    if (interval < minInterval) {
-                        minInterval = interval;
-                        correctDuration = earlierAppointment.getDuration().getDurationValue();
-                    }
-                }
-            }
-        }
-        if (minInterval < correctDuration) {
-            throw new AppointmentCloseToPreviousException(" Appointment is too close to earlier one");
-        }
-    }
-
-    /**
-     * Check that there is no later existing appointment too close
-     */
-    public void durationCheckNext(ObservableList<Appointment> existingAppointmentList)
-            throws AppointmentCloseToNextException {
-
-        Date newAppointmentDate = this.toAdd.getDate();
-        Time newAppointmentTime = this.toAdd.getTime();
-        int min = newAppointmentTime.getMinute();
-        int hour = newAppointmentTime.getHour();
-
-        int interval;
-        int minInterval = this.toAdd.getDuration().getDurationValue();
-
-        for (Appointment laterAppointment : existingAppointmentList) {
-            Date laterAppointmentDate = laterAppointment.getDate();
-            Time laterAppointmentTime = laterAppointment.getTime();
-
-            if (newAppointmentDate.equals(laterAppointmentDate)) {
-                if (laterAppointmentTime.getHour() > hour
-                        || (laterAppointmentTime.getHour() == hour && min < laterAppointmentTime.getMinute())) {
-                    interval = (laterAppointmentTime.getHour() - hour) * CONVERSION_TIME
-                            + (laterAppointmentTime.getMinute() - min);
-                    if (interval < minInterval) {
-                        throw new AppointmentCloseToNextException(" Appointment is too close to later one");
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Returns a duration
-     */
-    public Duration getSuggestedDelayDuration(ObservableList<Appointment> existingAppointmentList,
+    public int getSuggestedDelayDuration(ObservableList<Appointment> existingAppointmentList,
                                               Appointment appointment) {
         Date newAppointmentDate = appointment.getDate();
         Time newAppointmentTime = appointment.getTime();
@@ -326,8 +259,6 @@ public class ScheduleCommand extends UndoableCommand {
         int minInterval = MINIMUM_INTERVAL;
         int correctDuration = CORRECT_DURATION;
 
-        Time previous = DEFAULT_TIME;
-
         for (Appointment earlierAppointment : existingAppointmentList) {
             Date earlierAppointmentDate = earlierAppointment.getDate();
             Time earlierAppointmentTime = earlierAppointment.getTime();
@@ -335,30 +266,26 @@ public class ScheduleCommand extends UndoableCommand {
             if (newAppointmentDate.equals(earlierAppointmentDate)) {
                 if (earlierAppointmentTime.getHour() < hour
                         || (earlierAppointmentTime.getHour() == hour && earlierAppointmentTime.getMinute() < min)) {
-                    interval = (hour - earlierAppointmentTime.getHour()) * CONVERSION_TIME
-                            + (min - earlierAppointmentTime.getMinute());
+                    interval = appointment.calDurationDifferencePositive(earlierAppointment);
                     if (interval < minInterval) {
                         minInterval = interval;
-                        correctDuration = earlierAppointment.getDuration().getDurationValue() - minInterval;
-                        previous = earlierAppointmentTime;
+                        correctDuration = calInterval(earlierAppointment.getDuration().getDurationValue(), minInterval);
                     }
                 }
             }
         }
-
-        return new Duration(correctDuration);
+        return correctDuration;
     }
 
     /**
-     * Returns a duration.
+     * Returns an integer value of duration.
      */
-    public Duration getSuggestedMaxDuration(ObservableList<Appointment> existingAppointmentList,
+    public int getSuggestedMaxDuration(ObservableList<Appointment> existingAppointmentList,
                                             Appointment appointment) {
         Date newAppointmentDate = appointment.getDate();
         Time newAppointmentTime = appointment.getTime();
         int min = newAppointmentTime.getMinute();
         int hour = newAppointmentTime.getHour();
-
         int interval;
         int minInterval = appointment.getDuration().getDurationValue();
 
@@ -369,35 +296,40 @@ public class ScheduleCommand extends UndoableCommand {
             if (newAppointmentDate.equals(laterAppointmentDate)) {
                 if (laterAppointmentTime.getHour() > hour
                         || (laterAppointmentTime.getHour() == hour && min < laterAppointmentTime.getMinute())) {
-                    interval = (laterAppointmentTime.getHour() - hour) * CONVERSION_TIME
-                            + (laterAppointmentTime.getMinute() - min);
+
+                    interval = appointment.calDurationDifferenceNegative(laterAppointment);
                     if (interval < minInterval) {
                         minInterval = interval;
                     }
                 }
             }
         }
-        return new Duration(minInterval);
+        return minInterval;
+    }
+
+    /**
+     * Return the interval between two given integer values
+     */
+    public int calInterval(int first, int second) {
+        return first - second;
     }
 
     @Override
     protected CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
         try {
-            durationCheckPrevious(model.getFilteredAppointmentList());
-            durationCheckNext(model.getFilteredAppointmentList());
             model.scheduleAppointment(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateAppointmentException e1) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         } catch (AppointmentCloseToPreviousException e2) {
-            Duration suggestedDelayDuration = getSuggestedDelayDuration(model.getFilteredAppointmentList(), toAdd);
+            int suggestedDelayDuration = getSuggestedDelayDuration(model.getFilteredAppointmentList(), toAdd);
             throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_PREVIOUS + MESSAGE_SUGGESTION_TIME
-                    + suggestedDelayDuration.toString() + MINUTE_SUFFIX);
+                    + Integer.toString(suggestedDelayDuration) + MINUTE_SUFFIX);
         } catch (AppointmentCloseToNextException e3) {
-            Duration suggestedMaxDuration = getSuggestedMaxDuration(model.getFilteredAppointmentList(), toAdd);
+            int suggestedMaxDuration = getSuggestedMaxDuration(model.getFilteredAppointmentList(), toAdd);
             throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_NEXT + MESSAGE_SUGGESTION_DURATION
-                    + suggestedMaxDuration.toString() + MINUTE_SUFFIX);
+                        + Integer.toString(suggestedMaxDuration) + MINUTE_SUFFIX);
         }
     }
 
@@ -410,6 +342,219 @@ public class ScheduleCommand extends UndoableCommand {
 
 }
 ```
+###### \java\seedu\address\logic\parser\ParserUtil.java
+``` java
+    /**
+     * Parses a {@code String date} into a {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws IllegalValueException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new IllegalValueException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        if (!Date.isValidYear(Date.getYear(trimmedDate))) {
+            throw new IllegalValueException(Date.MESSAGE_YEAR_CONSTRAINTS);
+        }
+        if (!Date.isValidDaysInMonth(trimmedDate)) {
+            throw new IllegalValueException(Date.MESSAGE_DAYINMONTH_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code Optional<String> date} into an {@code Optional<Date>} if {@code date} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Date> parseDate(Optional<String> date) throws IllegalValueException {
+        requireNonNull(date);
+        return date.isPresent() ? Optional.of(parseDate(date.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code Time}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code time} is invalid.
+     */
+    public static Time parseTime(String time) throws IllegalValueException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new IllegalValueException(Time.MESSAGE_TIME_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code Optional<String> time} into an {@code Optional<Time>} if {@code time} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Time> parseTime(Optional<String> time) throws IllegalValueException {
+        requireNonNull(time);
+        return time.isPresent() ? Optional.of(parseTime(time.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String duration} into a {@code Duration}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code duration} is invalid.
+     */
+    public static Duration parseDuration(String duration) throws IllegalValueException {
+        requireNonNull(duration);
+        String trimmedDuration = duration.trim();
+        if (!Duration.isValidDuration(trimmedDuration)) {
+            throw new IllegalValueException(Duration.MESSAGE_DURATION_CONSTRAINTS);
+        }
+        return new Duration(trimmedDuration);
+    }
+
+    /**
+     * Parses a {@code Optional<String> duration} into an {@code Optional<Duration>} if {@code duration} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Duration> parseDuration(Optional<String> duration) throws IllegalValueException {
+        requireNonNull(duration);
+        return duration.isPresent() ? Optional.of(parseDuration(duration.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}
+     * leading and trailing whitespaces will be trimmed.
+     */
+    public static Description parseDescription(String description) throws IllegalValueException {
+        requireNonNull(description);
+        return new Description(description.trim());
+    }
+
+    /**
+     * Parses a {@code Optional<String> description} into an {@code Optional<Description>}
+     * if {@code description} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Description> parseDescription(Optional<String> description) throws IllegalValueException {
+        requireNonNull(description);
+        return description.isPresent() ? Optional.of(parseDescription(description.get())) : Optional.empty();
+    }
+```
+###### \java\seedu\address\logic\parser\RescheduleCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new EditCommand object
+ */
+public class RescheduleCommandParser implements Parser<RescheduleCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the RescheduleCommand
+     * and returns an RescheduleCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public RescheduleCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_TIME, PREFIX_DURATION, PREFIX_DESCRIPTION);
+
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (IllegalValueException ive) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+        }
+
+        RescheduleAppointmentDescriptor descriptor = new RescheduleAppointmentDescriptor();
+        try {
+            ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE)).ifPresent(descriptor::setDate);
+            ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME)).ifPresent(descriptor::setTime);
+            ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION)).ifPresent(descriptor::setDuration);
+            ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION)).ifPresent(descriptor::setDescription);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(ive.getMessage(), ive);
+        }
+
+        if (!descriptor.isAnyFieldEdited()) {
+            throw new ParseException(RescheduleCommand.MESSAGE_NOT_RESCHEDULED);
+        }
+
+        return new RescheduleCommand(index, descriptor);
+    }
+
+}
+```
+###### \java\seedu\address\logic\parser\ScheduleCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new {@code ScheduleCommand} object
+ */
+public class ScheduleCommandParser implements Parser<ScheduleCommand> {
+    /**
+     * Parses the given {@code String} of arguments in the context of the {@code ScheduleCommand}
+     * and returns a {@code ScheduleCommand} object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public ScheduleCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_TIME,
+                PREFIX_DURATION, PREFIX_DESCRIPTION);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_TIME, PREFIX_DURATION, PREFIX_DESCRIPTION)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+        }
+        try {
+            Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE)).get();
+            Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME)).get();
+            Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
+            Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+            Appointment appointment = new Appointment(date, time, duration, description);
+
+            return new ScheduleCommand(appointment);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(ive.getMessage(), ive);
+        }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+}
+```
+###### \java\seedu\address\model\AddressBook.java
+``` java
+    /**
+     * Schedule an appointment to the address book.
+     *
+     * @throws DuplicateAppointmentException if an equivalent person already exists.
+     */
+    public void scheduleAppointment(Appointment a) throws DuplicateAppointmentException,
+            AppointmentCloseToPreviousException, AppointmentCloseToNextException {
+        appointments.add(a);
+        appointments.sort();
+    }
+
+    /**
+     * Replaces the given appointment {@code target} in the list with {@code rescheduleAppointment}.
+     *
+     * @throws DuplicateAppointmentException if updating the appointment's details causes this appointment to clash with
+     *      another existing appointment in the list.
+     * @throws AppointmentNotFoundException if {@code target} could not be found in the list.
+     *
+     */
+    public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
+            throws DuplicateAppointmentException, AppointmentNotFoundException {
+        requireNonNull(rescheduleAppointment);
+
+        appointments.setAppointment(target, rescheduleAppointment);
+    }
+```
 ###### \java\seedu\address\model\appointment\Appointment.java
 ``` java
 /**
@@ -418,6 +563,7 @@ public class ScheduleCommand extends UndoableCommand {
  */
 public class Appointment {
 
+    private static final int CONVERSION_TIME = 60;
     private final Date date;
     private final Time time;
     private final Duration duration;
@@ -493,6 +639,40 @@ public class Appointment {
 
     public void removeVetTech() {
         vetTech = Optional.empty();
+    }
+
+    /**
+     * Returns the interval in minutes between two appointments
+     */
+    public int calDurationDifferencePositive(Appointment previous) {
+        Time previousTime = previous.getTime();
+
+        return hourDifference(this.time.getHour(), previousTime.getHour())
+                + minDifference(this.time.getMinute(), previousTime.getMinute());
+    }
+
+    /**
+     * Returns the interval in minutes between two appointments
+     */
+    public int calDurationDifferenceNegative(Appointment next) {
+        Time nextTime = next.getTime();
+
+        return hourDifference(nextTime.getHour(), this.time.getHour())
+                + minDifference(nextTime.getMinute(), this.time.getMinute());
+    }
+
+    /**
+     * Returns the difference in Hour of time between two appointments
+     */
+    public int hourDifference(int hourFirst, int hourSecond) {
+        return Math.abs((hourFirst - hourSecond) * CONVERSION_TIME);
+    }
+
+    /**
+     * Returns the difference in Minute of time between two appointments
+     */
+    public int minDifference(int minFirst, int minSecond) {
+        return minFirst - minSecond;
     }
 
     @Override
@@ -733,9 +913,11 @@ public class Duration {
         this.duration = duration;
     }
 
-    public Duration(int duration) {
+    public Duration(int duration) throws AppointmentCloseToNextException {
         String durationString = "" + duration;
-        checkArgument(isValidDuration(durationString), MESSAGE_DURATION_CONSTRAINTS);
+        if (!isValidDuration(durationString)) {
+            throw new AppointmentCloseToNextException("Appointment cannot be scheduled at this duration");
+        }
         this.duration = durationString;
     }
 
@@ -921,7 +1103,12 @@ public class Time {
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueAppointmentList implements Iterable<Appointment> {
+    public static final String MESSAGE_DURATION_PREVIOUS = " Appointment is too close to previous one.";
+    public static final String MESSAGE_DURATION_NEXT = " Appointment is too close to next one.";
+    private static final int MINIMUM_INTERVAL = 1440;
     private final ObservableList<Appointment> internalList = FXCollections.observableArrayList();
+    private Appointment previous;
+    private Appointment next;
 
     /**
      * Returns true if the list contains an appointment with the same date and time as the given argument.
@@ -937,10 +1124,17 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
      * @throws DuplicateAppointmentException if the appointment to add is a duplicate(same date and time)
      * of an existing appointment in the list.
      */
-    public void add(Appointment toAdd) throws DuplicateAppointmentException {
+    public void add(Appointment toAdd) throws DuplicateAppointmentException,
+        AppointmentCloseToPreviousException, AppointmentCloseToNextException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateAppointmentException();
+        }
+        if (hasDurationClosePrevious(toAdd)) {
+            throw new AppointmentCloseToPreviousException(MESSAGE_DURATION_PREVIOUS);
+        }
+        if (hasDurationCloseNext(toAdd)) {
+            throw new AppointmentCloseToNextException(MESSAGE_DURATION_NEXT);
         }
         internalList.add(toAdd);
     }
@@ -960,7 +1154,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
             throw new AppointmentNotFoundException();
         }
         if (!target.equals(editedAppointment) && internalList.contains(editedAppointment)) {
-            throw new AppointmentNotFoundException();
+            throw new DuplicateAppointmentException();
         }
         internalList.set(index, editedAppointment);
     }
@@ -983,7 +1177,8 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setAppointments(List<Appointment> appointments) throws DuplicateAppointmentException {
+    public void setAppointments(List<Appointment> appointments) throws DuplicateAppointmentException,
+            AppointmentCloseToPreviousException, AppointmentCloseToNextException {
         requireAllNonNull(appointments);
         final UniqueAppointmentList replacement = new UniqueAppointmentList();
         for (final Appointment appointment : appointments) {
@@ -992,4 +1187,161 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         setAppointments(replacement);
     }
 
+```
+###### \java\seedu\address\model\ModelManager.java
+``` java
+    @Override
+    public synchronized void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException,
+            AppointmentCloseToPreviousException, AppointmentCloseToNextException {
+        addressBook.scheduleAppointment(appointment);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
+        indicateAddressBookChanged();
+    }
+
+```
+###### \java\seedu\address\model\ModelManager.java
+``` java
+    @Override
+    public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
+            throws DuplicateAppointmentException, AppointmentNotFoundException {
+        requireAllNonNull(target, rescheduleAppointment);
+        addressBook.updateAppointment(target, rescheduleAppointment);
+        indicateAddressBookChanged();
+        if (displayAppt != null && displayAppt.contains(target)) {
+            displayAppt.set(displayAppt.indexOf(target), rescheduleAppointment);
+            indicateListAllPanelChanged();
+        }
+    }
+
+```
+###### \java\seedu\address\storage\XmlAdaptedAppointment.java
+``` java
+/**
+ * JAXB-friendly version of the Appointment.
+ */
+public class XmlAdaptedAppointment {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
+
+    @XmlElement(required = true)
+    private String date;
+    @XmlElement(required = true)
+    private String time;
+    @XmlElement(required = true)
+    private String duration;
+    @XmlElement(required = true)
+    private String description;
+    @XmlElement(required = true)
+    private XmlAdaptedClientOwnPet association;
+    @XmlElement(required = true)
+    private XmlAdaptedPerson vetTech;
+
+    /**
+     * Constructs an XmlAdaptedAppointment.
+     * This is the no-arg constructor that is required by JAXB.
+     */
+    public XmlAdaptedAppointment() {}
+
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     */
+    public XmlAdaptedAppointment(String date, String time, String duration, String description) {
+        this.date = date;
+        this.time = time;
+        this.duration = duration;
+        this.description = description;
+    }
+
+    /**
+     * Converts a given Appointment into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedAppointment
+     */
+    public XmlAdaptedAppointment(Appointment source) {
+        date = source.getDate().toString();
+        time = source.getTime().toString();
+        duration = source.getDuration().toString();
+        description = source.getDescription().toString();
+        if (source.getClientOwnPet() != null) {
+            association = new XmlAdaptedClientOwnPet(source.getClientOwnPet());
+        }
+        if (source.getVetTechnician() != null) {
+            vetTech = new XmlAdaptedPerson(source.getVetTechnician());
+        }
+    }
+
+    /**
+     * Converts this jaxb-friendly adapted appointment object into the model's Appointment object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted appointment
+     */
+    public Appointment toModelType() throws IllegalValueException {
+
+        Appointment convertedAppointment;
+
+        if (this.date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+        }
+        if (!Date.isValidDate(this.date)) {
+            throw new IllegalValueException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        final Date date = new Date(this.date);
+
+        if (this.time == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+        }
+        if (!Time.isValidTime(this.time)) {
+            throw new IllegalValueException(Time.MESSAGE_TIME_CONSTRAINTS);
+        }
+        final Time time = new Time(this.time);
+
+        if (this.duration == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Duration.class.getSimpleName()));
+        }
+        if (!Duration.isValidDuration(this.duration)) {
+            throw new IllegalValueException(Duration.MESSAGE_DURATION_CONSTRAINTS);
+        }
+        final Duration duration = new Duration(this.duration);
+
+        if (this.description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
+        }
+        if (!Description.isValidDescription(this.description)) {
+            throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+        }
+        final Description description = new Description(this.description);
+
+        convertedAppointment = new Appointment(date, time, duration, description);
+
+        if (this.association != null) {
+            ClientOwnPet cop = association.toModelType();
+            convertedAppointment.setClientOwnPet(cop);
+        }
+
+        if (this.vetTech != null) {
+            VetTechnician vetTech = (VetTechnician) this.vetTech.toModelType();
+            convertedAppointment.setVetTech(vetTech);
+        }
+
+        return convertedAppointment;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedAppointment)) {
+            return false;
+        }
+
+        XmlAdaptedAppointment otherAppointment = (XmlAdaptedAppointment) other;
+        return Objects.equals(date, otherAppointment.date)
+                && Objects.equals(time, otherAppointment.time);
+
+    }
+}
 ```
