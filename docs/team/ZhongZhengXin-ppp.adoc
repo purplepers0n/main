@@ -6,31 +6,27 @@
 
 == Overview
 
-VetterAppointments is a desktop based application developed from an addressbook application. It is specially designed
-for vets to facilitate the process of scheduling appointments as well as managing important data such as clients, pets, appointments and staff. +
+VetterAppointments is a desktop based application developed from an addressbook application. It is specially designed for vets to facilitate the process of scheduling appointments as well as managing essential data such as clients, pets, meetings and, staff. +
 
-The user interacts with the program by typing words through a Command Line Interface (CLI). The result of each interaction will
-be shown right below where you type. The Graphical User Interface(GUI) neatly displays all important information to the user. +
+The user interacts with the program by typing words through a Command Line Interface (CLI). The result of each interaction will be shown right below where you type. The Graphical User Interface(GUI) neatly displays all critical information to the user. +
 
-VetterAppointments is written by java for about 20K line of code and its GUI is built using JavaFX. +
+VetterAppointments is written in java for about 20K line of code, and its GUI is built using JavaFX. +
 
 == Summary of contributions
 
 * *Major Enhancement*: Add `schedule` and `reschedule` command.
 
 ** Overview: +
-Both commands require similar parameters such as date, time, duration and description. The difference is that `schedule`
-command requires all parameters presented bt the vet while `reschedule` command only needs at least one of them
+Both commands require similar parameters such as date, time, duration and description. The difference is that schedule command requires all parameters presented while rescheduling command only needs at least one of them.
 
 ** Justification: +
-The enhancements complement one of the major functionality of Vetterappointments which is to schedule appointments.
+The enhancements complement one of the significant functionality of Vetterappointments which is to schedule appointments.
 
 ** Highlights: +
 Appointment associates with date, time, duration and description in aggregation. The benefit is that all the component class
 still survives even when an appointment is deleted.
 
-* *Minor Enhancements*:Add support to detect appointment clashes, invalid duration and prompt suggestions for a valid duration.
-
+* *Minor Enhancements*:Add support to detect appointment clashes, invalid duration and show suggestions for a valid length.
 * *Code Contribution*: +
 ** [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/functional/Godxin-functional.md[Functional code]]
  [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/test/Godxin-test.md[Test code]]
@@ -38,6 +34,7 @@ still survives even when an appointment is deleted.
 * *Other contributions:* +
 ** Project management:
 *** Uploaded the jar file for releases `v1.4` on GitHub
+*** Managed the releases of `v1.5rc` on GitHub
 ** Feature:
 *** Created client class (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/31[#31])
 *** Modified appointment class with more exceptions (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/61[#61]
