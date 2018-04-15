@@ -914,7 +914,12 @@ public class Description {
         addressBook.unscheduleAppointment(appointment);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
         indicateAddressBookChanged();
+        if (displayAppt != null && displayAppt.contains(appointment)) {
+            displayAppt.remove(appointment);
+            indicateListAllPanelChanged();
+        }
     }
+
 ```
 ###### \java\seedu\address\model\ModelManager.java
 ``` java
@@ -937,6 +942,7 @@ public class Description {
     public synchronized void deletePet(Pet target) throws PetNotFoundException, ClientPetAssociationNotFoundException {
         addressBook.removePet(target);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 ```
 ###### \java\seedu\address\model\ModelManager.java
@@ -954,6 +960,7 @@ public class Description {
         requireAllNonNull(appointment, pet);
         addressBook.addAppointmentToPet(appointment, pet);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 
     @Override
@@ -962,6 +969,7 @@ public class Description {
         requireNonNull(appointment);
         addressBook.removeAppointmentFromPet(appointment);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 ```
 ###### \java\seedu\address\model\ModelManager.java

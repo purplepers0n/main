@@ -120,6 +120,23 @@ public class ListAllCommand extends Command {
     public ObservableList<Appointment> getClientApptList() {
         return displayAppt;
     }
+
+    /**
+     * Clears the list all panel
+     */
+    private void clearListAllPanel() {
+        displayClient = null;
+        displayPet = null;
+        displayAppt = null;
+        indicateListAllPanelChanged();
+    }
+
+    /**
+     * Updates the list all panel for UI
+     */
+    private void indicateListAllPanelChanged() {
+        raise(new NewListAllDisplayAvailableEvent(null));
+    }
 }
 ```
 ###### \java\seedu\address\ui\ApptCard.java
@@ -157,14 +174,14 @@ public class ApptCard extends UiPart<Region> {
         getTimeFrame(startTime, appointment.getDuration().toString());
         time.setText(startTime + " - " + endTime);
         if (appointment.getClientOwnPet() == null) {
-            clientName.setText("Client: ");
-            petName.setText("Pet: ");
+            clientName.setText("Client: -");
+            petName.setText("Pet: -");
         } else {
             clientName.setText("Client: " + appointment.getClientOwnPet().getClient().getName().fullName);
             petName.setText("Pet: " + appointment.getClientOwnPet().getPet().getPetName().fullPetName);
         }
         if (appointment.getVetTechnician() == null) {
-            vetTechName.setText("V.Tech: ");
+            vetTechName.setText("V.Tech: -");
         } else {
             vetTechName.setText("V.Tech: " + appointment.getVetTechnician().getName().fullName);
         }
@@ -329,24 +346,6 @@ public class ApptListPanel extends UiPart<Region> {
     }
 
     /**
-     * Scrolls to the {@code ClientCard} at the {@code index} and selects it.
-     */
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            apptListView.scrollTo(index);
-            apptListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.targetList == 0) {
-            scrollTo(event.targetIndex);
-        }
-    }
-
-    /**
      * Custom {@code ListCell} that displays the graphics of a {@code ApptDayPanelCard}.
      */
     class ApptListViewCell extends ListCell<ApptDayPanelCard> {
@@ -450,7 +449,7 @@ public class DateTimeCard extends UiPart<Region> {
                     logic.getClientPetList(), logic.getClientApptList());
             listAllPanelPlaceholder.getChildren().add(listAllPanel.getRoot());
         } else {
-            listAllPanelPlaceholder.getChildren().removeAll(listAllPanel.getRoot());
+            listAllPanelPlaceholder.getChildren().remove(0, listAllPanelPlaceholder.getChildren().size());
         }
     }
 ```
@@ -525,9 +524,10 @@ public class DateTimeCard extends UiPart<Region> {
 ```
 ###### \resources\view\ApptDayPanelCard.fxml
 ``` fxml
+
 <VBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="dateDisplay" text="\$date" minWidth="685" maxWidth="1000"/>
-    <ListView fx:id="apptDayListView" styleClass="apptDayPanel" prefWidth="650" prefHeight="120" orientation="HORIZONTAL" VBox.vgrow="ALWAYS"/>
+    <Label fx:id="dateDisplay" maxWidth="1.7976931348623157E308" minWidth="685" text="\$date" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="apptDayListView" orientation="HORIZONTAL" prefHeight="120" prefWidth="650" styleClass="apptDayPanel" VBox.vgrow="ALWAYS" />
 </VBox>
 ```
 ###### \resources\view\ApptListPanel.fxml
@@ -535,6 +535,177 @@ public class DateTimeCard extends UiPart<Region> {
 <VBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
     <ListView fx:id="apptListView" styleClass="apptList" VBox.vgrow="ALWAYS"/>
 </VBox>
+```
+###### \resources\view\DarkTheme.css
+``` css
+.tab-pane {
+    -fx-padding: 0 0 0 1;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab {
+    -fx-background-color: #515658;
+}
+
+.tab:selected {
+    -fx-background-color: #3c3e3f;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+#tab-pane-list {
+    -fx-font-size: 12pt;
+    -fx-font-family: Helvetica;
+    -fx-base: #141414;
+    -fx-border-color: null;
+}
+```
+###### \resources\view\DarkTheme.css
+``` css
+#tags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#tags .label {
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+#tags .red {
+    -fx-text-fill: #4F0810;
+    -fx-background-color: #E57373;
+}
+
+#tags .yellow {
+     -fx-text-fill: #542702;
+     -fx-background-color: #FFF176;
+}
+
+#tags .blue {
+    -fx-text-fill: #0E304C;
+    -fx-background-color: #4D9DE0;
+}
+
+#tags .orange {
+     -fx-text-fill: #381502;
+     -fx-background-color: #F26419;
+}
+
+#tags .green {
+     -fx-text-fill: #0F1E00;
+     -fx-background-color: #97CC04;
+}
+
+#tags .pink {
+     -fx-text-fill: #70112C;
+     -fx-background-color: #F7628C;
+}
+
+#tags .navy {
+     -fx-text-fill: #FFF8F0;
+     -fx-background-color: #003366;
+}
+
+#tags .teal {
+     -fx-text-fill: #082B2B;
+     -fx-background-color: #3DBFBF;
+}
+
+#tags .purple {
+     -fx-text-fill: #FFF8F0;
+     -fx-background-color: #8C3678;
+}
+
+#tags .peach {
+     -fx-text-fill: #3D2B21;
+     -fx-background-color: #FFCF9C;
+}
+
+#tags .lightblue {
+     -fx-text-fill: #10334C;
+     -fx-background-color: #8EC8F2;
+}
+
+#tags .darkpurple {
+     -fx-text-fill: #E2D3DD;
+     -fx-background-color: #2B061E;
+}
+
+#tags .green2 {
+     -fx-text-fill: #DEF7E8;
+     -fx-background-color: #23CE6B;
+}
+
+#tags .white {
+     -fx-text-fill: #222223;
+     -fx-background-color: #F6F8FF;
+}
+
+#tags .wine {
+     -fx-text-fill: #DDBABB;
+     -fx-background-color: #400406;
+}
+
+#tags .fuchsia {
+     -fx-text-fill: #440E3B;
+     -fx-background-color: #C45AB3;
+}
+
+#tags .sea {
+     -fx-text-fill: #CDF2F4;
+     -fx-background-color: #105A5E;
+}
+
+#header-text {
+    -fx-font-family: "coolvetica rg";
+    -fx-fill: white;
+    -fx-font-size: 35px;
+}
+
+.date-time-label {
+    -fx-font-family: Helvetica;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+.apptCardPane {
+     -fx-background-color: #3c3e3f;
+     -fx-border-width: 0;
+     -fx-padding: 2px;
+     -fx-border-insets: 2px;
+     -fx-background-insets: 2px;
+}
+
+#cell_big_label_index {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 16px;
+    -fx-text-fill: #DD3535;
+}
+
+.apptList .list-cell {
+    -fx-background-color: transparent;
+}
+
+.apptDayPanel .list-cell {
+    -fx-background-color: transparent;
+}
+
+#listalllabel {
+    -fx-background-color: #6B7275;
+    -fx-padding: 0px 5px 0px 10px
+}
 ```
 ###### \resources\view\DateTimeCard.fxml
 ``` fxml
@@ -631,7 +802,7 @@ public class DateTimeCard extends UiPart<Region> {
                             </padding>
                         </StackPane>
                         <SplitPane id="splitPane" dividerPositions="0.8" VBox.vgrow="ALWAYS">
-                            <VBox id="appt-display" prefWidth="700">
+                            <VBox id="appt-display" >
                                 <StackPane VBox.vgrow="ALWAYS" fx:id="apptListPanelPlaceholder" prefWidth="700"/>
                             </VBox>
                             <VBox id="details-display" minWidth="248" prefWidth="248" maxWidth="248">

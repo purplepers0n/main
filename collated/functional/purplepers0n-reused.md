@@ -310,35 +310,6 @@ public class ClientListPanel extends UiPart<Region> {
                 clientList, (client) -> new ClientCard(client, clientList.indexOf(client) + 1));
         clientListView.setItems(mappedList);
         clientListView.setCellFactory(listView -> new ClientListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        clientListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in client list panel changed to : '" + newValue + "'");
-                        raise(new ClientPanelSelectionChangedEvent(newValue));
-                    }
-                });
-    }
-
-    /**
-     * Scrolls to the {@code ClientCard} at the {@code index} and selects it.
-     */
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            clientListView.scrollTo(index);
-            clientListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.targetList == 0) {
-            scrollTo(event.targetIndex);
-        }
     }
 
     /**
@@ -640,35 +611,6 @@ public class PetListPanel extends UiPart<Region> {
                 clientOwnPetList.indexOf(clientOwnPet) + 1));
         petListView.setItems(mappedList);
         petListView.setCellFactory(listView -> new PetListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        petListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in pet list panel changed to : '" + newValue + "'");
-                        raise(new PetPanelSelectionChangedEvent(newValue));
-                    }
-                });
-    }
-
-    /**
-     * Scrolls to the {@code PetCard} at the {@code index} and selects it.
-     */
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            petListView.scrollTo(index);
-            petListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.targetList == 1) {
-            scrollTo(event.targetIndex);
-        }
     }
 
     /**
@@ -800,35 +742,6 @@ public class VetTechnicianListPanel extends UiPart<Region> {
                         new VetTechnicianCard(vetTechnician, vetTechnicianList.indexOf(vetTechnician) + 1));
         vetTechnicianListView.setItems(mappedList);
         vetTechnicianListView.setCellFactory(listView -> new VetTechnicianListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        vetTechnicianListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in vetTechnician list panel changed to : '" + newValue + "'");
-                        raise(new VetTechnicianPanelSelectionChangedEvent(newValue));
-                    }
-                });
-    }
-
-    /**
-     * Scrolls to the {@code VetTechnicianCard} at the {@code index} and selects it.
-     */
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            vetTechnicianListView.scrollTo(index);
-            vetTechnicianListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.targetList == 2) {
-            scrollTo(event.targetIndex);
-        }
     }
 
     /**
@@ -933,6 +846,200 @@ public class VetTechnicianListPanel extends UiPart<Region> {
 <VBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
     <ListView fx:id="clientListView" prefWidth="248.0" VBox.vgrow="ALWAYS"/>
 </VBox>
+```
+###### \resources\view\DarkTheme.css
+``` css
+#red {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #EF5350;
+    -fx-font-weight: bold;
+}
+
+#yellow {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #493838;
+    -fx-background-color: #FFE900;
+    -fx-font-weight: bold;
+}
+
+#blue {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #4D9DE0;
+    -fx-font-weight: bold;
+}
+
+#orange {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #FFA726;
+    -fx-font-weight: bold;
+}
+
+#green {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #81C784;
+    -fx-font-weight: bold;
+}
+
+#pink {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #F48FB1;
+    -fx-font-weight: bold;
+}
+
+#navy {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #42A5F5;
+    -fx-font-weight: bold;
+}
+
+#teal {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #80CBC4;
+    -fx-font-weight: bold;
+}
+
+#purple {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #CE93D8;
+    -fx-font-weight: bold;
+}
+
+#peach {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #FFCF9C;
+    -fx-font-weight: bold;
+}
+
+#lightblue {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #8EC8F2;
+    -fx-font-weight: bold;
+}
+
+#darkpurple {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #AB47BC;
+    -fx-font-weight: bold;
+}
+
+#green2 {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #69F0AE;
+    -fx-font-weight: bold;
+}
+
+#wine {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #D32F2F;
+    -fx-font-weight: bold;
+}
+
+#fuchsia {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #C45AB3;
+    -fx-font-weight: bold;
+}
+
+#sea {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-padding: 2px 0px 0px 0px;
+    -fx-border-insets: 2px 0px 0px 0px;
+    -fx-background-insets: 2px 0px 0px 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFF8F0;
+    -fx-background-color: #105A5E;
+    -fx-font-weight: bold;
+}
 ```
 ###### \resources\view\PetDisplayCard.fxml
 ``` fxml
