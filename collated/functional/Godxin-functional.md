@@ -84,8 +84,13 @@ public class RescheduleCommand extends UndoableCommand {
                 appointmentToReschedule.getDuration());
         Description updatedDescription = rescheduleAppointmentDescriptor.getDescription().orElse(
                 appointmentToReschedule.getDescription());
+        ClientOwnPet updatedClientOwnPet = appointmentToReschedule.getClientOwnPet();
+        Optional<VetTechnician> updatedVetTech = appointmentToReschedule.getOptionalVetTechnician();
 
-        return new Appointment(updatedDate, updatedTime, updatedDuration, updatedDescription);
+        Appointment newAppointment = new Appointment(updatedDate, updatedTime, updatedDuration, updatedDescription);
+        newAppointment.setClientOwnPet(updatedClientOwnPet);
+        newAppointment.setOptionalVetTech(updatedVetTech);
+        return new Appointment(newAppointment);
     }
 
     @Override
@@ -480,6 +485,10 @@ public class Appointment {
 
     public void setVetTech(VetTechnician vetTech) {
         this.vetTech = Optional.of(vetTech);
+    }
+
+    public void setOptionalVetTech (Optional<VetTechnician> vetTech) {
+        this.vetTech = vetTech;
     }
 
     public void removeVetTech() {

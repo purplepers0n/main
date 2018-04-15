@@ -118,6 +118,8 @@ public class CommandParameterSyntaxHandler {
     public static final ArrayList<Prefix> ADD_VET_TECH_TO_APPT_COMMAND_PREFIXES = getListOfPrefix(PREFIX_VETTECH_INDEX,
             PREFIX_APPOINTMENT_INDEX);
 
+    public static final ArrayList<Prefix> RESCHEDULE_COMMAND_PREFIXES = getListOfPrefix(PREFIX_DATE,
+            PREFIX_TIME, PREFIX_DURATION, PREFIX_DESCRIPTION);
 
     /**
      * Returns ArrayList of prefixes from given prefixes
@@ -185,6 +187,14 @@ public class CommandParameterSyntaxHandler {
 
         case AddVetTechToAppointmentCommand.COMMAND_WORD:
             ADD_VET_TECH_TO_APPT_COMMAND_PREFIXES.forEach(prefix -> {
+                if (!input.contains(prefix.getPrefix())) {
+                    missingPrefixes.add(prefix);
+                }
+            });
+            break;
+
+        case RescheduleCommand.COMMAND_WORD:
+            RESCHEDULE_COMMAND_PREFIXES.forEach(prefix -> {
                 if (!input.contains(prefix.getPrefix())) {
                     missingPrefixes.add(prefix);
                 }
@@ -448,6 +458,7 @@ public class Trie {
         requireAllNonNull(pet, client);
         addressBook.addPetToClient(pet, client);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 
 ```
@@ -470,6 +481,7 @@ public class Trie {
         requireAllNonNull(technician, appointment);
         addressBook.addVetTechToAppointment(technician, appointment);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 
 ```
@@ -482,6 +494,7 @@ public class Trie {
         requireNonNull(apptToRemoveVetTechFrom);
         addressBook.removeVetFromAppointment(apptToRemoveVetTechFrom);
         indicateAddressBookChanged();
+        clearListAllPanel();
     }
 
     //=========== Filtered Person List Accessors =============================================================

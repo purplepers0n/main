@@ -61,6 +61,13 @@ public class CommandParameterSyntaxHandlerTest {
         assertEquals(result, handler.ADD_VET_TECH_TO_APPT_COMMAND_PREFIXES);
     }
 
+    @Test
+    public void getMissingPrefix_rescheduleAppointmentCommand_allPrefixMissing() {
+        ArrayList<Prefix> result = handler.getMissingPrefixes(RescheduleCommand.COMMAND_WORD,
+                RescheduleCommand.COMMAND_WORD);
+        assertEquals(result, handler.RESCHEDULE_COMMAND_PREFIXES);
+    }
+
 }
 ```
 ###### \java\seedu\address\logic\commands\AddCommandTest.java
