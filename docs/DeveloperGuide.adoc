@@ -1236,7 +1236,7 @@ date and time can be scheduled to help the vet maintain appropriate appointment 
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new vet |see usage instructions |refer to instructions when I forget how to use the App
