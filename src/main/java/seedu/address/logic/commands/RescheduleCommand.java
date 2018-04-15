@@ -76,7 +76,7 @@ public class RescheduleCommand extends UndoableCommand {
         } catch (DuplicateAppointmentException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         } catch (AppointmentNotFoundException anfe) {
-            throw new AssertionError("The target appointment cannot be missing");
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
 

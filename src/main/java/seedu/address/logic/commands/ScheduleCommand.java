@@ -44,6 +44,8 @@ public class ScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_SUGGESTION_TIME = "You may delay the appointment for: ";
     public static final String MESSAGE_CLOSE_APPOINTMENT_NEXT = "The later appointment is within the duration "
             + "of the new appointment.\n";
+    public static final String MESSAGE_CANNOT_SCHEDULE_AT_THIS_TIME = "The new appointment is within"
+            + " the duration of another appointment, you need at least 15 minutes for an appointment\n";
     public static final String MESSAGE_SUGGESTION_DURATION = "This appointment can last at most: ";
     private static final String MINUTE_SUFFIX = " minutes";
     private static final int MINIMUM_INTERVAL = 1440;
@@ -133,7 +135,7 @@ public class ScheduleCommand extends UndoableCommand {
      * Returns a duration
      */
     public Duration getSuggestedDelayDuration(ObservableList<Appointment> existingAppointmentList,
-                                              Appointment appointment) {
+                                              Appointment appointment) throws AppointmentCloseToNextException {
         Date newAppointmentDate = appointment.getDate();
         Time newAppointmentTime = appointment.getTime();
         int min = newAppointmentTime.getMinute();
@@ -170,7 +172,7 @@ public class ScheduleCommand extends UndoableCommand {
      * Returns a duration.
      */
     public Duration getSuggestedMaxDuration(ObservableList<Appointment> existingAppointmentList,
-                                            Appointment appointment) {
+                                            Appointment appointment) throws AppointmentCloseToNextException {
         Date newAppointmentDate = appointment.getDate();
         Time newAppointmentTime = appointment.getTime();
         int min = newAppointmentTime.getMinute();
@@ -208,11 +210,21 @@ public class ScheduleCommand extends UndoableCommand {
         } catch (DuplicateAppointmentException e1) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         } catch (AppointmentCloseToPreviousException e2) {
-            Duration suggestedDelayDuration = getSuggestedDelayDuration(model.getFilteredAppointmentList(), toAdd);
+            Duration suggestedDelayDuration = null;
+            try {
+                suggestedDelayDuration = getSuggestedDelayDuration(model.getFilteredAppointmentList(), toAdd);
+            } catch (AppointmentCloseToNextException apptNotEnoughTime) {
+                throw new CommandException(MESSAGE_CANNOT_SCHEDULE_AT_THIS_TIME);
+            }
             throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_PREVIOUS + MESSAGE_SUGGESTION_TIME
                     + suggestedDelayDuration.toString() + MINUTE_SUFFIX);
         } catch (AppointmentCloseToNextException e3) {
-            Duration suggestedMaxDuration = getSuggestedMaxDuration(model.getFilteredAppointmentList(), toAdd);
+            Duration suggestedMaxDuration = null;
+            try {
+                suggestedMaxDuration = getSuggestedMaxDuration(model.getFilteredAppointmentList(), toAdd);
+            } catch (AppointmentCloseToNextException apptNotEnoughTime) {
+                throw new CommandException(MESSAGE_CANNOT_SCHEDULE_AT_THIS_TIME);
+            }
             throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_NEXT + MESSAGE_SUGGESTION_DURATION
                     + suggestedMaxDuration.toString() + MINUTE_SUFFIX);
         }

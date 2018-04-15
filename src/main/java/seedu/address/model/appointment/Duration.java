@@ -3,6 +3,8 @@ package seedu.address.model.appointment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
+
 //@@author Godxin-functional
 /**
  * Represents an Appointment's duration in the application.
@@ -33,9 +35,11 @@ public class Duration {
         this.duration = duration;
     }
 
-    public Duration(int duration) {
+    public Duration(int duration) throws AppointmentCloseToNextException {
         String durationString = "" + duration;
-        checkArgument(isValidDuration(durationString), MESSAGE_DURATION_CONSTRAINTS);
+        if (!isValidDuration(durationString)) {
+            throw new AppointmentCloseToNextException("Appointment cannot be scheduled at this duration");
+        }
         this.duration = durationString;
     }
 
