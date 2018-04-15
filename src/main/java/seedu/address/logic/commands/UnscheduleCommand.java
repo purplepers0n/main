@@ -9,6 +9,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 
@@ -45,6 +47,10 @@ public class UnscheduleCommand extends UndoableCommand {
             throw new AssertionError("The target cannot be missing.");
         } catch (AppointmentListIsEmptyException e) {
             throw new AssertionError("Appointment cannot be missing");
+        } catch (AppointmentCloseToPreviousException ape) {
+            throw new AssertionError("New appointment is too close to the previous one");
+        } catch (AppointmentCloseToNextException ape) {
+            throw new AssertionError("New appointment is too close to the next one");
         }
         return new CommandResult(String.format(MESSAGE_UNSCHEDULE_APPOINTMENT_SUCCESS, appointmentToDelete));
     }

@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
 import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
@@ -125,13 +127,15 @@ public interface Model {
     /**
      * Schedule the given appointment according to date and time
      */
-    void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException;
+    void scheduleAppointment(Appointment appointment) throws
+            DuplicateAppointmentException, AppointmentCloseToPreviousException, AppointmentCloseToNextException;
 
     /**
      * Unschedule the given appointment according to index
      */
     void unscheduleAppointment(Appointment appointment) throws
-            AppointmentListIsEmptyException, AppointmentNotFoundException;
+            AppointmentListIsEmptyException, AppointmentNotFoundException,
+            AppointmentCloseToPreviousException, AppointmentCloseToNextException;
 
     /**
      * Reschedules the given appointment {@code target} with {@code rescheduledPerson}.
