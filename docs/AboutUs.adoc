@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Weng Wen Jie Jonathan
 image::jonathanwj.jpg[width="150", align="left"]
 Studies computer science and passionate about Networks. Loves working on the backend +
-{empty}[https://jonathanwj.github.io/portfolio/[Home Page]] [https://github.com/jonathanwj[GitHub]] [<<JonathanWeng#, Porfolio>>] +
+{empty}[https://jonathanwj.github.io/portfolio/[Home Page]] [https://github.com/jonathanwj[GitHub]] [<<JonathanWeng#, Portfolio>>] +
 Role: Team Lead, Scheduling & Tracking +
 Responsibilities: Logic component
 
@@ -22,7 +22,7 @@ Responsibilities: Logic component
 image::md-azsa.jpg[width="150", align="left"]
 Studies computer science and highly interested in Information Security. +
 {empty}[http://www.comp.nus.edu.sg/~azharham[Home Page]]  [http://github.com/md-azsa[GitHub]]
-[<<md-azhar-ppp#, Porfolio>>] +
+[<<md-azhar-ppp#, Portfolio>>] +
 Role: Documentation, Deliverables & Deadlines, Integration  +
 Responsibilities: Model component
 
@@ -32,7 +32,7 @@ Responsibilities: Model component
 image::purplepers0n.jpg[width="150", align="left"]
 Studies computer science and obsessed with UI/UX, Multimedia, Information Retrieval and anything graphics related. +
 {empty}[http://github.com/purplepers0n[GitHub]]
-[<<ChooWenXin#, Porfolio>>] +
+[<<ChooWenXin#, Portfolio>>] +
 Role: Code Quality, Integration, Documentation +
 Responsibilities: UI component
 
@@ -41,7 +41,7 @@ Responsibilities: UI component
 === Zhong Zheng Xin
 image::Godxin.jpg[width="150", align="left"]
 Studies computer science and has strong interest in cyber security in general. +
-{empty}[http://github.com/Godxin[GitHub]][<<ZhongZhengXin-ppp#, Porfolio>>] +
+{empty}[http://github.com/Godxin[GitHub]][<<ZhongZhengXin-ppp#, Portfolio>>] +
 
 Role: Testing, Integration, Deliverables & Deadlines +
 Responsibilities: Storage component

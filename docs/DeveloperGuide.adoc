@@ -44,7 +44,7 @@ IntelliJ has Gradle and JavaFx plugins installed by default. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
-=== Setting up the project in your computer
+=== Setting up the project on your computer
 
 Follow the steps below to set up the VetterAppointments project in your computer:
 
@@ -235,7 +235,7 @@ image::DeletePersonSdForLogic.png[width="800", caption="Figure 3-8. "]
 
 The model component allows for the management of data in VetterAppointments. It controls the flow of the data and how the data is contained within the application.
 
-The diagram below (Figure 3-9) represents the structure of the `Model` componenet in VetterAppointments.
+The diagram below (Figure 3-9) represents the structure of the `Model` component in VetterAppointments.
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800", caption="Figure 3-9. "]
@@ -256,7 +256,7 @@ The `Model` component:
 
 The storage component controls the storage of data in VetterAppointments. It enable the application to safely read and write data on the user's computer.
 
-The diagram below (Figure 3-10) represents the structure of the `Storage` componenet in VetterAppointments.
+The diagram below (Figure 3-10) represents the structure of the `Storage` component in VetterAppointments.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800", caption="Figure 3-10. "]
@@ -693,7 +693,7 @@ The diagrams figure 4-12 below shows the class diagram for date and time. +
 .Date and Time Class Diagram Snippets
 image::AppointmentClassDemo.png[width="500", caption="Figure 4-12. "]
 
-The methods to check for for a valid date are implemented this ways:
+The methods to check for a valid date are implemented this ways:
 
 * check for format
 
@@ -855,11 +855,11 @@ Aggregation also helps to reduce class coupling.
 
 ==== Aspect: Implementation of date and time classes
 * ** Alternative 1: **(current choice) Use self defined classes
-** Pros: You have the full knowledge of the implementation of the methods and characteristic of attributes. As a result, you can customize the class to make it answer quries more efficiently.
+** Pros: You have the full knowledge of the implementation of the methods and characteristic of attributes. As a result, you can customize the class to make it answer queries more efficiently.
 ** Cons: It is easier to make mistake when implementing the methods.
 * ** Alternative 2: ** Use java class library
 ** Pros: It is very simple to use. You only care about the functions rather than the implementation.
-** Cons: The lack of the knowledge about implementation make the debugging hardr. In addition, you may need to create extra methods in order to perform certain functions that are not defined in the class.
+** Cons: The lack of the knowledge about implementation make the debugging harder. In addition, you may need to create extra methods in order to perform certain functions that are not defined in the class.
 // end::scheduleappt[]
 
 // tag::entitymodel[]
@@ -867,7 +867,7 @@ Aggregation also helps to reduce class coupling.
 
 ==== Reasons for implementation
 
-VetterAppointments requires to manage clients, vet technicians, pets and appointments in the application. An implementation of these objects are required for the application to be able to process the data.
+VetterAppointments requires to manage clients, vet technicians, pets and appointments in the application. An implementation of these objects is required for the application to be able to process the data.
 
 ==== Current implementation
 
@@ -884,7 +884,7 @@ As seen from figure 4-17 VetTechnician` and `Client` are sub classes of the `Per
 
 ===== Aspect: Implementation of entity data model
 
-* **Alternative 1 (current choice):** Only couple entity if necessary
+* **Alternative 1 (current choice):** Only couple entities if necessary
 ** Pros: Low coupling. Classes will have lesser dependency between entities.
 ** Cons: New developers will need to thoroughly understand the class interactions.
 * **Alternative 2:** Couple all entities.
@@ -897,13 +897,13 @@ As seen from figure 4-17 VetTechnician` and `Client` are sub classes of the `Per
 
 ==== Reasons for implementation
 
-The autocomplete feature will allow vets to type their commands quicker as some of the commands require several input from the vet. With the autocomplete feature, vets will be able to execute commands faster to save time.
+The autocomplete feature will allow vets to type their commands quicker as some of the commands require several inputs from the vet. With the autocomplete feature, vets will be able to execute commands faster to save time.
 
 ==== Current implementation
 
 The autocomplete mechanism is facilitated by `AutoCompleteManager`, which resides inside `LogicManager`. It supports the auto completion of incomplete commands by providing a list of auto completed command from a given incomplete command.
 
-A underlying `Trie` data structure is used to facilitate the `AutoCompleteManager` functionality.
+An underlying `Trie` data structure is used to facilitate the `AutoCompleteManager` functionality.
 The `Trie` only supports the auto completion of commands provided by `AutoCompleteManager`. The `CommandParameterSyntaxHandler` which resides in `AutocompleteManager` supports the auto completion of parameters for commands.
 
 Figure 4-18 shows the class diagram of the autocomplete implementation.
@@ -955,7 +955,7 @@ image::AutoCompleteSequenceDiagram.png[width="800", caption="Figure 4-19. "]
 
 * **Alternative 1 (current choice):** Add a manager class to handle all autocomplete behaviour
 ** Pros: The class will allow for more code abstraction and can also be implemented elsewhere.
-** Cons: New developers will need to throughly understand the class interactions.
+** Cons: New developers will need to thoroughly understand the class interactions.
 * **Alternative 2:** Add the autocomplete logic simply in the `Commandbox`
 ** Pros: Other classes are not involved, making it easier for new developers to understand.
 ** Cons: It breaks the Single Responsibility Principle.
@@ -1740,10 +1740,3 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving Data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

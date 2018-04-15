@@ -68,11 +68,11 @@ image::userguide_interfaceWalkthrough_image.PNG[width="1000"]
 . *Client/Pet/Vet Tech List Panel:* +
 Displays all your clients/pets/vet technicians in the program.
 . *Command Box:* +
-Allows you to input commands in to the program.
+Allows you to input commands into the program.
 . *Command Box Notification:* +
 Shows to you the feedback result of your most recent command.
 . *Appointment Panel:* +
-Displays all your appoinments scheduled in the program.
+Displays all your appointments scheduled in the program.
 . *List All Panel:* +
 Displays all information of a specified client.
 // end::userInterfaceWalkthrough[]
@@ -95,8 +95,7 @@ E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` i
 ====
 
 === System Based Commands
-This section explains commands that are based around the system. These commands are not related
-in managing your clients, staff, pets and appointments.
+This section explains commands that are based around the system. These commands are not related to managing your clients, staff, pets and appointments.
 
 ==== Clearing all entries : `clear`
 *Command format:* `clear` +
@@ -196,7 +195,7 @@ Figure 4 below shows the outcomes of executing the `add` commands.
 .Result output after adding a clients Alice Peterson and Bradly Cooper
 image::userguide_addCommand_image.PNG[width="400"]
 
-
+// tag::removeperson[]
 ==== Removing a client or vet technician: `delete` `Since v1.1`
 *Command format:* `delete INDEX` +
 
@@ -232,6 +231,7 @@ Figure 7 below shows the result of the client list being updated upon executing 
 
 .The client list after deleting Alice Peterson from the program.
 image::userguide_deleteCommand_image2.PNG[width="400"]
+// end::removeperson[]
 
 
 
@@ -478,7 +478,7 @@ image::userguide_addappttopetCommand_image.PNG[width="1000"]
 [NOTE]
 Both vettech and appointment index must be a positive integer.
 
-*Description:* Adds a vet tecnician to a scheduled appointment. +
+*Description:* Adds a vet technician to a scheduled appointment. +
 
 [NOTE]
 An appointment needs to be scheduled first before assigning a vet technician to it.
@@ -497,7 +497,7 @@ image::userguide_addvettechtoapptCommand_image.PNG[width="1000"]
 //
 Figure 24 below shows the outcome after executing the command.
 
-.The resuting output after executing the command.
+.The resulting output after executing the command.
 image::userguide_addvettechtoapptCommand_image2.PNG[width="1000"]
 
 // tag::deletePetCommand[]
@@ -683,9 +683,9 @@ image::userguide_sortpCommand_image.PNG[width="500"]
 
 *A*: Yes it will. VetterAppointments ensures that all modification to the program data will be saved. +
 
-*Q*: The commands are long. Are there anyway to speed up the process? +
+*Q*: The commands are long. Is there anyway to speed up the process? +
 
-*A*: Yes there is! We have a keyboard shorcut that you might find useful.
+*A*: Yes there is! We have a keyboard shortcut that you might find useful.
 See <<Section 6.Keyboard_shortcuts, Keyboard Shortcuts>> for more details.
 
 // tag::keyboardshortcuts[]
@@ -696,12 +696,13 @@ This section shows you the different keyboard shortcuts that are available in Ve
 The table below shows a list of shortcuts you can use. +
 
 [width="100%"]
+[cols="3,1"]
 |=====
 |*Result* |*Shortcut*
 |Clears the Command Box |kbd:[Esc]
 |Auto-complete your text input |kbd:[Tab]
 |Switches panel selection forward |kbd:[Control]+kbd:[Tab]
-|Switches panel selection backwards |kbd:[Shift]+kbd:[Tab]
+|Switches panel selection backward |kbd:[Shift]+kbd:[Tab]
 |=====
 
 [NOTE]
@@ -729,6 +730,7 @@ program. You can head to the respective section on the commands if you want to
 know more about them.
 
 [width="100%"]
+[cols="1,4,4"]
 |=======
 |*Command* |*Command Format* |*Description*
 |add |`add r/ROLE n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]…` |Adds a person into the program.
@@ -748,6 +750,7 @@ in your program. You can head to the respective section on the commands if you w
 about them.
 
 [width="100%"]
+[cols="1,4,4"]
 |=======
 |*Command* |*Command Format* |*Description*
 |addappttopet |`addapptto appt/APPOINTMENT_INDEX p/PET_INDEX` |Adds an appointment to a pet.
@@ -775,6 +778,7 @@ The table below shows commands that are program based. These commands have no re
 clients, staff, pets and appointments. They're solely for the program.
 
 [width="100%"]
+[cols="1,2,3"]
 |=======
 |*Command* |*Command Format* |*Description*
 |clear |`clear` |Deletes all data of the program.
