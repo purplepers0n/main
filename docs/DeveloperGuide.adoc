@@ -1444,10 +1444,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  Vet requests to add an appointment
-2.  VetterAppointments provides a list of pets to add the appointment to
-3.  Vet enters the index of the pet that the appointment is tied to
-4.  VetterAppointments provides a list of Vet Technicians to add the appointment to
-5.  Vet enters the index of the Vet Technician that the appointment is assigned to, or leaves it blank if he/she wants to add it later
+2.  VetterAppointments adds an appointment to the system
 +
 Use case ends.
 
@@ -1465,52 +1462,17 @@ Use case ends.
 * 1b. The assigned timeslot already has an existing appointment
 +
 [none]
-** 1b1. VetterAppointments asks the Vet if he/she wishes to override the existing appointment
-+
-[none]
-*** 1b1a. Vet types 'yes'
-+
-Use case resumes at step 2.
-[none]
-*** 1b1b. Vet types 'no'
+** 1b1. VetterAppointments shows an error message
 +
 Use case ends.
-
-[none]
-* 2a. The list is empty
-+
-Use case ends.
-
-[none]
-* 3a. The pet index is invalid
-+
-[none]
-** 3a1. VetterAppointments shows an error message
-+
-Use case resumes at step 2.
-
-[none]
-* 4a. The list is empty
-+
-Use case ends.
-
-[none]
-* 5a. The Vet Technician index is invalid
-+
-[none]
-** 5a1. VetterAppointments shows an error message
-+
-Use case resumes at step 4.
 
 [discrete]
-=== Use case: Assign Vet Technician to appointment
+=== Use case: Assign pet to appointment
 
 *MSS*
 
-1.  Vet requests to assign a Vet Technician to a specific appointment
-2.  VetterAppointments provides a list of Vet Technicians to assign the appointment to
-3.  Vet enters the index of the associated Vet Technician
-4.  VetterAppointments assigns the Vet Technician to the appointment
+1.  Vet requests to assign a pet index to a specific appointment index
+2.  VetterAppointments assigns the pet to the appointment
 +
 Use case ends.
 
@@ -1525,17 +1487,56 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2a. The list is empty
+* 1b. The pet index is invalid
++
+[none]
+** 1b1. VetterAppointments shows an error message
 +
 Use case ends.
 
 [none]
-* 3a. The Vet Technician index is invalid
+* 1c. The appointment index is invalid
 +
 [none]
-** 3a1. VetterAppointments shows an error message
+** 1c1. VetterAppointments shows an error message
 +
-Use case resumes at step 2.
+Use case ends.
+
+[discrete]
+=== Use case: Assign Vet Technician to appointment
+
+*MSS*
+
+1.  Vet requests to assign a Vet Technician to a specific appointment
+2.  VetterAppointments assigns the Vet Technician to the appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of command is invalid
++
+[none]
+** 1a1. VetterAppointments shows an error message
++
+Use case ends.
+
+[none]
+* 1b. The Vet Technician index is invalid
++
+[none]
+** 1b1. VetterAppointments shows an error message
++
+Use case ends.
+
+[none]
+* 1c. The appointment index is invalid
++
+[none]
+** 1c1. VetterAppointments shows an error message
++
+Use case ends.
 
 [discrete]
 === Use case: Reschedule appointment
@@ -1561,14 +1562,7 @@ Use case ends.
 * 1b. The newly assigned timeslot already has an existing appointment
 +
 [none]
-** 1b1. VetterAppointments asks the Vet if he/she wishes to override the existing appointment
-+
-[none]
-*** 1b1a. Vet types 'yes'
-+
-Use case resumes at step 2.
-[none]
-*** 1b1b. Vet types 'no'
+** 1b1. VetterAppointments shows an error message
 +
 Use case ends.
 
@@ -1607,34 +1601,14 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Find appointment by date
-
-*MSS*
-
-1.  Vet requests to find appointments for a specific date
-2.  VetterAppointments shows a list of appointments on that date
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The format of command is invalid
-+
-[none]
-** 1a1. VetterAppointments shows an error message
-+
-Use case ends.
-
-[discrete]
-=== Use case: Find appointment by client
+=== Use case: List all details of client
 
 *MSS*
 
 1.  Vet requests to list clients
 2.  VetterAppointments shows a list of clients
-3.  Vet requests to find appointments for a specific client index
-4.  VetterAppointments shows a list of appointments for that client
+3.  Vet requests to list all details for a specific client index
+4.  VetterAppointments shows a list of pets and appointments for that client
 +
 Use case ends.
 

@@ -43,6 +43,8 @@ public class ScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_SUGGESTION_TIME = "You may delay the appointment for: ";
     public static final String MESSAGE_CLOSE_APPOINTMENT_NEXT = "The later appointment is within the duration "
             + "of the new appointment.\n";
+    public static final String MESSAGE_CANNOT_SCHEDULE_AT_THIS_TIME = "The new appointment is within"
+            + " the duration of another appointment, you need at least 15 minutes for an appointment\n";
     public static final String MESSAGE_SUGGESTION_DURATION = "This appointment can last at most: ";
     private static final String MINUTE_SUFFIX = " minutes";
     private static final int MINIMUM_INTERVAL = 1440;
