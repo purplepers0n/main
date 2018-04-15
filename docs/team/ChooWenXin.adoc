@@ -9,7 +9,8 @@
 VetterAppointments is a desktop application catered to vets to manage their employees, clients, pets and appointments.
 The vet interacts with the application mostly by a command line interface (CLI).
 The application, written in Java, has a graphical user interface (GUI) created with JavaFX.
-This application was created by building upon an existing code base for an address book for the module CS2103T Software Engineering, and has around 15kLoC.
+
+This application was created by building upon an existing code base for an address book for the module CS2103T Software Engineering, and has around 20kLoC.
 
 == Summary of contributions
 
@@ -19,7 +20,7 @@ This application was created by building upon an existing code base for an addre
 ** Highlights: This command requires iterations through multiple lists, one time to find all pets that belong to the queried client, and another time to search for all appointments that belong to each pet.
 This command will update a separate sidebar display, instead of the individual lists. Hence much effort was also required to create the layout on the UI
 
-* *Minor enhancement*: Updated `list` command and created UI for list tabs and appointment display
+* *Minor enhancement*: Modified `list` command and created UI for list tabs and appointment display
 
 * *Code contributed*: [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/functional/purplepers0n.md[Functional code]] [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/test/purplepers0n.md[Test code]]
 
@@ -33,7 +34,7 @@ This command will update a separate sidebar display, instead of the individual l
 *** Added each member's feature contribution in Developer Guide (Pull request https://github.com/CS2103JAN2018-F09-B4/main/pull/95[#95])
 *** Tweaked existing contents of the Developer Guide (Pull requests https://github.com/CS2103JAN2018-F09-B4/main/pull/213[#213], https://github.com/CS2103JAN2018-F09-B4/main/pull/240[#240])
 ** Community:
-*** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103JAN2018-F09-B4/main/pull/29[#29]
+*** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103JAN2018-F09-B4/main/pull/29[#29], https://github.com/CS2103JAN2018-F09-B4/main/pull/261[#261]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103JAN2018-W10-B1/main/issues/132[1], https://github.com/CS2103JAN2018-W10-B1/main/issues/135[2])
 
 == Contributions to the User Guide
