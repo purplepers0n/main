@@ -1,6 +1,6 @@
 = VetterAppointments- User Guide
 :toc:
-:toc-title:
+:toc-title: Table of Contents
 :toc-placement: preamble
 :toclevels: 4
 :sectnums:

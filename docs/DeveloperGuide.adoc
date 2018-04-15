@@ -1,6 +1,6 @@
 = VetterAppointments - Developer Guide
 :toc:
-:toc-title:
+:toc-title: Table of Contents
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -887,7 +887,7 @@ As seen from figure 4-17 VetTechnician` and `Client` are sub classes of the `Per
 * **Alternative 1 (current choice):** Only couple entities if necessary
 ** Pros: Low coupling. Classes will have lesser dependency between entities.
 ** Cons: New developers will need to thoroughly understand the class interactions.
-* **Alternative 2:** Couple all entities.
+* **Alternative 2:** Couple all entities
 ** Pros: Classes can easily access highly coupled classes.
 ** Cons: High coupling. Integration and testing will be harder.
 // end::entitymodel[]
@@ -908,7 +908,7 @@ The `Trie` only supports the auto completion of commands provided by `AutoComple
 
 Figure 4-18 shows the class diagram of the autocomplete implementation.
 
-.AutoComplete Implementation Class Diagram
+.Autocomplete Implementation Class Diagram
 image::LogicAutoCompleteClassDiagram.png[width="800", caption="Figure 4-18. "]
 
 The `CommandBox` will interact with the AutoCompleteManager from using the `LogicManager`.
@@ -946,7 +946,7 @@ The `isTabDoubleTap()` method will check if the user presses tab twice in quick 
 
 Figure 4-19 shows the sequence diagram of how the autocomplete operation works.
 
-.AutoComplete Sequence Diagram
+.Autocomplete Sequence Diagram
 image::AutoCompleteSequenceDiagram.png[width="800", caption="Figure 4-19. "]
 
 ==== Design considerations
