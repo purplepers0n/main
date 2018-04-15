@@ -844,7 +844,7 @@ public boolean hasPrevious(Appointment currentAppointment) {
                         hasPreviousAppointment = true;
                     }
                     ....
-----        
+----
 
 check for next is similar and the code snippet below only shows different.
 [source,java]
@@ -862,7 +862,7 @@ public boolean hasNext(Appointment currentAppointment) {
                         hasNextAppointment = true;
                     }
                     ......
-----        
+----
 
 [NOTE]
 Only date and time are responsible for duplicate appointments.
