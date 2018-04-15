@@ -486,17 +486,58 @@ image::pet_diagram_snippet.png[width="780", caption="Figure 4-9. "]
 *Logic component* +
 The `Pet` object interacts with several commands in the program. +
 
-. `addp`
-. `deletep`
-. `addappttopet`
-. `removeapptfrompet`
-. `sortp`
+. `addp`: Adds a `Pet` into a `Client` through a wrapper class called `ClientOwnPetAssociation` and into `UniquePetList`.
+. `deletep`: Removes the `Pet` object from both the wrapper class and `UniquePetList`.
+. `addappttopet`: Adds the `ClientOwnPetAssociation` wrapper into the `Appointment` class. +
+To adhere to defensive programming practices, the `addappttopet` does the following:
+.. Creates a copy of the specified `Appointment`.
+.. Adds the `ClientOwnPet` to the copy
+.. Replaces the original `Appointment` with the copy.
+. `removeapptfrompet`: Removes the `ClientOwnPetAssociation` from the `Appointment`. +
+To adhere to defensive programming practices the `removeapptfrom` does the following:
+.. Creates a copy of the specified `Appointment`.
+.. Removes the `ClientOwnPetAssociation` from the copy.
+.. Replaces the original with the cop.
+. `sortp`: Sorts the pet list.
 
-*Storage component* +
-All pet details will be stored in a separate XML file.
+The `addappttopet` command copies the `Appointment` object this way:
 
-*UI component* +
-All pet information will be displayed in the UI in a `PetListPanel`. All changes made to the pet will be reflected immediately after interacting with the commands.
+[source,java]
+----
+for (ClientOwnPet a : clientPetAssociations) {
+            if (a.getPet().equals(pet)) {
+                isPresent = true;
+                if (appointment.getClientOwnPet() == null) {
+                    Appointment appointmentCopy = new Appointment(appointment);
+                    appointmentCopy.setClientOwnPet(a);
+                    appointments.setAppointment(appointment, appointmentCopy);
+                    isAdded = true;
+                }
+            }
+}
+----
+
+The `removeapptfrompet` command copies the `Appointment` object in a similar way:
+
+[source, java]
+----
+ public void removeAppointmentFromPet(Appointment appointment) throws
+            AppointmentNotFoundException, DuplicateAppointmentException, AppointmentDoesNotHavePetException {
+        if (!appointments.contains(appointment)) {
+            throw new AppointmentNotFoundException();
+        } else {
+            Appointment appointmentCopy = new Appointment(appointment);
+
+            if (appointmentCopy.getClientOwnPet() == null) {
+                throw new AppointmentDoesNotHavePetException();
+            } else {
+                appointmentCopy.setClientOwnPetToNull();
+                appointments.setAppointment(appointment, appointmentCopy);
+            }
+        }
+ }
+----
+
 
 ==== Design considerations
 
