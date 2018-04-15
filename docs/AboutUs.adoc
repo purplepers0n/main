@@ -38,7 +38,7 @@ Responsibilities: UI component
 
 '''
 
-=== Zheng Xin
+=== Zhong Zheng Xin
 image::Godxin.jpg[width="150", align="left"]
 Studies computer science and has strong interest in cyber security in general. +
 {empty}[http://github.com/Godxin[GitHub]][<<ZhongZhengXin-ppp#, Porfolio>>] +
