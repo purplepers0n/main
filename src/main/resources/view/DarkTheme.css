@@ -34,6 +34,7 @@
     -fx-font-family: Helvetica;
 }
 
+<!-- @@author purplepers0n -->
 .tab-pane {
     -fx-padding: 0 0 0 1;
 }
@@ -64,6 +65,7 @@
     -fx-base: #141414;
     -fx-border-color: null;
 }
+<!-- @@author -->
 
 .table-view {
     -fx-base: #141414;
@@ -353,6 +355,7 @@
     -fx-background-radius: 0;
 }
 
+<!-- @@author purplepers0n -->
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -484,8 +487,15 @@
     -fx-background-color: transparent;
 }
 
+#listalllabel {
+    -fx-background-color: #6B7275;
+    -fx-padding: 0px 5px 0px 10px
+}
+<!-- @@author -->
+
 /* Colors */
 
+<!-- @@author purplepers0n-reused -->
 #red {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
@@ -677,8 +687,4 @@
     -fx-background-color: #105A5E;
     -fx-font-weight: bold;
 }
-
-#listalllabel {
-    -fx-background-color: #6B7275;
-    -fx-padding: 0px 5px 0px 10px
-}
+<!-- @@author -->
