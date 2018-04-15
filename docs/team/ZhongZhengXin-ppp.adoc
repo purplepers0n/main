@@ -65,8 +65,7 @@ https://github.com/CS2103JAN2018-F11-B1/main/issues/195[#195]
 |===
 
 include::../UserGuide.adoc[tag=schedule]
-include::../UserGuide.adoc[tag=addPetCommand]
-include::../UserGuide.adoc[tag=addAppointmentToPetCommand]
+include::../UserGuide.adoc[tag=reschedule]
 
 == Contributions to the Developer Guide
 
