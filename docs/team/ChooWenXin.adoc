@@ -12,6 +12,8 @@ The application, written in Java, has a graphical user interface (GUI) created w
 
 This application was created by building upon an existing code base for an address book for the module CS2103T Software Engineering, and has around 20kLoC.
 
+The purpose of this portfolio page is to demonstrate my software engineering experience and documentation skills gained from the above mentioned project.
+
 == Summary of contributions
 
 * *Major enhancement*: Added `listall` command
@@ -54,5 +56,7 @@ include::../UserGuide.adoc[tag=listp, leveloffset=-1]
 |===
 
 include::../DeveloperGuide.adoc[tag=listperson]
-
++
+---
++
 include::../DeveloperGuide.adoc[tag=wxEnhancements]
