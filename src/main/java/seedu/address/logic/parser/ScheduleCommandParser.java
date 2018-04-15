@@ -18,6 +18,7 @@ import seedu.address.model.appointment.Description;
 import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 
+//@@author Godxin-functional
 /**
  * Parses input arguments and creates a new {@code ScheduleCommand} object
  */

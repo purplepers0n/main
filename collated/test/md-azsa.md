@@ -1276,6 +1276,16 @@ public class TypicalAppointments {
             .withDuration("45")
             .withDescription("Give Tweety Bird the showering service")
             .build();
+    public static final Appointment APPOINTMENT_1_1 = new AppointmentBuilder().withDate("2018-02-01")
+            .withTime("15:00")
+            .withDuration("45")
+            .withDescription("Give HaHa Bird the showering service")
+            .build();
+    public static final Appointment APPOINTMENT_2_2 = new AppointmentBuilder().withDate("2018-03-02")
+            .withTime("16:00")
+            .withDuration("60")
+            .withDescription("Sterilize HaHa")
+            .build();
 
     private TypicalAppointments() {}
 

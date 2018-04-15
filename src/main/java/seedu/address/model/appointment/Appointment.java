@@ -15,6 +15,7 @@ import seedu.address.model.vettechnician.VetTechnician;
  */
 public class Appointment {
 
+    private static final int CONVERSION_TIME = 60;
     private final Date date;
     private final Time time;
     private final Duration duration;
@@ -90,6 +91,40 @@ public class Appointment {
 
     public void removeVetTech() {
         vetTech = Optional.empty();
+    }
+
+    /**
+     * Returns the interval in minutes between two appointments
+     */
+    public int calDurationDifferencePositive(Appointment previous) {
+        Time previousTime = previous.getTime();
+
+        return hourDifference(this.time.getHour(), previousTime.getHour())
+                + minDifference(this.time.getMinute(), previousTime.getMinute());
+    }
+
+    /**
+     * Returns the interval in minutes between two appointments
+     */
+    public int calDurationDifferenceNegative(Appointment next) {
+        Time nextTime = next.getTime();
+
+        return hourDifference(nextTime.getHour(), this.time.getHour())
+                + minDifference(nextTime.getMinute(), this.time.getMinute());
+    }
+
+    /**
+     * Returns the difference in Hour of time between two appointments
+     */
+    public int hourDifference(int hourFirst, int hourSecond) {
+        return Math.abs((hourFirst - hourSecond) * CONVERSION_TIME);
+    }
+
+    /**
+     * Returns the difference in Minute of time between two appointments
+     */
+    public int minDifference(int minFirst, int minSecond) {
+        return minFirst - minSecond;
     }
 
     @Override

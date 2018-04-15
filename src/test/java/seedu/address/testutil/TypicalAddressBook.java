@@ -5,6 +5,8 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
@@ -47,7 +49,12 @@ public class TypicalAddressBook {
                 ab.scheduleAppointment(appt);
             } catch (DuplicateAppointmentException e) {
                 throw new AssertionError("not possible");
+            } catch (AppointmentCloseToPreviousException ape) {
+                throw new AssertionError("not too close to previous");
+            } catch (AppointmentCloseToNextException ape) {
+                throw new AssertionError("not too close to next");
             }
+
         }
         for (ClientOwnPet cop : getTypicalAssociations()) {
             try {

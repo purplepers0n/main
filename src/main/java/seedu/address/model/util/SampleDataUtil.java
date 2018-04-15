@@ -12,6 +12,8 @@ import seedu.address.model.appointment.Date;
 import seedu.address.model.appointment.Description;
 import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.client.Client;
@@ -142,6 +144,10 @@ public class SampleDataUtil {
             throw new AssertionError("sample data cannot contain duplicate pets", e);
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("sample data cannot contain duplicate appointments", e);
+        } catch (AppointmentCloseToPreviousException ape) {
+            throw new AssertionError("sample data cannot schedule appointments close to previous", ape);
+        } catch (AppointmentCloseToNextException ape) {
+            throw new AssertionError("sample data cannot schedule appointments close to next", ape);
         }
     }
 

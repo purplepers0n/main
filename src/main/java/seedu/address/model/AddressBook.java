@@ -21,6 +21,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
 import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
@@ -117,7 +119,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
-    public void setAppointments(List<Appointment> appointments) throws DuplicateAppointmentException {
+    public void setAppointments(List<Appointment> appointments) throws DuplicateAppointmentException,
+            AppointmentCloseToPreviousException, AppointmentCloseToNextException {
         this.appointments.setAppointments(appointments);
     }
 
@@ -181,6 +184,12 @@ public class AddressBook implements ReadOnlyAddressBook {
             setAppointments(syncedAppointmentList);
         } catch (DuplicateAppointmentException e) {
             throw new AssertionError("Program should not have duplicate appointments");
+        } catch (AppointmentCloseToPreviousException ape) {
+            throw new AssertionError("Program should not schedule appointments"
+                    + "when the previous one has not ended yet");
+        } catch (AppointmentCloseToNextException ape) {
+            throw new AssertionError("Program should not schedule appointments"
+                    + "when too close to the next one");
         }
 
         List<Pet> syncedPetList = newData.getPetList().stream()
@@ -396,12 +405,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     //@@author
 
+    //@@author Godxin-functional
     /**
      * Schedule an appointment to the address book.
      *
      * @throws DuplicateAppointmentException if an equivalent person already exists.
      */
-    public void scheduleAppointment(Appointment a) throws DuplicateAppointmentException {
+    public void scheduleAppointment(Appointment a) throws DuplicateAppointmentException,
+            AppointmentCloseToPreviousException, AppointmentCloseToNextException {
         appointments.add(a);
         appointments.sort();
     }
@@ -420,7 +431,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         appointments.setAppointment(target, rescheduleAppointment);
     }
-
+    //@@author
     //// pet-level operations
 
     //@@author md-azsa

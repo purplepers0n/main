@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
 import seedu.address.model.association.exceptions.ClientAlreadyOwnsPetException;
 import seedu.address.model.association.exceptions.PetAlreadyHasOwnerException;
 
@@ -22,6 +24,8 @@ public class XmlSerializableAddressBook {
 
     private static final String CLIENT_ALREADY_OWNS_PET = "Client already owns pet";
     private static final String PET_ALREADY_HAS_OWNER = "Pet already has owner";
+    private static final String APPOINTMENT_CLOSE_PREVIOUS = "New appointment is too close to previous one";
+    private static final String APPOINTMENT_CLOSE_NEXT = "New appointment is too close to next one";
     @XmlElement
     private List<XmlAdaptedPerson> persons;
     @XmlElement
@@ -79,7 +83,13 @@ public class XmlSerializableAddressBook {
             addressBook.addPet(pet.toModelType());
         }
         for (XmlAdaptedAppointment appointment : appointments) {
-            addressBook.scheduleAppointment(appointment.toModelType());
+            try {
+                addressBook.scheduleAppointment(appointment.toModelType());
+            } catch (AppointmentCloseToPreviousException ape) {
+                throw new IllegalValueException(APPOINTMENT_CLOSE_PREVIOUS);
+            } catch (AppointmentCloseToNextException ape) {
+                throw new IllegalValueException(APPOINTMENT_CLOSE_NEXT);
+            }
         }
         for (XmlAdaptedClientOwnPet association : clientPetAssociations) {
             try {

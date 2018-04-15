@@ -13,6 +13,7 @@ import seedu.address.model.appointment.Time;
 import seedu.address.model.association.ClientOwnPet;
 import seedu.address.model.vettechnician.VetTechnician;
 
+//@@author Godxin-functional
 /**
  * JAXB-friendly version of the Appointment.
  */

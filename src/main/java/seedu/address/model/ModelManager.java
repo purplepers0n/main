@@ -16,6 +16,8 @@ import seedu.address.commons.events.ui.NewApptAvailableEvent;
 import seedu.address.commons.events.ui.NewListAllDisplayAvailableEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.exceptions.AppointmentAlreadyHasVetTechnicianException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
 import seedu.address.model.appointment.exceptions.AppointmentDoesNotHavePetException;
 import seedu.address.model.appointment.exceptions.AppointmentHasBeenTakenException;
 import seedu.address.model.appointment.exceptions.AppointmentListIsEmptyException;
@@ -123,12 +125,16 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author Godxin-functional
     @Override
-    public synchronized void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException {
+    public synchronized void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException,
+            AppointmentCloseToPreviousException, AppointmentCloseToNextException {
         addressBook.scheduleAppointment(appointment);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
         indicateAddressBookChanged();
     }
+
+    //@@author
 
     //@@author md-azsa
     @Override
@@ -144,6 +150,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@@author
+
+    //@@author Godxin-functional
     @Override
     public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
             throws DuplicateAppointmentException, AppointmentNotFoundException {
@@ -155,6 +163,8 @@ public class ModelManager extends ComponentManager implements Model {
             indicateListAllPanelChanged();
         }
     }
+
+    //@@author
 
     @Override
     public void updatePerson(Person target, Person editedPerson)

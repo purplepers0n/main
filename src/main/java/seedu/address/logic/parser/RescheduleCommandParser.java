@@ -13,6 +13,7 @@ import seedu.address.logic.commands.RescheduleCommand;
 import seedu.address.logic.commands.RescheduleCommand.RescheduleAppointmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author Godxin-functional
 /**
  * Parses input arguments and creates a new EditCommand object
  */

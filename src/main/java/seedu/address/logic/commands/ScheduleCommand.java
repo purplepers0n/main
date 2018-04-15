@@ -10,7 +10,6 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
-import seedu.address.model.appointment.Duration;
 import seedu.address.model.appointment.Time;
 import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
 import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
@@ -50,8 +49,6 @@ public class ScheduleCommand extends UndoableCommand {
     private static final String MINUTE_SUFFIX = " minutes";
     private static final int MINIMUM_INTERVAL = 1440;
     private static final int CORRECT_DURATION = 120;
-    private static final int CONVERSION_TIME = 60;
-    private static final Time DEFAULT_TIME = new Time("23:59");
 
     private final Appointment toAdd;
 
@@ -65,13 +62,12 @@ public class ScheduleCommand extends UndoableCommand {
     }
 
     /**
-     * Check that there is no earlier existing appointment too close
+     * Returns an integer value of duration
      */
-    public void durationCheckPrevious(ObservableList<Appointment> existingAppointmentList)
-            throws AppointmentCloseToPreviousException {
-
-        Date newAppointmentDate = this.toAdd.getDate();
-        Time newAppointmentTime = this.toAdd.getTime();
+    public int getSuggestedDelayDuration(ObservableList<Appointment> existingAppointmentList,
+                                              Appointment appointment) {
+        Date newAppointmentDate = appointment.getDate();
+        Time newAppointmentTime = appointment.getTime();
         int min = newAppointmentTime.getMinute();
         int hour = newAppointmentTime.getHour();
 
@@ -86,98 +82,26 @@ public class ScheduleCommand extends UndoableCommand {
             if (newAppointmentDate.equals(earlierAppointmentDate)) {
                 if (earlierAppointmentTime.getHour() < hour
                         || (earlierAppointmentTime.getHour() == hour && earlierAppointmentTime.getMinute() < min)) {
-                    interval = (hour - earlierAppointmentTime.getHour()) * CONVERSION_TIME
-                            + (min - earlierAppointmentTime.getMinute());
+                    interval = appointment.calDurationDifferencePositive(earlierAppointment);
                     if (interval < minInterval) {
                         minInterval = interval;
-                        correctDuration = earlierAppointment.getDuration().getDurationValue();
+                        correctDuration = calInterval(earlierAppointment.getDuration().getDurationValue(), minInterval);
                     }
                 }
             }
         }
-        if (minInterval < correctDuration) {
-            throw new AppointmentCloseToPreviousException(" Appointment is too close to earlier one");
-        }
+        return correctDuration;
     }
 
     /**
-     * Check that there is no later existing appointment too close
+     * Returns an integer value of duration.
      */
-    public void durationCheckNext(ObservableList<Appointment> existingAppointmentList)
-            throws AppointmentCloseToNextException {
-
-        Date newAppointmentDate = this.toAdd.getDate();
-        Time newAppointmentTime = this.toAdd.getTime();
-        int min = newAppointmentTime.getMinute();
-        int hour = newAppointmentTime.getHour();
-
-        int interval;
-        int minInterval = this.toAdd.getDuration().getDurationValue();
-
-        for (Appointment laterAppointment : existingAppointmentList) {
-            Date laterAppointmentDate = laterAppointment.getDate();
-            Time laterAppointmentTime = laterAppointment.getTime();
-
-            if (newAppointmentDate.equals(laterAppointmentDate)) {
-                if (laterAppointmentTime.getHour() > hour
-                        || (laterAppointmentTime.getHour() == hour && min < laterAppointmentTime.getMinute())) {
-                    interval = (laterAppointmentTime.getHour() - hour) * CONVERSION_TIME
-                            + (laterAppointmentTime.getMinute() - min);
-                    if (interval < minInterval) {
-                        throw new AppointmentCloseToNextException(" Appointment is too close to later one");
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Returns a duration
-     */
-    public Duration getSuggestedDelayDuration(ObservableList<Appointment> existingAppointmentList,
-                                              Appointment appointment) throws AppointmentCloseToNextException {
+    public int getSuggestedMaxDuration(ObservableList<Appointment> existingAppointmentList,
+                                            Appointment appointment) {
         Date newAppointmentDate = appointment.getDate();
         Time newAppointmentTime = appointment.getTime();
         int min = newAppointmentTime.getMinute();
         int hour = newAppointmentTime.getHour();
-
-        int interval;
-        int minInterval = MINIMUM_INTERVAL;
-        int correctDuration = CORRECT_DURATION;
-
-        Time previous = DEFAULT_TIME;
-
-        for (Appointment earlierAppointment : existingAppointmentList) {
-            Date earlierAppointmentDate = earlierAppointment.getDate();
-            Time earlierAppointmentTime = earlierAppointment.getTime();
-
-            if (newAppointmentDate.equals(earlierAppointmentDate)) {
-                if (earlierAppointmentTime.getHour() < hour
-                        || (earlierAppointmentTime.getHour() == hour && earlierAppointmentTime.getMinute() < min)) {
-                    interval = (hour - earlierAppointmentTime.getHour()) * CONVERSION_TIME
-                            + (min - earlierAppointmentTime.getMinute());
-                    if (interval < minInterval) {
-                        minInterval = interval;
-                        correctDuration = earlierAppointment.getDuration().getDurationValue() - minInterval;
-                        previous = earlierAppointmentTime;
-                    }
-                }
-            }
-        }
-
-        return new Duration(correctDuration);
-    }
-
-    /**
-     * Returns a duration.
-     */
-    public Duration getSuggestedMaxDuration(ObservableList<Appointment> existingAppointmentList,
-                                            Appointment appointment) throws AppointmentCloseToNextException {
-        Date newAppointmentDate = appointment.getDate();
-        Time newAppointmentTime = appointment.getTime();
-        int min = newAppointmentTime.getMinute();
-        int hour = newAppointmentTime.getHour();
-
         int interval;
         int minInterval = appointment.getDuration().getDurationValue();
 
@@ -188,45 +112,40 @@ public class ScheduleCommand extends UndoableCommand {
             if (newAppointmentDate.equals(laterAppointmentDate)) {
                 if (laterAppointmentTime.getHour() > hour
                         || (laterAppointmentTime.getHour() == hour && min < laterAppointmentTime.getMinute())) {
-                    interval = (laterAppointmentTime.getHour() - hour) * CONVERSION_TIME
-                            + (laterAppointmentTime.getMinute() - min);
+
+                    interval = appointment.calDurationDifferenceNegative(laterAppointment);
                     if (interval < minInterval) {
                         minInterval = interval;
                     }
                 }
             }
         }
-        return new Duration(minInterval);
+        return minInterval;
+    }
+
+    /**
+     * Return the interval between two given integer values
+     */
+    public int calInterval(int first, int second) {
+        return first - second;
     }
 
     @Override
     protected CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
         try {
-            durationCheckPrevious(model.getFilteredAppointmentList());
-            durationCheckNext(model.getFilteredAppointmentList());
             model.scheduleAppointment(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateAppointmentException e1) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         } catch (AppointmentCloseToPreviousException e2) {
-            Duration suggestedDelayDuration = null;
-            try {
-                suggestedDelayDuration = getSuggestedDelayDuration(model.getFilteredAppointmentList(), toAdd);
-            } catch (AppointmentCloseToNextException apptNotEnoughTime) {
-                throw new CommandException(MESSAGE_CANNOT_SCHEDULE_AT_THIS_TIME);
-            }
+            int suggestedDelayDuration = getSuggestedDelayDuration(model.getFilteredAppointmentList(), toAdd);
             throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_PREVIOUS + MESSAGE_SUGGESTION_TIME
-                    + suggestedDelayDuration.toString() + MINUTE_SUFFIX);
+                    + Integer.toString(suggestedDelayDuration) + MINUTE_SUFFIX);
         } catch (AppointmentCloseToNextException e3) {
-            Duration suggestedMaxDuration = null;
-            try {
-                suggestedMaxDuration = getSuggestedMaxDuration(model.getFilteredAppointmentList(), toAdd);
-            } catch (AppointmentCloseToNextException apptNotEnoughTime) {
-                throw new CommandException(MESSAGE_CANNOT_SCHEDULE_AT_THIS_TIME);
-            }
+            int suggestedMaxDuration = getSuggestedMaxDuration(model.getFilteredAppointmentList(), toAdd);
             throw new CommandException(MESSAGE_CLOSE_APPOINTMENT_NEXT + MESSAGE_SUGGESTION_DURATION
-                    + suggestedMaxDuration.toString() + MINUTE_SUFFIX);
+                        + Integer.toString(suggestedMaxDuration) + MINUTE_SUFFIX);
         }
     }
 
