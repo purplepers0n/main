@@ -12,7 +12,7 @@ endif::[]
 
 ifndef::env-github[]
 image::images/landing_logo.png[width="1000"]
-image::docs/images/Ui.png[width="1000"]
+image::images/Ui.png[width="1000"]
 endif::[]
 
 {nbsp} +

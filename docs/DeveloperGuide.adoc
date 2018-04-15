@@ -821,6 +821,36 @@ Aggregation also helps to reduce class coupling.
 ** Cons: The lack of the knowledge about implementation make the debugging hardr. In addition, you may need to create extra methods in order to perform certain functions that are not defined in the class.
 // end::scheduleappt[]
 
+// tag::entitymodel[]
+=== Client, vet technician, pet, appointment entity
+
+==== Reasons for implementation
+
+VetterAppointments requires to manage clients, vet technicians, pets and appointments in the application. An implementation of these objects are required for the application to be able to process the data.
+
+==== Current implementation
+
+The entities of VetterAppointments are contained within the `AddressBook` class. `AddressBook` maintains the collections of `Person`, `Appointment`, `ClientOwnPet` and `Pet`.
+
+Figure 4-17 below shows the class diagram of how the entities are connected in VetterAppointments.
+
+.Entity Relationship Class Diagram
+image::DataObjectClassDiagram.png[width="800", caption="Figure 4-17. "]
+
+As seen from figure 4-17 VetTechnician` and `Client` are sub classes of the `Person` class. `ClientOwnPet` is an association class that associates the ownership of the `Pet` to the `Client`. `Appointment` will contain the `VetTechnician` and `ClientOwnPet` that will have the associated `Client` and `Pet`.
+
+==== Design considerations
+
+===== Aspect: Implementation of entity data model
+
+* **Alternative 1 (current choice):** Only couple entity if necessary
+** Pros: Low coupling. Classes will have lesser dependency between entities.
+** Cons: New developers will need to thoroughly understand the class interactions.
+* **Alternative 2:** Couple all entities.
+** Pros: Classes can easily access highly coupled classes.
+** Cons: High coupling. Integration and testing will be harder.
+// end::entitymodel[]
+
 // tag::autocomplete[]
 === Autocomplete feature
 
@@ -835,10 +865,10 @@ The autocomplete mechanism is facilitated by `AutoCompleteManager`, which reside
 A underlying `Trie` data structure is used to facilitate the `AutoCompleteManager` functionality.
 The `Trie` only supports the auto completion of commands provided by `AutoCompleteManager`. The `CommandParameterSyntaxHandler` which resides in `AutocompleteManager` supports the auto completion of parameters for commands.
 
-Figure 4-17 shows the class diagram of the autocomplete implementation.
+Figure 4-18 shows the class diagram of the autocomplete implementation.
 
 .AutoComplete Implementation Class Diagram
-image::LogicAutoCompleteClassDiagram.png[width="800", caption="Figure 4-17. "]
+image::LogicAutoCompleteClassDiagram.png[width="800", caption="Figure 4-18. "]
 
 The `CommandBox` will interact with the AutoCompleteManager from using the `LogicManager`.
 When the user presses tab in the command box area, the `CommandBox` will handle the tab key press and executes the `autoCompleteUserInput()` method.
@@ -873,6 +903,10 @@ public class CommandBox extends UiPart<Region> {
 
 The `isTabDoubleTap()` method will check if the user presses tab twice in quick succession. If true, the `CommandBox` will show a list of command suggestions for the current user input.
 
+Figure 4-19 shows the sequence diagram of how the autocomplete operation works.
+
+.AutoComplete Sequence Diagram
+image::AutoCompleteSequenceDiagram.png[width="800", caption="Figure 4-19. "]
 
 ==== Design considerations
 
