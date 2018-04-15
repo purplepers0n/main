@@ -439,7 +439,7 @@ Here is an example on how you can use the `schedule` command to mark appointment
 Figure 20 below shows the outcome after scheduling an appointment. +
 
 .The appointment card being created after the command.
-image::userguide_schedule.png[width="1000"]
+image::userguide_schedule.PNG[width="1000"]
 // end::schedule[]
 
 // tag::addAppointmentToPetCommand[]
@@ -626,24 +626,24 @@ Here are some examples on using the command: +
 Figure 32 below shows the current state of the appointment card before rescheduling. +
 
 .Current state of program before executing `reschedule`
-image::userguide_reschedule1.1.png[width="1000"]
+image::userguide_reschedule1.1.PNG[width="1000"]
 
 Figure 33 below shows the outcome after rescheduling the appointment. +
 
 .Current state of program before executing `reschedule`
-image::userguide_reschedule1.2.png[width="1000"]
+image::userguide_reschedule1.2.PNG[width="1000"]
 
-* `reschedule 1 da/2018-01-03 du/90` +
+* `reschedule 1 da/2018-02-01 du/90` +
 
 Figure 34 below shows the current state of the appointment card before rescheduling. +
 
 .Current state of program before executing `reschedule`
-image::userguide_reschedule2.1.png[width="1000"]
+image::userguide_reschedule2.1.PNG[width="1000"]
 
 Figure 35 below shows the outcome after rescheduling the appointment. +
 
 .Current state of program before executing `reschedule`
-image::userguide_reschedule2.2.png[width="1000"]
+image::userguide_reschedule2.2.PNG[width="1000"]
 // end::reschedule[]
 
 // tag::sortpCommand[]
