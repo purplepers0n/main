@@ -125,6 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author Godxin-functional
     @Override
     public synchronized void scheduleAppointment(Appointment appointment) throws DuplicateAppointmentException,
             AppointmentCloseToPreviousException, AppointmentCloseToNextException {
@@ -132,6 +133,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENT);
         indicateAddressBookChanged();
     }
+
+    //@@author
 
     //@@author md-azsa
     @Override
@@ -147,6 +150,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@@author
+
+    //@@author Godxin-functional
     @Override
     public void updateAppointment(Appointment target, Appointment rescheduleAppointment)
             throws DuplicateAppointmentException, AppointmentNotFoundException {
@@ -158,6 +163,8 @@ public class ModelManager extends ComponentManager implements Model {
             indicateListAllPanelChanged();
         }
     }
+
+    //@@author
 
     @Override
     public void updatePerson(Person target, Person editedPerson)

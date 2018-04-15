@@ -405,6 +405,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     //@@author
 
+    //@@author Godxin-functional
     /**
      * Schedule an appointment to the address book.
      *
@@ -430,7 +431,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         appointments.setAppointment(target, rescheduleAppointment);
     }
-
+    //@@author
     //// pet-level operations
 
     //@@author md-azsa

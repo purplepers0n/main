@@ -200,6 +200,7 @@ public class ParserUtil {
                 : Optional.empty();
     }
 
+    //@@author Godxin-functional
     /**
      * Parses a {@code String date} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
@@ -296,6 +297,7 @@ public class ParserUtil {
         requireNonNull(description);
         return description.isPresent() ? Optional.of(parseDescription(description.get())) : Optional.empty();
     }
+    //@@author
 
     /**
      * Parses a {@code String petName} into {@code PetName}.

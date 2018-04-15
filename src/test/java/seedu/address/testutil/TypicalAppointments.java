@@ -6,6 +6,8 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToNextException;
+import seedu.address.model.appointment.exceptions.AppointmentCloseToPreviousException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
 //@@author md-azsa
@@ -39,6 +41,10 @@ public class TypicalAppointments {
                 ab.scheduleAppointment(appointment);
             } catch (DuplicateAppointmentException e) {
                 throw new AssertionError("not possible");
+            } catch (AppointmentCloseToPreviousException ape) {
+                throw new AssertionError("close to previous");
+            } catch (AppointmentCloseToNextException ape) {
+                throw new AssertionError("close to next");
             }
         }
         return ab;
