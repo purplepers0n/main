@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.geometry.Insets?>
-
 <!-- @@author purplepers0n -->
+
 <VBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="dateDisplay" text="\$date" minWidth="685" maxWidth="1000"/>
-    <ListView fx:id="apptDayListView" styleClass="apptDayPanel" prefWidth="650" prefHeight="120" orientation="HORIZONTAL" VBox.vgrow="ALWAYS"/>
+    <Label fx:id="dateDisplay" maxWidth="1.7976931348623157E308" minWidth="685" text="\$date" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="apptDayListView" orientation="HORIZONTAL" prefHeight="120" prefWidth="650" styleClass="apptDayPanel" VBox.vgrow="ALWAYS" />
 </VBox>
