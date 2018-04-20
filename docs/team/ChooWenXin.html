@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Choo Wen Xin - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Choo Wen Xin - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-vetterappointments"><a class="link" href="#project-vetterappointments">PROJECT: VetterAppointments</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>VetterAppointments is a desktop application catered to vets to manage their employees, clients, pets and appointments.
+The vet interacts with the application mostly by a command line interface (CLI).
+The application, written in Java, has a graphical user interface (GUI) created with JavaFX.</p>
+</div>
+<div class="paragraph">
+<p>This application was created by building upon an existing code base for an address book for the module CS2103T Software Engineering, and has around 20kLoC.</p>
+</div>
+<div class="paragraph">
+<p>The purpose of this portfolio page is to demonstrate my software engineering experience and documentation skills gained from the above mentioned project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: Added <code>listall</code> command</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: The application will display all relevant details of the client that is queried, such as his/her pets and appointments, in a sidebar display</p>
+</li>
+<li>
+<p>Justification: When dealing with a client, vets often require a quick overview of the client, so that the vet can easily check the client&#8217;s pets and upcoming appointments</p>
+</li>
+<li>
+<p>Highlights: This command requires iterations through multiple lists, one time to find all pets that belong to the queried client, and another time to search for all appointments that belong to each pet.
+This command will update a separate sidebar display, instead of the individual lists. Hence much effort was also required to create the layout on the UI</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>: Modified <code>list</code> command and created UI for list tabs and appointment display</p>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/functional/purplepers0n.md">Functional code</a>] [<a href="https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/test/purplepers0n.md">Test code</a>]</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the tag colors (Pull request <a href="https://github.com/CS2103JAN2018-F09-B4/main/pull/52">#52</a>)</p>
+</li>
+<li>
+<p>Updated existing commands <code>edit</code> and <code>delete</code> to work only on the currently viewed list (Pull request <a href="https://github.com/CS2103JAN2018-F09-B4/main/pull/103">#103</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Added use cases to Developer Guide (Pull request <a href="https://github.com/CS2103JAN2018-F09-B4/main/pull/30">#30</a>)</p>
+</li>
+<li>
+<p>Added each member&#8217;s feature contribution in Developer Guide (Pull request <a href="https://github.com/CS2103JAN2018-F09-B4/main/pull/95">#95</a>)</p>
+</li>
+<li>
+<p>Tweaked existing contents of the Developer Guide (Pull requests <a href="https://github.com/CS2103JAN2018-F09-B4/main/pull/213">#213</a>, <a href="https://github.com/CS2103JAN2018-F09-B4/main/pull/240">#240</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reviewed PRs (with non-trivial review comments): <a href="https://github.com/CS2103JAN2018-F09-B4/main/pull/29">#29</a>, <a href="https://github.com/CS2103JAN2018-F09-B4/main/pull/261">#261</a></p>
+</li>
+<li>
+<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com/CS2103JAN2018-W10-B1/main/issues/132">1</a>, <a href="https://github.com/CS2103JAN2018-W10-B1/main/issues/135">2</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="listing-all-information-code-listall-code-code-since-v1-5-code"><a class="link" href="#listing-all-information-code-listall-code-code-since-v1-5-code">Listing all information: <code>listall</code> <code>Since v1.5</code></a></h3>
+<div class="paragraph">
+<p><strong>Command format:</strong> <code>listall INDEX</code><br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Index must be a positive integer.<br>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Description:</strong> Lists all the details of the client at the specified index, including all his/her pets and appointments.<br></p>
+</div>
+<div class="paragraph">
+<p>Here is an example of using the command <code>listall</code>:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listall 1</code> <br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Figure 13 below shows the outcome upon executing <code>listall 1</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/userguide_listallCommand_image.PNG" alt="userguide listallCommand image" width="400">
+</div>
+<div class="title">Figure 1. The resulting output after executing <code>listall 1</code>.</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-all-clients-code-list-client-code-code-since-v1-2-code"><a class="link" href="#listing-all-clients-code-list-client-code-code-since-v1-2-code">Listing all clients: <code>list client</code> <code>Since v1.2</code></a></h3>
+<div class="paragraph">
+<p><strong>Command format:</strong> <code>list client</code><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Description:</strong> Lists all clients in the program.<br></p>
+</div>
+<div class="paragraph">
+<p>Here is an example of using the command:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list client</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Figure 14 below shows the outcome of executing the <code>list client</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/userguide_findCommand_image.PNG" alt="userguide findCommand image" width="400">
+</div>
+<div class="title">Figure 2. Resulting output upon executing the <code>list client</code> command.</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-all-vet-technicians-code-list-vettech-code-code-since-v1-2-code"><a class="link" href="#listing-all-vet-technicians-code-list-vettech-code-code-since-v1-2-code">Listing all vet technicians: <code>list vettech</code> <code>Since v1.2</code></a></h3>
+<div class="paragraph">
+<p><strong>Command format:</strong> <code>list vettech</code><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Description:</strong> Lists all vet technicians in the program.<br></p>
+</div>
+<div class="paragraph">
+<p>Here is an example of using the command:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list vettech</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Figure 15 below shows the outcome of executing the <code>list vettech</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/userguide_listVettechCommand_image.PNG" alt="userguide listVettechCommand image" width="400">
+</div>
+<div class="title">Figure 3. Resulting output upon executing the <code>list vettech</code> command.</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-all-pets-code-list-pet-code-code-since-v1-2-code"><a class="link" href="#listing-all-pets-code-list-pet-code-code-since-v1-2-code">Listing all pets: <code>list pet</code> <code>Since v1.2</code></a></h3>
+<div class="paragraph">
+<p><strong>Command format:</strong> <code>list pet</code><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Description:</strong> Lists all pets in the program.</p>
+</div>
+<div class="paragraph">
+<p>Figure 19 below shows the outcome upon executing <code>list pet</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/userguide_addpCommand_image.PNG" alt="userguide addpCommand image" width="400">
+</div>
+<div class="title">Figure 4. Resulting output upon executing the <code>list pet</code> command.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="list-and-display-clients-pets-and-vet-technicians"><a class="link" href="#list-and-display-clients-pets-and-vet-technicians">List and display clients, pets and vet technicians</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current implementation</a></h4>
+<div class="paragraph">
+<p>The side bar of the user interface implements a <code>TabPane</code> with three tabs,
+'Client', 'Pet' and 'Vet Tech' where clicking on each tab will show the
+corresponding list. We will use the pet list to demonstrate the implementation.</p>
+</div>
+<div class="paragraph">
+<p>The 'Pet' <code>Tab</code> consists of a <code>StackPane</code> called <code>petListPanelPlaceholder</code> in the <code>MainWindow.fxml</code> file.</p>
+</div>
+<div class="paragraph">
+<p>In the <code>MainWindow.java</code> file, the <code>petListPanel</code>
+retrieves the updated list of pets from <code>logic</code>, and the <code>petListPanel</code> is added to <code>petListPanelPlaceholder</code> to be displayed this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MainWindow</span> <span class="directive">extends</span> UiPart&lt;Stage&gt; {
+    <span class="type">void</span> fillInnerParts() {
+        petListPanel = <span class="keyword">new</span> PetListPanel(logic.getFilteredPetList());
+        petListPanelPlaceholder.getChildren().add(petListPanel.getRoot());
+        <span class="comment">// ...other placeholders...</span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>PetListPanel</code> is a <code>ListView</code> which contains a list of <code>PetCard</code> which is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">PetListPanel</span> <span class="directive">extends</span> UiPart&lt;<span class="predefined-type">Region</span>&gt; {
+
+    <span class="annotation">@FXML</span>
+    <span class="directive">private</span> <span class="predefined-type">ListView</span>&lt;PetCard&gt; petListView;
+
+    <span class="directive">private</span> <span class="type">void</span> setConnections(ObservableList&lt;Pet&gt; petList) {
+        ObservableList&lt;PetCard&gt; mappedList = EasyBind.map(
+                petList, (pet) -&gt; <span class="keyword">new</span> PetCard(pet, petList.indexOf(pet) + <span class="integer">1</span>));
+        petListView.setItems(mappedList);
+        petListView.setCellFactory(listView -&gt; <span class="keyword">new</span> PetListViewCell());
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>PetCard</code> contains a single pet and sets the pet&#8217;s details and the layout of the display of details.</p>
+</div>
+<div class="paragraph">
+<p>Figure 4-10 below is a screenshot of the final displayed pet list, where each pet, for example 'Garfield',
+is contained in a <code>PetCard</code>, and the cards of all pets are presented in a list form by using <code>PetListPanel</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/list_pet.PNG" alt="list pet" width="350">
+</div>
+<div class="title">Figure 4-10. Screenshot of a List of Pets</div>
+</div>
+<div class="paragraph">
+<p>Aside from toggling the lists by clicking on the tabs, the <code>list</code> command is implemented to take in a parameter
+of either 'client', 'pet' or 'vettech' so that the list view updates appropriately when the <code>list</code> command is used.</p>
+</div>
+<div class="paragraph">
+<p>Depending on the parameter, the <code>ListCommand</code> creates and adds <code>ChangeListTabEvent</code>
+to <code>EventCenter</code>, which is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ListCommand</span> <span class="directive">extends</span> Command {
+    <span class="annotation">@Override</span>
+        <span class="directive">public</span> CommandResult execute() <span class="directive">throws</span> CommandException {
+
+            <span class="keyword">switch</span> (targetType) {
+            <span class="keyword">case</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">pet</span><span class="delimiter">&quot;</span></span>:
+                model.updateFilteredPetList(PREDICATE_SHOW_ALL_PET);
+                EventsCenter.getInstance().post(<span class="keyword">new</span> ChangeListTabEvent(<span class="integer">1</span>));
+                <span class="keyword">break</span>;
+                <span class="comment">// ...other cases...</span>
+            }
+            <span class="comment">// ...return...</span>
+        }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>MainWindow</code> then handles the <code>ChangeListTabEvent</code> by changing to the corresponding list on the UI display,
+and updates <code>logic</code> with the index of the current list so that other commands like <code>edit</code> and <code>delete</code>
+can perform the command on the correct list, which is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MainWindow</span> <span class="directive">extends</span> UiPart&lt;Stage&gt; {
+    <span class="annotation">@Subscribe</span>
+    <span class="directive">private</span> <span class="type">void</span> handleChangeListTabEvent(ChangeListTabEvent event) {
+        changeTo(event.targetList);
+        logic.setCurrentList(event.targetList);
+    }
+    <span class="directive">private</span> <span class="type">void</span> changeTo(<span class="type">int</span> list) {
+        Platform.runLater(() -&gt; {
+            listPanel.getSelectionModel().select(list);
+        });
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With this implementation, whether changing list by mouse-click or by command,
+the application always contains the index of the current list being viewed,
+so that the correct list will be displayed, and so that all other commands will
+be executed on the correct list.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-toggling-between-lists"><a class="link" href="#aspect-implementation-of-toggling-between-lists">Aspect: Implementation of toggling between lists</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Client, Pet and Vet Tech lists are stored in three separate tabs,
+and an event is handled to toggle between the tabs to display the corresponding list</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: There are clickable tabs on the UI for easy toggling with both typing and mouse-click.</p>
+</li>
+<li>
+<p>Cons: The <code>MainWindow</code> needs to handle the event to switch to the correct tab.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Have a single display without tabs, and update it with either Client, Pet or Vet Tech list when the <code>list</code>
+command is executed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: There is no need to create a new event and handle it.</p>
+</li>
+<li>
+<p>Cons: The displayed list needs to be updated every time <code>list</code> command is executed, reducing efficiency.</p>
+<hr>
+<div class="paragraph">
+<p><strong>Choo Wen Xin</strong></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p><strong>Major Enhancement</strong>: Support <code>listall</code> command and listing all appointments</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>The UI will update and display all appointments in the main section of the application
+listed in date order, and in time order within each (date) section. This is for the vet to
+easily keep track of his/her appointments in chronological order.</p>
+</li>
+<li>
+<p>The <code>listall</code> command will take in an index parameter specifying a client, and will then display all the pets and appointments of
+that particular client in a sidebar of the application. This is to easily see the relevant details when wanting to check a particular client.
+The appropriate display on the UI will also be created.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor Enhancement</strong>: Update <code>list</code>, <code>edit</code>, <code>delete</code> command and have display tabs for the lists</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>The <code>list</code> command now takes in a parameter (either 'client', 'pet' or 'vettech')
+and the <code>MainWindow</code> will handle the event created by the <code>list</code> command and toggle the tabs in the sidebar of the application and display the appropriate list
+for easy viewing and keeping track. The tabs can be toggled by mouse-click as well.</p>
+</li>
+<li>
+<p>The <code>edit</code> and <code>delete</code> commands will be updated so that it only affect the index of the currently viewed list.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2018-04-15 13:53:00 SGT
+</div>
+</div>
+</body>
+</html>
