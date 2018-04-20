@@ -28,8 +28,8 @@ still survives even when an appointment is deleted.
 
 * *Minor Enhancements*: Add support to detect appointment clashes, invalid duration and show suggestions for a valid length.
 * *Code Contribution*: +
-** [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/functional/Godxin-functional.md[Functional code]]
- [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/test/Godxin-test.md[Test code]]
+** [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/functional/Godxin.md[Functional code]]
+ [https://github.com/CS2103JAN2018-F09-B4/main/blob/master/collated/test/Godxin.md[Test code]]
 
 * *Other contributions:* +
 ** Project management:
